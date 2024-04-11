@@ -1,0 +1,102 @@
+table {
+	color: #666666; font-size: 9pt;
+}
+input, select, textarea {
+	color: #666666; font-size: 9pt;
+}
+td {
+	color: #666666; font-size: 9pt;
+}
+body {
+	color: #666666; font-size: 9pt;
+}
+
+
+a:active {
+	color: #336600; text-decoration: none;
+}
+a:link {
+	color: #008080; font-size: 9pt; text-decoration: none
+}
+a:visited {
+	color: #008080; font-size: 9pt; text-decoration: none
+}
+a:hover {
+	color: #008080; font-size: 9pt; text-decoration: underline;
+}
+
+.menu a:active {
+	color: #FFFFFF; text-decoration: none;
+}
+.menu a:link {
+	color: #FFFFFF; font-size: 9pt; text-decoration: none
+}
+.menu a:visited {
+	color: #FFFFFF; font-size: 9pt; text-decoration: none
+}
+.menu a:hover {
+	color: #FFFF00; font-size: 9pt; text-decoration: underline; position:relative; top:1; left:1
+}
+
+.ncss a:active {
+	color: #004080; text-decoration: none;
+}
+.ncss a:link {
+	color: #004080; font-size: 9pt; text-decoration: none
+}
+.ncss a:visited {
+	color: #004080; font-size: 9pt; text-decoration: none
+}
+.ncss a:hover {
+	color: #004080; font-size: 9pt; text-decoration: underline;
+}
+
+.nmsg a:active {
+	color: #808080; text-decoration: none;
+}
+.nmsg a:link {
+	color: #808080; font-size: 9pt; text-decoration: none
+}
+.nmsg a:visited {
+	color: #808080; font-size: 9pt; text-decoration: none
+}
+.nmsg a:hover {
+	color: #808080; font-size: 9pt; text-decoration: underline;
+}
+
+.text_gray {
+	color: #C0C0C0;
+}
+.text_nurung {
+	color: #F1E97E;
+}
+
+.text {
+	border:1 solid  #BFBFBF;
+}
+
+.font-white {
+	color: #FFFFFF;
+}
+.font-white:active {
+	color:#FFFFFF; text-decoration: none;
+}
+.font-white:link {
+	color: #FFFFFF; font-size: 9pt; text-decoration: none;
+}
+.font-white:visited {
+	color: #FFFFFF; font-size: 9pt; text-decoration: none;
+}
+.font-white:hover {
+	color: #FFFFFF; font-size: 9pt; text-decoration: none; position:relative; top:1; left:1
+}
+
+.button {
+	background-color: #FAFAFA;
+	border:1 solid  #BFBFBF;
+	line-height: 150%;
+	letter-spacing: -1;
+	font-size: 11px;
+}
+
+.pageBreak {page-break-before: always}

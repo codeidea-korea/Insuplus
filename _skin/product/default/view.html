@@ -1,0 +1,109 @@
+            <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                <tr>
+                    <td width="15" height="21" valign="top" style="padding-top:6px"><img src="<?=$skin_img?>p_title_ball.gif" ></td>
+                    <td class="p_cate" valign="top" style="padding-top:0px"><?=$c_cname?></td>
+                    <!-- <td width="200" align="right" class="p_list_cnt" valign="top" style="padding-top:2px">- 총 <font color="#404040"><b><?=$s_article?></b></font> 개의 제품이 있습니다.</td> -->
+                </tr>
+                <tr>
+                    <td colspan="2" class="m_line_1px"></td>
+                </tr>
+                <tr>
+                    <td height="20" colspan="2"></td>
+                </tr>
+            </table>            
+            <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                <tr>
+                    <td valign="top" width="<?=$c_cview_img_w+10?>">
+                        <table border="0" cellspacing="3" cellpadding="2" bgcolor="#E5E5E5">
+                            <tr>
+                                <td bgcolor="#FFFFFF">
+                                    <table width="<?=$c_cview_img_w?>" border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                            <td height="<?=$c_cview_img_h?>" align="center" bgcolor="#F3F3F3"><?=$pview_img?></td>
+                                        </tr>
+                                    </table>                                        
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td width="10">&nbsp;</td>
+                    <td valign="top">                            
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td width="8" height="24" background="<?=$skin_img?>p_name_bg_l.gif">&nbsp;</td>
+                                <td width="14 "background="<?=$skin_img?>p_name_bg.gif"><img src="<?=$skin_img?>p_name_ball.gif"></td>
+                                <td background="<?=$skin_img?>p_name_bg.gif" class="p_list_name" valign="top" style="padding-top:4px"><?=$pname?></td>
+                                <td width="8" background="<?=$skin_img?>p_name_bg_r.gif">&nbsp;</td>
+                            </tr>
+                        </table>
+                        <?php
+                            if ($psimpleinfo) {
+                        ?>
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td style="padding:15 8 0 8" class="p_list_info"><?=$psimpleinfo?></td>
+                            </tr>
+                        </table>                        
+                        <?php    
+                            }
+                        ?>
+                        <?php
+                            if ($optcnt>0) {
+                        ?>
+                        <table border="0" cellspacing="0" cellpadding="0" width="100%">    
+                            <tr>
+                                <td colspan="2" height="15"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="m_line_1px">&nbsp;</td>
+                            </tr>                     
+                            <?php
+                                if ($optcnt>0) {
+                                    for ($i=0;$i<$optcnt;$i++) {
+                            ?>
+                            <tr>
+                                <td class="p_opt" width="100"><?=$optname[$i]?></td>
+                                <td class="p_opt_content" style="padding-left:10px"><?=$optcontent[$i]?></td>
+                            </tr>                            
+                            <tr>
+                                <td colspan="2" class="m_line_1px">&nbsp;</td>
+                            </tr>
+                        <?php
+                                }
+                            }
+                        ?>
+                        </table>
+                        <?php    
+                            }
+                        ?>
+                    </td>
+                </tr>
+            </table>
+            <?php
+                if ($pinfo) {
+            ?>
+            <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                <tr>
+                    <td style="padding:20 0 4 6"><img src="<?=$skin_img?>p_view_info.gif"></td>
+                </tr>
+                <tr>
+                    <td class="m_line_1px">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td style="padding:15 15 15 15" class="p_info"><?=$pinfo?></td>
+                </tr>
+                <tr>
+                    <td class="m_line_1px">&nbsp;</td>
+                </tr>
+            </table>
+            <?php
+                }
+            ?>
+            <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                <tr>
+                    <td height="20"></td>
+                </tr>
+                <tr>
+                    <td align="center"><?=$btn_list?></td>
+                </tr>
+            </table>

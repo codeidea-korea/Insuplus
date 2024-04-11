@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="62" height="62" viewBox="0 0 62 62">
+    <g fill="none" fill-rule="evenodd" transform="translate(1 1)">
+        <circle cx="30" cy="30" r="30" fill="#FFF" stroke="#A0A8B7"/>
+        <path stroke="#1E3563" stroke-linecap="round" stroke-width="2" d="M40 27l-9.613-8.852a.581.581 0 0 0-.774 0L20 27"/>
+        <text fill="#434343" font-family="NotoSansKR-Regular, Noto Sans KR Regular" font-size="10" transform="translate(19 13)">
+            <tspan x="1.135" y="31">TOP</tspan>
+        </text>
+    </g>
+</svg>

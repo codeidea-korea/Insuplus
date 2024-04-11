@@ -1,0 +1,50 @@
+<?php
+    if ($cnt_cols==1) {
+        echo "<table width=100% border=0 cellspacing=0 cellpadding=0><tr>";
+    } else {
+        if (($cnt_cols>$c_clist_col && $cnt_cols%$c_clist_col==1) || $c_clist_col==1) {
+            echo "</tr><tr><td height=\"31\" colspan=".$colspan." background=\"".$skin_img."p_dot.gif\">&nbsp;</td></tr>";
+
+        }
+    }
+?>                
+                <td width="48%" valign="top">
+                    <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                        <tr>
+                            <td valign="top" width="<?=$c_clist_img_w+10?>">
+                                <table border="0" cellspacing="3" cellpadding="2" bgcolor="#E5E5E5">
+                                    <tr>
+                                        <td bgcolor="#FFFFFF">
+                                            <table width="<?=$c_clist_img_w?>" border="0" cellspacing="0" cellpadding="0">
+                                                <tr>
+                                                    <td height="<?=$c_clist_img_h?>" align="center" bgcolor="#F3F3F3"><?=$pimg?></td>
+                                                </tr>
+                                            </table>                                        
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td width="10">&nbsp;</td>
+                            <td valign="top">    
+                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                    <tr>
+                                        <td width="8" height="24" background="<?=$skin_img?>p_name_bg_l.gif">&nbsp;</td>
+                                        <td width="14 "background="<?=$skin_img?>p_name_bg.gif"><img src="<?=$skin_img?>p_name_ball.gif"></td>
+                                        <td background="<?=$skin_img?>p_name_bg.gif" class="p_list_name" valign="top" style="padding-top:4px"><?=$pname?></td>
+                                        <td width="8" background="<?=$skin_img?>p_name_bg_r.gif">&nbsp;</td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                    <tr>
+                                        <td style="padding:10 8 0 8" class="p_list_info"><?=$psimpleinfo?></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+<?php    
+    if ($cnt_cols%$c_clist_col!=0) {
+        echo "<td width=\"4%\">&nbsp;</td>";
+    }
+?>

@@ -1,0 +1,56 @@
+<?
+	include_once $_SERVER["DOCUMENT_ROOT"]."/_config/lib.php";
+	admin_chk($auth_admin, $url_admin_login_out);// 관리자 체크
+?>
+<?
+	$pc_num = REQSTR($_GET[pc_num],"");
+//	echo $pc_num."<BR>";
+	$SQL = "
+		select
+			pc_option
+		from
+			tbl_product_category
+		where
+			pc_num = '".$pc_num."'
+		order by
+			pc_sort asc
+		limit 0, 1
+	";
+	$row = $dbcon -> fetch_array($dbcon -> query($SQL));
+	$pc_option = $row[pc_option];
+//	echo "pc_option : ".$row[0]."<BR>";
+//	echo "pc_option : ".$pc_option."<BR>";
+?>
+
+<?
+	if ( getLen($pc_option) > 0 ) {
+		$Arr_pc_option = explode("|",$pc_option);
+		$option_cnt = count($Arr_pc_option);
+	}
+	else {
+		$option_cnt = 4;
+	}
+	if ( $option_cnt < 4 ) $option_cnt = 4;
+
+//	$RS = getPreCategoryName($pc_num, 2);
+//	$pc_num_location = "";
+//	while( $row = $dbcon -> fetch_array($RS) ) {
+//		if ( "".$row[pc_num] != "".$pc_num ) {
+//			$pc_num_location .= $row[pc_name]." > ";
+//		}
+//		else {
+//			//$pc_num_location .= "<b>".$row[pc_name]."</b>";
+//			$pc_num_location .= $row[pc_name];
+//		}
+//	}
+?>
+<? $dbcon -> dbcon_close();?>
+
+<script>
+	//alert(parent.ProductWriteForm.pc_num_location);
+	//parent.parent.ProductWriteForm.pc_num_location.value = "<?=$pc_num_location?>";
+	parent.option_div.innerHTML = "";
+	parent.initOption('<?=$option_cnt?>','<?=$pc_option?>','');
+
+	location.href = "aa";
+</script>

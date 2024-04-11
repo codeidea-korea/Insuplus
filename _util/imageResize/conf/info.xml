@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<module version="0.42" category="accessory">
+	<title xml:lang="ko">이미지 축소</title>
+	<title xml:lang="en">Image Resize</title>
+	<author email_address="flavorkey@gmail.com" link="http://localhost"	date="2008. 6. 28">
+		<name xml:lang="ko">덱스터</name>
+		<name xml:lang="en">dexter</name>
+		<description xml:lang="ko">
+			첨부 이미지를 정해준 폭에 맞추어 축소, 저장 해줍니다.
+		</description>
+		<description xml:lang="en">
+			Save an image with a configured width
+		</description>
+	</author>
+</module>

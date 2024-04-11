@@ -1,0 +1,13 @@
+#mainVisual{width:994px; height:414px;border:3px solid #d6d6d6;}
+
+.main_con{margin-top:39px;}
+.main_con1{}
+.main_con2{width:290px;border:1px solid rgb(198,198,198);overflow:hidden;margin-left:18px;}
+.main_con2 ul li{padding:8px 20px 8px 20px;}
+.main_con3{width:290px;border:1px solid rgb(198,198,198);overflow:hidden;margin-left:18px;margin-top:15px;}
+.main_con3 ul li{padding:8px 20px 8px 20px;}
+.main_con4{width:290px;margin-left:18px;margin-top:15px;}
+
+.main_pr{background:rgb(201,20,25);color:#FFFFFF;padding:8px 20px 8px 20px;text-align:left;font-weight:700;font-size: 15px;}
+
+.main_notice{background:rgb(27,208,217);color:#FFFFFF;padding:8px 20px 8px 20px;text-align:left;font-weight:700;font-size: 15px;}

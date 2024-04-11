@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<?php
+include_once $_SERVER["DOCUMENT_ROOT"]."/_config/lib.php";
+?>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui"
+    />
+    <title>인슈플러스 - 24시간 해외여행 안심서비스</title>
+    <meta
+      name="description"
+      content="해외여행보험에 안심을 더하다! 현지 병원예약, 24시간 의료상담, 병원비 대신지불, 의료이송까지되는 해외안심 서비스를 인슈플러스에서 알아보세요!"
+    />
+    <meta
+      name="keywords"
+      content="해외여행자보험, 여행자보험비교, 단기여행자보험, 장기여행자보험, 해외여행자보험추천, 여행자보험가입, 유학생보험, 워킹홀리데이보험, 유학생보험비교, 워홀보험, 장기체류자보험, 장기체류자보험"
+    />
+    <meta name="author" content="Korea Assistance" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="인슈플러스 - 24시간 해외여행 안심서비스 " />
+    <meta
+      property="og:description"
+      content="해외여행보험에 안심을 더하다 해외 24시간 의료/여행지원하는 인슈플러스 서비스를 알아보세요! "
+    />
+    <meta property="og:site_name" content="인슈플러스 공식홈페이지" />
+    <meta property="og:url" content="https://www.insuplus.co.kr/html/main/index.php" />
+    <meta property="og:image" content="https://www.insuplus.co.kr/html/images/insuplus-share-kakao-01.png?v=1" />
+
+    <meta name="naver-site-verification" content="53cc3da2cf540aa7813b4720083619c3941c3bcc" />
+    <meta name="google-site-verification" content="eTr0GHp20XCKxSP0Z12m_Y3fotCyCFU7qslTEAXtkHE" />
+	<meta name="format-detection" content="telephone=no"> <!-- 20231013 IOS 전화번호 자동링크 방지 태그 -->
+
+    <link rel="canonical" href="https://www.insuplus.co.kr/" />
+    <!-- Favicons -->
+    <link rel="shortcut icon" href="../images/favicon/Favicon32.ico" />
+    <link rel="apple-touch-icon" sizes="57x57" href="../images/favicon/favicon32_57.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/favicon/favicon32_72.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/favicon/favicon32_114.png" />
+
+    <!-- 공통 CSS -->
+    <link href="../_css/main_new.css?v=2310081" rel="stylesheet" type="text/css" />
+    <link href="../_css/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../_css/themify-icons/themify-icons.css" rel="stylesheet" />
+    <link href="../_css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../_css/bootstrap-select.min.css" rel="stylesheet" />
+    <link href="../_css/jquery-ui.css" rel="stylesheet" />
+    <link href="../_css/animate.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="../_css/yamm.css" rel="stylesheet" type="text/css" />
+    <link href="../_css/style.css?v=2309241" rel="stylesheet" type="text/css" />
+    <link href="../_css/responsive.css?v=23100802" rel="stylesheet" type="text/css" />
+
+<!--	<link rel="stylesheet" type="text/css" href="../_css/common.css?a=2">	-->
+	  
+    <!-- 20230920 header footer fontstyle 추가-->
+    <link rel="stylesheet" type="text/css" href="../_css/header.css?v=2310091">
+    <link rel="stylesheet" type="text/css" href="../_css/footer.css?v=2309252">
+    <link rel="stylesheet" type="text/css" href="../_css/fontstyle.css?v=2309251">
+    <!-- 20230920 header footer fontstyle 추가 끝-->
+
+    <!-- 20231013 서비스소개 css 추가-->
+	  <link rel="stylesheet" type="text/css" href="../_css/serviceinfo.css?a=2">
+	
+    <!-- 메인 슬라이드-->
+    <link rel="stylesheet" type="text/css" href="../_css/rev-settings.css" />
+    <link rel="stylesheet" type="text/css" href="../_css/rev-style.css" />
+
+    <!--owl carousel css-->
+    <link href="../_css/owl.carousel.css" rel="stylesheet" type="text/css" />
+    <link href="../_css/owl.theme.default.css" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css" />
+    <link rel="stylesheet" type="text/css" href="../_css/swiper.min.css" />
+    <script src="../_js/jquery-1.12.4.js"></script>
+    <script src="../_js/jquery-ui.min-1.12.1.js"></script>
+    <script src="../_js/swiper.min.js?a=2"></script>
+    <script src="../_js/common_main.js?a=1"></script>
+
+    <!-- 20231013 서비스소개 script 추가 시작-->
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script> 
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>  
+    <!-- 20231013 서비스소개 script 추가 끝-->
+    
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="./_js/html5.min.js"></script>
+      <script src="./_js/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9HDBMGKBP6"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+
+      gtag('config', 'G-9HDBMGKBP6');
+    </script>
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({
+          'gtm.start': new Date().getTime(),
+          event: 'gtm.js',
+        });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, 'script', 'dataLayer', 'GTM-NLFXCV9');
+    </script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-715461441"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+
+      gtag('config', 'AW-715461441');
+    </script>
+
+    <!-- Facebook Pixel Code -->
+    <script>
+      !(function (f, b, e, v, n, t, s) {
+        if (f.fbq) return;
+        n = f.fbq = function () {
+          n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+        };
+        if (!f._fbq) f._fbq = n;
+        n.push = n;
+        n.loaded = !0;
+        n.version = '2.0';
+        n.queue = [];
+        t = b.createElement(e);
+        t.async = !0;
+        t.src = v;
+        s = b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t, s);
+      })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '274213513004643');
+      fbq('track', 'PageView');
+    </script>
+    <noscript
+      ><img
+        height="1"
+        width="1"
+        style="display: none"
+        src="https://www.facebook.com/tr?id=274213513004643&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Facebook Pixel Code -->
+
+    <!-- Facebook Pixel Code -->
+    <script>
+      !(function (f, b, e, v, n, t, s) {
+        if (f.fbq) return;
+        n = f.fbq = function () {
+          n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+        };
+        if (!f._fbq) f._fbq = n;
+        n.push = n;
+        n.loaded = !0;
+        n.version = '2.0';
+        n.queue = [];
+        t = b.createElement(e);
+        t.async = !0;
+        t.src = v;
+        s = b.getElementsByTagName(e)[0];
+        s[removed].insertBefore(t, s);
+      })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '943095590469272');
+      fbq('track', 'PageView');
+    </script>
+    <noscript
+      ><img
+        height="1"
+        width="1"
+        style="display: none"
+        src="https://www.facebook.com/tr?id=943095590469272&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Facebook Pixel Code -->
+
+    <!-- kakao pixel start -->
+    <script type="text/javascript" charset="UTF-8" src="//t1.daumcdn.net/kas/static/kp.js"></script>
+    <script type="text/javascript">
+      kakaoPixel('762577397987588535').pageView();
+    </script>
+    <!-- kakao pixel end -->
+  </head>
+  <body class='<?php if(strpos($_SERVER['PHP_SELF'], "/main/index")){echo 'index';}?>
+  font-wb'>
+</html>

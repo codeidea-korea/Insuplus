@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<module>
+	<actions>
+		<action name="dispimageResizeAdminIndex" type="view" standalone="true" admin_index="true" />
+		<action name="procImageResizeAdminSetup" type="controller"	standalone="true" />
+	</actions>
+</module>

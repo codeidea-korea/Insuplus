@@ -1,0 +1,175 @@
+<?php
+	include '../_include/_header.html';
+	include '../_include/_top.html';
+	include '../_include/_sidebar.html';
+?>
+<?
+$PR_SEQ = "11";
+// 상품 검색
+$SQL_ins = "select seq,ext4,ext5 from tbl_board_product where seq='".$PR_SEQ."' ";
+$RS_ins = $dbcon -> query($SQL_ins);
+$PR_row = $dbcon -> fetch_array($RS_ins);
+// 상품 보험사 서비스 검색
+$SQL_S = "Select * from tbl_board_product_service where pr_seq=".$PR_row["seq"]." ";
+$RS_S = $dbcon -> query($SQL_S);
+$RS_S1 = $dbcon -> query($SQL_S);
+
+
+
+// 플랜검색
+$SQL_PLAN = "select * from tbl_board_plan where pr_cd=".$PR_SEQ." and s_date<='".date("Y-m-d")."' and e_date>='".date("Y-m-d")."' and plan_status='Y' AND secret='Y' ";
+//echo $SQL_PLAN;
+$result_plan = $dbcon -> query($SQL_PLAN);
+$result_plan_s = $dbcon -> query($SQL_PLAN);
+$row_plan_s = $dbcon -> fetch_array($result_plan_s);
+$result_plan_rows = $dbcon -> num_rows($result_plan);
+$array_plan_list = array();
+while($row_plan = $dbcon -> fetch_array($result_plan)){
+	$array_plan_list["plan_seq"][] = $row_plan["seq"];
+	$array_plan_list["pr_cd"][] = $row_plan["pr_cd"];
+	$array_plan_list["ins_cd"][] = $row_plan["ins_cd"];
+	$array_plan_list["plan_cd"][] = $row_plan["plan_cd"];
+	$array_plan_list["chk_service"][] = $row_plan["chk_service"];
+	$array_plan_list["common_amount"][] = $row_plan["common_amount"];
+	$array_plan_list["agree_cd"][] = $row_plan["agree_cd"];
+	$array_plan_list["service_cd"][] = $row_plan["service_cd"];
+}
+
+// 상품에 대한 인슈플러스 검색
+$SQL_INS_OP = "select * from tbl_board_insuplus_opt where list_seq = ".$PR_row["ext5"]." ";
+$RS_INS_OP = $dbcon -> query($SQL_INS_OP);
+
+// 상품에 대한 보장내역 검색
+$SQL_G = "select * from tbl_board_guarantee_opt where list_seq = ".$PR_row["ext4"]." ";
+$RS_G = $dbcon -> query($SQL_G);
+$RS_G1 = $dbcon -> query($SQL_G);
+?>
+		<div class="breadcrumb-image">
+			<div class="container">
+				<h2>해외여행보험</h2>
+				<h4>해외여행 중 발생 가능한 상해, 질병, 배상책임손해를 보장하는 보험</h4>
+			</div>
+		</div>
+		<div class="breadcrumb-wrap">
+            <div class="container">
+				<ol class="breadcrumb">
+					<li><a href="../">InsuPlus HOME</a></li>
+					<li>해외여행보험</li>
+				</ol>
+            </div>
+        </div>
+		<div class="container">
+			<div class="sub-content info-wrap">
+				<div class='text-center top-image'>
+						<a href="./compare.html" class='btn btn-xl btn-theme-bg'>보험 비교 가입하기</a></a>
+				</div>
+				<ul class='nav nav-tabs nav-justified'>
+					<li class='active'><a href="./overseas_travel.html">상품안내</a></li>
+					<li class=''><a href="./insurplus_note.php">유의사항</a></li>
+					<li class=''><a href="./insurplus_case.html">상담사례</a></li>
+				</ul>
+				<div class='tab-pane'>
+					<section id='p_info' class='tab-content fade in active'>
+						<p class='text-md-right text-sm-left text-xs-left m-b-1'>
+								<img src="../images/ic-small-logo.svg" align="absmiddle" alt="" class="" />
+								<a class='btn btn-md btn-default pull-xs-right m-l-1' data-toggle='pop-modal' data-size='sm' data-href='./pop_insurplus.html' data-title='인슈플러스 서비스' target='modal_iframe'>자세히 보기</a>
+								표시된 상품은 인슈플러스 서비스가 <br class='hidden visible-xs'><span class='hidden visible-xs-inline'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>포함된 상품입니다.
+						</p>
+						<div class='info-box hidden visible-xs'>
+							화면을 좌우로 움직여 주세요.<br>
+							<small>인슈플러스 상품정보를<br>확인할 수 있습니다. </small>
+						</div>
+						<div class='row table-plan' id=''>
+							<div class='col-xs-3 fixed-wrap'>
+								<table class="table table-bordered table-fixed-header">
+									<thead>
+										<tr class='text-center'>
+											<th class='border-default border-b-6'>플랜명</th>
+										</tr>
+									</thead>
+									<tbody class='text-center'>
+										<?while($row_S = $dbcon -> fetch_array($RS_S)){?>
+										<tr>
+											<td class='text-black'><?=print_ins($row_S["ins_seq"])?> &nbsp;<div class='hidden visible-xs'></div><?=$Arr_img_plus[$row_S["service_gubun"]]?></td>
+										</tr>
+										<?}?>
+									</tbody>
+									<tfoot class='text-center text-black'>
+										<?while($row_G = $dbcon -> fetch_array($RS_G)){?>
+										<tr>
+											<td><?=$row_G["service_name"]?></td>
+										</tr>
+										<?}?>
+										<!-- <tr>
+											<td>해외의료실비</td>
+										</tr>
+										<tr>
+											<td>국내입원</td>
+										</tr>
+										<tr>
+											<td>국내통원</td>
+										</tr>
+										<tr>
+											<td>국내처방</td>
+										</tr> -->
+									</tfoot>
+								</table>
+							</div>
+							<div class='col-xs-9 scroll-wrap'>
+								<div class='table-responsive'>
+									<table class="table table-bordered table-fixed-header">
+										<thead>
+											<tr class='text-center'>
+												<?for($k=0;$k<count($array_plan_list["plan_cd"]);$k++){?>
+												<th class='text-yellow border-yellow border-b-6'><?=$Arr_plan_cd[$array_plan_list["plan_cd"][$k]]?><div class='m-t-05'><a class='btn btn-yellow' data-toggle='pop-modal' data-size='lg' data-href='./pop_warranty_yellow.html' data-title='보장내역' target='modal_iframe'>보장내역</a></div></th>
+												<?}?>
+												<!-- <th class='text-green border-green border-b-6'>그린<div class='m-t-05'><a class='btn btn-green' data-toggle='pop-modal' data-size='lg' data-href='./pop_warranty_green.html' data-title='보장내역' target='modal_iframe'>보장내역</a></div></th>
+												<th class='text-blue border-blue border-b-6'>블루<div class='m-t-05'><a class='btn btn-blue' data-toggle='pop-modal' data-size='lg' data-href='./pop_warranty_blue.html' data-title='보장내역' target='modal_iframe'>보장내역</a></div></th>
+												<th class='text-red border-red border-b-6'>레드<div class='m-t-05'><a class='btn btn-red' data-toggle='pop-modal' data-size='lg' data-href='./pop_warranty_red.html' data-title='보장내역' target='modal_iframe'>보장내역</a></div></th>
+												<th class='text-gold border-gold border-b-6'>골드<div class='m-t-05'><a class='btn btn-gold' data-toggle='pop-modal' data-size='lg' data-href='./pop_warranty_gold.html' data-title='보장내역' target='modal_iframe'>보장내역</a></div></th> -->
+											</tr>
+										</thead>
+										<tbody class='text-center'>
+											<?while($row_S = $dbcon -> fetch_array($RS_S1)){?>
+											<tr>
+												<?for($k=0;$k<count($array_plan_list["ins_cd"]);$k++){?>
+												<td><?if ($array_plan_list["ins_cd"][$k]==$row_S["ins_seq"] && $row_S["service_gubun"]==$array_plan_list["chk_service"][$k]){?><?=number_format($array_plan_list["common_amount"][$k])?>원<div class='m-t-05'><a class='btn btn-md btn-default' href='./search_insur.html?plan_seq=<?=$array_plan_list["plan_seq"][$k]?>&PR_SEQ=11'>가입</a></div><?}?></td>
+												<?}?>
+											</tr>
+											<?}?>
+										</tbody>
+										<tfoot class='text-center text-black'>
+											<?while($row_G = $dbcon -> fetch_array($RS_G1)){?>
+											<tr>
+												<?for($k=0;$k<count($array_plan_list["chk_service"]);$k++){?>
+												<td><?=fn_plan_gua($array_plan_list["plan_seq"][$k],$row_G["idx"])?></td>
+												<?}?>
+											</tr>
+											<?}?>
+										</tfoot>
+									</table>
+								</div>
+							</div>
+						</div>
+						<p class='text-right m-t-1'>
+							<strong class='text-danger'>산출 상품가 기준(남 : 23세/90일 기준)</strong>
+						</p>
+						<div class='row m-t-2'>
+							<div class='col-lg-4 col-md-6 col-sm-6 col-xs-12 col-lg-offset-4 col-md-offset-3 col-sm-offset-3 col-xs-offset-0 text-center'>
+								<a class='btn btn-lg btn-block btn-theme-dark' href="./compare.html">보험 비교 가입하기</a>
+							</div>
+						</div>
+					</section>
+					<section id='p_note' class='tab-content fade'>
+					</section>
+					<section id='p_ex' class='tab-content fade'>
+					</section>
+				</div>
+			</div>
+        </div>
+
+<?php
+	include '../_include/_tail.html';
+	include '../_include/_footer.html';
+?>
+

@@ -1,0 +1,28 @@
+<?php    
+        if ($cnt_cols%$c_clist_col==0) {
+            echo "</tr></table>";
+        } else {
+            $td_cols = ($c_clist_col*2-1)-(($cnt_cols%$c_clist_col)*2);
+            echo "<td colspan=" . $td_cols . ">&nbsp;</td></tr></table>";
+        }
+?>            
+            <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                <tr>
+                     <td height="31" colspan="3" background="<?=$skin_img?>p_dot.gif">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td width="70" valign="top" style="padding:1 0 0 0"><?=$btn_list?></td>
+                    <td align="center" valign="top">
+                        <table border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td width="23" valign="top" style="padding:3 0 0 0"><?=$first_page?></td>
+                                <td width="30" valign="top" style="padding:3 0 0 0"><?=$prev_page?></td>
+                                <td align="center" valign="top" class="b_page"><? page_list_pro($start_page, $end_page, $i, $category, $page, $_GET['kk'], $_GET['kw'], $PHP_SELF)?></td>
+                                <td width="30" align="right" valign="top" style="padding:3 0 0 0"><?=$next_page?></td>
+                                <td width="23" align="right" valign="top" style="padding:3 0 0 0"><?=$last_page?></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td width="70" align="right" valign="top" style="padding:11 0 0 0">&nbsp;</td>
+                </tr>
+            </table>

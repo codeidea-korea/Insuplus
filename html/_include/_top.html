@@ -1,0 +1,114 @@
+<?php
+// 상품검색
+$SQL_PR_top = " select seq, subject from tbl_board_product WHERE secret = 'Y' AND ext2 = 'Y' order by sort_order asc ";
+$RS_PR_top = $dbcon -> query($SQL_PR_top);
+
+//제휴사 검색
+if($alliance_code) {
+	$alliance_code_dec = decrypt($alliance_code); //복호화
+	$partner_seq = getPartnerSeq($alliance_code_dec);
+	
+	if($partner_seq){
+		$_SESSION["ss_partner_seq"] = $partner_seq; //제휴사 고유번호
+		$_SESSION["ss_partner_name"] = $alliance_code_dec; //제휴사 이름
+	} 
+}
+
+//제휴사 로고 처리
+$LOGO_URL = "../images/logo.png";
+if($_SESSION["ss_partner_seq"]) {
+	$SQL_PA = "select imgfile from tbl_board_partner where seq = ".$_SESSION["ss_partner_seq"];
+	$RS_PA_FILE = $dbcon -> query($SQL_PA);
+	$row = $dbcon->fetch_array($RS_PA_FILE);
+	if($row['imgfile']) {
+		$LOGO_URL = "/_data/board/partner/".explode(',', $row['imgfile'])[1] ;
+	}
+}
+?>
+<!-- GNB-Static navbar -->
+<header>
+	<div class="header-lnb">
+		<div class="container">
+			<div class="header-lnb-left">
+				<ul>
+					<li><a href="/html/service/reward.php">보상안내</a></li>
+					<li><a href="/html/join/join_confirm.php">증명서 발급</a></li>
+					<li><a href="/html/customer/cs_center.php">24시간 알람센터</a></li>
+					<li><a href="/html/customer/event_list.php">이벤트</a></li>
+				</ul>
+			</div>
+			<!--20231013 링크 새창 적용 시작-PC버전 -->
+			<div class="header-lnb-right">
+				<ul>
+					<li class="facebook"><a href="https://www.facebook.com/insuplus2022" target="_blank">페이스북</a></li>
+					<li class="instagram"><a href="https://www.instagram.com/insuplus.official" target="_blank">인스타그램</a></li>
+					<li class="blog"><a href="https://blog.naver.com/bizinsight2016" target="_blank">블로그</a></li>
+					<li class="kakao"><a href="https://pf.kakao.com/_JClxfT/chat"  target="_blank">카카오</a></li>
+				</ul>
+			</div>
+			<!--20231013 링크 새창 적용 끝-->
+		</div>
+	</div>
+	<div class="header-gnb">
+		<div class="container">
+			<a href="javascript:;" class="menu" onclick="menuOpen();">메뉴바</a>
+			<h1><a href="/html/main/index.php"><img src="<?= $LOGO_URL?>"></a></h1>
+			<div class="is-pc">
+				<ul class="side-wrap">
+					<li><a href="/html/insuplus/insuplus.php">서비스 알아보기</a></li>
+					<li><a href="/html/customer/counsel_case_list.php">이용후기 보기</a></li>
+					<li><a href="/html/insurance/renewal_step00.php" class="ft-red">간편가격조회</a></li>
+					<!-- <li><a href="" class="ft-red">간편가격조회</a></li> -->
+				</ul>
+			</div>
+			<a href="/html/insurance/renewal_step00.php" class="is-m side-btn">
+			<!-- <a href="" class="is-m side-btn"> -->
+				<img src="../images/icon_calc.png" alt="">
+			</a>
+		</div>
+	</div>
+	<div class="header-mnb">
+		<div class="inner">
+			<div class="mnb-head">
+				<h2><a href=""><img src="<?= $LOGO_URL?>"></a></h2>
+				<a href="javascript:;" onclick="menuClose();" class="close">닫기</a>
+			</div>
+			<div class="mnb-body">
+				<div class="mnb-body-menu">
+					<ul>
+						<li class="active"><a href="/html/insuplus/insuplus.php">서비스 안내</a></li>
+						<li><a href="/html/customer/counsel_case_list.php">이용후기</a></li>
+						<li><a href="/html/service/reward.php">보상안내</a></li>
+						<li><a href="/html/join/join_confirm.php">증명서 발급</a></li>
+						<li><a href="/html/customer/cs_center.php">24시간 알람센터</a></li>
+						<li><a href="/html/customer/event_list.php">이벤트</a></li>
+						<li><a href="">플랜조회</a></li>
+					</ul>
+				</div>
+				<!--20231016 링크 새창 적용 시작-모바일버전-->
+				<div class="social-box">
+					<ul>
+						<li class="facebook"><a href="https://www.facebook.com/insuplus2022" target="_blank">페이스북</a></li>
+						<li class="instagram"><a href="https://www.instagram.com/insuplus.official" target="_blank">인스타그램</a></li>
+						<li class="blog"><a href="https://blog.naver.com/bizinsight2016" target="_blank">블로그</a></li>
+						<li class="kakao"><a href="https://pf.kakao.com/_JClxfT/chat" target="_blank">카카오</a></li>
+					</ul>
+				</div>
+				<!--20231016 링크 새창 적용 끝-->
+				<div class="kakao-box mt24">
+					<b>24시간 알람센터</b>
+					<strong>02.360.2545</strong>
+					<a href="https://pf.kakao.com/_JClxfT/chat" target="_blank">카카오톡 채팅상담</a> <!--20231016 링크 새창 적용-->
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+<script>
+function closedPage(){
+	// alert("판매중지된 상품입니다.\n확인을 누르시면 메인 페이지로 이동합니다.");
+	// location.href = "/html/main/";
+	alert("상품이 개편되어 신규상품 가입페이지로 이동합니다.");
+	location.href = "/html/insurance/renewal_step00.php";
+}
+</script>

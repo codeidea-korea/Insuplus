@@ -1,0 +1,24 @@
+<?
+/*
+	#### 사용법
+	$code = "test";
+	$ss_u_id = "testid";
+	$ss_u_name = "testname";
+	$ss_u_level = 10;
+	include "_comment/index.php";
+
+
+	#### DB TABLE
+CREATE TABLE `bca_blue`.`tbl_comment` (
+`idx` INT NOT NULL AUTO_INCREMENT ,
+`code` VARCHAR( 50 ) NOT NULL ,
+`u_id` VARCHAR( 50 ) NOT NULL DEFAULT 'guest',
+`u_pw` VARCHAR( 100 ) NOT NULL ,
+`u_name` VARCHAR( 50 ) NOT NULL ,
+`comment` TEXT NOT NULL ,
+`ip` VARCHAR( 15 ) NOT NULL DEFAULT '000.000.000.000',
+`regdate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+PRIMARY KEY ( `idx` )
+) ENGINE = MYISAM COMMENT = '코멘트 테이블'
+*/
+?>

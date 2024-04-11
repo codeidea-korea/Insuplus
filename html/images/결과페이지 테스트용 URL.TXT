@@ -1,0 +1,25 @@
+결과 및 에러화면
+
+http://localhost:8088/404
+http://localhost:8088/error
+
+http://localhost:8088/test/payment?pageName=chargePointSuccess
+http://localhost:8088/test/payment?pageName=orderCancel
+http://localhost:8088/test/payment?pageName=orderFail
+http://localhost:8088/test/payment?pageName=orderInProgress
+http://localhost:8088/test/payment?pageName=orderSuccess
+
+http://localhost:8088/test/my?pageName=quitSuccess
+
+http://localhost:8088/test/member/join?pageName=registConfirm
+http://localhost:8088/test/member/join?pageName=registFail
+http://localhost:8088/test/member/join?pageName=registSuccess
+
+http://localhost:8088/test/member/recover?pageName=recoverFail
+http://localhost:8088/test/member/recover?pageName=recoverSuccess
+http://localhost:8088/test/member/recover?pageName=change
+http://localhost:8088/test/member/recover?pageName=sand
+
+빠진 화면
+http://localhost:8088/recover/send/form
+http://localhost:8088/sendAuthMail

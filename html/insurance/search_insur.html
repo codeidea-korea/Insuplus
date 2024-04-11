@@ -1,0 +1,230 @@
+<?php
+	include '../_include/_header.html';
+	include '../_include/_top.html';
+	include '../_include/_sidebar.html';
+?>
+<script type="text/javascript">
+<!--
+function fn_chg_gender(idx,val){
+	var ff = document.fregist;
+	ff.gender.value = val;
+//	ff["gender[]"][idx].value = val;
+}
+function fn_chg_add_gender(idx,val){
+	var ff = document.fregist;
+//	ff.gender.value = val;
+	ff["add_gender[]"][idx].value = val;
+}
+function fregist_submit(){
+	var ff = document.fregist;
+	if (ff.PR_SEQ.value==""){
+		alert("출국목적을 선택해주세요");
+		return false;
+	}
+	if (ff.birth.value==""){
+		alert("계약자 생년월일을 입력해주세요");
+		return false;
+	}
+	if (ff.s_date.value==""){
+		alert("출국일을 입력해주세요");
+		return false;
+	}
+	if (ff.e_date.value==""){
+		alert("귀국일을 입력해주세요");
+		return false;
+	}
+
+	ff.action = "./register_step_01.html";
+	ff.submit();
+}
+function fn_chg_ins(val){
+	var ff = document.fregist;
+	ff.PR_SEQ.value=val;
+}
+//-->
+</script>
+<?
+$SQL_PR = "select * from tbl_board_product order by sort_order desc ";
+$RS_PR = $dbcon -> query($SQL_PR);
+?>
+		<h3 class='page-title'>상품가격 조회</h3>
+		<div class="breadcrumb-image" style='background-image:url(../images/sub-title-search.jpg);'></div>
+		<div class="breadcrumb-wrap">
+            <div class="container">
+				<ol class="breadcrumb">
+					<li><a href="../">InsuPlus HOME</a></li>
+					<li>상품가격 조회</li>
+				</ol>
+            </div>
+        </div>
+		<div class="container">
+			<div class="sub-content search-wrap">
+				<div class='row'>
+					<div class='col-sm-10 col-sm-offset-1'>
+						<form name="fregist" id="fregist" method="post" enctype="multipart/form-data" autocomplete="off">
+						<input type="hidden" name="PR_SEQ" value="">
+						<input type="hidden" name="plan_seq" value="<?=$plan_seq?>">
+						<input type="hidden" name="gender" value="M">
+						<input type="hidden" name="add_gender[]" value="">
+						<input type="hidden" name="add_gender[]" value="">
+						<input type="hidden" name="add_gender[]" value="">
+						<input type="hidden" name="add_gender[]" value="">
+						<input type="hidden" name="add_gender[]" value="">
+							<div class='panel'>
+								<div class='panel-body text-md-center text-sm-left text-xs-left'>
+									<h3 class='text-black'><span class='point'>여행하실 고객님의 정보를 <br class='hidden visible-xs' />입력해 주세요.</span></h3>
+									<div class='row-border m-t-3' id='search_insur'>
+										<div class='detail-col-label'>출국목적</div>
+										<div class='detail-col-input colspan-3 flex-wrap'>
+											<div class='btn-group btn-group-justified btn-group-multi'>
+												<?while($row_pr = $dbcon -> fetch_array($RS_PR)){		//상품 검색?>
+												<a class='btn btn-default' data-toggle='alert-modal' data-size='sm' data-title='알림' data-content='<?=$row_pr["subject"]?>' target='modal_iframe' onclick="fn_chg_ins('<?=$row_pr["seq"]?>');"><?=$row_pr["subject"]?></a>
+												<?}?>
+												<!-- <a class='btn btn-default' data-toggle='alert-modal' data-size='sm' data-title='알림' data-content='유학' target='modal_iframe' onclick="fn_chg_ins('2');">유학</a>
+												<a class='btn btn-default' data-toggle='alert-modal' data-size='sm' data-title='알림' data-content='워킹 홀리데이' target='modal_iframe' onclick="fn_chg_ins('3');">워킹 홀리데이</a>
+												<a class='btn btn-default' data-toggle='alert-modal' data-size='sm'  data-title='알림' data-content='장기체류' target='modal_iframe' onclick="fn_chg_ins('4');">장기체류</a> -->
+											</div>
+										</div>
+										<div class='detail-col-label'>계약자 생년월일</div>
+										<div class='detail-col-input colspan-3 flex-wrap'>
+											<div class='col-md-3 col-sm-4 col-xs-7 p-x-0'>
+												<input type="tel" name='birth' placeholder="예)20190101" class="form-control" size='10' onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/>
+											</div>
+											<div class='col-md-3 col-sm-4 col-xs-5 p-r-0'>
+												<div class='btn-group btn-group-justified'>
+													<a class='btn btn-theme-bg' onclick="fn_chg_gender(0,'M')">남성</a>
+													<a class='btn btn-default' onclick="fn_chg_gender(0,'F')">여성</a>
+												</div>
+											</div>
+										</div>
+										<div class='detail-col-label'>출국일</div>
+										<div class='detail-col-input flex-wrap'>
+											<div class='col-md-5 col-sm-7 col-xs-7 p-x-0'>
+												<input type="tel" name='s_date' placeholder="2019-08-15" class="form-control datepicker" size='10' />
+											</div>
+											<div class='col-md-4 col-sm-5 col-xs-5 p-r-0'>
+												<select class='form-control' name="s_date_time">
+													<option value='00' selected>00시</option>
+													<option value='01'>01시</option>
+													<option value='02'>02시</option>
+													<option value='03'>03시</option>
+													<option value='04'>04시</option>
+													<option value='05'>05시</option>
+													<option value='06'>06시</option>
+													<option value='07'>07시</option>
+													<option value='08'>08시</option>
+													<option value='09'>09시</option>
+													<option value='10'>10시</option>
+													<option value='11'>11시</option>
+													<option value='12'>12시</option>
+													<option value='13'>13시</option>
+													<option value='14'>14시</option>
+													<option value='15'>15시</option>
+													<option value='16'>16시</option>
+													<option value='17'>17시</option>
+													<option value='18'>18시</option>
+													<option value='19'>19시</option>
+													<option value='20'>20시</option>
+													<option value='21'>21시</option>
+													<option value='22'>22시</option>
+													<option value='23'>23시</option>
+												</select>
+											</div>
+										</div>
+										<div class='detail-col-label'>귀국일</div>
+										<div class='detail-col-input flex-wrap'>
+											<div class='col-md-5 col-sm-7 col-xs-7 p-x-0'>
+												<input type="tel" name='e_date' placeholder="2019-08-15" class="form-control datepicker" size='10' />
+											</div>
+											<div class='col-md-4 col-sm-5 col-xs-5 p-r-0'>
+												<select class='form-control' name="e_date_time">
+													<option value='00' selected>00시</option>
+													<option value='01'>01시</option>
+													<option value='02'>02시</option>
+													<option value='03'>03시</option>
+													<option value='04'>04시</option>
+													<option value='05'>05시</option>
+													<option value='06'>06시</option>
+													<option value='07'>07시</option>
+													<option value='08'>08시</option>
+													<option value='09'>09시</option>
+													<option value='10'>10시</option>
+													<option value='11'>11시</option>
+													<option value='12'>12시</option>
+													<option value='13'>13시</option>
+													<option value='14'>14시</option>
+													<option value='15'>15시</option>
+													<option value='16'>16시</option>
+													<option value='17'>17시</option>
+													<option value='18'>18시</option>
+													<option value='19'>19시</option>
+													<option value='20'>20시</option>
+													<option value='21'>21시</option>
+													<option value='22'>22시</option>
+													<option value='23'>23시</option>
+												</select>
+											</div>
+										</div>
+										<div class='detail-col-label'>동반인 선택</div>
+										<div class='detail-col-input colspan-3 flex-wrap form-inline'>
+											<select class='form-control' name='select_add_people' id='select_add_people'>
+												<option value="">선택</option>
+												<option value='1'>1명</option>
+												<option value='2'>2명</option>
+												<option value='3'>3명</option>
+												<option value='4'>4명</option>
+												<option value='5'>5명</option>
+											</select>
+										</div>
+									</div>
+									<div id="variablePeople">
+										<div class="row">
+											<div id="add_people_1" class='col-md-4 col-sm-6 col-xs-12' data-number="1"></div>
+											<div id="add_people_2" class='col-md-4 col-sm-6 col-xs-12' data-number="2"></div>
+											<div id="add_people_3" class='col-md-4 col-sm-6 col-xs-12' data-number="3"></div>
+											<div id="add_people_4" class='col-md-4 col-sm-6 col-xs-12' data-number="4"></div>
+											<div id="add_people_5" class='col-md-4 col-sm-6 col-xs-12' data-number="5"></div>
+											<div id="add_people_6" class='col-md-4 col-sm-6 col-xs-12' data-number="6"></div>
+											<div id="add_people_7" class='col-md-4 col-sm-6 col-xs-12' data-number="7"></div>
+											<div id="add_people_8" class='col-md-4 col-sm-6 col-xs-12' data-number="8"></div>
+											<div id="add_people_9" class='col-md-4 col-sm-6 col-xs-12' data-number="9"></div>
+										</div>
+										<div class='agree-check text-left m-t-1'>
+											동반인 가입을 동의합니다.
+											<a data-toggle='pop-modal' data-size='sm' data-href='./pop_rule_group.html' data-title='동반인 가입 동의' target='modal_iframe' class='btn btn-md btn-default'>자세히 보기</a>
+											<div class='checkbox checkbox-inline m-l-2'>
+												<input type='checkbox' name='agree_group' id='agree_group' />
+												<label for='agree_group'>동의</label>
+											</div>
+										</div>
+									</div>
+									<p class='clearfix text-left text-black m-t-2'>
+										<strong>* 보험가입안내</strong><br>
+										보험기간은 최대 3개월(90일)이며, 여행기간은 아래 기준으로 선택해주세요.
+									</p>
+								</div>
+								<div class='panel-footer'>
+									<a class='btn btn-lg btn-block btn-theme-bg' href="javascript: fregist_submit();">상품가격 확인</a>
+								</div>
+							</div>
+							<div class='text-center btn-icon-group'>
+								<a class='btn btn-default btn-icon btn-cscenter' href='#'>
+									<p class='text-black'>24시간 알람 센터</p>
+									<h3 class='text-danger'>02.360.2570</h3>
+								</a>
+								<a class='btn btn-default btn-icon btn-charity m-l-2' href='#'>
+									<p class='text-black'>인슈플러스</p>
+									<h3 class='text-black'>보험 상품안내</h3>
+								</a>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+        </div>
+
+<?php
+	include '../_include/_tail.html';
+	include '../_include/_footer.html';
+?>
+

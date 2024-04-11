@@ -1,0 +1,10 @@
+<filter name="imageResize_setup" module="imageResize" act="procImageResizeAdminSetup">
+	<form>
+		<node target="imageresize_width" required="true" filter="number" />
+	</form>
+	<parameter />
+	<response>
+		<tag name="error" />
+		<tag name="message" />
+	</response>
+</filter>

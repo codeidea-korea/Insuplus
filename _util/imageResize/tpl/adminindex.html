@@ -1,0 +1,50 @@
+<!--%import("./filter/imageResize_setup.xml")-->
+<!--%import("js/imageResize.js")-->
+
+<h3>{$lang->imageResize} <span class="gray">{$lang->cmd_management}</span></h3>
+<div class="infoText">{nl2br($lang->about_imageResize)}</div>
+
+<div class="gap1"></div>
+
+<form action="./" method="get"
+	onsubmit="return procFilter(this, imageResize_setup);">
+<table cellspacing="0" class="adminTable">
+	<col width="150px" />
+	<col />
+	<caption>{$lang->env_information}</caption>
+	<tr>
+		<td>{$lang->imageResize_use}</td>
+		<td><input type="checkbox" name="imageresize_use" value="Y" <!--@if($imageResize_info->imageResize_use=='Y')-->checked="checked"<!--@end-->
+		/></td>
+	</tr>
+	<tr>
+		<td>{$lang->imageResize_width}</td>
+		<td><input type="text" name="imageresize_width"
+			value="{$imageResize_info->imageResize_width}" />px&nbsp;&nbsp;&nbsp;(*{$lang->imageResize_notice1})</td>
+	</tr>
+</table>
+<div class="gap1"></div>
+<table cellspacing="0" class="adminTable">
+	<col width="150px" />
+	<tr>
+		<td>{$lang->imageResize_notice2}</td>
+		<td><!--@foreach($mid_list as $module_category_srl => $modules)-->
+		<div class="module_category_title"><input type="checkbox"
+			onclick="toggleSectionCheckBox(this, 'section_{$module_category_srl}');" />
+		<!--@if($modules->title)--> {$modules->title} <!--@else-->
+		{$lang->none_category} <!--@end--></div>
+
+		<div id="section_{$module_category_srl}"><!--@foreach($modules->list as $key => $val)-->
+		<div class="module_list">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" value="{$key}"
+			name="mid_list" id="chk_mid_list_{$key}" <!--@if(in_array($key,$imageResize_info->target_mid))-->checked="checked"<!--@end-->
+		/> <label for="chk_mid_list_{$key}">{$key}
+		({$val->browser_title})</label></div>
+		<!--@end--></div>
+		<!--@end--></td>
+	</tr>
+	<tr>
+		<th colspan="2" class="button"><span class="button"><input
+			type="submit" value="{$lang->cmd_save}" /></span></th>
+	</tr>
+</table>
+</form>

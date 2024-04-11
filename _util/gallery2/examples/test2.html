@@ -1,0 +1,503 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html dir="ltr" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" >
+<title>jQuery and WordPress Image Gallery</title>
+<link rel="profile" href="http://gmpg.org/xfn/11" >
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" type="text/css" media="all" href="http://www.tn3gallery.com/wp-content/themes/tn3_long/style.css?v=16" >
+<link rel="stylesheet" type="text/css" media="all" href="/wp-content/themes/tn3_long/css/userguide.css" >
+
+<!--[if lte IE 8]>
+        <link rel="stylesheet" type="text/css" href="http://www.tn3gallery.com/wp-content/themes/tn3_long/css/ie.css" />
+<![endif]-->
+
+<link rel="pingback" href="http://www.tn3gallery.com/xmlrpc.php" >
+
+<link rel="shortcut icon" href="http://www.tn3gallery.com/favicon.ico" type="image/x-icon" >
+
+<link type="text/css" rel="stylesheet" href="/skins/tn3e/tn3e.css">
+<link type="text/css" rel="stylesheet" href="/skins/tn3t/tn3t.css">
+<!-- include MediaElement CSS -->
+<link type="text/css" rel="stylesheet" href="/mediaelement/mediaelementplayer.css">
+
+
+
+
+<link rel='stylesheet' id='wp-syntax-css-css'  href='http://www.tn3gallery.com/wp-content/plugins/wp-syntax/css/wp-syntax.css?ver=1.0' type='text/css' media='all' />
+<link rel='index' title='jQuery and WordPress Image Gallery' href='http://www.tn3gallery.com/' />
+		<style type="text/css">
+		span.oe_textdirection { unicode-bidi:bidi-override; direction: rtl; }
+		span.oe_displaynone { display:none; }
+		</style>
+<style type="text/css" id="syntaxhighlighteranchor"></style>
+
+
+<link rel="stylesheet" type="text/css"  href="http://www.tn3gallery.com/wp-content/themes/tn3_long/js/fancybox/jquery.fancybox-1.3.4.css" />
+
+<link href="//get.pictos.cc/fonts/1835/2" rel="stylesheet" type="text/css">
+<meta name="google-site-verification" content="Av3Fu6X0HKrXT3ZdSNiIEjiIboE-5djbCFDD9-WDsB8" />
+</head>
+<body id="body" class="home-body">
+
+<span id="login-lnk-wrap">
+      <a class="login-link lp-link" href="/login/"></a>
+  </span>
+
+<div id="header"  >
+  <div id="header-wrap">
+  <div id="header-content" class="cont-wrap ">
+    <a href="/" id="logo"><strong>TN3GALLERY</strong>
+      <!--<span></span>-->
+      <img src="http://www.tn3gallery.com/wp-content/themes/tn3_long/images/logo.png" alt="jQuery and WordPress Image Gallery" width="233" height="31" />
+    </a>
+     <div id="nav-block">
+      <div id="main-menu">
+      <a class="menu-item active" href="/" ><span>Overview</span></a>
+      <a class="menu-item " href="/features"  ><span>Features</span></a>
+      <a class="menu-item " href="/examples"><span>Examples</span></a> 
+      <!--<a class="menu-item " href="/pricing-2" ><span>Pricing</span></a>-->
+      <a class="menu-item " href="/tn3-download" ><span>Free download</span></a>
+      <a class="menu-item " href="/faqs" ><span>FAQS</span></a>
+      <!--<span class="menu-item"><a href="/userguide"  >Userguide</a></span>-->
+      <!--<span class="menu-item"><a href="/support" >Help/Support</a></span>-->
+</div> <!-- main-menu -->        
+      <a href="/pricing" class="buy-now-btn"><span class="bt-mock">Buy now</span><!--<span class="buy-btn-halo">BUYNO</span>--></a>
+        
+                    
+        <!--<a class="login-link lp-link nav-small-link" href="/login/">Login</a>-->
+        
+            
+      
+    </div>
+    
+    
+    
+  </div> <!-- header-content -->
+  
+  <a id="nav-bar-close-link" href="javascript:;">x</a>
+  
+ </div> <!-- header-wrap -->
+</div> <!-- header -->
+<div id="main"  class="home-main">
+
+   
+  <div id="home-top-features-wrap">
+    <div id="home-features-top" class="cont-wrap">
+        <div id="hf-top-text">A jQuery and WordPress image gallery</div> 
+        <div id="hf-bottom-text">Includes slideshow, transition effects, multiple album options, CSS skinning and much more</div>
+    </div>
+    <div  id="home-info-example">
+    	<div class="gallery-example-wrap"><div class="mygallery"></div></div>
+      
+          
+      
+            <div class="clr"></div>
+      
+    </div> <!-- home-info -->
+  </div>
+  
+  <div id="home-examples-wrap">
+    <div id="home-examples" class="cont-wrap">
+      <div id="home-examples-title">
+        Multiple skins, with different layouts and options
+      </div>
+      <div id="home-examples-subtitle">
+        Click on the thumbnails to see full screen examples.
+        <a href="/features">Learn more</a>
+      </div>
+      
+      <div id="examples-thumb-images">
+              <a href="/examples/default/" class="example-lnk">
+                <span class="example-img-wrap">
+                  <img width="284" height="186" src="http://www.tn3gallery.com/wp-content/themes/tn3_black/images/examples/default.jpg" alt="">
+                  <span class="example-img-overlay" style="opacity: 0; "></span><span class="example-img-icon"></span>
+                </span>
+                
+                <span class="example-title-lnk">
+                  <span class="example-label">
+                  Default skin
+                  </span>
+                </span>
+              </a>
+            
+              <a href="/examples/tn3_eris_horizontal/"  class="example-lnk">
+                <span class="example-img-wrap">
+                  <img width="284" height="186" src="http://www.tn3gallery.com/wp-content/themes/tn3_black/images/examples/erish.jpg" alt="">
+                  <span class="example-img-overlay"></span><span class="example-img-icon"></span>
+                </span>
+                
+                <span class="example-title-lnk">
+                  <span class="example-label">
+                    tn3 Eris Horizontal
+                  </span>
+                </span>
+              </a>
+            
+              <a href="/examples/tn3_eris_bullets/" style="margin-right:0;" class="example-lnk">
+                <span class="example-img-wrap">
+                  <img width="284" height="186" src="http://www.tn3gallery.com/wp-content/themes/tn3_black/images/examples/erisbullets.jpg" alt="">
+                  <span class="example-img-overlay"></span><span class="example-img-icon"></span>
+                </span>
+                
+                <span class="example-title-lnk">
+                  <span class="example-label">
+                    tn3 Eris Bullets
+                  </span>
+                </span>
+              </a>
+            
+              <a href="/examples/tn3_eris_vertical/" class="example-lnk">
+                <span class="example-img-wrap">
+                  <img width="284" height="186" src="http://www.tn3gallery.com/wp-content/themes/tn3_black/images/examples/erisvertical.jpg" alt="">
+                  <span class="example-img-overlay" style="opacity: 0; "></span><span class="example-img-icon"></span>
+                </span>
+                
+                <span class="example-title-lnk">
+                  <span class="example-label">
+                    tn3 Eris Vertical
+                  </span>
+                </span>
+              </a>
+            
+              <a href="/examples/tn3_aura/" class="example-lnk">
+                <span class="example-img-wrap">
+                  <img width="284" height="186" src="http://www.tn3gallery.com/wp-content/themes/tn3_black/images/examples/aura.jpg" alt="">
+                  <span class="example-img-overlay"></span><span class="example-img-icon"></span>
+                </span>
+                
+                <span class="example-title-lnk">
+                  <span class="example-label">
+                    tn3 Aura
+                  </span>
+                </span>
+              </a>
+                      
+              <!--<a href="/features" class="home-see-all" id="see-all-examples">See all examples</a>-->
+              
+            </div>
+          <div class="clr"></div>
+    </div>
+  </div>
+  
+  
+  <div id="home-bottom-features-wrap">
+    <div id="home-features-bottom" class="cont-wrap">
+      
+      <div class="home-section-title" id="home-features-title">
+        Here are some of the amazing features 
+      </div>
+      <div class="home-section-subtitle">
+        For the full list, <a href="/features">click here</a>
+      </div>
+      
+      <div id="home-ft-columns">
+      
+      <div class="home-ft-column">
+        <!--<div class="home-ft-column-title">
+          <strong>WordPress</strong> features
+        </div>-->
+        <ul>
+          <li><span class="arrow-icon">&bull;</span> <strong>Slideshow and transition effects</strong><div>Automatically transition between images with a choice of effects.</div></li>		  
+		  <li><span class="arrow-icon">&bull;</span> <strong>Full screen view</strong><div>Expand the gallery to fill the browser window and browse the gallery using the keyboard arrow keys.</div></li>
+          <li><span class="arrow-icon">&bull;</span> <strong>Video support</strong><div>Displays videos from YouTube, Flickr or Picasa feeds, or any other source.</div></li>
+          <li><span class="arrow-icon">&bull;</span> <strong>Flickr, Facebook & Picasa support</strong><div>Pull images or videos directly from Flickr or Picasa Web as well as images from Facebook.</div></li>
+          <li><span class="arrow-icon">&bull;</span> <strong>Dynamic image sizing</strong><div>Images can be scaled automatically or set at a maximum scale size.</div></li>
+           <li><span class="arrow-icon">&bull;</span> <strong>Displays HTML content</strong><div>Displays any HTML content using regular HTML tags.</div></li>         
+           <li><span class="arrow-icon">&bull;</span> <strong>Permalinks</strong><div>Link to or bookmark each image directly.</div></li>   
+        </ul>
+      </div>
+      
+      <div class="home-ft-column">
+        <!--<div class="home-ft-column-title">
+          <strong>jQuery</strong> features
+        </div>-->
+        <ul>
+	      <li><span class="arrow-icon">&bull;</span> <strong>Cross-browser and mobile support</strong><div>Displays consistently on all major browsers, including iOS.</div></li>
+	      <li><span class="arrow-icon">&bull;</span> <strong>Divide images into albums and galleries</strong><div>Reuse the same images across multiple albums.</div></li>
+		  <li><span class="arrow-icon">&bull;</span> <strong>Responsive gallery</strong><div>Resizes automatically according to the screen or browser window size, also for mobile browsers.</div></li>          
+          <li><span class="arrow-icon">&bull;</span> <strong>Scrolling thumbnail carousel</strong><div>Display thumbnails vertically or horizontally, scrolled with mouse movement.</div></li>
+          <li><span class="arrow-icon">&bull;</span> <strong>CSS skinning</strong><div>Create your own skin without any coding or JavaScript.</div></li>          
+          <li><span class="arrow-icon">&bull;</span> <strong>Dedicated WordPress admin panel</strong><div>Manage and upload images and albums in the WordPress version without technical knowledge.</div></li>
+          <li><span class="arrow-icon">&bull;</span> <strong>Powerful API</strong><div>For full control over most aspects of TN3 Gallery.</div></li>
+        </ul>
+      </div>
+      
+      </div>
+      
+      <div class="clr"></div>
+      
+      <div id="home-video-wrap" >
+        <a href="http://player.vimeo.com/video/37255068?title=0&amp;byline=0&amp;portrait=0&amp;autoplay=true" id="home-video-thumb">
+          <span class="video-icon">
+            <span class="icon-fader"></span>
+          </span>
+          <span class="video-label">See TN3 for WordPress</span>
+        </a>
+        
+      </div>
+      
+      <div class="clr"></div>
+    </div>
+    
+  </div>
+  
+  <div id="home-testimonials-wrap">
+    <div id="home-testimonials" class="cont-wrap">
+      <div class="home-section-title" id="hp-testimonials-title">
+        See what our customers are saying...
+      </div>
+      
+      <div>
+            <div class="testimonial-column">      <div class="testimonial-box">
+        Downloaded it, adjusted some things, worked right out of the box! Perfect deal!
+<br /><strong>- Johannes</strong>        <span class="testimonial-arrow"></span>
+      </div>
+      
+            
+                  <div class="testimonial-box">
+        I must say, this is the single most useful script for me! Awesome is the word.
+<br /><strong>- Vaibhav</strong>        <span class="testimonial-arrow"></span>
+      </div>
+      
+            
+                  <div class="testimonial-box">
+        The level of support we have received has been totally amazing! It's refreshing to see a company delivering such amazing customer service to go alongside an amazing plugin!
+<br /><strong>- Kerry</strong>        <span class="testimonial-arrow"></span>
+      </div>
+      
+              </div> <!-- testimonial column -->
+            
+            <div class="testimonial-column">      <div class="testimonial-box">
+        Thank your for this amazing wp plugin.
+<br /><strong>- Gökçin</strong>        <span class="testimonial-arrow"></span>
+      </div>
+      
+            
+                  <div class="testimonial-box">
+        Sick sweet sick!!! That's all I can say. This is awesome!!!!
+<br /><strong>- Chris</strong>        <span class="testimonial-arrow"></span>
+      </div>
+      
+            
+                  <div class="testimonial-box">
+        TN3 Gallery is very flexible, and even more so if you understand how to use it. It's professional, lightweight, yet simple, and very sexy. What more could I ask for? I think TN3 Gallery is as professional as you can get.
+<br /><strong>- Xarcell</strong>        <span class="testimonial-arrow"></span>
+      </div>
+      
+              </div> <!-- testimonial column -->
+            
+            <div class="testimonial-column">      <div class="testimonial-box">
+        Thank you for this awesome gallery.
+<br /><strong>- Jenn</strong>        <span class="testimonial-arrow"></span>
+      </div>
+      
+            
+                  <div class="testimonial-box">
+        I love your image control. It's slick and sexy.
+<br /><strong>- Quang</strong>        <span class="testimonial-arrow"></span>
+      </div>
+      
+            
+                  <div class="testimonial-box">
+        Wow that is amazing! Thank you so much and keep up the great work!
+<br /><strong>- Jay</strong>        <span class="testimonial-arrow"></span>
+      </div>
+      
+              </div> <!-- testimonial column -->
+            
+            </div>
+      
+      
+      
+      <div class="clr"></div>
+    </div>
+  </div>
+		 
+
+
+	</div><!-- #main  -->
+  
+
+  
+	<div id="footer">
+	  
+	   <div id="footer-content" class="cont-wrap">
+	     
+       <div class="footer-column">
+          <h2>News</h2>
+          
+<div class="twit-msgs">
+  <p class="twitter-message">TN3 for WP v1.1.0.8 and jQuery v1.3.0.52 have been released with bug fixes. Download updates at <a href="http://t.co/wQf1v29k" class="twitter-link">http://t.co/wQf1v29k</a></p><p class="twitter-message">TN3 Gallery for WordPress v1.1.0.7 and jQuery v1.3.0.50 has been released. With responsive, video/HTML support and more <a href="http://t.co/nchVWTBF" class="twitter-link">http://t.co/nchVWTBF</a></p></div>
+          <a href="http://twitter.com/tn3gallery">More news</a>
+       </div>
+       
+       <div class="footer-column">
+          <h2>Download Free Lite Version</h2>
+          <div>
+          Download <a href="/tn3-download">TN3 Lite</a> by simply subscribing to our newsletter below. We will also inform you of new releases and updates. We won't rent or sell your email. No spam.
+          </div>
+          
+          <form class="subscribe-form" method="post" action="/download-free" onsubmit="return checkHomeSubscribeForm(this);">
+            <p>
+            <input type="text"  value="Enter your email here" class="home-subscribe-email inactive-input" name="email" />
+            <input type="submit" name="submit" value="Submit" >
+            </p>
+          </form>
+          
+       </div>
+       
+       <div class="footer-column aff-column">
+          <h2>Affiliates</h2>
+          <div class="footer-aff-txt">
+            Join our affiliate program and earn 30% instant cash on every purchase made through your referral link to our website. We will contact you as soon as your application has been approved and you can then login to get your custom affiliate link as well as banners which you can use on your website.            
+          </div>
+          
+          <div>
+            <a href="/affiliates" >Learn more</a>
+          </div>
+          
+      </div>
+       
+       
+      
+      <div class="clr"></div>
+       
+       <!--<div id="footer-copyright">&copy; 2013 All rights reserved. Made in Vancouver, Canada.</div>
+        
+        <div id="social-icons">
+          
+          <iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Ftn3gallery.com&amp;send=true&amp;layout=button_count&amp;width=80&amp;show_faces=true&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:80px; height:21px;" allowTransparency="true"></iframe>
+          
+          <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.tn3gallery.com" data-text="TN3Gallery" data-count="horizontal">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>          
+        </div>
+        -->
+         
+	   </div>
+     
+     <div id="footer-bottom">
+     
+      <div id="footer-bottom-content" class="cont-wrap">
+         <ul id="footer-menu">
+           <li><a href="/"><span>OVERVIEW</span></a></li>
+           <li><a href="/features"><span>FEATURES</span></a></li>
+           <li><a href="/pricing"><span>PRICING</span></a></li>
+           <li><a  href="/faqs"><span>FAQS</span></a></li>
+           <li><a href="/userguide"><span>USERGUIDE</span></a></li>
+           <li><a href="/affiliates"><span>AFFILIATES</span></a></li>
+           <li><a href="http://twitter.com/tn3gallery"><span>TWITTER</span></a></li>
+           <li><a href="http://facebook.com/tn3gallery"><span>FACEBOOK</span></a></li>
+           <li><a href="/legal"><span>LEGAL</span></a></li>
+           <li><a href="/support" title="Open feedback & support dialog (powered by UserVoice)"><span>SUPPORT</span></a></li>
+           <li><a href="/contact"><span>CONTACT</span></a></li>
+         </ul>
+         
+         <div class="clr"></div>
+         
+         <div id="social-icons">
+          
+          <iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Ftn3gallery.com&amp;send=true&amp;layout=button_count&amp;width=90&amp;show_faces=true&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:90px; height:21px;" allowTransparency="true"></iframe>
+          
+          <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.tn3gallery.com" data-text="TN3Gallery" data-count="horizontal">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>          
+        </div>
+         
+         <div id="footer-copyright">© 2013 All rights reserved.</div>
+       </div>
+      
+     </div>
+	  
+     
+	</div><!-- #footer -->
+
+
+<div class="popup-wrap">
+ <div class="lp-wrap cont-wrap">
+   <div id="login-popup">
+          <!--<canvas id="lp-canvas" width="60" height="40"></canvas>
+          <script type="text/javascript" src="http://www.tn3gallery.com/wp-content/themes/tn3_long/js/popup-triangle.js"></script>
+          -->
+          <div id="lp-content"></div>
+          <a href="javascript:;" onclick="hideLoginPopup()" class="lp-popup-close-link">x</a>
+</div>
+ </div>
+</div>
+ 
+<div id="login-dimmer"></div>
+
+
+
+
+
+<!-- include jQuery library -->
+
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="http://code.jquery.com/jquery-migrate-1.1.1.min.js"></script>
+<!-- include MediaElement library -->
+<script type="text/javascript" src="/mediaelement/mediaelement-and-player.js"></script>
+<!-- include tn3 plugin -->
+<script type="text/javascript" src="/js/jquery.tn3.min.js"></script>
+<!--  initialize the TN3 when the DOM is ready -->
+<script type="text/javascript" src="http://www.tn3gallery.com/wp-content/themes/tn3_long/js/home-tn3-example.js?v=2"></script>
+<script type="text/javascript" src="http://www.tn3gallery.com/wp-content/themes/tn3_long/js/tn3.mediaelement.min.js"></script>
+     <script type="text/javascript" src="http://www.tn3gallery.com/wp-content/themes/tn3_long/js/tn3.touch.min.js"></script>
+                        
+  <!--[if IE]><script src="http://www.tn3gallery.com/wp-content/themes/tn3_long/js/excanvas.compiled.js"></script><![endif]-->
+<script type="text/javascript" src="http://www.tn3gallery.com/wp-content/themes/tn3_long/js/main.js?v=19" ></script>
+<script type="text/javascript" src="http://www.tn3gallery.com/wp-content/themes/tn3_long/js/jquery.form.js" ></script>
+<script type="text/javascript" src="http://www.tn3gallery.com/wp-content/themes/tn3_long/js/fancybox/jquery.fancybox-1.3.4.pack.js" ></script>
+
+ 
+
+  
+
+         
+
+<script type="text/javascript" charset="utf-8">
+  var is_ssl = ("https:" == document.location.protocol);
+  var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
+  document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+<script type="text/javascript" charset="utf-8">
+  var feedback_widget_options = {};
+
+  feedback_widget_options.display = "overlay";  
+  feedback_widget_options.company = "tn3gallery";
+  feedback_widget_options.placement = "left";
+  feedback_widget_options.color = "#2f3134";
+  feedback_widget_options.style = "question";
+  
+  var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
+</script>
+
+
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-331696-16']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<!-- begin olark code --><script type='text/javascript'>/*{literal}<![CDATA[*/window.olark||(function(i){var e=window,h=document,a=e.location.protocol=="https:"?"https:":"http:",g=i.name,b="load";(function(){e[g]=function(){(c.s=c.s||[]).push(arguments)};var c=e[g]._={},f=i.methods.length; while(f--){(function(j){e[g][j]=function(){e[g]("call",j,arguments)}})(i.methods[f])} c.l=i.loader;c.i=arguments.callee;c.f=setTimeout(function(){if(c.f){(new Image).src=a+"//"+c.l.replace(".js",".png")+"&"+escape(e.location.href)}c.f=null},20000);c.p={0:+new Date};c.P=function(j){c.p[j]=new Date-c.p[0]};function d(){c.P(b);e[g](b)}e.addEventListener?e.addEventListener(b,d,false):e.attachEvent("on"+b,d); (function(){function l(j){j="head";return["<",j,"></",j,"><",z,' onl'+'oad="var d=',B,";d.getElementsByTagName('head')[0].",y,"(d.",A,"('script')).",u,"='",a,"//",c.l,"'",'"',"></",z,">"].join("")}var z="body",s=h[z];if(!s){return setTimeout(arguments.callee,100)}c.P(1);var y="appendChild",A="createElement",u="src",r=h[A]("div"),G=r[y](h[A](g)),D=h[A]("iframe"),B="document",C="domain",q;r.style.display="none";s.insertBefore(r,s.firstChild).id=g;D.frameBorder="0";D.id=g+"-loader";if(/MSIE[ ]+6/.test(navigator.userAgent)){D.src="javascript:false"} D.allowTransparency="true";G[y](D);try{D.contentWindow[B].open()}catch(F){i[C]=h[C];q="javascript:var d="+B+".open();d.domain='"+h.domain+"';";D[u]=q+"void(0);"}try{var H=D.contentWindow[B];H.write(l());H.close()}catch(E){D[u]=q+'d.write("'+l().replace(/"/g,String.fromCharCode(92)+'"')+'");d.close();'}c.P(2)})()})()})({loader:(function(a){return "static.olark.com/jsclient/loader0.js?ts="+(a?a[1]:(+new Date))})(document.cookie.match(/olarkld=([0-9]+)/)),name:"olark",methods:["configure","extend","declare","identify"]});
+/* custom configuration goes here (www.olark.com/documentation) */
+olark.identify('2672-826-10-6947');/*]]>{/literal}*/</script>
+<!-- end olark code -->
+
+<script type="text/javascript">
+  (function() {
+    var uv = document.createElement('script'); uv.type = 'text/javascript'; uv.async = true;
+    uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/HBbjFqn4OER1OuxffFIxg.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s);
+  })();
+</script>
+
+</body>
+</html>

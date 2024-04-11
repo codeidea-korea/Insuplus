@@ -1,0 +1,392 @@
+<?php
+	include '../_include/_header.html';
+	include '../_include/_top.html';
+	include '../_include/_sidebar.html';
+?>
+<div class="breadcrumb-image">
+    <div class="container">
+        <h2>보험 비교</h2>
+        <h4>해외여행 중 발생 가능한 상해, 질병, 배상책임손해를 보장하는 보험</h4>
+    </div>
+</div>
+<div class="breadcrumb-wrap">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="../">InsuPlus HOME</a></li>
+            <li>보험 비교</li>
+        </ol>
+    </div>
+</div>
+<div class="container">
+    <div class="sub-content compare-wrap">
+        <div class="text-center title">
+            <h1 class="font-light text-black">
+                <span class="point rotate">고민</span>하지 말고! 골라서 <span class="point rotate">선택</span>!
+            </h1>
+            <h3 class="font-light text-black">
+                인슈플러스에서 가입 상품 <strong>3개</strong>를 골라서 <strong>비교</strong> 후
+                <strong>선택</strong>하세요!
+            </h3>
+        </div>
+        <ul class="nav nav-tabs nav-select bg-navy radius">
+            <li class="title">플랜선택</li>
+            <li class="select_plan active">
+                <a href="#" class="selected">
+                    <img src="../images/logos/lotte.svg" class="logo-partners" />
+                    <span class="m-l-1 p-l-1 border-l-1">롯데하우머치 레드플랜</span>
+                    <span class="close"><i class="ti ti-close"></i></span>
+                </a>
+            </li>
+            <li class="select_plan"><a href="#">플랜을 선택해 주세요</a></li>
+            <li class="select_plan"><a href="#">플랜을 선택해 주세요</a></li>
+        </ul>
+        <section class="main_plan" id="search_plan">
+            <div class="container">
+                <div class="row form-inline m-y-15">
+                    <div class="col-md-5 col-sm-7 col-md-offset-7 col-sm-offset-5">
+                        <div class="row">
+                            <div class="col-xs-4 text-right m-t-1">
+                                <div class="checkbox checkbox-inline">
+                                    <input
+                                        type="checkbox"
+                                        name="insurplus_check"
+                                        id="insurplus_check"
+                                        value="인슈플러스"
+                                    />
+                                    <label for="insurplus_check">인슈플러스</label>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <select name="sort" class="form-control selectpicker" data-style="form-control">
+                                    <option value="추천순" selected>추천순</option>
+                                    <option value="인기순">인기순</option>
+                                    <option value="저가순">저가순</option>
+                                    <option value="고가순">고가순</option>
+                                </select>
+                            </div>
+                            <div class="col-xs-4">
+                                <select name="sort" class="form-control selectpicker" data-style="form-control">
+                                    <option value="보험사" selected>보험사</option>
+                                    <option value="롯데손해보험">롯데손해보험</option>
+                                    <option value="현대해상">현대해상</option>
+                                    <option value="삼성화재">삼성화재</option>
+                                    <option value="한화손해보험">한화손해보험</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-sm-6">
+                        <div class="list">
+                            <div class="list_select_wrap clearfix">
+                                <div class="clearfix">
+                                    <img src="../images/logos/lotte.svg" class="pull-right logo-partners" />
+                                </div>
+                                <h3>레드플랜</h3>
+                                <ul>
+                                    <li><span class="point">플러스 케어 서비스 제공</span></li>
+                                    <li><span class="point">입원비 지불 대행</span></li>
+                                    <li><span class="point">의료 통역 지원</span></li>
+                                    <li><span>해외 치료 : 3,000만원</span></li>
+                                    <li><span>국내 치료 : 2,000만원</span></li>
+                                </ul>
+                                <h4>380,000원</h4>
+                            </div>
+                            <div class="btn-group btn-group-justified">
+                                <a
+                                    class="btn btn-theme-dark"
+                                    data-toggle="pop-modal"
+                                    data-size="sm"
+                                    data-href="./pop_warranty.html"
+                                    data-title="보장내역 보기"
+                                    target="modal_iframe"
+                                    >보장내역 보기</a
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="list">
+                            <div class="list_select_wrap clearfix">
+                                <div class="clearfix">
+                                    <img src="../images/logos/hyundai.svg" class="pull-right logo-partners" />
+                                </div>
+                                <h3>레드플랜&nbsp;<img src="../images/ic-small-logo.svg" /></h3>
+                                <ul>
+                                    <li><span class="point">플러스 케어 서비스 제공</span></li>
+                                    <li><span class="point">입원비 지불 대행</span></li>
+                                    <li><span class="point">의료 통역 지원</span></li>
+                                    <li><span>해외 치료 : 3,000만원</span></li>
+                                    <li><span>국내 치료 : 2,000만원</span></li>
+                                </ul>
+                                <h4>380,000원</h4>
+                            </div>
+                            <div class="btn-group btn-group-justified">
+                                <a
+                                    class="btn btn-theme-dark"
+                                    data-toggle="pop-modal"
+                                    data-size="sm"
+                                    data-href="./pop_warranty.html"
+                                    data-title="보장내역 보기"
+                                    target="modal_iframe"
+                                    >보장내역 보기</a
+                                >
+                                <a
+                                    class="btn btn-theme-bg"
+                                    data-toggle="pop-modal"
+                                    data-size="sm"
+                                    data-href="./pop_insurplus.html"
+                                    data-title="인슈플러스"
+                                    target="modal_iframe"
+                                    >인슈플러스 보기</a
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="list">
+                            <div class="list_select_wrap clearfix">
+                                <div class="clearfix">
+                                    <img src="../images/logos/meritz.svg" class="pull-right logo-partners" />
+                                </div>
+                                <h3>레드플랜</h3>
+                                <ul>
+                                    <li><span class="point">플러스 케어 서비스 제공</span></li>
+                                    <li><span class="point">입원비 지불 대행</span></li>
+                                    <li><span class="point">의료 통역 지원</span></li>
+                                    <li><span>해외 치료 : 3,000만원</span></li>
+                                    <li><span>국내 치료 : 2,000만원</span></li>
+                                </ul>
+                                <h4>380,000원</h4>
+                            </div>
+                            <div class="btn-group btn-group-justified">
+                                <a
+                                    class="btn btn-theme-dark"
+                                    data-toggle="pop-modal"
+                                    data-size="sm"
+                                    data-href="./pop_warranty.html"
+                                    data-title="보장내역 보기"
+                                    target="modal_iframe"
+                                    >보장내역 보기</a
+                                >
+                                <a
+                                    class="btn btn-theme-bg"
+                                    data-toggle="pop-modal"
+                                    data-size="sm"
+                                    data-href="./pop_insurplus.html"
+                                    data-title="인슈플러스"
+                                    target="modal_iframe"
+                                    >인슈플러스 보기</a
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="list">
+                            <div class="list_select_wrap clearfix">
+                                <div class="clearfix">
+                                    <img src="../images/logos/samsung_fire.svg" class="pull-right logo-partners" />
+                                </div>
+                                <h3>레드플랜</h3>
+                                <ul>
+                                    <li><span class="point">플러스 케어 서비스 제공</span></li>
+                                    <li><span class="point">입원비 지불 대행</span></li>
+                                    <li><span class="point">의료 통역 지원</span></li>
+                                    <li><span>해외 치료 : 3,000만원</span></li>
+                                    <li><span>국내 치료 : 2,000만원</span></li>
+                                </ul>
+                                <h4>380,000원</h4>
+                            </div>
+                            <div class="btn-group btn-group-justified">
+                                <a
+                                    class="btn btn-theme-dark"
+                                    data-toggle="pop-modal"
+                                    data-size="sm"
+                                    data-href="./pop_warranty.html"
+                                    data-title="보장내역 보기"
+                                    target="modal_iframe"
+                                    >보장내역 보기</a
+                                >
+                                <a
+                                    class="btn btn-theme-bg"
+                                    data-toggle="pop-modal"
+                                    data-size="sm"
+                                    data-href="./pop_insurplus.html"
+                                    data-title="인슈플러스"
+                                    target="modal_iframe"
+                                    >인슈플러스 보기</a
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="list">
+                            <div class="list_select_wrap clearfix">
+                                <div class="clearfix">
+                                    <img src="../images/logos/lotte.svg" class="pull-right logo-partners" />
+                                </div>
+                                <h3>레드플랜</h3>
+                                <ul>
+                                    <li><span class="point">플러스 케어 서비스 제공</span></li>
+                                    <li><span class="point">입원비 지불 대행</span></li>
+                                    <li><span class="point">의료 통역 지원</span></li>
+                                    <li><span>해외 치료 : 3,000만원</span></li>
+                                    <li><span>국내 치료 : 2,000만원</span></li>
+                                </ul>
+                                <h4>380,000원</h4>
+                            </div>
+                            <div class="btn-group btn-group-justified">
+                                <a
+                                    class="btn btn-theme-dark"
+                                    data-toggle="pop-modal"
+                                    data-size="sm"
+                                    data-href="./pop_warranty.html"
+                                    data-title="보장내역 보기"
+                                    target="modal_iframe"
+                                    >보장내역 보기</a
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="list">
+                            <div class="list_select_wrap clearfix">
+                                <div class="clearfix">
+                                    <img src="../images/logos/hyundai.svg" class="pull-right logo-partners" />
+                                </div>
+                                <h3>레드플랜&nbsp;<img src="../images/ic-small-logo.svg" /></h3>
+                                <ul>
+                                    <li><span class="point">플러스 케어 서비스 제공</span></li>
+                                    <li><span class="point">입원비 지불 대행</span></li>
+                                    <li><span class="point">의료 통역 지원</span></li>
+                                    <li><span>해외 치료 : 3,000만원</span></li>
+                                    <li><span>국내 치료 : 2,000만원</span></li>
+                                </ul>
+                                <h4>380,000원</h4>
+                            </div>
+                            <div class="btn-group btn-group-justified">
+                                <a
+                                    class="btn btn-theme-dark"
+                                    data-toggle="pop-modal"
+                                    data-size="sm"
+                                    data-href="./pop_warranty.html"
+                                    data-title="보장내역 보기"
+                                    target="modal_iframe"
+                                    >보장내역 보기</a
+                                >
+                                <a
+                                    class="btn btn-theme-bg"
+                                    data-toggle="pop-modal"
+                                    data-size="sm"
+                                    data-href="./pop_insurplus.html"
+                                    data-title="인슈플러스"
+                                    target="modal_iframe"
+                                    >인슈플러스 보기</a
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="list">
+                            <div class="list_select_wrap clearfix">
+                                <div class="clearfix">
+                                    <img src="../images/logos/meritz.svg" class="pull-right logo-partners" />
+                                </div>
+                                <h3>레드플랜</h3>
+                                <ul>
+                                    <li><span class="point">플러스 케어 서비스 제공</span></li>
+                                    <li><span class="point">입원비 지불 대행</span></li>
+                                    <li><span class="point">의료 통역 지원</span></li>
+                                    <li><span>해외 치료 : 3,000만원</span></li>
+                                    <li><span>국내 치료 : 2,000만원</span></li>
+                                </ul>
+                                <h4>380,000원</h4>
+                            </div>
+                            <div class="btn-group btn-group-justified">
+                                <a
+                                    class="btn btn-theme-dark"
+                                    data-toggle="pop-modal"
+                                    data-size="sm"
+                                    data-href="./pop_warranty.html"
+                                    data-title="보장내역 보기"
+                                    target="modal_iframe"
+                                    >보장내역 보기</a
+                                >
+                                <a
+                                    class="btn btn-theme-bg"
+                                    data-toggle="pop-modal"
+                                    data-size="sm"
+                                    data-href="./pop_insurplus.html"
+                                    data-title="인슈플러스"
+                                    target="modal_iframe"
+                                    >인슈플러스 보기</a
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="list">
+                            <div class="list_select_wrap clearfix">
+                                <div class="clearfix">
+                                    <img src="../images/logos/samsung_fire.svg" class="pull-right logo-partners" />
+                                </div>
+                                <h3>레드플랜</h3>
+                                <ul>
+                                    <li><span class="point">플러스 케어 서비스 제공</span></li>
+                                    <li><span class="point">입원비 지불 대행</span></li>
+                                    <li><span class="point">의료 통역 지원</span></li>
+                                    <li><span>해외 치료 : 3,000만원</span></li>
+                                    <li><span>국내 치료 : 2,000만원</span></li>
+                                </ul>
+                                <h4>380,000원</h4>
+                            </div>
+                            <div class="btn-group btn-group-justified">
+                                <a
+                                    class="btn btn-theme-dark"
+                                    data-toggle="pop-modal"
+                                    data-size="sm"
+                                    data-href="./pop_warranty.html"
+                                    data-title="보장내역 보기"
+                                    target="modal_iframe"
+                                    >보장내역 보기</a
+                                >
+                                <a
+                                    class="btn btn-theme-bg"
+                                    data-toggle="pop-modal"
+                                    data-size="sm"
+                                    data-href="./pop_insurplus.html"
+                                    data-title="인슈플러스"
+                                    target="modal_iframe"
+                                    >인슈플러스 보기</a
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <p class="clearfix text-right text-danger m-b-2">산출 상품가 기준(남 : 23세/90일 기준)</p>
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3 col-xs-12 col-xs-offset-0">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <a class="btn btn-lg btn-block btn-theme-dark" href="./overseas_travel.html"
+                            >상품안내 이동하기</a
+                        >
+                    </div>
+                    <div class="col-xs-6">
+                        <a class="btn btn-lg btn-block btn-theme-bg" href="./register_step_01.html"
+                            >플랜비교 가입하기</a
+                        >
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php
+	include '../_include/_tail.html';
+	include '../_include/_footer.html';
+?>

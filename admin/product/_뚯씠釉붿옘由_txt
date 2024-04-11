@@ -1,0 +1,28 @@
+	$pc_idx						= REQSTR($pc_idx, "");
+	$pc_num						= REQSTR($pc_num, "");
+	$pc_name					= REQSTR($pc_name, "");
+	$pc_sort						= REQSTR($pc_sort, "");
+	$pc_use						= REQSTR($pc_use, "");
+	$pc_regdate				= REQSTR($pc_regdate, "");
+	$pc_option					= REQSTR($pc_option, "");
+	$pc_list_cols				= REQSTR($pc_list_cols, "");
+	$pc_list_rows				= REQSTR($pc_list_rows, "");
+	$pc_thum_width			= REQSTR($pc_thum_width, "");
+	$pc_thum_height			= REQSTR($pc_thum_height, "");
+	$pc_img_width				= REQSTR($pc_img_width, "");
+	$pc_img_height			= REQSTR($pc_img_height, "");
+	$pc_menu_img				= REQSTR($pc_menu_img, "");
+	$pc_menu_img_ov		= REQSTR($pc_menu_img_ov, "");
+	$pc_skin						= REQSTR($pc_skin, "");
+	$pc_top_include			= REQSTR($pc_top_include, "");
+	$pc_top_html				= REQSTR($pc_top_html, "");
+	$pc_bottom_include		= REQSTR($pc_bottom_include, "");
+	$pc_bottom_html			= REQSTR($pc_bottom_html, "");
+	$pc_auth_list				= REQSTR($pc_auth_list, "");
+	$pc_auth_view			= REQSTR($pc_auth_view, "");
+
+
+pc_idx, pc_num, pc_name, pc_sort, pc_use, pc_regdate, pc_option, pc_list_cols, pc_list_rows, pc_thum_width, pc_thum_height, pc_img_width, pc_img_height, pc_menu_img, pc_menu_img_ov, pc_skin, pc_top_include, pc_top_html, pc_bottom_include, pc_bottom_html, pc_auth_list, pc_auth_view
+
+
+'".pc_num."', '".$pc_name."', '".$pc_sort."', '".$pc_use."', '".$pc_regdate."', '".$pc_option."', '".$pc_list_cols."', '".$pc_list_rows."', '".$pc_thum_width."', '".$pc_thum_height."', '".$pc_img_width."', '".$pc_img_height."', '".$pc_menu_img."', '".$pc_menu_img_ov."', '".$pc_skin."', '".$pc_top_include."', '".$pc_top_html."', '".$pc_bottom_include."', '".$pc_bottom_html."', '".$pc_auth_list."', '".$pc_auth_view."'

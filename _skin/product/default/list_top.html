@@ -1,0 +1,40 @@
+            <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                <tr>
+                    <td width="15" height="21" valign="top" style="padding-top:6px"><img src="<?=$skin_img?>p_title_ball.gif" ></td>
+                    <td class="p_cate" valign="top" style="padding-top:0px"><?=$c_cname?></td>
+                    <td width="200" align="right" class="p_list_cnt" valign="top" style="padding-top:2px">- 총 <font color="#404040"><b><?=$s_article?></b></font> 개의 제품이 있습니다.</td>
+                </tr>
+            </table>
+
+            <table width="100%" class="b_search_box">
+                <tr>
+                    <td align="right">
+                        <form name=frmSearch method=get action=<?=$PHP_SELF?>>                        
+                        <input type=hidden name=category value=<?=$_GET['category']?>>
+                        <table cellpadding=0 cellspacing=3 border=0>
+                            <tr>
+                                <td width="4">&nbsp;</td>
+                                <td width="59" valign="top" style="padding:1 0 0 0"><img src="<?=$skin_img?>p_search_txt.gif" ></td>
+                                <input type="hidden" name="limit" value="all">
+                                <td valign="top" style="padding:1 0 0 0">
+                                    <select name="kk" style="width:80px" class="select">
+                                        <option value="pname" <?=$ks?>>제품명</option>
+                                        <option value="pinfo" <?=$kc?>>제품설명</option>
+                                        <option value="all" <?=$ka?>>전체</option>
+                                    </select>
+                                </td>
+                                <td valign="top" width="121"><input type=text style="width:120px" maxlength="30"  name="kw" value="<?=$_GET['kw']?>" class="input"></td>
+                                <td valign="top" style="padding:1 0 0 0"><input type="image" src="<?=$skin_img?>p_btn_search.gif"></td>
+                                <td width="4">&nbsp;</td>
+                            </tr>
+                        </table>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+             <table border=0 cellspacing=0 cellpadding=0 width=100%>
+                <tr>
+                    <td height=20></td>
+                </tr>
+            </table>
+
