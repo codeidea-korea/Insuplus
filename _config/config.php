@@ -51,22 +51,22 @@ $url_Now = getURL();            // 다른 곳에 중복해 쓸 경우에는 getU
 
 	########################################################
 	// MySQL DB 접속정보
-	$mysql_host = "211.43.14.191:3306"; //DEV
-	// $mysql_host = "211.251.236.95:3306"; //NEWLIVE
+	//$mysql_host = "211.43.14.191:3306"; //DEV
+	$mysql_host = "211.251.236.95:3306"; //NEWLIVE
 	$mysql_user					= "insplus";
 	$mysql_password				= "!insplus#";
 	$mysql_database_name		= "insplus";
 	
 	//결제정보
-	define("MID","INIpayTest"); //가맹점 테스트 ID
-	define("SIGNKEY","SU5JTElURV9UUklQTEVERVNfS0VZU1RS"); //가맹점 테스트 사인키
+	//define("MID","INIpayTest"); //가맹점 테스트 ID
+	//define("SIGNKEY","SU5JTElURV9UUklQTEVERVNfS0VZU1RS"); //가맹점 테스트 사인키
 	
-	// define("MID","insplus001"); //가맹점 운영 ID
-	// define("SIGNKEY","UTM2cWdEZzExVUtJMmVkeGJwL0c4QT09"); //가맹점 운영 사인키
+	define("MID","insplus001"); //가맹점 운영 ID
+	define("SIGNKEY","UTM2cWdEZzExVUtJMmVkeGJwL0c4QT09"); //가맹점 운영 사인키
 	
 	//운영,개발여부
-	define("SERVER_CHECK","DEV"); //개발
-	// define("SERVER_CHECK","REAL"); //운영
+	//define("SERVER_CHECK","DEV"); //개발
+	define("SERVER_CHECK","REAL"); //운영
 
 
 	// MySQL DB SMS 접속정보
