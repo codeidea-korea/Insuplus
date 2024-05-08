@@ -53,3 +53,15 @@
 - fix:0으로 나누기 버그 수정
 3. build: 기능, 버그 수정 없이 단순 버전 업
 - build:1.0.1
+
+[개발환경 구성방법]
+1) WSL2 활성화
+2) Docker for windows 설치
+
+[docker compsoe 실행]
+- docker-compose.yml 설정 참고
+1) cmd실행하여 프로젝트 폴더로 이동 후 아래 명령어 실행
+ - docker-compose up -d
+
+[참고사항]
+1. _config/config.php에서 설정 변경하여 DB 접속주소, PG 결제시 실결제 or 테스트 결제로 변경 가능함 (54L부터 주석 참고)
