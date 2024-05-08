@@ -62,3 +62,6 @@
 - docker-compose.yml 설정 참고
 1) cmd실행하여 프로젝트 폴더로 이동 후 아래 명령어 실행
  - docker-compose up -d
+
+[참고사항]
+1. _config/config.php에서 설정 변경하여 DB 접속주소, PG 결제시 실결제 or 테스트 결제로 변경 가능함 (54L부터 주석 참고)
