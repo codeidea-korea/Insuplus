@@ -294,7 +294,7 @@ if ($_GET["mode"] == "excel" && getLen($ss_u_idx) > 0) {
 			}
 
 			$planCd = $ListRs["tol_plan_cd"];
-			$age = fn_ins_age($ListRs["tolj_o_isdn1"]);
+			$age = fn_ins_age_from_reg_date($tolj_o_isdn1, $tol_writedate);
 			$SQL2 = "SELECT plan_txt FROM tbl_board_plan_amount1 WHERE plan_cd ='" . $planCd . "' AND age = '" . $age . "' LIMIT 1";
 			$resultPlanTxt = $dbcon->query($SQL2);
 			$strPlanTxt = mysqli_fetch_row($resultPlanTxt);
