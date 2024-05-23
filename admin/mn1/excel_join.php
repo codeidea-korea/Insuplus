@@ -15,6 +15,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . "/_config/class.DB.php";
 include_once $_SERVER["DOCUMENT_ROOT"] . "/_config/Func.global.php";
 include_once $_SERVER["DOCUMENT_ROOT"] . "/_config/Func.plan.php";
 
+$log = new log();
 
 if ($_GET["mode"] == "excel" && getLen($ss_u_idx) > 0) {
 	$dbcon = new dbcon;
@@ -294,7 +295,12 @@ if ($_GET["mode"] == "excel" && getLen($ss_u_idx) > 0) {
 			}
 
 			$planCd = $ListRs["tol_plan_cd"];
-			$age = fn_ins_age_from_reg_date($tolj_o_isdn1, $tol_writedate);
+			try{
+				$age = fn_ins_age_from_reg_date($ListRs["tolj_o_isdn1"], $ListRs["tol_writedate"]);
+			} catch(Error  $e) {
+				$log->log_write("diff error : ".$ListRs["tol_orderno"]);
+				$age = 0;
+			}
 			$SQL2 = "SELECT plan_txt FROM tbl_board_plan_amount1 WHERE plan_cd ='" . $planCd . "' AND age = '" . $age . "' LIMIT 1";
 			$resultPlanTxt = $dbcon->query($SQL2);
 			$strPlanTxt = mysqli_fetch_row($resultPlanTxt);
@@ -330,6 +336,7 @@ if ($_GET["mode"] == "excel" && getLen($ss_u_idx) > 0) {
 			extract($ListRs);
 			unset($ListRs);
 			$p++;
+			
 			$objPHPExcel->setActiveSheetIndex(0)
 				->setCellValueExplicit("A{$p}", $tol_writedate, 																					PHPExcel_Cell_DataType::TYPE_STRING)
 				->setCellValueExplicit("B{$p}", $join_ch_name, 																						PHPExcel_Cell_DataType::TYPE_STRING)
@@ -341,7 +348,7 @@ if ($_GET["mode"] == "excel" && getLen($ss_u_idx) > 0) {
 				->setCellValueExplicit("H{$p}", $row_tel["telemedicine_cd"], 															PHPExcel_Cell_DataType::TYPE_STRING)
 				->setCellValueExplicit("I{$p}", $tolj_o_name, 																						PHPExcel_Cell_DataType::TYPE_STRING)
 				->setCellValueExplicit("J{$p}", $birth_date . "-" . $tolj_o_isdn2, 												PHPExcel_Cell_DataType::TYPE_STRING)
-				->setCellValueExplicit("K{$p}", fn_ins_age_from_reg_date($tolj_o_isdn1, $tol_writedate), 	PHPExcel_Cell_DataType::TYPE_STRING)
+				->setCellValueExplicit("K{$p}", $age, 																										PHPExcel_Cell_DataType::TYPE_STRING)
 				->setCellValueExplicit("L{$p}", $tolj_o_isdn1, 																						PHPExcel_Cell_DataType::TYPE_STRING)
 				->setCellValueExplicit("M{$p}", $gender_name, 																						PHPExcel_Cell_DataType::TYPE_STRING)
 				->setCellValueExplicit("N{$p}", $tol_s_date,							 																PHPExcel_Cell_DataType::TYPE_STRING)
