@@ -128,6 +128,30 @@ function fn_ins_age($birthday){
 	return $ins_age;
 }
 
+// 보험나이 계산
+function fn_ins_age_from_reg_date($birthday, $regDate){
+	$datetime1 = date_create($birthday);
+	$datetime2 = date_create($regDate);
+
+
+	//$interval= date_diff($datetime1, $datetime2);
+	$interval = $datetime1->diff($datetime2);
+	$period_dt_y = $interval->format('%y');
+	$period_dt_m = $interval->format('%m');
+	$period_dt_d = $interval->format('%d');
+
+	
+	//if ($period_dt_m>=6 && $period_dt_d>0 ){ //TODO 확인필요
+	if ($period_dt_m>=6 ){ 
+		$plus_age = 1;
+	}else{
+		$plus_age = 0;
+	}
+	
+	$ins_age = $period_dt_y + $plus_age;
+	return $ins_age;
+}
+
 //단기 가격 구간 설정
 function fnShortTermSection($period) {
 	if ($period>0 && $period<=2){
