@@ -77,7 +77,7 @@ if (strlen($search_date_s) > 0) $query_where .= " and " . $search_date_txt . " >
 if (strlen($search_date_e) > 0) $query_where .= " and " . $search_date_txt . " <= '" . $search_date_e . " 23:59:59' ";
 
 
-if (strlen($search_orderby) == 0) $search_orderby .= " writedate ";
+if (strlen($search_orderby) == 0) $search_orderby .= " A.writedate ";
 if (strlen($search_sort) == 0) $search_sort .= "desc";
 
 $parameter = "&pr_name=" . $pr_name . "&ins_name=" . $ins_name . "&plan_name=" . $plan_name . "&chk_service=" . $chk_service . "&search=" . $search .
@@ -90,9 +90,67 @@ $parameter = "&pr_name=" . $pr_name . "&ins_name=" . $ins_name . "&plan_name=" .
 #### 검색 설정 End
 
 // 쿼리설정
-$field			 = " A.*, B.group_join_type, D.guarantee1_ins_seq, ";
-$field			.= "(select partnership_name from tbl_board_partner C where C.seq = A.join_ch) as partnership_name";
-
+$field	= " A.seq
+								,  A.orderno
+								,  A.pr_name
+								,  A.pr_cd
+								,  A.ins_name
+								,  A.ins_cd
+								,  A.plan_name
+								,  A.plan_cd
+								,  A.agree_cd
+								,  A.service_name
+								,  A.service_cd
+								,  A.rule_site_cd
+								,  A.rule_group_cd
+								,  A.rule_privacy_cd
+								,  A.ins_file_cd
+								,  A.service_file_cd
+								,  A.s_date
+								,  A.s_date_time
+								,  A.e_date
+								,  A.e_date_time
+								,  A.ins_period
+								,  A.chk_p
+								,  A.chk_service
+								,  A.o_name
+								,  A.o_email1
+								,  A.o_email2
+								,  A.join_cnt
+								,  A.join_ch
+								,  A.purpose
+								,  A.join_nation_cd
+								,  A.join_nation_name
+								,  A.sale_gubun
+								,  A.sale_discount
+								,  A.cp_cd
+								,  A.recommend_cd
+								,  A.order_step
+								,  A.ins_amount
+								,  A.service_amount
+								,  A.s_amount
+								,  A.cp_amount
+								,  A.vat_amount
+								,  A.t_amount
+								,  A.cancle_vat_amount
+								,  A.cancle_amount
+								,  A.writedate
+								,  A.cancle_date
+								,  A.refund_date
+								,  A.refund_file
+								,  A.refund_i_amount
+								,  A.refund_s_amount
+								,  A.pg_id
+								,  A.pg_pay_type
+								,  A.pg_isdn
+								,  A.pay_name
+								,  A.pg_in_date
+								,  A.o_memo
+								,  A.cancle_con
+								,  A.group_join_id
+								, B.group_join_type
+								, D.guarantee1_ins_seq
+								, (select partnership_name from tbl_board_partner C where C.seq = A.join_ch) as partnership_name";
 $table			= " tbl_order_list A left join tbl_order_list_join B ON (A.orderno=B.orderno and A.o_name = B.o_name and B.chk_join = 'N') left join tbl_board_plan D on A.plan_cd = D.seq";
 $where			= $query_where;
 $orderby			= $search_orderby . " " . $search_sort;
@@ -304,9 +362,9 @@ window.addEventListener('load', ()=>{
 						<td>
 							<select name="search_date_txt">
 								<option value="A.writedate" <? if ($search_date_txt == "A.writedate") { ?>selected<? } ?>>결제일</option>
-								<option value="s_date" <? if ($search_date_txt == "s_date") { ?>selected<? } ?>>보험개시일</option>
-								<option value="e_date" <? if ($search_date_txt == "e_date") { ?>selected<? } ?>>보험종료일</option>
-								<option value="cancle_date" <? if ($search_date_txt == "cancle_date") { ?>selected<? } ?>>취소일</option>
+								<option value="A.s_date" <? if ($search_date_txt == "A.s_date") { ?>selected<? } ?>>보험개시일</option>
+								<option value="A.e_date" <? if ($search_date_txt == "A.e_date") { ?>selected<? } ?>>보험종료일</option>
+								<option value="A.cancle_date" <? if ($search_date_txt == "A.cancle_date") { ?>selected<? } ?>>취소일</option>
 							</select>
 							<input type="text" name="search_date_s" class="calendar w100 ml10" value="<?= $search_date_s ?>" />
 							~ <input type="text" name="search_date_e" class="calendar w100" value="<?= $search_date_e ?>" />
@@ -385,15 +443,9 @@ window.addEventListener('load', ()=>{
 						<th>가입채널</th>
 						<th>결제상태</th>
 						<th>상품가</th>
-						<th class="btn">결제금액
-							<a href="?" class="up">▲</a>
-							<a href="#" class="down">▼</a>
-						</th>
+						<th>결제금액</th>
 						<th>가입일</th>
-						<th class="btn">취소일
-							<a href="#" class="up">▲</a>
-							<a href="#" class="down">▼</a>
-						</th>
+						<th>취소일</th>
 					</tr>
 					<? if ($total_record == 0) { ?>
 						<tr onClick="view_go()" class="click">
@@ -426,7 +478,11 @@ window.addEventListener('load', ()=>{
 								<td class="r"><?= number_format($ins_amount + $service_amount) ?></td>
 								<td class="r"><?= number_format($t_amount) ?></td>
 								<td><?= substr($writedate, 0, 10) ?></td>
-								<td><?= substr($cancledate, 0, 10) ?></td>
+								<td>
+								<? if($cancle_date != "0000-00-00 00:00:00"){
+									echo substr($cancle_date, 0, 10);
+								} ?>
+								</td>
 							</tr>
 					<?
 							$no = $no - 1;
