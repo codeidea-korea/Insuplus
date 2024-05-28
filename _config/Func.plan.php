@@ -327,7 +327,7 @@ function fn_new_ins_service_amt($period,$chk_p,$plan_cd,$age,$gender,$period_day
 		$sel_row = $dbcon -> fetch_row($result_sel);
 		$ins_amt = $sel_row[0];
 	}
-	return $ins_amt;
+	return is_null($ins_amt) ? 0 : $ins_amt;
 }
 
 // 플랜 개별 보장금액 검색
