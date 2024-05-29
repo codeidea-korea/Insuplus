@@ -73,12 +73,26 @@ if (is_null($group_join_type) || $group_join_type === "B2C") {
 }
 if (strlen($client_id) > 0) $query_where .= "and 1 = (select COUNT(*) from tbl_order_group_join_list where group_join_id = A.group_join_id and client_id = " . $client_id . ")";
 
-if (strlen($search_date_s) > 0) $query_where .= " and " . $search_date_txt . " >= '" . $search_date_s . " 00:00:00' ";
-if (strlen($search_date_e) > 0) $query_where .= " and " . $search_date_txt . " <= '" . $search_date_e . " 23:59:59' ";
+if (strlen($search_date_s) > 0) {
+  if($search_date_txt == 'A.s_date' || $search_date_txt == 'A.e_date') {
+    $query_where .= " and " . $search_date_txt . " >= '" . $search_date_s . "' ";
+  } else {
+    $query_where .= " and " . $search_date_txt . " >= '" . $search_date_s . " 00:00:00' ";
+  }
+}
+if (strlen($search_date_e) > 0) {
+  if($search_date_txt == 'A.s_date' || $search_date_txt == 'A.e_date') {
+    $query_where .= " and " . $search_date_txt . " <= '" . $search_date_e . "' ";
+  } else {
+    $query_where .= " and " . $search_date_txt . " <= '" . $search_date_e . " 23:59:59' ";
+  }
+}
 
-
-if (strlen($search_orderby) == 0) $search_orderby .= " A.writedate ";
-if (strlen($search_sort) == 0) $search_sort .= "desc";
+if($search_date_txt == 'A.s_date' || $search_date_txt == 'A.e_date') {
+  $search_orderby = $search_date_txt . " asc, " . $search_date_txt . "_time asc";
+} else {
+  $search_orderby = " A.seq desc";
+}
 
 $parameter = "&pr_name=" . $pr_name . "&ins_name=" . $ins_name . "&plan_name=" . $plan_name . "&chk_service=" . $chk_service . "&search=" . $search .
 	"&search_text=" . $search_text . "&search_orderby=" . $search_orderby . "&search_sort=" . $search_sort . "&num_per_page=" . $num_per_page .
@@ -153,7 +167,7 @@ $field	= " A.seq
 								, (select partnership_name from tbl_board_partner C where C.seq = A.join_ch) as partnership_name";
 $table			= " tbl_order_list A left join tbl_order_list_join B ON (A.orderno=B.orderno and A.o_name = B.o_name and B.chk_join = 'N') left join tbl_board_plan D on A.plan_cd = D.seq";
 $where			= $query_where;
-$orderby			= $search_orderby . " " . $search_sort;
+$orderby      = $search_orderby;
 $limit				= $first . ", " . $num_per_page;
 
 $ArrRS			= $dbcon->getList($field, $table, $where, $orderby, $limit);

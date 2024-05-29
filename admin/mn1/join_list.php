@@ -41,6 +41,7 @@ $search_sort      = REQSTR($search_sort, "");
 $search_date_txt    = REQSTR($search_date_txt, "");
 $search_date_s      = REQSTR($search_date_s, "");
 $search_date_e      = REQSTR($search_date_e, "");
+$search_ins_date_order = "";
 
 // 2023-11-08 added
 $category_cd      = REQSTR($category_cd  , "");
@@ -71,13 +72,26 @@ if (is_null($group_join_type) || $group_join_type === "B2C") {
 }
 if (strlen($client_id) > 0) $query_where .= "and 1 = (select COUNT(*) from tbl_order_group_join_list where group_join_id = A.group_join_id and client_id = " . $client_id . ")";
 
+if (strlen($search_date_s) > 0) {
+  if($search_date_txt == 'A.s_date' || $search_date_txt == 'A.e_date') {
+    $query_where .= " and " . $search_date_txt . " >= '" . $search_date_s . "' ";
+  } else {
+    $query_where .= " and " . $search_date_txt . " >= '" . $search_date_s . " 00:00:00' ";
+  }
+}
+if (strlen($search_date_e) > 0) {
+  if($search_date_txt == 'A.s_date' || $search_date_txt == 'A.e_date') {
+    $query_where .= " and " . $search_date_txt . " <= '" . $search_date_e . "' ";
+  } else {
+    $query_where .= " and " . $search_date_txt . " <= '" . $search_date_e . " 23:59:59' ";
+  }
+}
 
-if (strlen($search_date_s) > 0) $query_where .= " and " . $search_date_txt . " >= '" . $search_date_s . " 00:00:00' ";
-if (strlen($search_date_e) > 0) $query_where .= " and " . $search_date_txt . " <= '" . $search_date_e . " 23:59:59' ";
-
-
-if (strlen($search_orderby) == 0) $search_orderby .= " A.seq ";
-if (strlen($search_sort) == 0) $search_sort .= "desc";
+if($search_date_txt == 'A.s_date' || $search_date_txt == 'A.e_date') {
+  $search_orderby = $search_date_txt . " asc, " . $search_date_txt . "_time asc";
+} else {
+  $search_orderby = " A.seq desc";
+}
 
 $parameter = "&pr_name=" . $pr_name . "&ins_name=" . $ins_name . "&plan_name=" . $plan_name . "&chk_service=" . $chk_service .
   "&search=" . $search . "&search_text=" . $search_text . "&search_orderby=" . $search_orderby .
@@ -94,7 +108,7 @@ $field         = " A.*, B.*, C.partnership_name as partnership_name, D.guarantee
 
 $table      = " tbl_order_list A inner join tbl_order_list_join B on A.orderno=B.orderno left join tbl_board_partner C ON A.join_ch = C.seq left join tbl_board_plan D on A.plan_cd = D.seq ";
 $where      = $query_where;
-$orderby      = $search_orderby . " " . $search_sort;
+$orderby      = $search_orderby;
 $limit        = $first . ", " . $num_per_page;
 
 $ArrRS      = $dbcon->getList($field, $table, $where, $orderby, $limit);
