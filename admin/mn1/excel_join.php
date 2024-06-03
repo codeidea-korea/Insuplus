@@ -104,10 +104,28 @@ if ($_GET["mode"] == "excel" && getLen($ss_u_idx) > 0) {
 		}
 	}
 
-	if (strlen($search_date_s) > 0) $query_where .= " and " . $search_date_txt . " >= '" . $search_date_s . " 00:00:00' ";
-	if (strlen($search_date_e) > 0) $query_where .= " and " . $search_date_txt . " <= '" . $search_date_e . " 23:59:59' ";
+	if (strlen($search_date_s) > 0) {
+		if($search_date_txt == 'tol_s_date' || $search_date_txt == 'tol_e_date') {
+			$query_where .= " and " . $search_date_txt . " >= '" . $search_date_s . "' ";
+		} else {
+			$query_where .= " and " . $search_date_txt . " >= '" . $search_date_s . " 00:00:00' ";
+		}
+	}
+	if (strlen($search_date_e) > 0) {
+		if($search_date_txt == 'tol_s_date' || $search_date_txt == 'tol_e_date') {
+			$query_where .= " and " . $search_date_txt . " <= '" . $search_date_e . "' ";
+		} else {
+			$query_where .= " and " . $search_date_txt . " <= '" . $search_date_e . " 23:59:59' ";
+		}
+	}
+	
+	if($search_date_txt == 'tol_s_date' || $search_date_txt == 'tol_e_date') {
+		$orderby = " ORDER BY " . $search_date_txt . " asc, " . $search_date_txt . "_time asc";
+	} else {
+		$orderby = "ORDER BY tol_seq desc";
+	}
 
-	$orderby = " ORDER BY tol_seq DESC ";
+	// $orderby = " ORDER BY tol_seq DESC ";
 	$ArrListRs = array();
 	$SQL = " SELECT COUNT(a.tol_seq)
 	FROM (
@@ -311,12 +329,12 @@ if ($_GET["mode"] == "excel" && getLen($ss_u_idx) > 0) {
 
 			if ($ListRs["tolj_cancle_amount"] > 0) {
 				$refund_ins_amount = $ListRs["tolj_join_amount"] - $ListRs["tolj_refund_i_amount"];
-				$refund_servie_amount = $ListRs["tol_service_amount"] - $ListRs["tolj_refund_s_amount"];
+				$refund_servie_amount = $ListRs["tolj_join_service"] - $ListRs["tolj_refund_s_amount"];
 				$refund_amount = $refund_ins_amount + $refund_servie_amount - $ListRs["tolj_s_amount"];
 
-				if ($ListRs["tol_join_cnt"] > 0) {  // 동반인이 있을 경우 동반인 수 만큼 서비스료를 나눈다.
-					$refund_servie_amount = $refund_servie_amount / $ListRs["tol_join_cnt"];
-				}
+				// if ($ListRs["tol_join_cnt"] > 0) {  // 동반인이 있을 경우 동반인 수 만큼 서비스료를 나눈다.
+				// 	$refund_servie_amount = $refund_servie_amount / $ListRs["tol_join_cnt"];
+				// }
 			}
 
 			$SQL_TEL = "select * from tbl_telemedicine_cd_list where join_orderno = '" . $ListRs["tol_orderno"] . "'";
@@ -373,7 +391,7 @@ if ($_GET["mode"] == "excel" && getLen($ss_u_idx) > 0) {
 				->setCellValueExplicit("AG{$p}", $group_join_type,																				PHPExcel_Cell_DataType::TYPE_STRING)
 				->setCellValueExplicit("AH{$p}", $client_name,																						PHPExcel_Cell_DataType::TYPE_STRING)
 				->setCellValueExplicit("AI{$p}", $tol_refund_date,																				PHPExcel_Cell_DataType::TYPE_STRING)
-				->setCellValueExplicit("AJ{$p}", $tol_service_amount,																			PHPExcel_Cell_DataType::TYPE_STRING)
+				->setCellValueExplicit("AJ{$p}", $tolj_join_service,																			PHPExcel_Cell_DataType::TYPE_STRING)
 				->setCellValueExplicit("AK{$p}", $tol_o_memo,																							PHPExcel_Cell_DataType::TYPE_STRING);
 			$objPHPExcel->setActiveSheetIndex(0)->getStyle("Q{$p}")->getNumberFormat()->setFormatCode('#,##0');
 			$objPHPExcel->setActiveSheetIndex(0)->getStyle("Y{$p}")->getNumberFormat()->setFormatCode('#,##0');
