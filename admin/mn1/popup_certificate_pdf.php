@@ -272,11 +272,21 @@ foreach($arr_join_seq as $join_row){
     }
     ///////////////////////////////////////////////////////////////////////////
     $plan_guarantee_seq = array();
+    $arrayGORow = array();
     $plan_guarantee_all = getPlanGuarantee($row_r["pr_cd"], $row_r["plan_cd"]);
     $plan_sign_image = getPlanInsurance($row_r["plan_cd"]);
 
     foreach($plan_guarantee_all as $ell){
       if (!in_array($ell["guarantee_seq"], $plan_guarantee_seq)){
+        if($ell["guarantee_opt_seq"] == "" && $row_product["ext4"]){
+          $SQL_GO = "select * from tbl_board_guarantee_opt where list_seq=".$row_product["ext4"]."";
+          $RS_GO = $dbcon -> query($SQL_GO);
+          $cnt=0;
+          while($row_g_opt = $dbcon -> fetch_array($RS_GO)){
+            $arrayGORow[$cnt] = $row_g_opt["service_name_en"];
+            $cnt++;
+          }
+        }
         $plan_guarantee_seq[] = $ell["guarantee_seq"];
       }
     }
@@ -298,15 +308,26 @@ foreach($arr_join_seq as $join_row){
             $G_TABLE .= "    <th style='background-color: #f6f6f6;padding:5px 15px;font-size:13px;font-weight:400;text-align:center;border-bottom:2px solid #595959;'>Coverage Limit</th></tr>";
             $G_TABLE .= "</thead><tbody>";
   
+            $cnt=0;
             foreach($plan_guarantee_all as $p_guarantee){
               if ($p_guarantee["guarantee_seq"] == $guarantee_seq){
-                if ($p_guarantee["g_amount_certificate"]) {
-                  $G_TABLE .= "<tr><th width='350px' style='background-color: #f6f6f6;padding:5px 15px;border-bottom:1px solid #d6d6d6;font-size:13px;font-weight:400;text-align:center;'>";
-                  $G_TABLE .= $p_guarantee["service_name_en"] ;
-                  $G_TABLE .= "</th><td style='background-color: #fff;padding:5px 15px;border-bottom:1px solid #d6d6d6;font-size:13px;font-weight:400;text-align:center;'>" ;
-                  $G_TABLE .= $p_guarantee["g_amount_certificate"] . "</td></tr>";
+                if(count($arrayGORow) > 0) {
+                  if ($p_guarantee["g_amount_certificate"]) {
+                    $G_TABLE .= "<tr><th width='350px' style='background-color: #f6f6f6;padding:5px 15px;border-bottom:1px solid #d6d6d6;font-size:13px;font-weight:400;text-align:center;'>";
+                    $G_TABLE .= $arrayGORow[$cnt];
+                    $G_TABLE .= "</th><td style='background-color: #fff;padding:5px 15px;border-bottom:1px solid #d6d6d6;font-size:13px;font-weight:400;text-align:center;'>" ;
+                    $G_TABLE .= $p_guarantee["g_amount_certificate"] . "</td></tr>";
+                  }
+                } else {
+                  if ($p_guarantee["g_amount_certificate"]) {
+                    $G_TABLE .= "<tr><th width='350px' style='background-color: #f6f6f6;padding:5px 15px;border-bottom:1px solid #d6d6d6;font-size:13px;font-weight:400;text-align:center;'>";
+                    $G_TABLE .= $p_guarantee["service_name_en"] ;
+                    $G_TABLE .= "</th><td style='background-color: #fff;padding:5px 15px;border-bottom:1px solid #d6d6d6;font-size:13px;font-weight:400;text-align:center;'>" ;
+                    $G_TABLE .= $p_guarantee["g_amount_certificate"] . "</td></tr>";
+                  }
                 }
               }
+              $cnt++;
             }
   
             $G_TABLE .= "</tbody></table>";
@@ -489,11 +510,21 @@ foreach($arr_join_seq as $join_row){
     // $G_TABLE 변수에 모든 화면을 구현하고 $ins_noti, $ins_sign_img 변수는 "" 로 만듬
     $G_TABLE = "";
     $plan_guarantee_seq = array();
+    $arrayGORow = array();
     $plan_guarantee_all = getPlanGuarantee($row_r["pr_cd"], $row_r["plan_cd"]);
     $plan_sign_image = getPlanInsurance($row_r["plan_cd"]);
 
     foreach($plan_guarantee_all as $ell){
       if (!in_array($ell["guarantee_seq"], $plan_guarantee_seq)){
+        if($ell["guarantee_opt_seq"] == "" && $row_product["ext4"]){
+          $SQL_GO = "select * from tbl_board_guarantee_opt where list_seq=".$row_product["ext4"]."";
+          $RS_GO = $dbcon -> query($SQL_GO);
+          $cnt=0;
+          while($row_g_opt = $dbcon -> fetch_array($RS_GO)){
+            $arrayGORow[$cnt] = $row_g_opt["service_name_en"];
+            $cnt++;
+          }
+        }
         $plan_guarantee_seq[] = $ell["guarantee_seq"];
       }
     }
@@ -518,15 +549,26 @@ foreach($arr_join_seq as $join_row){
             $G_TABLE .= "<th style='background-color: #fff;padding:5px 15px;font-size:13px;font-weight:400;text-align:center;border-bottom:2px solid #595959;'>Coverage Limit</th>";
             $G_TABLE .= "</tr></thead><tbody>";
     
+            $cnt=0;
             foreach($plan_guarantee_all as $p_guarantee){
               if ($p_guarantee["guarantee_seq"] == $guarantee_seq){
-                if ($p_guarantee["g_amount_certificate"] && $p_guarantee["g_amount_certificate"] != "NOT-AVAILABLE") {
-                  $G_TABLE .= "<tr><th width='350px' style='background-color: #f6f6f6;padding:5px 15px;border-bottom:1px solid #d6d6d6;font-size:13px;font-weight:400;text-align:center;'>";
-                  $G_TABLE .= $p_guarantee["service_name_en"] ;
-                  $G_TABLE .= "</th><td style='background-color: #fff;padding:5px 15px;border-bottom:1px solid #d6d6d6;font-size:13px;font-weight:400;text-align:center;'>" ;
-                  $G_TABLE .= $p_guarantee["g_amount_certificate"] . "</td></tr>";
+                if(count($arrayGORow) > 0) {
+                  if ($p_guarantee["g_amount_certificate"] && $p_guarantee["g_amount_certificate"] != "NOT-AVAILABLE") {
+                    $G_TABLE .= "<tr><th width='350px' style='background-color: #f6f6f6;padding:5px 15px;border-bottom:1px solid #d6d6d6;font-size:13px;font-weight:400;text-align:center;'>";
+                    $G_TABLE .= $arrayGORow[$cnt];
+                    $G_TABLE .= "</th><td style='background-color: #fff;padding:5px 15px;border-bottom:1px solid #d6d6d6;font-size:13px;font-weight:400;text-align:center;'>" ;
+                    $G_TABLE .= $p_guarantee["g_amount_certificate"] . "</td></tr>";
+                  }
+                } else {
+                  if ($p_guarantee["g_amount_certificate"] && $p_guarantee["g_amount_certificate"] != "NOT-AVAILABLE") {
+                    $G_TABLE .= "<tr><th width='350px' style='background-color: #f6f6f6;padding:5px 15px;border-bottom:1px solid #d6d6d6;font-size:13px;font-weight:400;text-align:center;'>";
+                    $G_TABLE .= $p_guarantee["service_name_en"] ;
+                    $G_TABLE .= "</th><td style='background-color: #fff;padding:5px 15px;border-bottom:1px solid #d6d6d6;font-size:13px;font-weight:400;text-align:center;'>" ;
+                    $G_TABLE .= $p_guarantee["g_amount_certificate"] . "</td></tr>";
+                  }
                 }
               }
+              $cnt++;
             }
     
             $G_TABLE .= "</tbody></table>";
