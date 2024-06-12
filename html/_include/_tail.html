@@ -286,3 +286,28 @@
         </div>
     </div>
 </div>
+<!-- main 팝업 처리 시작 20240612 추가 -->
+<div class="popup-box">
+    <div class="box" data-name="main" style="max-width: 600px">
+        <div class="popup-head">
+            <h3></h3>
+            <a href="javascript:;" class="close" onclick="popupClose();">닫기</a>
+        </div>
+        <div class="popup-body">
+            <div class="popup-body-text" style="display: flex; align-items: center; justify-content: center;">
+                <a href="javascript:movePage();">
+                    <img src="./noti-20240612.png" style="width: 100%;"/>
+                </a>
+            </div>
+            <div class="popup-body-button">
+                <a href="javascript:;" onclick="movePage();">이동</a>
+            </div>
+            <script>
+                function movePage(){
+                    window.location.href="https://insuplus.co.kr/html/customer/event_list.php?mode=view&alliance_code=clg3aGVNU3A3QnhBRkc4R3ZsYVZoUT09&seq=80";
+                }
+            </script>
+        </div>
+    </div>
+</div>
+<!-- main 팝업 처리 종료 -->
