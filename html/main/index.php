@@ -303,6 +303,10 @@ $_SESSION["orderno"] = "";
 			// }
 		  /////////////////////////////////////////////////////////////////////////
 
+			$( document ).ready(function() { //임시팝업
+				popupOpen('main');
+			});
+
 			function view_go_board(seq, id, name) {
 				location.href = "../customer/" + name + ".php?mode=view&seq=" + seq + "&page=1&bc_id=" + id + "&search_category=all&num_per_page=10&page_per_block=10&search=all&search_text=&nation=&pr_cd=&search_ext1=&search_ext1=&search_ext1=&search_ext1=&search_ext1=&search_ext1=&search_ext1=&search_ext1=&search_ext1=&search_ext1=";
 			}
@@ -313,10 +317,6 @@ $_SESSION["orderno"] = "";
 
 			function open_new_page(url) {
 				var ret = window.open(url, "_blank");
-			}
-
-			function close() {
-				$('#testModal').modal("hide");
 			}
 
 			function fnEvent(url) { //링크 이동
