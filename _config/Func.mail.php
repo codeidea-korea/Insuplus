@@ -13,7 +13,7 @@ function mailJoinSend($param,$email) {
 
 	$body = "<section class='insurplus_wrap' style='position:relative;text-align:center;width: 760px; background:#fff;padding:0px;margin:10px auto'>";
 	$body .= "<div class='top_image'>";
-	$body .= "<img src='http://www.insuplus.co.kr/html/images/sub-register-result-banner.png' class='pc-image' /></div>";
+	$body .= "<img src='http://www.insuplus.co.kr/html/images/sub-register-result-banner.jpg' class='pc-image' /></div>";
 	$body .= "<section class='insurplus_content' style='padding:38px;background-color: #fff;border-radius: 10px;border: solid 1px #e3e3e3;box-shadow: 0px 3px 5px 3px rgba(0,0,0,0.05);'>";
 	$body .= "<h5 class='text-black title' style='color:#000; font-size:16px; color:#000;line-height:1.5; text-align:left;margin:0px 0px 16px 0'>가입정보</h5>";
 	$body .= "<table class='table-insurplus' style='width: 100%;border-collapse: collapse;border-top:solid 2px #595959;border-bottom:solid 2px #595959;'><tbody>";
