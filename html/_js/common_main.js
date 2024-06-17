@@ -13,13 +13,22 @@ function menuClose() {
 function popupOpen(type) {
   var box = $('.popup-box .box[data-name=' + type + ']');
 
-  $('html, body, .popup-box').addClass('fixed');
+  // 모든 팝업에서 fixed 클래스를 제거합니다.
+  $('html, body').removeClass('fixed');
+  $('.popup-box').removeClass('fixed');
+
+  // 현재 열리는 팝업의 부모 요소에 fixed 클래스를 추가합니다.
+  $('html, body').addClass('fixed');
+  box.closest('.popup-box').addClass('fixed');
+  
+  // $('html, body, .popup-box').addClass('fixed');
   box.show();
   box.siblings().hide();
 }
 
 function popupClose() {
   $('html, body, .popup-box').removeClass('fixed');
+  $('.popup-box .box').hide();
 }
 
 $(document).on('click', '.tab-box a', function () {
