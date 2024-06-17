@@ -70,6 +70,9 @@ if ($_GET["mode"] == "excel" && getLen($ss_u_idx) > 0) {
 
 	$search_date_txt					= REQSTR($_GET["search_date_txt"], "");
 
+	$category_cd      = REQSTR($_GET["category_cd"], "");
+	$ins_plan_name    = REQSTR($_GET["ins_plan_name"], "");
+
 	if ($search_date_txt == "A.writedate") {
 		$search_date_txt = "tol_writedate";
 	} else if ($search_date_txt == "A.s_date") {
@@ -104,6 +107,10 @@ if ($_GET["mode"] == "excel" && getLen($ss_u_idx) > 0) {
 		}
 	}
 
+	
+	if (strlen($category_cd) > 0) $query_where .= " and tol_pr_cd in (select product_seq from tbl_board_product_category where category_code = '" . $category_cd . "') ";
+	if (strlen($ins_plan_name) > 0) $query_where .= " and tol_plan_cd in (select seq from tbl_board_plan where ins_plan_name like '%" . $ins_plan_name . "%') ";
+
 	if (strlen($search_date_s) > 0) {
 		if($search_date_txt == 'tol_s_date' || $search_date_txt == 'tol_e_date') {
 			$query_where .= " and " . $search_date_txt . " >= '" . $search_date_s . "' ";
@@ -136,6 +143,7 @@ if ($_GET["mode"] == "excel" && getLen($ss_u_idx) > 0) {
 			tol.ins_name AS tol_ins_name,
 			tol.pr_name AS tol_pr_name, 
 			tol.plan_name AS tol_plan_name, 
+			tol.pr_cd AS tol_pr_cd,
 			tol.plan_cd AS tol_plan_cd,
 			tolj.o_name AS tolj_o_name,
 			tolj.o_isdn1 AS tolj_o_isdn1,
@@ -181,7 +189,7 @@ if ($_GET["mode"] == "excel" && getLen($ss_u_idx) > 0) {
 	LEFT OUTER JOIN tbl_board_partner tbp ON (a.tol_join_ch= tbp.seq)
 	LEFT OUTER JOIN tbl_order_group_join_list togjl ON (a.tolj_group_join_id=togjl.group_join_id)
 	WHERE 1=1 ";
-	$ArrListRs[0] = $dbcon->getCount($SQL . $query_where . $orderby);
+ 	$ArrListRs[0] = $dbcon->getCount($SQL . $query_where . $orderby);
 
 
 	$SQL = " SELECT a.*, tbe.coupon_name AS tbe_coupon_name, tbrc.recommendation_code AS tbrc_recom_name, tbp.partnership_name AS join_ch_name, togjl.o_name AS togjl_client_name
@@ -193,6 +201,7 @@ if ($_GET["mode"] == "excel" && getLen($ss_u_idx) > 0) {
 			tol.ins_name AS tol_ins_name,
 			tol.pr_name AS tol_pr_name, 
 			tol.plan_name AS tol_plan_name, 
+			tol.pr_cd AS tol_pr_cd,
 			tol.plan_cd AS tol_plan_cd,
 			tolj.o_name AS tolj_o_name,
 			tolj.o_isdn1 AS tolj_o_isdn1,
@@ -319,7 +328,7 @@ if ($_GET["mode"] == "excel" && getLen($ss_u_idx) > 0) {
 				$log->log_write("diff error : ".$ListRs["tol_orderno"]);
 				$age = 0;
 			}
-			$SQL2 = "SELECT plan_txt FROM tbl_board_plan_amount1 WHERE plan_cd ='" . $planCd . "' AND age = '" . $age . "' LIMIT 1";
+			$SQL2 = "SELECT plan_txt FROM tbl_board_plan_amount1 WHERE plan_cd ='" . $planCd . "' AND age = '" . $age . "' and gender = '". $gender_name ."자' LIMIT 1";
 			$resultPlanTxt = $dbcon->query($SQL2);
 			$strPlanTxt = mysqli_fetch_row($resultPlanTxt);
 
