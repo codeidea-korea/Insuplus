@@ -302,9 +302,22 @@ $_SESSION["orderno"] = "";
 			// 	pcDiv.style.backgroundImage = `url('${bannerPath}${pcBannerImg}')`;
 			// }
 		  /////////////////////////////////////////////////////////////////////////
-
+			<? $currentDate = date('Y-m-d H:i:s'); ?>
 			$( document ).ready(function() { //임시팝업
-				popupOpen('main');
+				// popupOpen('main');
+				// 현재 날짜를 가져옵니다.
+				let currentDate = new Date("<?= $currentDate; ?>");
+
+				// 특정 기간을 설정합니다. (예: 2024년 6월 20일 ~ 2024년 6월 30일)
+				let startDate = new Date('2024-06-18 09:00');
+				let endDate = new Date('2024-06-19 23:50');
+
+				// 조건에 따라 팝업을 띄웁니다.
+				if (currentDate >= startDate && currentDate <= endDate) {
+					popupOpen('special');
+				} else {
+					popupOpen('main');
+				}
 			});
 
 			function view_go_board(seq, id, name) {
