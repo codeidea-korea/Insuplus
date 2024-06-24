@@ -1250,21 +1250,58 @@ include '../_include/_top.html';
     const cHour = cDate.getHours() + 1;
     const dDate = new Date(event.target.value);
     const oneDay = 24 * 60 * 60 * 1000;
-    const fourDays = 4 * oneDay;
-    const ninetyDays = 90 * oneDay;
-    const oneYear = 365 * oneDay;
+    const ninetyDays = 89 * oneDay;
+    const oneYear = 364 * oneDay;
     const arrivalElement = document.getElementById('A-arrival');
+
+    // 모든 라디오 버튼을 선택합니다.
+    const radioButtons = document.querySelectorAll('input[name="depth2"]');
+
+    // 선택된 라디오 버튼을 찾습니다.
+    let selectedRadioButton;
+    for (const radioButton of radioButtons) {
+      if (radioButton.checked) {
+        selectedRadioButton = radioButton;
+        break;
+      }
+    }
 
     arrivalElement.value = '';
     if (EHDObject.isLongterm() === 1) {
       arrivalElement.max = EHDObject.getFormatedDate(new Date(dDate.getTime() + oneYear));
       if (!arrivalElement.value) {
-        arrivalElement.value = EHDObject.getFormatedDate(new Date(dDate.getTime() + ninetyDays));
+        if (selectedRadioButton) {
+          const dataName = selectedRadioButton.getAttribute('data-name');
+          let returnDate;
+          switch (dataName) {
+            case '워킹홀리데이':
+            case '장기체류':
+              returnDate = new Date(dDate);
+              returnDate.setFullYear(dDate.getFullYear() + 1);
+              returnDate.setDate(dDate.getDate() - 1);
+              if (returnDate.getDate() === 0) {
+                returnDate.setMonth(returnDate.getMonth(), 0); // 말일인 경우 말일 - 1
+              }
+              arrivalElement.value = EHDObject.getFormatedDate(returnDate);
+              break;
+            case '유학':
+              returnDate = new Date(dDate);
+              returnDate.setMonth(dDate.getMonth() + 6);
+              returnDate.setDate(dDate.getDate() - 1);
+              if (returnDate.getDate() === 0) {
+                returnDate.setMonth(returnDate.getMonth(), 0); // 말일인 경우 말일 - 1
+              }
+              arrivalElement.value = EHDObject.getFormatedDate(returnDate);
+              break;
+            default:
+              arrivalElement.value = EHDObject.getFormatedDate(new Date(dDate.getTime() + ninetyDays)); // 기본: 90일 후
+          }
+        }
       }
     } else {
       arrivalElement.max = EHDObject.getFormatedDate(new Date(dDate.getTime() + ninetyDays));
       if (!arrivalElement.value) {
-        arrivalElement.value = EHDObject.getFormatedDate(new Date(dDate.getTime() + fourDays));
+        arrivalElement.value = EHDObject.getFormatedDate(new Date(dDate.getTime() + 4 * oneDay));
       }
 
       // 단기상품의 경우 현재시간 + 1 시간 부터 선택가능하도록 설정
