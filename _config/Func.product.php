@@ -801,9 +801,10 @@
       ";
     } else if ($apiCode == 'getProductCountry'){
       $sql = "
-        select idx, pr_seq, c_code, c_area, c_name, trip_yn
+        select idx, pr_seq, c_code, c_area, c_name, trip_yn, order_number
         from tbl_board_product_country
         where pr_seq = $productCode
+        order by order_number IS NULL, order_number ASC, c_name ASC
       ";
     } else if ($apiCode == 'getNotice'){
       $sql = "

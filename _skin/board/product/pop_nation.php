@@ -6,11 +6,18 @@ admin_chk($auth_admin, $url_admin_login_out);
 
 if ($mode=="list_mod"){
 	for ($k=0;$k<count($_POST["idx"]);$k++){
+		$order_number = $_POST["order_number"][$k];
+    if ($order_number === '') {
+    	$order_number = 'NULL';
+    } else {
+    	$order_number = intval($order_number); // Ensure it's an integer
+    }
 		$SQL_in1 = "update tbl_board_product_country set";
 		$SQL_in1 .= " c_code = '".$_POST["c_code"][$k]."' ";
 		$SQL_in1 .= " , c_area = '".$_POST["c_area"][$k]."' ";
 		$SQL_in1 .= " , c_name = '".$_POST["c_name"][$k]."' ";
 		$SQL_in1 .= " , trip_yn = '".$_POST["trip_yn"][$k]."' ";
+		$SQL_in1 .= " , order_number = ".$order_number." ";
 		$SQL_in1 .= " where idx= '".$_POST["idx"][$k]."' ";
 		$RS_In1 = $dbcon -> query($SQL_in1);
 	}
@@ -22,7 +29,7 @@ if ($mode=="list_mod"){
 
 if ($mode=="list_write"){
 	
-	$SQL_DUP_CHK = " SELECT count(*) FROM tbl_board_product_country WHERE pr_seq = '".$_POST["pr_seq"]."' AND c_code = '".$_POST["c_code"]."' ";
+	$SQL_DUP_CHK = " SELECT count(*) FROM tbl_board_product_country WHERE pr_seq = '".$_POST["pr_seq"]."' AND c_code = '".$_POST["c_code"]."' and c_name = '".$_POST["c_name"]."' ";
 	
 	$count = $dbcon -> getCount($SQL_DUP_CHK);
 	if($count > 0) {
@@ -30,6 +37,7 @@ if ($mode=="list_write"){
 		$SQL_up1 .= "  c_area = '".$_POST["c_area"]."' ";
 		$SQL_up1 .= " , c_name = '".$_POST["c_name"]."' ";
 		$SQL_up1 .= " , trip_yn = '".$_POST["trip_yn"]."' ";
+		$SQL_up1 .= " , order_number = '".$_POST["order_number"]."' ";
 		$SQL_up1 .= " WHERE  pr_seq = '".$_POST["pr_seq"]."' AND c_code = '".$_POST["c_code"]."' ";
 		$RS_up1 = $dbcon -> query($SQL_up1);
 	} else {
@@ -39,6 +47,7 @@ if ($mode=="list_write"){
 		$SQL_in1 .= " , c_name = '".$_POST["c_name"]."' ";
 		$SQL_in1 .= " , trip_yn = '".$_POST["trip_yn"]."' ";
 		$SQL_in1 .= " , pr_seq = '".$_POST["pr_seq"]."' ";
+		$SQL_in1 .= " , order_number = '".$_POST["order_number"]."' ";
 		$RS_In1 = $dbcon -> query($SQL_in1);
 	}
 	
@@ -120,7 +129,7 @@ include $path_admin."inc/header_pop.php";
 
 	$table			= " tbl_board_product_country ";
 	$where			= $query_where;
-	$orderby			= $search_orderby." ".$search_sort;
+	$orderby			= "order_number IS NULL, order_number ASC, ".$search_orderby." ".$search_sort;
 	$limit				= $first.", ".$num_per_page;
 
 	$ArrRS			= $dbcon -> getList($field, $table, $where, $orderby, $limit);
@@ -188,18 +197,20 @@ include $path_admin."inc/header_pop.php";
 			<col width="*" />
 			<col width="25%" />
 			<col width="25%" />
-			<col width="20%" />
+			<col width="10%" />
+			<col width="10%" />
 		</colgroup>
 		<tr>
 			<th>No.</th>
 			<th>국가코드</th>
 			<th>지역</th>
 			<th>국가</th>
+			<th>노출순서</th>
 			<th>가능여부</th>
 		</tr>
 		<? if ($total_record == 0) { ?>
 		<tr>
-			<td colspan="5"><?=$GLOBALS[msg_list_notdata]?></td>
+			<td colspan="6"><?=$GLOBALS[msg_list_notdata]?></td>
 		</tr>
 		<?
 			} else {
@@ -212,6 +223,7 @@ include $path_admin."inc/header_pop.php";
 			<td><input type="text" name="c_code[]" value="<?=$c_code?>"></td>
 			<td><input type="text" name="c_area[]" value="<?=$c_area?>"></td>
 			<td><input type="text" name="c_name[]" value="<?=$c_name?>"></td>
+			<td><input type="text" name="order_number[]" value="<?=$order_number?>"></td>
 			<td>
 				<select name="trip_yn[]">
 					<option value="가능" <?=$trip_yn=="가능" ? "selected":"";?>>가능</option>
@@ -256,6 +268,7 @@ include $path_admin."inc/header_pop.php";
 			<col width="15%" />
 			<col width="25%" />
 			<col width="25%" />
+			<col width="10%" />
 			<col width="*" />
 			<col width="10%" />
 		</colgroup>
@@ -263,6 +276,7 @@ include $path_admin."inc/header_pop.php";
 				<th>국가코드</th>
 				<th>지역</th>
 				<th>국가</th>
+				<th>노출순서</th>
 				<th>가능여부</th>
 				<th>관리</th>
 			</tr>
@@ -270,6 +284,7 @@ include $path_admin."inc/header_pop.php";
 				<td><input type="text" name="c_code" value=""></td>
 				<td><input type="text" name="c_area" value=""></td>
 				<td><input type="text" name="c_name" value=""></td>
+				<td><input type="text" name="order_number" value=""></td>
 				<td><select name="trip_yn">
 						<option value="가능">가능</option>
 						<option value="불가">불가</option>
