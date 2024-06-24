@@ -1250,7 +1250,7 @@ include '../_include/_top.html';
     const cHour = cDate.getHours() + 1;
     const dDate = new Date(event.target.value);
     const oneDay = 24 * 60 * 60 * 1000;
-    const ninetyDays = 90 * oneDay;
+    const ninetyDays = 89 * oneDay;
     const oneYear = 364 * oneDay;
     const arrivalElement = document.getElementById('A-arrival');
 
