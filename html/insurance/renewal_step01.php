@@ -534,6 +534,11 @@ include '../_include/_top.html';
     let orderNumber = 1;
     const html = [];
     const { commonServices, optionServices } = EHDObject;
+    
+    <? $currentDate = date('Y-m-d H:i:s'); ?>
+    let currentDate = new Date("<?= $currentDate; ?>");
+    let startDate = new Date('2024-06-25 00:00');
+    let endDate = new Date('2024-06-26 23:59:59');
 
     // 의료지원 서비스 항목
     commonServices.forEach((item, idx) => {
@@ -542,7 +547,14 @@ include '../_include/_top.html';
         html.push(`  <div class="title-state-box">`);
         html.push(`    <strong>${item.service_group_name}</strong>`);
         html.push(`    <div class="check-box">`);
+        
+        //20240618 이벤트 기간중 보장내역 선택 불가능 처리
+        if (currentDate >= startDate && currentDate <= endDate) {
+        html.push(`      <div class="check-box-inner type01 unclickable">`);
+        html.push(`  <style>.unclickable {pointer-events: none;}</style>`);
+        } else {
         html.push(`      <div class="check-box-inner type01">`);
+        }
         html.push(
           `        <input type="checkbox" value="${item.service_group_name}" id="service-0${orderNumber}" checked />`
         );
@@ -661,6 +673,12 @@ include '../_include/_top.html';
     const html = [];
     const dataList = EHDObject.guarantees;
     const kinds = [];
+    
+    //20240618 이벤트 기간중 보장내역 선택 불가능 처리
+    <? $currentDate = date('Y-m-d H:i:s'); ?>
+    let currentDate = new Date("<?= $currentDate; ?>");
+    let startDate = new Date('2024-06-25 00:00');
+    let endDate = new Date('2024-06-26 23:59:59');
 
     dataList.forEach((item) => kinds.includes(item.guarantee_seq) || kinds.push(item.guarantee_seq));
 
@@ -675,10 +693,15 @@ include '../_include/_top.html';
           buff.push(`  <div class="title-state-box mt12">`);
           buff.push(`    <strong>${item.guarantee_name}</strong>`);
           buff.push(`    <div class="check-box">`);
+          //20240618 이벤트 기간중 보장내역 선택 불가능 처리
+          if (currentDate >= startDate && currentDate <= endDate) {
+          buff.push(`      <div class="check-box-inner type01 unclickable">`);
+          html.push(`  <style>.unclickable {pointer-events: none;}</style>`);
+          } else {
           buff.push(`      <div class="check-box-inner type01">`);
-          buff.push(
-            `        <input type="checkbox" value="${item.guarantee_seq}" id="guarantee-${item.guarantee_seq}" checked/>`
-          );
+          }
+          ///
+          buff.push(`        <input type="checkbox" value="${item.guarantee_seq}" id="guarantee-${item.guarantee_seq}" checked/>`);
           buff.push(`        <label for="guarantee-${item.guarantee_seq}">선택</label>`);
           buff.push(`      </div>`);
           buff.push(`    </div>`);
