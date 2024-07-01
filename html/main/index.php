@@ -345,6 +345,57 @@ $_SESSION["orderno"] = "";
 				location.href = "/html/insurance/search_insur.php?PR_SEQ=" + pr_cd + "&compare_seq=" + plan_seq;
 			}
 		</script>
+    <!-- main 팝업 처리 시작 20240612 추가 -->
+    <div class="popup-box">
+        <div class="box" data-name="main" style="max-width: 600px">
+            <div class="popup-head">
+                <h3>카톡 친구 추가시 10% 할인 이벤트</h3>
+                <a href="javascript:;" class="close" onclick="popupClose();">닫기</a>
+            </div>
+            <div class="popup-body">
+                <div class="popup-body-text" style="display: flex; align-items: center; justify-content: center;">
+                    <a href="javascript:movePage();">
+                        <img src="./noti-20240612.png" style="width: 100%;"/>
+                    </a>
+                </div>
+                <div class="popup-body-button">
+                    <a href="javascript:;" onclick="movePage();">이동</a>
+                </div>
+                <script>
+                    function movePage(){
+                        window.location.href="https://insuplus.co.kr/html/customer/event_list.php?mode=view&seq=80";
+                    }
+                </script>
+            </div>
+        </div>
+    </div>
+    <!-- main 팝업 처리 종료 -->
+    
+    <!-- main 팝업 처리 시작 20240612 추가 -->
+    <div class="popup-box">
+        <div class="box" data-name="special" style="max-width: 600px">
+            <div class="popup-head">
+                <h3>6월 26일! 앵콜특가 25%할인</h3>
+                <a href="javascript:;" class="close" onclick="popupClose();">닫기</a>
+            </div>
+            <div class="popup-body">
+                <div class="popup-body-text" style="display: flex; align-items: center; justify-content: center;">
+                    <a href="javascript:movePage2();">
+                        <img src="./noti-special.png?v=202406251539" style="width: 100%;"/>
+                    </a>
+                </div>
+                <div class="popup-body-button">
+                    <a href="javascript:;" onclick="movePage2();">자세히 알아보기</a>
+                </div>
+                <script>
+                    function movePage2(){
+                        window.location.href="https://insuplus.co.kr/html/customer/event_list.php?mode=view&seq=83";
+                    }
+                </script>
+            </div>
+        </div>
+    </div>
+    <!-- main 팝업 처리 종료 -->
 <?php
 include '../_include/_tail.html';
 include '../_include/_footer.html';
