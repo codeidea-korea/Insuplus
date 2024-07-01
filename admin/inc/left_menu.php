@@ -67,6 +67,7 @@ if ($tm == "MN3" ) {?>
 		</ul>
 	</li>
 	<li><a href="<?=$url_admin?>mn3/policy_list.php">약관 관리</a></li>
+	<li><a href="<?=$url_admin?>mn3/restricted_users.php">가입자제한리스트</a></li>
 </ul>
 <?}?>
 
