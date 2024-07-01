@@ -1113,7 +1113,7 @@
                     <div class="tabCon" >
                       <!--컨텐츠영역-->
 											<div class="coupon_lotte">
-												<a href="https://insuplus.co.kr/html/customer/event_list.php?mode=view&alliance_code=eEVTT2dWZWdDaDN6a3YxUnUwSVp5dz09&seq=77"><img src="images/img_lottecoupon.png"></a>
+												<a href="https://insuplus.co.kr:443/html/customer/event_list.php?mode=view&alliance_code=eEVTT2dWZWdDaDN6a3YxUnUwSVp5dz09&seq=84"><img src="images/img_lottecoupon.png"></a>
 											</div>
                         <!--프로모션 혜택 s-->
                        <div class="benefitbox mar-60">
