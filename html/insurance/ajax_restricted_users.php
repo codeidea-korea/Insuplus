@@ -14,13 +14,13 @@ $rows = array();
 $sql			= "
   SELECT count(*)
   FROM tbl_restricted_users
-  where is_restricted = 'N'
+  where is_restricted = 'Y'
   and user_name = '$user_name'
   and o_isdn1 = '$o_isdn1'
   and o_isdn2 = '$o_isdn2'
 ";
 $cnt = $dbcon->getCount($sql);
-if($cnt == 0) {
+if($cnt > 0) {
   
   // 플랜검색
   $SQL_PLAN = "select * from tbl_board_plan where seq=".$plan_seq." and plan_status='Y' AND secret='Y' ";

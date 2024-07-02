@@ -371,43 +371,6 @@ include '../_include/_top.html';
         }    
       }
 
-      function checkRestrictedUsers(){
-        const formData = new FormData();
-        const birth = EHDObject.customer.birth.replace(/-/gi, '').substring(2);
-        const num2 = document.querySelector('input[name=A-num2]').value;
-        const name = document.querySelector('input[name=A-name]').value;
-        const emailid = document.querySelector('input[name=A-emailid]').value;
-        const emailaddress = document.querySelector('input[name=A-emailaddress]').value;
-        const plan_seq = EHDObject.selectedPlan.plan_seq;
-        formData.append('birth', birth);
-        formData.append('num2', num2);
-        formData.append('name', name);
-        formData.append('email', emailid+'@'+emailaddress);
-        formData.append('plan_seq', plan_seq);
-
-        var request = $.ajax({
-          url: "./ajax_restricted_users.php",
-          type: "POST",
-          data: formData,
-          cache: false,
-          contentType: false,
-          processData: false,
-          success: function(result) {
-            if (result.success == '1' && result.cnt > 0) {
-              return true;
-            } else {
-              alert('고객님, 보험사 인수거절로\n 가입하실 수 없습니다.\n\n 자세한 내용은 고객센터로 문의해주세요.');
-
-              return false;
-            }
-          },
-          error: function(xhr, status, error) {
-            alert("AJAX실패. 접근정보를 가져오는데 실패하였습니다. 관리자에게 문의하십시오.");
-            return false;
-          }
-        });
-      }
-
       window.addEventListener('load', () => {
         const layer = document.querySelector('div[data-layer=layer01]');
         const layerButton = layer.querySelector('a.search');
@@ -488,11 +451,45 @@ include '../_include/_top.html';
               }
             }
 
-            checkRestrictedUsers();
+            const formData = new FormData();
+            const birth = EHDObject.customer.birth.replace(/-/gi, '').substring(2);
+            const num2 = document.querySelector('input[name=A-num2]').value;
+            const name = document.querySelector('input[name=A-name]').value;
+            const emailid = document.querySelector('input[name=A-emailid]').value;
+            const emailaddress = document.querySelector('input[name=A-emailaddress]').value;
+            const plan_seq = EHDObject.selectedPlan.plan_seq;
+            formData.append('birth', birth);
+            formData.append('num2', num2);
+            formData.append('name', name);
+            formData.append('email', emailid+'@'+emailaddress);
+            formData.append('plan_seq', plan_seq);
 
-            EHDObject.cleaning();
-            EHDObject.save();
-            location.href = './renewal_step03.php';
+            let request = $.ajax({
+              url: "./ajax_restricted_users.php",
+              type: "POST",
+              data: formData,
+              cache: false,
+              contentType: false,
+              processData: false,
+              success: function(result) {
+                if (result.success == '1' && result.cnt == 0) {
+                  EHDObject.cleaning();
+                  EHDObject.save();
+                  location.href = './renewal_step03.php';
+                } else {
+                  alert('고객님, 보험사 인수거절로\n 가입하실 수 없습니다.\n\n 자세한 내용은 고객센터로 문의해주세요.');
+                  return false;
+                  EHDObject.cleaning();
+                  EHDObject.save();
+                  location.href = '/html/main/';
+                }
+              },
+              error: function(xhr, status, error) {
+                alert("AJAX실패. 접근정보를 가져오는데 실패하였습니다. 관리자에게 문의하십시오.");
+                return false;
+              }
+            });
+
           }
         });
 
