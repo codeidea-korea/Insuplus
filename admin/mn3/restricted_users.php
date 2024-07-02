@@ -1,7 +1,10 @@
 <?
 	include_once $_SERVER["DOCUMENT_ROOT"]."/_config/lib.php";
 	admin_chk($auth_admin, $url_admin_login_out);// 관리자 체크
-
+	if($ss_u_level != 9) {
+		alert_back("종합관리자만 접근 가능합니다.");
+		exit;
+	}
 	$tm = "MN3";
 	$lm = "";
 	include $path_admin."inc/header.php";
