@@ -144,8 +144,8 @@ $_SESSION["orderno"] = "";
 					<h3>&middot; 의료진 소개 &middot;</h3>
 					<p>가정의학과, 응급의학과, 내과, 소아과, 피부과 등 전문의가<br><strong class="ft-red">원격진료, 전문의 상담, 응급 의료 상담</strong>을 제공해 드립니다</p>
 				</div>				
-				<img src="../images/img_randing_02.png" class="is-pc" alt="최재형-응급의학과, 이현지-가정의학과, 오혜미-가정의학과, 김혜란-응급의학과, 김우성-응급의학과, 유대한-응급의학과, 24시간 간호사팀">
-				<img src="../images/img_randing_02_mob.png" class="is-m" alt="최재형-응급의학과, 이현지-가정의학과, 오혜미-가정의학과, 김혜란-응급의학과, 김우성-응급의학과, 유대한-응급의학과, 24시간 간호사팀">
+				<img src="../images/img_randing_02.png?v=1" class="is-pc" alt="최재형-응급의학과, 이현지-가정의학과, 오혜미-가정의학과, 김혜란-응급의학과, 김우성-응급의학과, 유대한-응급의학과, 24시간 간호사팀">
+				<img src="../images/img_randing_02_mob.png?v=1" class="is-m" alt="최재형-응급의학과, 이현지-가정의학과, 오혜미-가정의학과, 김혜란-응급의학과, 김우성-응급의학과, 유대한-응급의학과, 24시간 간호사팀">
 			</div>
 			<div class="main-box-04">
 				<div class="title-box">
