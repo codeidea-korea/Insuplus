@@ -1094,7 +1094,7 @@
                                  </div>
                              </div>
                              <div class="footer_address">
-                                 <p >㈜코리아어시스턴스 
+                                 <p >㈜플라잉닥터스 
                                  </p>
                                  <p style="font-weight: 100">
                                     사업자등록번호 : 110-86-08297 ㅣ 대표이사 : 김형태<br>
@@ -1328,7 +1328,7 @@
 								 </div>
 							 </div>
 							 <div class="footer_address">
-								 <p >㈜코리아어시스턴스 
+								 <p >㈜플라잉닥터스 
 								 </p>
 								 <p style="font-weight: 100">
 									사업자등록번호 : 110-86-08297 ㅣ 대표이사 : 김형태<br>
