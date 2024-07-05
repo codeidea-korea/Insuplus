@@ -172,7 +172,7 @@ if ($_GET["mode"] == "excel" && getLen($ss_u_idx) > 0) {
 			tolj.join_amount AS tolj_join_amount,
 			tolj.join_service AS tolj_join_service,
 			tolj.vat_amount AS tolj_vat_amount,
-			tolj.s_amount AS tolj_s_amount,
+			tol.s_amount AS tol_s_amount,
 			tol.t_amount AS tol_t_amount,
 			tolj.cancle_vat_amount AS tolj_cancle_vat_amount,
 			tolj.refund_i_amount AS tolj_refund_i_amount,
@@ -230,7 +230,7 @@ if ($_GET["mode"] == "excel" && getLen($ss_u_idx) > 0) {
 			tolj.join_amount AS tolj_join_amount,
 			tolj.join_service AS tolj_join_service,
 			tolj.vat_amount AS tolj_vat_amount,
-			tolj.s_amount AS tolj_s_amount,
+			tol.s_amount AS tol_s_amount,
 			tol.t_amount AS tol_t_amount,
 			tolj.cancle_vat_amount AS tolj_cancle_vat_amount,
 			tol.service_amount AS tol_service_amount,
@@ -339,7 +339,7 @@ if ($_GET["mode"] == "excel" && getLen($ss_u_idx) > 0) {
 			if ($ListRs["tolj_cancle_amount"] > 0) {
 				$refund_ins_amount = $ListRs["tolj_join_amount"] - $ListRs["tolj_refund_i_amount"];
 				$refund_servie_amount = $ListRs["tolj_join_service"] - $ListRs["tolj_refund_s_amount"];
-				$refund_amount = $refund_ins_amount + $refund_servie_amount - $ListRs["tolj_s_amount"];
+				$refund_amount = $refund_ins_amount + $refund_servie_amount - $ListRs["tol_s_amount"];
 
 				// if ($ListRs["tol_join_cnt"] > 0) {  // 동반인이 있을 경우 동반인 수 만큼 서비스료를 나눈다.
 				// 	$refund_servie_amount = $refund_servie_amount / $ListRs["tol_join_cnt"];
@@ -390,7 +390,7 @@ if ($_GET["mode"] == "excel" && getLen($ss_u_idx) > 0) {
 				->setCellValueExplicit("W{$p}", $arr_ord_step[$tol_order_step], 													PHPExcel_Cell_DataType::TYPE_STRING)
 				->setCellValueExplicit("X{$p}", $tolj_cancle_date, 																				PHPExcel_Cell_DataType::TYPE_STRING)
 				->setCellValueExplicit("Y{$p}", $tolj_join_amount + $tolj_join_service, 									PHPExcel_Cell_DataType::TYPE_NUMERIC)
-				->setCellValueExplicit("Z{$p}", $tolj_s_amount, 																					PHPExcel_Cell_DataType::TYPE_NUMERIC)
+				->setCellValueExplicit("Z{$p}", $tol_s_amount, 																						PHPExcel_Cell_DataType::TYPE_NUMERIC)
 				->setCellValueExplicit("AA{$p}", $tol_t_amount, 																					PHPExcel_Cell_DataType::TYPE_NUMERIC)
 				->setCellValueExplicit("AB{$p}", $tbrc_recom_name, 																				PHPExcel_Cell_DataType::TYPE_STRING)
 				->setCellValueExplicit("AC{$p}", $tbe_coupon_name, 																				PHPExcel_Cell_DataType::TYPE_STRING)
