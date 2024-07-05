@@ -223,7 +223,7 @@ function fnDelJoinCh() {
 					<th>할인금액</th>
 					<td class="r"><?=number_format($row_L["s_amount"])?>원</td>
 					<th>결제금액</th>
-					<td class="r"><?=number_format($row_L["t_amount"])?>원</td>
+					<td class="r"><?=number_format($row["t_amount"])?>원</td>
 				</tr>
 				<tr>
 					<th>메모</th>
