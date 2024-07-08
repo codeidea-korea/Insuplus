@@ -26,10 +26,6 @@ function mailJoinSend($param,$email) {
 	$body .= "<td style='border-bottom:1px solid #d6d6d6;text-align:left;width:auto;color:#333;padding:14.5px 15px;border-left:1px solid #d6d6d6;'>#{plan_name}</td>";
 	$body .= "</tr>";
 	$body .= "<tr>";
-	$body .= "<th style='border-bottom:1px solid #d6d6d6;font-weight:400;text-align:center;width:25%;background-color:#f6f6f6;'>출국목적</th>";
-	$body .= "<td style='border-bottom:1px solid #d6d6d6;text-align:left;width:auto;color:#333;padding:14.5px 15px;border-left:1px solid #d6d6d6;'>#{purpose}</td>";
-	$body .= "</tr>";
-	$body .= "<tr>";
 	$body .= "<th style='border-bottom:1px solid #d6d6d6;font-weight:400;text-align:center;width:25%;background-color:#f6f6f6;'>가입자</th>";
 	$body .= "<td style='border-bottom:1px solid #d6d6d6;text-align:left;width:auto;color:#333;padding:14.5px 15px;border-left:1px solid #d6d6d6;'>#{name}</td>";
 	$body .= "</tr>";
@@ -92,7 +88,6 @@ function mailJoinSend($param,$email) {
 
 	$body = str_replace("#{name}",$param['name'],$body);
 	$body = str_replace("#{period}",$param['period'],$body);
-	$body = str_replace("#{purpose}",$param['purpose'],$body);
 	$body = str_replace("#{pr_name}",$param['pr_name'],$body);
 	$body = str_replace("#{plan_name}",$param['plan_name'],$body);
 	$body = str_replace("#{amount}",number_format($param['amount']),$body);
@@ -205,10 +200,6 @@ function mailJoinSend2($param,$email,$file_url, $file_name) {
 	$body .= "<td style='border-bottom:1px solid #d6d6d6;text-align:left;width:auto;color:#333;padding:14.5px 15px;border-left:1px solid #d6d6d6;'>#{pr_name}</td>";
 	$body .= "</tr>";
 	$body .= "<tr>";
-	$body .= "<th style='border-bottom:1px solid #d6d6d6;font-weight:400;text-align:center;width:25%;background-color:#f6f6f6;'>출국목적</th>";
-	$body .= "<td style='border-bottom:1px solid #d6d6d6;text-align:left;width:auto;color:#333;padding:14.5px 15px;border-left:1px solid #d6d6d6;'>#{purpose}</td>";
-	$body .= "</tr>";
-	$body .= "<tr>";
 	$body .= "<th style='border-bottom:1px solid #d6d6d6;font-weight:400;text-align:center;width:25%;background-color:#f6f6f6;'>가입자</th>";
 	$body .= "<td style='border-bottom:1px solid #d6d6d6;text-align:left;width:auto;color:#333;padding:14.5px 15px;border-left:1px solid #d6d6d6;'>#{name}</td>";
 	$body .= "</tr>";
@@ -269,7 +260,6 @@ function mailJoinSend2($param,$email,$file_url, $file_name) {
 
 	$body = str_replace("#{name}",$param['name'],$body);
 	$body = str_replace("#{period}",$param['period'],$body);
-	$body = str_replace("#{purpose}",$param['purpose'],$body);
 	$body = str_replace("#{pr_name}",$param['pr_name'],$body);
 	$body = str_replace("#{amount}",number_format($param['amount']),$body);
 	$body = str_replace("#{t_amount}",number_format($param['t_amount']),$body);
@@ -384,10 +374,6 @@ function mailBizJoinSend($param,$email,$file_url, $file_name) {
 	$body .= "<td style='border-bottom:1px solid #d6d6d6;text-align:left;width:auto;color:#333;padding:14.5px 15px;border-left:1px solid #d6d6d6;'>#{pr_name}</td>";
 	$body .= "</tr>";
 	$body .= "<tr>";
-	$body .= "<th style='border-bottom:1px solid #d6d6d6;font-weight:400;text-align:center;width:25%;background-color:#f6f6f6;'>출국목적</th>";
-	$body .= "<td style='border-bottom:1px solid #d6d6d6;text-align:left;width:auto;color:#333;padding:14.5px 15px;border-left:1px solid #d6d6d6;'>#{purpose}</td>";
-	$body .= "</tr>";
-	$body .= "<tr>";
 	$body .= "<th style='border-bottom:1px solid #d6d6d6;font-weight:400;text-align:center;width:25%;background-color:#f6f6f6;'>가입자</th>";
 	$body .= "<td style='border-bottom:1px solid #d6d6d6;text-align:left;width:auto;color:#333;padding:14.5px 15px;border-left:1px solid #d6d6d6;'>#{name}</td>";
 	$body .= "</tr>";
@@ -424,7 +410,6 @@ function mailBizJoinSend($param,$email,$file_url, $file_name) {
 
 	$body = str_replace("#{name}",$param['name'],$body);
 	$body = str_replace("#{period}",$param['period'],$body);
-	$body = str_replace("#{purpose}",$param['purpose'],$body);
 	$body = str_replace("#{pr_name}",$param['pr_name'],$body);
 	$body = str_replace("#{amount}",number_format($param['amount']),$body);
 	$body = str_replace("#{t_amount}",number_format($param['t_amount']),$body);
@@ -668,10 +653,6 @@ function mailJoinFlyingSend($param,$email) {
 	$body .= "<td style='border-bottom:1px solid #d6d6d6;text-align:left;width:auto;color:#333;padding:14.5px 15px;border-left:1px solid #d6d6d6;'>#{pr_name}</td>";
 	$body .= "</tr>";
 	$body .= "<tr>";
-	$body .= "<th style='border-bottom:1px solid #d6d6d6;font-weight:400;text-align:center;width:25%;background-color:#f6f6f6;'>출국목적</th>";
-	$body .= "<td style='border-bottom:1px solid #d6d6d6;text-align:left;width:auto;color:#333;padding:14.5px 15px;border-left:1px solid #d6d6d6;'>#{purpose}</td>";
-	$body .= "</tr>";
-	$body .= "<tr>";
 	$body .= "<th style='border-bottom:1px solid #d6d6d6;font-weight:400;text-align:center;width:25%;background-color:#f6f6f6;'>가입자</th>";
 	$body .= "<td style='border-bottom:1px solid #d6d6d6;text-align:left;width:auto;color:#333;padding:14.5px 15px;border-left:1px solid #d6d6d6;'>#{name}</td>";
 	$body .= "</tr>";
@@ -734,7 +715,6 @@ function mailJoinFlyingSend($param,$email) {
 
 	$body = str_replace("#{name}",$param['name'],$body);
 	$body = str_replace("#{period}",$param['period'],$body);
-	$body = str_replace("#{purpose}",$param['purpose'],$body);
 	$body = str_replace("#{pr_name}",$param['pr_name'],$body);
 	$body = str_replace("#{amount}",number_format($param['amount']),$body);
 	$body = str_replace("#{t_amount}",number_format($param['t_amount']),$body);
