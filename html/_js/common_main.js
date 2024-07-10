@@ -11,6 +11,11 @@ function menuClose() {
 }
 
 function popupOpen(type) {
+  // Check if the cookie exists
+  if (document.cookie.includes(type)) {
+    return; // Exit the function if the cookie exists
+  }
+
   var box = $('.popup-box .box[data-name=' + type + ']');
 
   // 모든 팝업에서 fixed 클래스를 제거합니다.

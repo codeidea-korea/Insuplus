@@ -304,7 +304,6 @@ $_SESSION["orderno"] = "";
 		  /////////////////////////////////////////////////////////////////////////
 			<? $currentDate = date('Y-m-d H:i:s'); ?>
 			$( document ).ready(function() { //임시팝업
-				// popupOpen('main');
 				// 현재 날짜를 가져옵니다.
 				let currentDate = new Date("<?= $currentDate; ?>");
 
@@ -316,7 +315,7 @@ $_SESSION["orderno"] = "";
 				if (currentDate >= startDate && currentDate <= endDate) {
 					popupOpen('special');
 				} else {
-					popupOpen('main');
+					popupOpen('mainPopup');
 				}
 			});
 
@@ -347,7 +346,7 @@ $_SESSION["orderno"] = "";
 		</script>
     <!-- main 팝업 처리 시작 20240612 추가 -->
     <div class="popup-box">
-        <div class="box" data-name="main" style="max-width: 600px">
+        <div class="box" data-name="mainPopup" style="max-width: 600px">
             <div class="popup-head">
                 <h3>카톡 친구 추가시 10% 할인 이벤트</h3>
                 <a href="javascript:;" class="close" onclick="popupClose();">닫기</a>
@@ -355,16 +354,25 @@ $_SESSION["orderno"] = "";
             <div class="popup-body">
                 <div class="popup-body-text" style="display: flex; align-items: center; justify-content: center;">
                     <a href="javascript:movePage();">
-                        <img src="./noti-20240612.png" style="width: 100%;"/>
+                        <img src="./noti-main.png" style="width: 100%;"/>
                     </a>
                 </div>
                 <div class="popup-body-button">
                     <a href="javascript:;" onclick="movePage();">이동</a>
                 </div>
+								<div style="text-align: right;">
+									<a href="javascript:;" onclick="setCookieMain('mainPopup', 'Y', 1);"> 오늘 그만보기</a>
+								</div>
                 <script>
                     function movePage(){
                         window.location.href="https://insuplus.co.kr/html/customer/event_list.php?mode=view&seq=80";
                     }
+										function setCookieMain(name, value, expiredays) {
+											var todayDate = new Date();
+											todayDate.setDate(todayDate.getDate() + expiredays);
+											document.cookie = name + "=" + escape(value) + "; path=/; expires=" + todayDate.toGMTString() + ";"
+											popupClose();
+										}
                 </script>
             </div>
         </div>
