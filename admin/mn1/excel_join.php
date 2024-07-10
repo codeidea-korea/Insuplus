@@ -173,7 +173,7 @@ if ($_GET["mode"] == "excel" && getLen($ss_u_idx) > 0) {
 			tolj.join_service AS tolj_join_service,
 			tolj.vat_amount AS tolj_vat_amount,
 			tolj.s_amount AS tolj_s_amount,
-			tol.t_amount AS tol_t_amount,
+			tolj.t_amount AS tolj_t_amount,
 			tolj.cancle_vat_amount AS tolj_cancle_vat_amount,
 			tolj.refund_i_amount AS tolj_refund_i_amount,
 			tolj.refund_s_amount AS tolj_refund_s_amount,
@@ -231,7 +231,7 @@ if ($_GET["mode"] == "excel" && getLen($ss_u_idx) > 0) {
 			tolj.join_service AS tolj_join_service,
 			tolj.vat_amount AS tolj_vat_amount,
 			tolj.s_amount AS tolj_s_amount,
-			tol.t_amount AS tol_t_amount,
+			tolj.t_amount AS tolj_t_amount,
 			tolj.cancle_vat_amount AS tolj_cancle_vat_amount,
 			tol.service_amount AS tol_service_amount,
 			tolj.refund_i_amount AS tolj_refund_i_amount,
@@ -391,7 +391,7 @@ if ($_GET["mode"] == "excel" && getLen($ss_u_idx) > 0) {
 				->setCellValueExplicit("X{$p}", $tolj_cancle_date, 																				PHPExcel_Cell_DataType::TYPE_STRING)
 				->setCellValueExplicit("Y{$p}", $tolj_join_amount + $tolj_join_service, 									PHPExcel_Cell_DataType::TYPE_NUMERIC)
 				->setCellValueExplicit("Z{$p}", $tolj_s_amount, 																					PHPExcel_Cell_DataType::TYPE_NUMERIC)
-				->setCellValueExplicit("AA{$p}", $tol_t_amount, 																					PHPExcel_Cell_DataType::TYPE_NUMERIC)
+				->setCellValueExplicit("AA{$p}", $tolj_t_amount, 																					PHPExcel_Cell_DataType::TYPE_NUMERIC)
 				->setCellValueExplicit("AB{$p}", $tbrc_recom_name, 																				PHPExcel_Cell_DataType::TYPE_STRING)
 				->setCellValueExplicit("AC{$p}", $tbe_coupon_name, 																				PHPExcel_Cell_DataType::TYPE_STRING)
 				->setCellValueExplicit("AD{$p}", $refund_ins_amount, 																			PHPExcel_Cell_DataType::TYPE_NUMERIC)
