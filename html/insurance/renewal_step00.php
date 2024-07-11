@@ -48,16 +48,22 @@ $_SESSION["orderno"] = "";
       function addEventOnDepth1(dataList) {
         if (Array.isArray(dataList) && dataList.length > 0) {
           document.querySelectorAll('section a').forEach((el) => {
-            if (el.querySelector('strong').textContent.indexOf('이상') > -1) {
-              const code = dataList.find((el) => el.category_name.includes('장기'));
-              clickEventHandler(el, code);
-            } else if (el.querySelector('strong').textContent.indexOf('미만') > -1) {
-              const code = dataList.find((el) => el.category_name.includes('단기'));
-              clickEventHandler(el, code);
+            const strongEl = el.querySelector('strong');
+            if (strongEl && strongEl.textContent.indexOf('이상') > -1) {
+              const code = dataList.find((el) => el.category_name && el.category_name.includes('장기'));
+              if (code) {
+                clickEventHandler(el, code);
+              }
+            } else if (strongEl && strongEl.textContent.indexOf('미만') > -1) {
+              const code = dataList.find((el) => el.category_name && el.category_name.includes('단기'));
+              if (code) {
+                clickEventHandler(el, code);
+              }
             }
           });
         }
       }
+
 
       window.addEventListener('load', () => {
         EHDObject.init();
