@@ -1,0 +1,81 @@
+@import url('./iconfont/myfont/style.css');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/pretendard/1.3.9/static/pretendard.css');
+
+/*─────────────────────────────────────────────────
+											공통
+─────────────────────────────────────────────────*/
+body{
+	--pretendard:Pretendard, sans-serif;
+	--roboto:"Roboto", sans-serif;
+
+	/* color */
+	--mainColor:#029835; /*--Primary01*/
+	--subColor:#00842d;
+	--scrollbarColor:#183560;
+}
+
+
+/*─────────────────────────────────────────────────
+											font
+─────────────────────────────────────────────────*/
+[class^="pretendard"], [class*="pretendard"]{font-family:var(--pretendard) !important;}
+.pretendard100{font-weight:100 !important;}
+.pretendard200{font-weight:200 !important;}
+.pretendard300{font-weight:300 !important;}
+.pretendard400{font-weight:400 !important;}
+.pretendard500{font-weight:500 !important;}
+.pretendard600{font-weight:600 !important;}
+.pretendard700{font-weight:700 !important;}
+.pretendard800{font-weight:800 !important;}
+.pretendard900{font-weight:900 !important;}
+
+
+
+
+
+
+
+
+/*─────────────────────────────────────────────────
+										초기화
+─────────────────────────────────────────────────*/
+html{}
+body{margin:0;padding:0;/*font-size:0.75em;*/font-size:13px;font-family:var(--font-family);background:#fff;-webkit-tap-highlight-color:transparent !important;}
+html,body{-webkit-overflow-scrolling:touch;}
+html, h1, h2, h3, h4, h5, h6, form, fieldset, img{margin:0;padding:0;border:0}
+h1, h2, h3, h4, h5, h6{font-size:1em;font-family:inherit;}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section{display:block}
+ol,ul,dl,dt,dd{margin:0;padding:0;list-style:none}
+legend{position:absolute;margin:0;padding:0;font-size:0;line-height:0;text-indent:-9999em;overflow:hidden}
+label, input, button, select, img{vertical-align:middle;font-size:100%}
+input, button{margin:0;padding:0;font-size:100%;}
+button{border:0;}
+button, input[type="submit"]{cursor:pointer;outline:0;}
+button, input[type="submit"]:not([class*='_btn']){font-family:inherit;}
+button{cursor:pointer;background:transparent;color:inherit;}
+textarea, select{font-size:1em}
+select{margin:0}
+table{border-collapse:collapse;border-spacing:0;}
+p{margin:0;padding:0;word-break:break-all}
+hr{width:100%;height:1px;background-color:rgba(0,0,0,0.12);border:none;}
+pre{overflow-x:scroll;font-size:1.1em;font-family:inherit;}
+i{font-style:normal;}
+img{max-width:100%;}
+a{color:inherit;text-decoration:none}
+*, :after, :before{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;-webkit-text-size-adjust:none;/*피봇시 글자커짐 방지 */-webkit-overflow-scrolling:touch;}
+input, button, textarea, select{font-family:inherit;}
+@media screen and (max-width:780px) {
+	*,p,div{/*word-break:keep-all;*/}
+}
+
+
+
+
+/*─────────────────────────────────────────────────
+										스크롤바
+─────────────────────────────────────────────────*/
+::-webkit-scrollbar{width:6px;height:6px;}
+::-webkit-scrollbar-thumb{cursor:pointer;background:var(--scrollbarColor);}
+::selection{background-color:var(--scrollbarColor);color:#fff;}
+-webkit-::selection{background-color:var(--scrollbarColor);color:#fff;}
+::-moz-selection{background-color:var(--scrollbarColor);color:#fff;}

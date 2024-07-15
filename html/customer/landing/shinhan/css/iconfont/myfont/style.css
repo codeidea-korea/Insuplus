@@ -1,0 +1,1295 @@
+@font-face {
+  font-family: 'myfont';
+  src:  url('fonts/myfont.eot?bnvc25');
+  src:  url('fonts/myfont.eot?bnvc25#iefix') format('embedded-opentype'),
+    url('fonts/myfont.ttf?bnvc25') format('truetype'),
+    url('fonts/myfont.woff?bnvc25') format('woff'),
+    url('fonts/myfont.svg?bnvc25#myfont') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="myfont-"], [class*=" myfont-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'myfont' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.myfont-line1-left:before {
+  content: "\e900";
+}
+.myfont-line1-right:before {
+  content: "\e901";
+}
+.myfont-line1-up:before {
+  content: "\e902";
+}
+.myfont-line1-down:before {
+  content: "\e903";
+}
+.myfont-line1-arrow-left:before {
+  content: "\e904";
+}
+.myfont-line1-arrow-right:before {
+  content: "\e905";
+}
+.myfont-line1-plus:before {
+  content: "\e906";
+}
+.myfont-line1-x:before {
+  content: "\e907";
+}
+.myfont-line1-check:before {
+  content: "\e908";
+}
+.myfont-line1-menu:before {
+  content: "\e909";
+}
+.myfont-line1-menu-left:before {
+  content: "\e90a";
+}
+.myfont-line1-menu-right:before {
+  content: "\e90b";
+}
+.myfont-line1-amenu-left:before {
+  content: "\e90c";
+}
+.myfont-line1-amenu-right:before {
+  content: "\e90d";
+}
+.myfont-line2-left:before {
+  content: "\e90e";
+}
+.myfont-line2-right:before {
+  content: "\e90f";
+}
+.myfont-line2-up:before {
+  content: "\e910";
+}
+.myfont-line2-down:before {
+  content: "\e911";
+}
+.myfont-line2-arrow-left:before {
+  content: "\e912";
+}
+.myfont-line2-arrow-right:before {
+  content: "\e913";
+}
+.myfont-line2-plus:before {
+  content: "\e914";
+}
+.myfont-line2-x:before {
+  content: "\e915";
+}
+.myfont-line2-check:before {
+  content: "\e916";
+}
+.myfont-line2-menu:before {
+  content: "\e917";
+}
+.myfont-line2-menu-left:before {
+  content: "\e918";
+}
+.myfont-line2-menu-right:before {
+  content: "\e919";
+}
+.myfont-line2-amenu-left:before {
+  content: "\e91a";
+}
+.myfont-line2-amenu-right:before {
+  content: "\e91b";
+}
+.myfont-line3-left:before {
+  content: "\e91c";
+}
+.myfont-line3-right:before {
+  content: "\e91d";
+}
+.myfont-line3-up:before {
+  content: "\e91e";
+}
+.myfont-line3-down:before {
+  content: "\e91f";
+}
+.myfont-line3-arrow-left:before {
+  content: "\e920";
+}
+.myfont-line3-arrow-right:before {
+  content: "\e921";
+}
+.myfont-line3-plus:before {
+  content: "\e922";
+}
+.myfont-line3-x:before {
+  content: "\e923";
+}
+.myfont-line3-check:before {
+  content: "\e924";
+}
+.myfont-line3-menu:before {
+  content: "\e925";
+}
+.myfont-line3-menu-left:before {
+  content: "\e926";
+}
+.myfont-line3-menu-right:before {
+  content: "\e927";
+}
+.myfont-line3-amenu-left:before {
+  content: "\e928";
+}
+.myfont-line3-amenu-right:before {
+  content: "\e929";
+}
+.myfont-line4-left:before {
+  content: "\e92a";
+}
+.myfont-line4-right:before {
+  content: "\e92b";
+}
+.myfont-line4-up:before {
+  content: "\e92c";
+}
+.myfont-line4-down:before {
+  content: "\e92d";
+}
+.myfont-line4-arrow-left:before {
+  content: "\e92e";
+}
+.myfont-line4-arrow-right:before {
+  content: "\e92f";
+}
+.myfont-line4-plus:before {
+  content: "\e930";
+}
+.myfont-line4-x:before {
+  content: "\e931";
+}
+.myfont-line4-check:before {
+  content: "\e932";
+}
+.myfont-line4-menu:before {
+  content: "\e933";
+}
+.myfont-line4-menu-left:before {
+  content: "\e934";
+}
+.myfont-line4-menu-right:before {
+  content: "\e935";
+}
+.myfont-line4-amenu-left:before {
+  content: "\e936";
+}
+.myfont-line4-amenu-right:before {
+  content: "\e937";
+}
+.myfont-line5-left:before {
+  content: "\e938";
+}
+.myfont-line5-right:before {
+  content: "\e939";
+}
+.myfont-line5-up:before {
+  content: "\e93a";
+}
+.myfont-line5-down:before {
+  content: "\e93b";
+}
+.myfont-line5-plus:before {
+  content: "\e93c";
+}
+.myfont-line5-x:before {
+  content: "\e93d";
+}
+.myfont-line5-check:before {
+  content: "\e93e";
+}
+.myfont-line6-left:before {
+  content: "\e93f";
+}
+.myfont-line6-right:before {
+  content: "\e940";
+}
+.myfont-line6-up:before {
+  content: "\e941";
+}
+.myfont-line6-down:before {
+  content: "\e942";
+}
+.myfont-line6-plus:before {
+  content: "\e943";
+}
+.myfont-line6-x:before {
+  content: "\e944";
+}
+.myfont-line6-check:before {
+  content: "\e945";
+}
+.myfont-line-left-slim:before {
+  content: "\e9ec";
+}
+.myfont-line-right-slim:before {
+  content: "\ea09";
+}
+.myfont-arrow-left-filled:before {
+  content: "\e946";
+}
+.myfont-arrow-right-filled:before {
+  content: "\e947";
+}
+.myfont-arrow-up-filled:before {
+  content: "\e948";
+}
+.myfont-arrow-down-filled:before {
+  content: "\e949";
+}
+.myfont-arrow-left-filled2:before {
+  content: "\e94a";
+}
+.myfont-arrow-right-filled2:before {
+  content: "\e94b";
+}
+.myfont-arrow-up-filled2:before {
+  content: "\e94c";
+}
+.myfont-arrow-down-filled2:before {
+  content: "\e94d";
+}
+.myfont-chevron-left:before {
+  content: "\e94e";
+}
+.myfont-chevron-right:before {
+  content: "\e94f";
+}
+.myfont-chevrons-left:before {
+  content: "\e950";
+}
+.myfont-chevrons-right:before {
+  content: "\e951";
+}
+.myfont-play-re:before {
+  content: "\e953";
+}
+.myfont-play:before {
+  content: "\e954";
+}
+.myfont-rewind1:before {
+  content: "\e955";
+}
+.myfont-rewind:before {
+  content: "\e956";
+}
+.myfont-skip-back:before {
+  content: "\e957";
+}
+.myfont-skip-forward:before {
+  content: "\e958";
+}
+.myfont-play-circle:before {
+  content: "\e959";
+}
+.myfont-play-filled:before {
+  content: "\e9b8";
+}
+.myfont-stop-filled:before {
+  content: "\e9eb";
+}
+.myfont-plus:before {
+  content: "\e95a";
+}
+.myfont-minus:before {
+  content: "\e95b";
+}
+.myfont-x:before {
+  content: "\e95c";
+}
+.myfont-x-bold:before {
+  content: "\e9d1";
+}
+.myfont-check:before {
+  content: "\e95d";
+}
+.myfont-plus-circle:before {
+  content: "\e95e";
+}
+.myfont-minus-circle:before {
+  content: "\e95f";
+}
+.myfont-x-circle:before {
+  content: "\e960";
+}
+.myfont-plus-square:before {
+  content: "\e961";
+}
+.myfont-x-square:before {
+  content: "\e962";
+}
+.myfont-minus-square:before {
+  content: "\e963";
+}
+.myfont-trash:before {
+  content: "\e964";
+}
+.myfont-trash-2:before {
+  content: "\e965";
+}
+.myfont-delete:before {
+  content: "\e966";
+}
+.myfont-info:before {
+  content: "\e967";
+}
+.myfont-alert-circle:before {
+  content: "\e968";
+}
+.myfont-help-circle:before {
+  content: "\e969";
+}
+.myfont-alert-triangle:before {
+  content: "\e96a";
+}
+.myfont-info-bold:before {
+  content: "\e9d7";
+}
+.myfont-alert-octagon:before {
+  content: "\e96b";
+}
+.myfont-search:before {
+  content: "\e952";
+}
+.myfont-zoom-in1:before {
+  content: "\e992";
+}
+.myfont-zoom-out1:before {
+  content: "\e993";
+}
+.myfont-line1-search:before {
+  content: "\e96c";
+}
+.myfont-line2-search:before {
+  content: "\e96d";
+}
+.myfont-line3-search:before {
+  content: "\e96e";
+}
+.myfont-line4-search:before {
+  content: "\e96f";
+}
+.myfont-line1-msearch:before {
+  content: "\e970";
+}
+.myfont-line2-msearch:before {
+  content: "\e971";
+}
+.myfont-line3-msearch:before {
+  content: "\e972";
+}
+.myfont-line1-dsearch:before {
+  content: "\e973";
+}
+.myfont-line2-dsearch:before {
+  content: "\e974";
+}
+.myfont-line3-dsearch:before {
+  content: "\e975";
+}
+.myfont-line1-search2:before {
+  content: "\e976";
+}
+.myfont-line2-search2:before {
+  content: "\e977";
+}
+.myfont-line3-search2:before {
+  content: "\e978";
+}
+.myfont-line4-search2:before {
+  content: "\e979";
+}
+.myfont-file:before {
+  content: "\e9c5";
+}
+.myfont-file-minus:before {
+  content: "\e9c6";
+}
+.myfont-file-plus:before {
+  content: "\e9c7";
+}
+.myfont-file-text:before {
+  content: "\e9c8";
+}
+.myfont-file-text1:before {
+  content: "\ea07";
+}
+.myfont-intaefont-icon144:before {
+  content: "\e9a0";
+}
+.myfont-clipboard:before {
+  content: "\e9c9";
+}
+.myfont-paper-check:before {
+  content: "\eab5";
+}
+.myfont-paper-check2:before {
+  content: "\eab6";
+}
+.myfont-paper-roll:before {
+  content: "\eab7";
+}
+.myfont-board:before {
+  content: "\e9a1";
+}
+.myfont-board-filled:before {
+  content: "\e9a2";
+}
+.myfont-message-circle:before {
+  content: "\e9ca";
+}
+.myfont-message-square:before {
+  content: "\e9cb";
+}
+.myfont-msg:before {
+  content: "\e9a3";
+}
+.myfont-msg-filled:before {
+  content: "\e9a4";
+}
+.myfont-msg2:before {
+  content: "\e9a5";
+}
+.myfont-msg2-filled:before {
+  content: "\e9a6";
+}
+.myfont-msg3:before {
+  content: "\e9a7";
+}
+.myfont-msg3-filled:before {
+  content: "\e9a8";
+}
+.myfont-calendar:before {
+  content: "\e9d0";
+}
+.myfont-calendar2:before {
+  content: "\e9a9";
+}
+.myfont-calendar-filled:before {
+  content: "\e9aa";
+}
+.myfont-calendar11:before {
+  content: "\e9ab";
+}
+.myfont-calendar11-filled:before {
+  content: "\e9ac";
+}
+.myfont-book:before {
+  content: "\e9ad";
+}
+.myfont-book-open:before {
+  content: "\e9d8";
+}
+.myfont-tag:before {
+  content: "\e9d9";
+}
+.myfont-tag-filled:before {
+  content: "\ea9a";
+}
+.myfont-bookmark:before {
+  content: "\e9db";
+}
+.myfont-award:before {
+  content: "\e9ce";
+}
+.myfont-folder:before {
+  content: "\e9e1";
+}
+.myfont-folder-plus:before {
+  content: "\e9e2";
+}
+.myfont-folder-minus:before {
+  content: "\e9e3";
+}
+.myfont-hexagon:before {
+  content: "\e9e4";
+}
+.myfont-check-circle:before {
+  content: "\e9e5";
+}
+.myfont-check-square:before {
+  content: "\e9e6";
+}
+.myfont-home:before {
+  content: "\e9e7";
+}
+.myfont-home2:before {
+  content: "\e99e";
+}
+.myfont-home2-filled:before {
+  content: "\e99f";
+}
+.myfont-corner-down-right:before {
+  content: "\e97a";
+}
+.myfont-corner-down-right-bold:before {
+  content: "\e97b";
+}
+.myfont-corner-up-right-bold:before {
+  content: "\ea99";
+}
+.myfont-corner-down-right-smbold:before {
+  content: "\e97c";
+}
+.myfont-corner-down-right-exbold:before {
+  content: "\e97d";
+}
+.myfont-corner-down-right-re:before {
+  content: "\e97e";
+}
+.myfont-edit-square:before {
+  content: "\e9e8";
+}
+.myfont-edit1:before {
+  content: "\ea98";
+}
+.myfont-edit-filled:before {
+  content: "\e980";
+}
+.myfont-edit:before {
+  content: "\e9ea";
+}
+.myfont-edit-line:before {
+  content: "\e995";
+}
+.myfont-edit-line2:before {
+  content: "\e981";
+}
+.myfont-feather:before {
+  content: "\e9e9";
+}
+.myfont-feather2:before {
+  content: "\e982";
+}
+.myfont-crop:before {
+  content: "\e9ed";
+}
+.myfont-pen-tool:before {
+  content: "\e9ee";
+}
+.myfont-pen-tool2:before {
+  content: "\e983";
+}
+.myfont-text-marker:before {
+  content: "\ea96";
+}
+.myfont-eye:before {
+  content: "\e9ef";
+}
+.myfont-eye-off:before {
+  content: "\e9f0";
+}
+.myfont-add-block:before {
+  content: "\e984";
+}
+.myfont-add-block2:before {
+  content: "\e985";
+}
+.myfont-scissors-small:before {
+  content: "\e986";
+}
+.myfont-scissors:before {
+  content: "\e9f1";
+}
+.myfont-download:before {
+  content: "\e987";
+}
+.myfont-upload:before {
+  content: "\e9f2";
+}
+.myfont-share:before {
+  content: "\e9f3";
+}
+.myfont-log-in:before {
+  content: "\e9f4";
+}
+.myfont-log-out:before {
+  content: "\e9f5";
+}
+.myfont-door-in:before {
+  content: "\e988";
+}
+.myfont-door-out:before {
+  content: "\e989";
+}
+.myfont-login:before {
+  content: "\e98a";
+}
+.myfont-logout:before {
+  content: "\e98b";
+}
+.myfont-download2:before {
+  content: "\e98c";
+}
+.myfont-save:before {
+  content: "\e9f6";
+}
+.myfont-save-slim:before {
+  content: "\ea9b";
+}
+.myfont-filebox:before {
+  content: "\e98d";
+}
+.myfont-filebox-filled:before {
+  content: "\e98e";
+}
+.myfont-inbox:before {
+  content: "\e9f7";
+}
+.myfont-hard-drive:before {
+  content: "\e9f8";
+}
+.myfont-server:before {
+  content: "\e9f9";
+}
+.myfont-database:before {
+  content: "\e9fa";
+}
+.myfont-cloud:before {
+  content: "\e9fb";
+}
+.myfont-upload-cloud:before {
+  content: "\e9fc";
+}
+.myfont-download-cloud:before {
+  content: "\e9fd";
+}
+.myfont-paperclip:before {
+  content: "\e9fe";
+}
+.myfont-href:before {
+  content: "\e98f";
+}
+.myfont-link:before {
+  content: "\ea14";
+}
+.myfont-line-bold8:before {
+  content: "\e990";
+}
+.myfont-camera:before {
+  content: "\e9ff";
+}
+.myfont-camera-off:before {
+  content: "\ea00";
+}
+.myfont-instagram:before {
+  content: "\ea01";
+}
+.myfont-image:before {
+  content: "\ea02";
+}
+.myfont-image-slim:before {
+  content: "\ea9c";
+}
+.myfont-images:before {
+  content: "\e991";
+}
+.myfont-images-slim:before {
+  content: "\ea9d";
+}
+.myfont-copy:before {
+  content: "\ea03";
+}
+.myfont-layers:before {
+  content: "\ea04";
+}
+.myfont-layers2:before {
+  content: "\e996";
+}
+.myfont-sidebar:before {
+  content: "\ea06";
+}
+.myfont-layout:before {
+  content: "\ea0b";
+}
+.myfont-columns:before {
+  content: "\ea08";
+}
+.myfont-credit-card:before {
+  content: "\ea0a";
+}
+.myfont-video-box:before {
+  content: "\e997";
+}
+.myfont-film:before {
+  content: "\ea0e";
+}
+.myfont-video:before {
+  content: "\ea0f";
+}
+.myfont-video-filled:before {
+  content: "\e998";
+}
+.myfont-smartphone:before {
+  content: "\ea11";
+}
+.myfont-tablet:before {
+  content: "\ea15";
+}
+.myfont-smartphone2:before {
+  content: "\e999";
+}
+.myfont-monitor:before {
+  content: "\ea16";
+}
+.myfont-desktop:before {
+  content: "\e99a";
+}
+.myfont-monitor2:before {
+  content: "\e99b";
+}
+.myfont-speaker:before {
+  content: "\ea18";
+}
+.myfont-mouse:before {
+  content: "\e99c";
+}
+.myfont-mouse2:before {
+  content: "\e99d";
+}
+.myfont-keyboard:before {
+  content: "\e9ae";
+}
+.myfont-printer:before {
+  content: "\ea1b";
+}
+.myfont-printer2:before {
+  content: "\e9af";
+}
+.myfont-user:before {
+  content: "\ea1c";
+}
+.myfont-users:before {
+  content: "\ea1d";
+}
+.myfont-user-check:before {
+  content: "\ea1e";
+}
+.myfont-user-plus:before {
+  content: "\ea1f";
+}
+.myfont-user-minus:before {
+  content: "\ea20";
+}
+.myfont-user-x:before {
+  content: "\ea21";
+}
+.myfont-line1-user:before {
+  content: "\e9b0";
+}
+.myfont-line2-user:before {
+  content: "\e9b1";
+}
+.myfont-unlock:before {
+  content: "\ea22";
+}
+.myfont-lock:before {
+  content: "\ea23";
+}
+.myfont-lock2:before {
+  content: "\e9b2";
+}
+.myfont-lock2-filled:before {
+  content: "\e9b3";
+}
+.myfont-unlock2:before {
+  content: "\e9b4";
+}
+.myfont-unlock2-filled:before {
+  content: "\e9b5";
+}
+.myfont-settings:before {
+  content: "\ea05";
+}
+.myfont-tool:before {
+  content: "\ea24";
+}
+.myfont-sliders:before {
+  content: "\ea25";
+}
+.myfont-setting:before {
+  content: "\e9b6";
+}
+.myfont-mouse-pointer:before {
+  content: "\e9b7";
+}
+.myfont-slash:before {
+  content: "\ea26";
+}
+.myfont-italic:before {
+  content: "\ea27";
+}
+.myfont-refresh-ccw:before {
+  content: "\ea28";
+}
+.myfont-rotate-ccw:before {
+  content: "\ea29";
+}
+.myfont-rotate-cw:before {
+  content: "\ea2a";
+}
+.myfont-repeat:before {
+  content: "\ea2b";
+}
+.myfont-type:before {
+  content: "\ea2d";
+}
+.myfont-external-link:before {
+  content: "\ea2e";
+}
+.myfont-maximize-2:before {
+  content: "\ea2f";
+}
+.myfont-minimize-2:before {
+  content: "\ea30";
+}
+.myfont-move:before {
+  content: "\ea31";
+}
+.myfont-maximize:before {
+  content: "\ea32";
+}
+.myfont-minimize:before {
+  content: "\ea33";
+}
+.myfont-check-circle1:before {
+  content: "\ea12";
+}
+.myfont-check-square1:before {
+  content: "\ea13";
+}
+.myfont-arrow-right-circle:before {
+  content: "\ea34";
+}
+.myfont-arrow-down-right:before {
+  content: "\ea35";
+}
+.myfont-hash:before {
+  content: "\ea36";
+}
+.myfont-percent:before {
+  content: "\ea37";
+}
+.myfont-hashbold:before {
+  content: "\e9d2";
+}
+.myfont-at-sign1:before {
+  content: "\e9d3";
+}
+.myfont-at-sign2:before {
+  content: "\ea38";
+}
+.myfont-at-sign-bold:before {
+  content: "\e9d4";
+}
+.myfont-underline:before {
+  content: "\ea39";
+}
+.myfont-command:before {
+  content: "\ea3a";
+}
+.myfont-activity:before {
+  content: "\ea3b";
+}
+.myfont-disc:before {
+  content: "\ea3c";
+}
+.myfont-anchor:before {
+  content: "\ea3d";
+}
+.myfont-clock:before {
+  content: "\ea3e";
+}
+.myfont-bell:before {
+  content: "\ea3f";
+}
+.myfont-bell-off:before {
+  content: "\ea40";
+}
+.myfont-bell2:before {
+  content: "\e9b9";
+}
+.myfont-bell3:before {
+  content: "\e9ba";
+}
+.myfont-shield:before {
+  content: "\ea41";
+}
+.myfont-pocket:before {
+  content: "\ea42";
+}
+.myfont-shield2:before {
+  content: "\e9da";
+}
+.myfont-heart:before {
+  content: "\ea43";
+}
+.myfont-heart-bold:before {
+  content: "\ea0c";
+}
+.myfont-heart-filled:before {
+  content: "\ea53";
+}
+.myfont-star:before {
+  content: "\ea44";
+}
+.myfont-star-half:before {
+  content: "\ea45";
+}
+.myfont-star-filled:before {
+  content: "\ea46";
+}
+.myfont-trophy:before {
+  content: "\eab8";
+}
+.myfont-droplet:before {
+  content: "\ea47";
+}
+.myfont-line1-map:before {
+  content: "\e9bc";
+}
+.myfont-line2-map:before {
+  content: "\ea48";
+}
+.myfont-map-filled:before {
+  content: "\e9be";
+}
+.myfont-navigation:before {
+  content: "\ea2c";
+}
+.myfont-navigation-filled:before {
+  content: "\ea97";
+}
+.myfont-map:before {
+  content: "\ea49";
+}
+.myfont-compass:before {
+  content: "\ea4a";
+}
+.myfont-crosshair:before {
+  content: "\ea4b";
+}
+.myfont-pin:before {
+  content: "\e9bf";
+}
+.myfont-flag:before {
+  content: "\ea4c";
+}
+.myfont-flag2:before {
+  content: "\e9c0";
+}
+.myfont-flag2-filled:before {
+  content: "\e9c1";
+}
+.myfont-sitemap:before {
+  content: "\eab9";
+}
+.myfont-git-commit:before {
+  content: "\ea4d";
+}
+.myfont-git-pull-request:before {
+  content: "\ea4e";
+}
+.myfont-pie-chart:before {
+  content: "\ea4f";
+}
+.myfont-bar-chart:before {
+  content: "\ea50";
+}
+.myfont-bar-chart2:before {
+  content: "\ea51";
+}
+.myfont-more-horizontal:before {
+  content: "\ea52";
+}
+.myfont-more-vertical:before {
+  content: "\ea0d";
+}
+.myfont-more-vertical2:before {
+  content: "\e9c2";
+}
+.myfont-more-vertical3:before {
+  content: "\e9c3";
+}
+.myfont-list:before {
+  content: "\ea54";
+}
+.myfont-gall-grid:before {
+  content: "\e9c4";
+}
+.myfont-grid:before {
+  content: "\ea55";
+}
+.myfont-mail:before {
+  content: "\ea56";
+}
+.myfont-send:before {
+  content: "\ea57";
+}
+.myfont-i-share:before {
+  content: "\ea58";
+}
+.myfont-thumbs-up:before {
+  content: "\ea59";
+}
+.myfont-thumbs-down:before {
+  content: "\ea5a";
+}
+.myfont-filter:before {
+  content: "\ea1a";
+}
+.myfont-filter-filled:before {
+  content: "\ea19";
+}
+.myfont-globe:before {
+  content: "\ea5b";
+}
+.myfont-toggle-left:before {
+  content: "\ea5c";
+}
+.myfont-toggle-right:before {
+  content: "\ea5d";
+}
+.myfont-toggle-left-off:before {
+  content: "\e9cc";
+}
+.myfont-toggle-left-on:before {
+  content: "\e9cd";
+}
+.myfont-power:before {
+  content: "\e9d5";
+}
+.myfont-power2:before {
+  content: "\e9d6";
+}
+.myfont-battery:before {
+  content: "\ea5e";
+}
+.myfont-battery-charging:before {
+  content: "\ea5f";
+}
+.myfont-trending-up:before {
+  content: "\ea17";
+}
+.myfont-headphones:before {
+  content: "\ea60";
+}
+.myfont-volume:before {
+  content: "\ea61";
+}
+.myfont-rss:before {
+  content: "\ea62";
+}
+.myfont-cast:before {
+  content: "\ea63";
+}
+.myfont-passwod:before {
+  content: "\eaba";
+}
+.myfont-qrcode:before {
+  content: "\eabb";
+}
+.myfont-fingerprint:before {
+  content: "\eabc";
+}
+.myfont-radio:before {
+  content: "\ea64";
+}
+.myfont-bluetooth:before {
+  content: "\ea65";
+}
+.myfont-smile:before {
+  content: "\ea66";
+}
+.myfont-stop-circle:before {
+  content: "\ea67";
+}
+.myfont-target:before {
+  content: "\ea68";
+}
+.myfont-life-buoy:before {
+  content: "\ea69";
+}
+.myfont-trello:before {
+  content: "\ea6a";
+}
+.myfont-coffee:before {
+  content: "\ea6b";
+}
+.myfont-loader:before {
+  content: "\ea6c";
+}
+.myfont-terminal:before {
+  content: "\ea6d";
+}
+.myfont-wind:before {
+  content: "\ea6e";
+}
+.myfont-voicemail:before {
+  content: "\ea6f";
+}
+.myfont-thermometer:before {
+  content: "\ea70";
+}
+.myfont-music:before {
+  content: "\ea71";
+}
+.myfont-intaefont-icon185:before {
+  content: "\e9cf";
+}
+.myfont-figma:before {
+  content: "\ea72";
+}
+.myfont-line1-deco1:before {
+  content: "\ea73";
+}
+.myfont-line1-deco2:before {
+  content: "\ea74";
+}
+.myfont-line1-deco3:before {
+  content: "\ea75";
+}
+.myfont-line2-deco1:before {
+  content: "\ea76";
+}
+.myfont-line2-deco2:before {
+  content: "\ea77";
+}
+.myfont-line2-deco3:before {
+  content: "\ea78";
+}
+.myfont-square-filled:before {
+  content: "\ea79";
+}
+.myfont-circle-filled:before {
+  content: "\ea7a";
+}
+.myfont-triangle-filled:before {
+  content: "\ea7b";
+}
+.myfont-square-rt-filled:before {
+  content: "\ea7c";
+}
+.myfont-square-bold:before {
+  content: "\ea7d";
+}
+.myfont-circle-bold:before {
+  content: "\ea7e";
+}
+.myfont-triangle-bold:before {
+  content: "\ea7f";
+}
+.myfont-square-rt-bold:before {
+  content: "\ea80";
+}
+.myfont-deco-square:before {
+  content: "\ea81";
+}
+.myfont-deco-circle:before {
+  content: "\ea82";
+}
+.myfont-deco-triangle:before {
+  content: "\ea83";
+}
+.myfont-deco-square-rt:before {
+  content: "\ea84";
+}
+.myfont-deco2-rectangle:before {
+  content: "\ea85";
+}
+.myfont-deco2-square:before {
+  content: "\ea86";
+}
+.myfont-codepen:before {
+  content: "\ea87";
+}
+.myfont-shopping-cart1:before {
+  content: "\ea10";
+}
+.myfont-shopping-bag:before {
+  content: "\ea89";
+}
+.myfont-won:before {
+  content: "\e9dc";
+}
+.myfont-won-filled:before {
+  content: "\e9dd";
+}
+.myfont-dollar-sign:before {
+  content: "\ea8a";
+}
+.myfont-truck:before {
+  content: "\ea8b";
+}
+.myfont-package:before {
+  content: "\ea8c";
+}
+.myfont-box:before {
+  content: "\ea8d";
+}
+.myfont-gift:before {
+  content: "\ea8e";
+}
+.myfont-archive:before {
+  content: "\ea8f";
+}
+.myfont-phone:before {
+  content: "\ea90";
+}
+.myfont-phone-call:before {
+  content: "\ea91";
+}
+.myfont-phone2:before {
+  content: "\e9bb";
+}
+.myfont-phone2-filled:before {
+  content: "\e9bd";
+}
+.myfont-tv:before {
+  content: "\ea92";
+}
+.myfont-briefcase:before {
+  content: "\ea93";
+}
+.myfont-umbrella:before {
+  content: "\ea94";
+}
+.myfont-cpu:before {
+  content: "\ea95";
+}
+.myfont-facebook:before {
+  content: "\e9de";
+}
+.myfont-twitter:before {
+  content: "\ea88";
+}
+.myfont-twitter-filled:before {
+  content: "\e9df";
+}
+.myfont-youtube:before {
+  content: "\e9e0";
+}
+.myfont-youtube-red:before {
+  content: "\e97f";
+  color: #f00;
+}
+.myfont-microsoftexcel:before {
+  content: "\e994";
+  color: #217346;
+}
