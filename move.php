@@ -6,8 +6,7 @@ $LandingURL = "/html/customer/landing";
 if(!empty($moveEvent)) {
   switch($moveEvent) {
     case "shinhancard":
-      // header( "Location: ".$LandingURL."/shinhancard/shinhancard.php" );
-      header( "Location: /html/main/" );
+      header( "Location: ".$LandingURL."/shinhan/index.php" );
       break;
     default:
     header( "Location: /html/main/" );
