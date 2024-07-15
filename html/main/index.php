@@ -383,7 +383,7 @@ $_SESSION["orderno"] = "";
     <div class="popup-box">
         <div class="box" data-name="special" style="max-width: 600px">
             <div class="popup-head">
-                <h3>해외안심여행하고 COOL한 복날 보내세요!</h3>
+                <h3>안심여행하고 시원한 복날 보내세요!</h3>
                 <a href="javascript:;" class="close" onclick="popupClose();">닫기</a>
             </div>
             <div class="popup-body">
@@ -395,10 +395,19 @@ $_SESSION["orderno"] = "";
                 <div class="popup-body-button">
                     <a href="javascript:;" onclick="movePage2();">자세히 알아보기</a>
                 </div>
+								<div style="text-align: right;">
+									<a href="javascript:;" onclick="setCookieSpecial('special', 'Y', 1);"> 오늘 그만보기</a>
+								</div>
                 <script>
                     function movePage2(){
                         window.location.href="https://insuplus.co.kr:443/html/customer/event_list.php?mode=view&seq=85";
                     }
+										function setCookieSpecial(name, value, expiredays) {
+											var todayDate = new Date();
+											todayDate.setDate(todayDate.getDate() + expiredays);
+											document.cookie = name + "=" + escape(value) + "; path=/; expires=" + todayDate.toGMTString() + ";"
+											popupClose();
+										}
                 </script>
             </div>
         </div>
