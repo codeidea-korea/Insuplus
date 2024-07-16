@@ -537,8 +537,8 @@ include '../_include/_top.html';
     
     <? $currentDate = date('Y-m-d H:i:s'); ?>
     let currentDate = new Date("<?= $currentDate; ?>");
-    let startDate = new Date('2024-06-25 00:00');
-    let endDate = new Date('2024-06-26 23:59:59');
+    let startDate = new Date('2024-07-17 00:00');
+    let endDate = new Date('2024-07-17 23:59:59');
 
     // 의료지원 서비스 항목
     commonServices.forEach((item, idx) => {
