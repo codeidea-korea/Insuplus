@@ -477,7 +477,7 @@ function get_url( $url ) {
 					<span class="opener mobile-only" data-target="#f2Con"></span>
 				</div>
 				<p id="f2Con" class="con">
-					사업자등록번호 : 107-86-09485<br>
+					사업자등록번호 : 107-86-90485<br>
 					대표이사 : 김상수<br>
 					서울특별시 서대문구 충정로7, 구세군빌딩 8층<br>
 					통신판매업신고 : 제2016-서울서대문-0064호 | 보험대리점등록 : 제2010111034호
