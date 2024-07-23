@@ -63,7 +63,7 @@ function get_url( $url ) {
 			<img src="./img/main_top_img02.png" class="scrollMotion">
 			<div class="flex-middle gap25 scrollMotion pc-only">
 				<a href="https://pf.kakao.com/_JClxfT/chat" target="_blank" alt="카카오톡 문의하기"><img src="./img/main_top_btn01.png"></a>
-				<a href="/html/insurance/renewal_step00.php" target="_blank" alt="간편 가격조회 하기"><img src="./img/main_top_btn02.png"></a>
+				<a href="/html/insurance/renewal_step00.php?alliance_code=bGJQbXlvUFBhVUltMmVYVVlRb0JoUT09" target="_blank" alt="간편 가격조회 하기"><img src="./img/main_top_btn02.png"></a>
 			</div>
 		</div>
 	</section>
@@ -73,7 +73,7 @@ function get_url( $url ) {
 		<div id="_quick_pannel" class="pc-only">
 			<div id="_quick">
 				<a href="https://pf.kakao.com/_JClxfT/chat" target="_blank" alt="카카오톡 문의하기"><img src="./img/quick01.png" class="scrollMotion right"></a>
-				<a href="/html/insurance/renewal_step00.php" target="_blank" alt="간편 가격조회 하기"><img src="./img/quick02.png" class="scrollMotion right"></a>
+				<a href="/html/insurance/renewal_step00.php?alliance_code=bGJQbXlvUFBhVUltMmVYVVlRb0JoUT09" target="_blank" alt="간편 가격조회 하기"><img src="./img/quick02.png" class="scrollMotion right"></a>
 				<img src="./img/quick_top.png" id="_gototop" class="scrollMotion right">
 			</div>
 		</div>
@@ -450,7 +450,7 @@ function get_url( $url ) {
 
 	<div id="_mobile_floating_btn" class="mobile-only">
 		<a href="https://pf.kakao.com/_JClxfT/chat" target="_blank" alt="카카오톡 문의하기"><img src="./img/mobile_floating_btn01.png"></a>
-		<a href="/html/insurance/renewal_step00.php" target="_blank" alt="간편 가격조회 하기"><img src="./img/mobile_floating_btn02.png"></a>
+		<a href="/html/insurance/renewal_step00.php?alliance_code=bGJQbXlvUFBhVUltMmVYVVlRb0JoUT09" target="_blank" alt="간편 가격조회 하기"><img src="./img/mobile_floating_btn02.png"></a>
 	</div>
 </div>
 
