@@ -252,7 +252,7 @@ function get_url( $url ) {
 				</div>
 
 				<div class="txtCon tcenter lg:mt100 sm:mt50">
-					<div class="decotitle02 scrollMotion">Team Membe</div>
+					<div class="decotitle02 scrollMotion">Team Member</div>
 				</div>
 				<ul class="_ul_medical_info lg:mt100 sm:mt50">
 					<li class="scrollMotion">
