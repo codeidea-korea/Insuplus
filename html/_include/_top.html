@@ -57,11 +57,11 @@ if($_SESSION["ss_partner_seq"]) {
 				<ul class="side-wrap">
 					<li><a href="/html/insuplus/insuplus.php">서비스 알아보기</a></li>
 					<li><a href="/html/customer/counsel_case_list.php">이용후기 보기</a></li>
-					<li><a href="/html/insurance/renewal_step00.php" class="ft-red">간편가격조회</a></li>
+					<li><a href="/html/insurance/renewal_step00.php<?=isset($alliance_code) ? '?alliance_code='.$alliance_code : ''?>" class="ft-red">간편가격조회</a></li>
 					<!-- <li><a href="" class="ft-red">간편가격조회</a></li> -->
 				</ul>
 			</div>
-			<a href="/html/insurance/renewal_step00.php" class="is-m side-btn">
+			<a href="/html/insurance/renewal_step00.php<?=isset($alliance_code) ? '?alliance_code='.$alliance_code : ''?>" class="is-m side-btn">
 			<!-- <a href="" class="is-m side-btn"> -->
 				<img src="../images/icon_calc.png" alt="">
 			</a>
