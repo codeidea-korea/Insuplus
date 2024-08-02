@@ -23,7 +23,7 @@ $_SESSION["orderno"] = "";
 							<li>
 								<a href="https://pf.kakao.com/_JClxfT/chat" target="_blank" class="kakao">카카오 문의하기</a> <!--20231013 링크 새창 적용-->
 							</li>
-							<li><a href="/html/insurance/renewal_step00.php" class="price">간편 가격 조회하기</a></li>
+							<li><a href="/html/insurance/renewal_step00.php<?=isset($alliance_code) ? "?alliance_code=".$alliance_code : ""?>" class="price">간편 가격 조회하기</a></li>
 						</ul>
 					</div>
 				</div>
@@ -52,7 +52,7 @@ $_SESSION["orderno"] = "";
 						</a>
 					</li>
 					<li>
-						<a href="/html/insurance/renewal_step00.php" class="price">
+						<a href="/html/insurance/renewal_step00.php<?=isset($alliance_code) ? "?alliance_code=".$alliance_code : ""?>" class="price">
 							인슈플러스<br>
 							간편 가격조회
 						</a>
@@ -70,7 +70,7 @@ $_SESSION["orderno"] = "";
 						</a>
 					</li>
 					<li>
-						<a href="/html/insurance/renewal_step00.php" class="price">
+						<a href="/html/insurance/renewal_step00.php<?=isset($alliance_code) ? "?alliance_code=".$alliance_code : ""?>" class="price">
 							<span class="tts">간편 가격 조회하기</span>
 						</a>
 					</li>
