@@ -239,6 +239,8 @@
 			alert_back("탈퇴 회원입니다.");
 		}
 
+		LoginHistory($u_id, $_SERVER["REMOTE_ADDR"], "login");
+
 //		echo "ss_u_idx : ".$u_idx."<BR>";
 //		echo "ss_u_id : ".$u_id."<BR>";
 //		echo "ss_u_name : ".$u_name."<BR>";
@@ -266,6 +268,7 @@
 		$ss_u_name		= "";
 		$ss_u_level			= "";
 
+		LoginHistory($_SESSION['ss_u_id'], $_SERVER["REMOTE_ADDR"], "logout");
 		session_unset();
 		session_destroy();
 	}
@@ -360,4 +363,23 @@
 		return ( $dbcon -> fetch_array($dbcon -> query($SQL)) );
 	} // end function
 	#######################################################
+
+	// 로그인 이력 관리
+	function LoginHistory($login_id, $ip, $act) {
+		global $dbcon;
+		if ( getLen($login_id) == 0) return false;
+		if ( getLen($ip) == 0) return false;
+		if ( getLen($act) == 0) return false;
+		$SQL = "
+			insert into tbl_login_his
+			(
+				login_id, ip, act, reg_dt
+			)
+			values
+			(
+				'".$login_id."', '".$ip."', '".$act."', now()
+			)
+		";
+		$dbcon -> query($SQL);
+	}
 ?>

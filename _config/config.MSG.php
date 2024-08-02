@@ -45,5 +45,6 @@ $msg_error_search_content = "검색어를 입력해 주세요.";
 
 $msg_error_join = "회원가입에 실패하였습니다.";
 $msg_error_join_state = "이미 가입되어있는 회원 입니다.";
+$msg_error_join_pw = "비밀번호는 10자리 이상 입력하여 주십시오.";
 
 ?>
