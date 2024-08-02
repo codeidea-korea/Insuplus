@@ -8,6 +8,9 @@ if(!empty($moveEvent)) {
     case "shinhancard":
       header( "Location: ".$LandingURL."/shinhan/index.php" );
       break;
+    case "daytour":
+      header( "Location: ".$LandingURL."/daytour/daytour_landing.php" );
+      break;
     default:
     header( "Location: /html/main/" );
       break;
