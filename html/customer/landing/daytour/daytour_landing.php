@@ -1143,24 +1143,23 @@
 												<div class="bfbox_ic"> 
 													<img src="images/icon_rating.png">
 												</div>
-												<div class="bfbox_con">		
-													<p>   </p>											
+												<div class="bfbox_con">  
+													<p>   </p>
 													<p class="point">인슈플러스 가입시 </p>
 													<p class="point">10% 할인 </p>
-													<p> 가입 시 결제 전 추천 할인코드 입력</p>
 												</div>
 											</div>
 											<table>
-												  <thead>
+												<thead>
 													<tr>
-														<th>추천 할인코드</th>
+														<th>데이투어</th>
 													</tr>
-												  </thead>
-												  <tbody>
+												</thead>
+												<tbody>
 													<tr>
-														<td>데이투어</td>
+														<td> 결제 전 추천 할인코드 '데이투어'를 입력하세요.</td>
 													</tr>
-												  </tbody>
+												</tbody>
 											</table>
 										</div>
 									</div>
