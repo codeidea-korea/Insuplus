@@ -166,7 +166,7 @@ $t_amt = $t_amt + ($service_amt * (1+count($add_user_amt))) - $s_amount;
 
 
 echo(json_encode(array("success"=>"1","recommend_cd"=>$ROW["seq"]
-		,"s_amt_per_txt" => floor($s_amt_per)."프로 할인 적용되었습니다."
+		,"s_amt_per_txt" => "할인쿠폰이 적용되었습니다."
 		, "s_amt_per" => $s_amt_per
 		, "sale_amt" => $sale_amt
 		, "t_amount" => $t_amt)));
