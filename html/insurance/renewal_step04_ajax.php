@@ -425,7 +425,7 @@ if($row_plan["chk_service"] == "A" || $row_plan["chk_service"] == "B") {
 <input type="hidden" name="P_NOTI_URL" 						value="<?=$siteDomain?>/mx_rnoti.php">
 <input type="hidden" name="P_RETURN_URL" 					value="<?=$domain.$add_port?>/html/insurance/renewal_step05.php" />
 <input type="hidden" name="P_HPP_METHOD" 				value="2">
-<!-- <input type="hidden" name="P_VBANK_DT" value="<?date("Ymd")?>"> -->
+<input type="hidden" name="P_VBANK_DT" value="<?date("Ymd")?>">
 <!-- <input type="hidden" name="P_VBANK_DT" value="<?//date("Ymd", strtotime("+1 day"))?>"> -->
 <input type="hidden" name="P_CHARSET" value="utf8">
 </form>
