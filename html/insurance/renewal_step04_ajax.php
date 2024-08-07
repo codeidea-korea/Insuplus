@@ -425,7 +425,8 @@ if($row_plan["chk_service"] == "A" || $row_plan["chk_service"] == "B") {
 <input type="hidden" name="P_NOTI_URL" 						value="<?=$siteDomain?>/mx_rnoti.php">
 <input type="hidden" name="P_RETURN_URL" 					value="<?=$domain.$add_port?>/html/insurance/renewal_step05.php" />
 <input type="hidden" name="P_HPP_METHOD" 				value="2">
-<!-- <input type="hidden" name="P_VBANK_DT" value="<?//date("Ymd", strtotime("+5 day"))?>">-->
+<!-- <input type="hidden" name="P_VBANK_DT" value="<?date("Ymd")?>"> -->
+<!-- <input type="hidden" name="P_VBANK_DT" value="<?//date("Ymd", strtotime("+1 day"))?>"> -->
 <input type="hidden" name="P_CHARSET" value="utf8">
 </form>
 <? } else {?>
@@ -461,7 +462,7 @@ if($row_plan["chk_service"] == "A" || $row_plan["chk_service"] == "B") {
 <!-- <br/><b>acceptmethod</b> : acceptmethod
 <br/>acceptmethod  ex) CARDPOINT:SLIMQUOTA(코드-개월:개월):no_receipt:va_receipt:vbanknoreg(0):vbank(20150425):va_ckprice:vbanknoreg:
 <br/>KWPY_TYPE(0):KWPY_VAT(10|0) 기타 옵션 정보 및 설명은 연동정의보 참조 구분자 ":" -->
-<input type="hidden" name="acceptmethod" value="HPP(2):no_receipt:va_receipt:vbanknoreg(0):below1000" >
+<input type="hidden" name="acceptmethod" value="HPP(2):no_receipt:va_receipt:vbanknoreg(0):vbank(<?=date("Ymd")?>):below1000" >
 <!-- <br/><b>languageView</b> : 초기 표시 언어
 <br/>[ko|en] (default:ko) -->
 <input type="hidden" name="languageView" value="" >
