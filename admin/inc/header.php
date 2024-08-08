@@ -31,13 +31,13 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%">
 	<tr>
 		<td>
-
 			<table border="0" cellpadding="0" cellspacing="0" width="100%" style="background:#29354c;">
 				<tr>
 					<td height="30">
 						<table border="0" cellpadding="0" cellspacing="0" width="100%" >
 							<tr>
 								<td align="right" valign="top" class="a_global" style="padding-top:3px">
+									<a href="javascript: passwdChange();" ><font color="#fff;">비밀번호 변경</font></a>  &nbsp;|&nbsp;
 									<a href="<?=$url_root?>" target="_blank"><font color="#fff;">SITE HOME</font></a>  &nbsp;|&nbsp;
 									<a href="<?=$url_admin?>"><font color="#339933">ADMIN HOME</font></a>  &nbsp;|&nbsp;
 									<a href="<?=$url_admin_login_out?>">LOGOUT</a>
@@ -48,6 +48,13 @@
 					<td>&nbsp;</td>
 				</tr>
 			</table>
+			<script>
+				function passwdChange(){
+					var left = (screen.width - 370) / 2;
+					var top = (screen.height - 335) / 2;
+					window.open("<?=$url_admin?>mn1/passwd_change.php","passwdChange","width=370,height=335,left=" + left + ",top=" + top + ",scrollbars=yes");
+				}
+			</script>
 
 			<!--  TomMenu Start -->
 			<?

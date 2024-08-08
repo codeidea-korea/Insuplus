@@ -122,10 +122,7 @@
 			exit;
 		}
 
-	}
-
-	// 신규가입
-	else {
+	} else { // 신규가입
 
 		if ( strlen($u_idx) == 0 ) {
 			isnull($u_pw);
@@ -134,6 +131,8 @@
 
 		if ( MemberCheckJoin($u_id) > 0 ) {
 			alert_page( $msg_error_join_state, "agree.php");
+		} else if(strlen($u_pw) < 10) {
+			alert_back($msg_error_join_pw);
 		}
 
 		$u_pw = all_seed_enc($u_pw);

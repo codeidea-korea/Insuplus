@@ -125,6 +125,7 @@ if ($tm == "member" ) {?>
 	<?if ( $sc_menu_member == "Y" ) {?>
 	<li><a href="<?=$url_admin?>member/member_write.php">신규회원 등록</a></li>
 	<?}?>
+	<li><a href="<?=$url_admin?>member/login_history.php">로그인 기록</a></li>
 </ul>
 <?}?>
 

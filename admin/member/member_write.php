@@ -245,7 +245,7 @@
 						<table border="0" cellspacing="0" cellpadding="0">
 							<tr>
 								<td width="126" valign="top"><input name="u_pw" type="password" class="m_input" maxlength="20" style="width:120px"></td>
-								<td class="m_content_txt2">총 6 자리 이상 입력하셔야 합니다.</td>
+								<td class="m_content_txt2">총 10 자리 이상 입력하셔야 합니다.</td>
 							</tr>
 						</table>
 					</td>
@@ -282,7 +282,7 @@
 
 				<!-- 생년월일 Start -->
 				<tr>
-					<td class="m_s_txt">생년월일</td>
+					<td class="m_s_txt">생년월일 *</td>
 					<td class="m_content">
 						<input type="text" name="u_birth" value="<?=$print_u_birth?>" <?=$ClassCalendar?> maxlength="10" style="width:120px">
 					</td>
@@ -332,7 +332,7 @@
 
 				<!-- 이메일 Start -->
 				<tr>
-					<td class="m_s_txt">이메일</td>
+					<td class="m_s_txt">이메일 *</td>
 					<td class="m_content">
 						<? getEmailForm("u_email1", "u_email2", $u_email1, $u_email2, "m_input"); ?>
 					</td>
@@ -386,18 +386,11 @@
 
 					ff = document.JoinForm;
 
-					<? if ( strlen($u_idx) == 0 ) { ?>
-//					if(ff.u_id.value.length < 6) {
-//						alert("아이디는 영문 또는 숫자 6~16자로 구성됩니다.");
-//						ff.u_id.focus();
-//						return false;
-//					}
-//					else {
-						if (!checkNorm(ff.u_id, '아이디', numeric+alpha+'(-_)+', 16)) {
-							OBJ_ID.focus();
-							return false;
-						}
-//					}
+				<? if ( strlen($u_idx) == 0 ) { ?>
+					if (!checkNorm(ff.u_id, '아이디', numeric+alpha+'(-_)+', 16)) {
+						ff.u_id.focus();
+						return false;
+					}
 
 					if (ff.id_chk.value != 1) {
 						error(ff.u_id, "아이디 중복확인 해주세요.");
@@ -407,10 +400,15 @@
 					if (ff.u_pw.value < 6) {
 						ff.u_pw.value = "";
 						ff.u_pw_r.value = "";
-						error(ff.u_pw, "비밀번호는 총 6 자리 이상 입력하셔야 합니다.");
+						error(ff.u_pw, "비밀번호는 총 10 자리 이상 입력하셔야 합니다.");
 						return false;
 					}
 					<? } ?>
+
+					if(checkPasswordValidation(ff.u_pw.value) == false) {
+						alert("비밀번호는 영문, 숫자, 특수문자를 포함하여 8~15자리로 입력해주세요.");
+						return false;
+					}
 
 					if (ff.u_pw.value != ff.u_pw_r.value ) {
 						ff.u_pw.value = "";
@@ -441,6 +439,21 @@
 					}
 					//return false;
 					TempGo = 1;
+				}
+
+				function checkPasswordValidation(password) {
+					let bool = false;
+					const pattern1 = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
+					const pattern2 = /^(?=.*[a-zA-Z])(?=.*[0-9]).{10,15}$/;
+					const pattern3 = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-]).{10,15}$/;
+					const pattern4 = /^(?=.*[!@#$%^*+=-])(?=.*[0-9]).{10,15}$/;
+
+					if (pattern1.test(password)) bool = true;
+					else if (pattern2.test(password)) bool = true;
+					else if (pattern3.test(password)) bool = true;
+					else if (pattern4.test(password)) bool = true;
+
+					return bool;
 				}
 			</script>
 		</td>
