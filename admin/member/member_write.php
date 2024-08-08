@@ -405,6 +405,11 @@
 					}
 					<? } ?>
 
+					if(checkPasswordValidation(ff.u_pw.value) == false) {
+						alert("비밀번호는 영문, 숫자, 특수문자를 포함하여 8~15자리로 입력해주세요.");
+						return false;
+					}
+
 					if (ff.u_pw.value != ff.u_pw_r.value ) {
 						ff.u_pw.value = "";
 						ff.u_pw_r.value = "";
@@ -434,6 +439,21 @@
 					}
 					//return false;
 					TempGo = 1;
+				}
+
+				function checkPasswordValidation(password) {
+					let bool = false;
+					const pattern1 = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
+					const pattern2 = /^(?=.*[a-zA-Z])(?=.*[0-9]).{10,15}$/;
+					const pattern3 = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-]).{10,15}$/;
+					const pattern4 = /^(?=.*[!@#$%^*+=-])(?=.*[0-9]).{10,15}$/;
+
+					if (pattern1.test(password)) bool = true;
+					else if (pattern2.test(password)) bool = true;
+					else if (pattern3.test(password)) bool = true;
+					else if (pattern4.test(password)) bool = true;
+
+					return bool;
 				}
 			</script>
 		</td>
