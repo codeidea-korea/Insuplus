@@ -141,9 +141,9 @@
 	include $path_admin."inc/header.php";
 
 	$url_skin_member = "/_skin/member/default/";
-?>
-<script language="JavaScript" src="/member/join.js"></script>
-<script language="JavaScript" src="<?=$url_member?>join.js"></script>
+ ?>
+ <!-- <script language="JavaScript" src="/member/join.js"></script> -->
+ <!-- <script language="JavaScript" src="<?=$url_member?>join.js"></script> -->
 
 <form name="JoinForm" method="post" action="member_write_ok.php" enctype='multipart/form-data' onSubmit="return JoinGo()">
 <input type="hidden" name="u_gubun" value="<?=$u_gubun?>">
@@ -226,7 +226,7 @@
 								<td class="m_content_txt2"><b><?=$u_id?></b></td>
 							<? } else { ?>
 								<input type="hidden" name="id_chk" value="0">
-								<td width="126" valign="top"><input name="u_id" value="<?=$u_id?>" onchange="resetID()" <?=$OnlyEng?> maxlength="16" type="text" class="m_input" style="width:120px" ></td>
+								<td width="126" valign="top"><input name="u_id" value="<?=$u_id?>" <?=$OnlyEng?> maxlength="16" type="text" class="m_input" style="width:120px" ></td>
 								<td class="m_content_txt2">영문 또는 숫자 6~16 자로 구성됩니다.</td>
 							<? } ?>
 							</tr>
@@ -392,17 +392,17 @@
 						return false;
 					}
 
-					if (ff.id_chk.value != 1) {
-						error(ff.u_id, "아이디 중복확인 해주세요.");
-						return false;
-					}
+					// if (ff.id_chk.value != 1) {
+					// 	error(ff.u_id, "아이디 중복확인 해주세요.");
+					// 	return false;
+					// }
 
-					if (ff.u_pw.value < 6) {
-						ff.u_pw.value = "";
-						ff.u_pw_r.value = "";
-						error(ff.u_pw, "비밀번호는 총 10 자리 이상 입력하셔야 합니다.");
-						return false;
-					}
+					// if (ff.u_pw.value < 6) {
+					// 	ff.u_pw.value = "";
+					// 	ff.u_pw_r.value = "";
+					// 	error(ff.u_pw, "비밀번호는 총 10 자리 이상 입력하셔야 합니다.");
+					// 	return false;
+					// }
 					<? } ?>
 
 					if(checkPasswordValidation(ff.u_pw.value) == false) {
@@ -439,6 +439,7 @@
 					}
 					//return false;
 					TempGo = 1;
+					ff.submit();
 				}
 
 				function checkPasswordValidation(password) {
@@ -454,6 +455,29 @@
 					else if (pattern4.test(password)) bool = true;
 
 					return bool;
+				}
+
+				function checkNorm(target, cmt, astr, lmax) {
+					var i;
+					var t = target.value;
+					if (t.length == 0 ) {
+						alert(cmt + '(을)를 기재하지 않으셨습니다.');
+						return false;
+					}
+					if (lmax != 0 && t.length > lmax) {
+						alert(cmt + '는 ' + lmax + '자 이내만 허용합니다.');
+						return false;
+					}
+					if (astr.length >= 1) {
+						for (i=0; i<t.length; i++) {
+							if( astr.indexOf(t.substring(i,i+1)) < 0 ) {
+								alert(cmt + '에 허용할 수 없는 문자가 입력되었습니다.!!!!!!');
+								return false;
+								break;
+							}
+						}
+						return true;
+					}
 				}
 			</script>
 		</td>

@@ -51,7 +51,7 @@ if (strlen($search_date_e) > 0) {
   $query_where .= " and " . $search_date_txt . " <= '" . $search_date_e . " 23:59:59' ";
 }
 
-$search_orderby = " his_seq";
+$search_orderby = " his_seq DESC";
 
 $parameter = "&login_id=".$login_id."&ip=".$ip."&act=".$act."&search=".$search."&search_text=".$search_text."&search_orderby=".$search_orderby."&search_date_txt=".$search_date_txt."&search_date_s=".$search_date_s."&search_date_e=".$search_date_e;
 
