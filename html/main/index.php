@@ -197,8 +197,8 @@ $_SESSION["orderno"] = "";
 					</div>
 					<div class="intro-content">
 						<strong>국내 유일 의료용 항공기&middot;전문항공팀&middot;<br>응급의학과 이송팀 보유</strong>
-						<p class="is-pc">국내 의료용 항공기로 한국인 응급의학과 전문의와 파일럿이<br>직접 이송을 드리며 이송비용을 2억까지 보장해 드립니다</p>
-						<p class="is-m">국내 의료용 항공기로 한국인 응급의학과 전문의와<br>파일럿이 직접 이송을 드리며<br>이송비용을 2억까지 보장해 드립니다</p>
+						<p class="is-pc">국내 의료용 항공기로 한국인 응급의학과 전문의와 파일럿이<br>직접 이송해 드리며 이송비용을 2억까지 보장해 드립니다</p>
+						<p class="is-m">국내 의료용 항공기로 한국인 응급의학과 전문의와<br>파일럿이 직접 이송해 드리며<br>이송비용을 2억까지 보장해 드립니다</p>
 						<a href="http://flyingdoctors.co.kr/" target="_blank">자세히보기</a> <!--20231013 링크 새창 적용-->
 
 					</div>

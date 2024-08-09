@@ -49,7 +49,7 @@ if($_POST["mode"] == "insert") {
 				$row= $dbcon -> fetch_array($result);
 
 				$param = array();
-				$param["discount"] = $_POST["discount"]."%";
+				$param["discount"] = $_POST["discount"];
 				$param["discount_txt"] = $_POST["discount"]."%";
 				$param["period"] = $expire_date_s. " ~ ".$expire_date_e;
 				$param["coupon_name"] = $row["partner_coupon_name"];
