@@ -26,7 +26,7 @@
 <link href="/_css/jquery-ui.css" rel="stylesheet" type="text/css">
 </head>
 <body style="background-color:#FFFFFF;">
-<!-- Header Start -->
+<!-- Header Start --> 
 
 <table border="0" cellpadding="0" cellspacing="0" width="100%">
 	<tr>
@@ -50,9 +50,9 @@
 			</table>
 			<script>
 				function passwdChange(){
-					var left = (screen.width - 370) / 2;
+					var left = (screen.width - 500) / 2;
 					var top = (screen.height - 335) / 2;
-					window.open("<?=$url_admin?>mn1/passwd_change.php","passwdChange","width=370,height=335,left=" + left + ",top=" + top + ",scrollbars=yes");
+					window.open("<?=$url_admin?>mn1/passwd_change.php","passwdChange","width=500,height=335,left=" + left + ",top=" + top + ",scrollbars=yes");
 				}
 			</script>
 
