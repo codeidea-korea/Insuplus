@@ -130,7 +130,7 @@
 		}
 
 		if ( MemberCheckJoin($u_id) > 0 ) {
-			alert_page( $msg_error_join_state, "agree.php");
+			alert_page( $msg_error_join_state, "member_write.php");
 		} else if(strlen($u_pw) < 10) {
 			alert_back($msg_error_join_pw);
 		}
