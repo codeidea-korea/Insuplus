@@ -11,6 +11,9 @@ if(!empty($moveEvent)) {
     case "daytour":
       header( "Location: ".$LandingURL."/daytour/daytour_landing.php" );
       break;
+    case "myshop":
+      header( "Location: /html/insurance/partner_step01.php" );
+      break;
     default:
     header( "Location: /html/main/" );
       break;
