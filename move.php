@@ -12,7 +12,7 @@ if(!empty($moveEvent)) {
       header( "Location: ".$LandingURL."/daytour/daytour_landing.php" );
       break;
     case "myshop":
-      header( "Location: /html/insurance/partner_step01.php" );
+      header( "Location: /html/insurance/partner_step01.php?alliance_code=TVRiRCtmaWVIZEZBT3Y3QWk0b09Tdz09" );
       break;
     default:
     header( "Location: /html/main/" );
