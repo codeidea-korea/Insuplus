@@ -228,7 +228,7 @@ foreach($arr_join_seq as $join_row){
           if ( $insuplus["e_amount"] != "NOT-AVAILABLE"){
             $CHK_SERVICE .= "<tr><th width='350px' style=\"background-color: #f2f7ff;font-weight: 400;text-align: center;border-bottom: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;\">" ;
             $CHK_SERVICE .= $insuplus["service_name_en"];
-            $CHK_SERVICE .= "</th><td style=\"background-color: #ffffff;font-weight: 400;text-align: center;border-bottom: 1px solid #d6d6d6;border-left: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;\">" ;
+            $CHK_SERVICE .= "</th><td style=\"background-color: #ffffff;font-weight: 400;text-align: left;border-bottom: 1px solid #d6d6d6;border-left: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;\">" ;
             $CHK_SERVICE .= $insuplus["e_amount"] . "</td></tr>";
           }
         }
@@ -251,7 +251,7 @@ foreach($arr_join_seq as $join_row){
           if ( $insuplus["k_amount"] != "NOT-AVAILABLE"){
             $CHK_SERVICE .= "<tr><th width='350px' style=\"background-color: #f2f7ff;font-weight: 400;text-align: center;border-bottom: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;\">" ;
             $CHK_SERVICE .= $insuplus["service_name"];
-            $CHK_SERVICE .= "</th><td style=\"background-color: #ffffff;font-weight: 400;text-align: center;border-bottom: 1px solid #d6d6d6;border-left: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;\">" ;
+            $CHK_SERVICE .= "</th><td style=\"background-color: #ffffff;font-weight: 400;text-align: left;border-bottom: 1px solid #d6d6d6;border-left: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;\">" ;
             $CHK_SERVICE .= $insuplus["k_amount"] . "</td></tr>";
           }
         }
@@ -453,7 +453,7 @@ foreach($arr_join_seq as $join_row){
             if ( $insuplus["e_amount"] != "NOT-AVAILABLE"){
               $CHK_SERVICE .= "<tr><th width='350px' style=\"background-color: #f2f7ff;font-weight: 400;text-align: center;border-bottom: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;\">" ;
               $CHK_SERVICE .= $insuplus["service_name_en"];
-              $CHK_SERVICE .= "</th><td style=\"background-color: #ffffff;font-weight: 400;text-align: center;border-bottom: 1px solid #d6d6d6;border-left: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;\">" ;
+              $CHK_SERVICE .= "</th><td style=\"background-color: #ffffff;font-weight: 400;text-align: left;border-bottom: 1px solid #d6d6d6;border-left: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;\">" ;
               $CHK_SERVICE .= $insuplus["e_amount"] . "</td></tr>";
             }
           }
@@ -478,7 +478,7 @@ foreach($arr_join_seq as $join_row){
             if ( $insuplus["k_amount"] != "NOT-AVAILABLE"){
               $CHK_SERVICE .= "<tr><th width='350px' style=\"background-color: #f2f7ff;font-weight: 400;text-align: center;border-bottom: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;\">" ;
               $CHK_SERVICE .= $insuplus["service_name"];
-              $CHK_SERVICE .= "</th><td style=\"background-color: #ffffff;font-weight: 400;text-align: center;border-bottom: 1px solid #d6d6d6;border-left: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;\">" ;
+              $CHK_SERVICE .= "</th><td style=\"background-color: #ffffff;font-weight: 400;text-align: left;border-bottom: 1px solid #d6d6d6;border-left: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;\">" ;
               $CHK_SERVICE .= $insuplus["k_amount"] . "</td></tr>";
             }
           }
