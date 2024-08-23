@@ -1471,7 +1471,7 @@ include '../_include/_top.html';
     setDateLimitOnInput();
   }
 
-  document.addEventListener('DOMContentLoaded', function (event) {
+  window.addEventListener('load', function (event) {
     EHDObject.init();
     if (EHDObject.selectedPartnership){
       const ps = EHDObject.selectedPartnership;
@@ -1479,11 +1479,24 @@ include '../_include/_top.html';
       EHDObject.save();
       EHDObject.getCategories(EHDObject.depth0.code, addEventOnDepth1);
     } else {
-      EHDObject.depth0 = undefined;
-      EHDObject.depth1 = undefined;
-      EHDObject.depth2 = undefined;
-      EHDObject.depth3 = undefined;
-      EHDObject.save();
+      EHDObject.checkPartnership(()=>{
+        const param = location.search.match(/alliance_code=[^&]*/);
+        if (param && !EHDObject.selectedPartnership){
+          alert('등록되지 않은 제휴사 코드 입니다.');
+          location.href = './renewal_step00.php';
+          return;
+        } else if(param && EHDObject.selectedPartnership) {
+          EHDObject.depth0 = { code: ps.partnership_category_code, name: ps.partnership_name };
+          EHDObject.save();
+          EHDObject.getCategories(EHDObject.depth0.code, addEventOnDepth1);
+        } else {
+          alert('올바른 경로가 아닙니다.');
+          location.href = './renewal_step00.php';
+          return;
+        }
+        EHDObject.save();
+        EHDObject.getCategories(EHDObject.depth0.code, addEventOnDepth1);
+      });
     }
   });
 
