@@ -1402,7 +1402,7 @@ include '../_include/_top.html';
         el.min = limitDate;
         if (!el.value && el.id === 'A-departure') {
           el.value = EHDObject.getFormatedDate(cDate);
-          optionGenerator('#A-departure-time', { start: cHour, end: 23, postFix: ' 시', defaultValue: 0 });
+          optionGenerator('#A-departure-time', { start: cHour, end: 23, postFix: ' 시', defaultValue: cHour });
           el.dispatchEvent(new Event('change'));
         }
       });
@@ -1420,7 +1420,8 @@ include '../_include/_top.html';
     const postFix = option.postFix || '';
     const type = option.type;
     const padLength = option.padLength || 2;
-
+    console.log('selector',selector);
+    console.log('option.defaultValue',option.defaultValue);
     for (let i = start; i <= end; i = i + interval) {
       const val = type === 'number' ? i : String(i).padStart(padLength, '0');
       html.push(
@@ -1479,13 +1480,13 @@ include '../_include/_top.html';
       EHDObject.save();
       EHDObject.getCategories(EHDObject.depth0.code, addEventOnDepth1);
     } else {
-      EHDObject.checkPartnership(()=>{
+      EHDObject.checkPartnership(() => {
         const param = location.search.match(/alliance_code=[^&]*/);
         if (param && !EHDObject.selectedPartnership){
           alert('등록되지 않은 제휴사 코드 입니다.');
           location.href = './renewal_step00.php';
           return;
-        } else if(param && EHDObject.selectedPartnership) {
+        } else if (param && EHDObject.selectedPartnership) {
           const ps = EHDObject.selectedPartnership;
           EHDObject.depth0 = { code: ps.partnership_category_code, name: ps.partnership_name };
           EHDObject.save();
@@ -1495,8 +1496,6 @@ include '../_include/_top.html';
           location.href = './renewal_step00.php';
           return;
         }
-        EHDObject.save();
-        EHDObject.getCategories(EHDObject.depth0.code, addEventOnDepth1);
       });
     }
   });
