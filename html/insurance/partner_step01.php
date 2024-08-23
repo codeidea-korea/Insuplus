@@ -584,9 +584,9 @@ include '../_include/_top.html';
       html.push(`          </div>`);
       html.push(`          <div class="table-body flex-tr" style="justify-content: center;">`);
       if (item.chk_service === 'Y') {
-        html.push(`            <b class="point">${item.k_amount}</b>`);
+        html.push(`            <b class="point" style="justify-content: left;">${item.k_amount}</b>`);
       } else {
-        html.push(`            <b>${item.k_amount}</b>`);
+        html.push(`            <b style="justify-content: left;">${item.k_amount}</b>`);
       }
       html.push(`          </div>`);
       html.push(`        </li>`);
@@ -745,7 +745,7 @@ include '../_include/_top.html';
           buff.push(`            </select>`);
           buff.push(`            </div>`);
         } else {
-          buff.push(`            <b>${item.g_amount}</b>`);
+          buff.push(`            <b style="justify-content: left;">${item.g_amount}</b>`);
         }
         buff.push(`          </div>`);
         buff.push(`        </li>`);
