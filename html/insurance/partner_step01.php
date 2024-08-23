@@ -745,7 +745,7 @@ include '../_include/_top.html';
           buff.push(`            </select>`);
           buff.push(`            </div>`);
         } else {
-          buff.push(`            <b style="justify-content: left;">${item.g_amount}</b>`);
+          buff.push(`            <b>${item.g_amount}</b>`);
         }
         buff.push(`          </div>`);
         buff.push(`        </li>`);
