@@ -1486,6 +1486,7 @@ include '../_include/_top.html';
           location.href = './renewal_step00.php';
           return;
         } else if(param && EHDObject.selectedPartnership) {
+          const ps = EHDObject.selectedPartnership;
           EHDObject.depth0 = { code: ps.partnership_category_code, name: ps.partnership_name };
           EHDObject.save();
           EHDObject.getCategories(EHDObject.depth0.code, addEventOnDepth1);
