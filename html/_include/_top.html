@@ -17,12 +17,17 @@ if($alliance_code) {
 //제휴사 로고 처리
 $LOGO_URL = "../images/logo.png";
 if($_SESSION["ss_partner_seq"]) {
-	$SQL_PA = "select imgfile from tbl_board_partner where seq = ".$_SESSION["ss_partner_seq"];
+	$SQL_PA = "select imgfile, ext2 from tbl_board_partner where seq = ".$_SESSION["ss_partner_seq"];
 	$RS_PA_FILE = $dbcon -> query($SQL_PA);
 	$row = $dbcon->fetch_array($RS_PA_FILE);
 	if($row['imgfile']) {
 		$LOGO_URL = "/_data/board/partner/".explode(',', $row['imgfile'])[1] ;
 	}
+
+	if($row['ext2']) {
+		$PARTNER_TYPE = $row['ext2'];
+	}
+
 }
 ?>
 <!-- GNB-Static navbar -->

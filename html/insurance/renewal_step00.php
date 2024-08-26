@@ -66,28 +66,43 @@ $_SESSION["orderno"] = "";
 
 
       window.addEventListener('load', () => {
+        const partner_type = '<?= $PARTNER_TYPE?>';
         EHDObject.init();
-        if (EHDObject.selectedPartnership){
-          const ps = EHDObject.selectedPartnership;
-          EHDObject.depth0 = { code: ps.partnership_category_code, name: ps.partnership_name };
+        if(partner_type.length > 0 && partner_type != 'undefined'){
+          EHDObject.depth0 = { code: 'C001', name: '국내상품' };
+          EHDObject.depth1 = undefined;
+          EHDObject.depth2 = undefined;
+          EHDObject.depth3 = undefined;
           EHDObject.save();
           EHDObject.getCategories(EHDObject.depth0.code, addEventOnDepth1);
         } else {
-          EHDObject.checkPartnership(()=>{
-            const param = location.search.match(/alliance_code=[^&]*/);
-            if (param && !EHDObject.selectedPartnership){
-              alert('등록되지 않은 제휴사 코드 입니다.');
-              location.href = './renewal_step00.php';
-              return;
-            } else {
-              EHDObject.depth0 = { code: 'C001', name: '국내상품' };
-              EHDObject.depth1 = undefined;
-              EHDObject.depth2 = undefined;
-              EHDObject.depth3 = undefined;
-            }
+          if (EHDObject.selectedPartnership){
+            const ps = EHDObject.selectedPartnership;
+            EHDObject.depth0 = { code: ps.partnership_category_code, name: ps.partnership_name };
             EHDObject.save();
             EHDObject.getCategories(EHDObject.depth0.code, addEventOnDepth1);
-          });
+          } else {
+            EHDObject.checkPartnership(()=>{
+              const param = location.search.match(/alliance_code=[^&]*/);
+              if (param && !EHDObject.selectedPartnership){
+                alert('등록되지 않은 제휴사 코드 입니다.');
+                location.href = './renewal_step00.php';
+                return;
+              }  else if(param && EHDObject.selectedPartnership) {
+                const ps = EHDObject.selectedPartnership;
+                EHDObject.depth0 = { code: ps.partnership_category_code, name: ps.partnership_name };
+                EHDObject.save();
+                EHDObject.getCategories(EHDObject.depth0.code, addEventOnDepth1);
+              } else {
+                EHDObject.depth0 = { code: 'C001', name: '국내상품' };
+                EHDObject.depth1 = undefined;
+                EHDObject.depth2 = undefined;
+                EHDObject.depth3 = undefined;
+              }
+              EHDObject.save();
+              EHDObject.getCategories(EHDObject.depth0.code, addEventOnDepth1);
+            });
+          }
         }
       });
     </script>

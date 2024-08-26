@@ -111,6 +111,19 @@ if ($client_mode=="Y"){
       </script>
     </td>
   </tr>  
+  <tr>
+    <th>제휴사 페이지 구분</th>
+    <td colspan="3">
+      <select name="ext2">
+        <option value="">선택</option>
+        <?
+         foreach($Arr_partner_type as $key => $val){
+        ?>
+        <option value="<?=$key?>" <?= $ext2 == $key ? 'selected' : '' ?>><?= $val ?></option>
+        <?}?>
+      </select>
+    </td>
+  </tr>
   <tr>  
     <th>제휴코드</th>
     <td>

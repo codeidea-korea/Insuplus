@@ -17,6 +17,10 @@
 	<td class="product-category"><?=$ext1?></td>
 </tr>
 <tr>
+	<th>제휴사 페이지 구분</th>
+	<td colspan="3"><?=$Arr_partner_type[$ext2]?></td>
+</tr>
+<tr>
 	<th>제휴코드</th>
 	<td><?=$partnership_code?></td>
 	<th>등록일</th>
