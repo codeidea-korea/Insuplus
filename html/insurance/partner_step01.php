@@ -568,14 +568,8 @@ include '../_include/_top.html';
         html.push(`      </div>`);
         html.push(`    </div>`);
         html.push(`  </div>`);
-        html.push(`  <div class="title-box mt12">`);
-        html.push(`    <h3>24시간 의료상담 및 병원예약</h3>`);
-        html.push(`  </div>`);
-        html.push(`  <p class="common-txt01">여행중 아프면 24시간 언제 어디서든 연락하세요.</p>`);
-        html.push(
-          `  <p class="common-txt01">보험을 가입하지 않으시면 해외병원비 대신지불, 원격화상진료 서비스는 제공되지 않습니다.</p>`
-        );
-        html.push(`  <div class="table-form-box">`);
+        html.push(`  <button type="button" class="btn-more off">자세히 보기</button>`);
+        html.push(`  <div class="table-form-box mt12" style="display: none;">`);
         html.push(`    <ul>`);
       }
       html.push(`        <li>`);
@@ -634,18 +628,19 @@ include '../_include/_top.html';
           html.push(`    </div>`);
           html.push(`  </div>`);
           // html.push(`  <p class="common-txt01">${message}</p>`);
-          html.push(`  <div class="table-form-box mt12" >`);
+          html.push(`  <button type="button" class="btn-more off">자세히 보기</button>`);
+          html.push(`  <div class="table-form-box mt12" style="display: none;">`);
           html.push(`    <ul>`);
         }
         html.push(`        <li>`);
-        html.push(`          <div class="table-head w-65">`);
+        html.push(`          <div class="table-head w300">`);
         html.push(`            <strong>${item.service_name}</strong>`);
         html.push(`          </div>`);
-        html.push(`          <div class="table-body" style="justify-content: center;">`);
+        html.push(`          <div class="table-body" style="justify-content: left;">`);
         if (item.chk_service === 'Y') {
-          html.push(`            <b class="point">${item.k_amount}</b>`);
+          html.push(`            <b class="point" style="justify-content: left;">${item.k_amount}</b>`);
         } else {
-          html.push(`            <b>${item.k_amount}</b>`);
+          html.push(`            <b style="justify-content: left;">${item.k_amount}</b>`);
         }
         html.push(`          </div>`);
         html.push(`        </li>`);
