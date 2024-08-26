@@ -634,8 +634,7 @@ include '../_include/_top.html';
           html.push(`    </div>`);
           html.push(`  </div>`);
           // html.push(`  <p class="common-txt01">${message}</p>`);
-          html.push(`  <button type="button" class="btn-more off">자세히 보기</button>`);
-          html.push(`  <div class="table-form-box mt12" style="display: none;">`);
+          html.push(`  <div class="table-form-box mt12" >`);
           html.push(`    <ul>`);
         }
         html.push(`        <li>`);
@@ -1249,19 +1248,20 @@ include '../_include/_top.html';
       }
     }
 
-    if (checkedSer) {
-      if (Number.isNaN(__.customer.sPrice) || __.customer.sPrice <= 0) {
-        alert('가입자에 맞는 서비스료가 없습니다.');
-        return;
-      }
+    // 서비스 보장내역은 노출 시키면서 서비스요금은 없음 2024.08.26 hjlee233
+    // if (checkedSer) {
+    //   if (Number.isNaN(__.customer.sPrice) || __.customer.sPrice <= 0) {
+    //     alert('가입자에 맞는 서비스료가 없습니다.');
+    //     return;
+    //   }
 
-      existsZeroPrice =
-        Array.isArray(__.companions) && __.companions.find((c) => Number.isNaN(c.sPrice) || c.sPrice <= 0);
-      if (existsZeroPrice) {
-        alert('동반자에 맞는 서비스료가 없습니다.');
-        return;
-      }
-    }
+    //   existsZeroPrice =
+    //     Array.isArray(__.companions) && __.companions.find((c) => Number.isNaN(c.sPrice) || c.sPrice <= 0);
+    //   if (existsZeroPrice) {
+    //     alert('동반자에 맞는 서비스료가 없습니다.');
+    //     return;
+    //   }
+    // }
 
     __.cleaning();
     __.save();

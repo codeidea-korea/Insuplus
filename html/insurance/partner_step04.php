@@ -63,12 +63,25 @@ $detect = new Mobile_Detect;
         </div>
         <div class="form-box" id="payment-info">
           <div class="form-content">
-            <div class="total-price-box mt30 mt-lg-24">
-              <strong>결제금액</strong>
-              <p>
-                <b>0원</b>
-                <small>0원 할인</small>
-              </p>
+            <div class="total-price-box">
+              <div class="single-row">
+                <div class="name">결제금액</div>
+                <div class="amount">0원</div>
+              </div>
+              <div class="multi-row">
+                <div class="row">
+                  <div class="name">여행자보험</div>
+                  <div class="amount">0원</div>
+                </div>
+                <div class="row">
+                  <div class="name">의료지원</div>
+                  <div class="amount">0원(서비스 이용권 혜택가)</div>
+                </div>
+                <div class="row">
+                  <div class="name">긴급이송</div>
+                  <div class="amount">0원(서비스 이용권 혜택가)</div>
+                </div>
+              </div>
             </div>
             <div class="title-box mt24">
               <h3>결제방법</h3>
@@ -181,8 +194,13 @@ $detect = new Mobile_Detect;
       el.querySelector('.table-body').innerHTML = html.join('');
     });
     document.querySelector('div.name-box > strong').textContent = EHDObject.selectedPlan.ins_plan_name;
-    document.querySelector('#payment-info p > b').textContent = `${customer.totalPrice.toLocaleString('ko-KR')} 원`;
-    document.querySelector('#payment-info p > small').textContent = `${discount.toLocaleString('ko-KR')} 원 할인`;
+    // document.querySelector('#payment-info p > b').textContent = `${customer.totalPrice.toLocaleString('ko-KR')} 원`;
+    // document.querySelector('#payment-info p > small').textContent = `${discount.toLocaleString('ko-KR')} 원 할인`;
+    // 결제 금액 업데이트
+    document.querySelector('#payment-info .single-row .amount').textContent = `${customer.totalPrice.toLocaleString('ko-KR')} 원`;
+    // 여행자보험 금액 업데이트
+    document.querySelector('#payment-info .multi-row .row:nth-child(1) .amount').textContent = `${customer.totalPrice.toLocaleString('ko-KR')} 원`;
+
   }
   window.addEventListener('load', (e) => {
     if (!EHDObject || !EHDObject.selectedPlan) {
@@ -326,152 +344,6 @@ $detect = new Mobile_Detect;
     //	order_form.target = "BTPG_WALLET";
     order_form.action = "https://mobile.inicis.com/smart/" + paymethod + "/";
     order_form.submit();
-  }
-
-  //추천인 할인 적용
-  function fnRecommend_code() {
-    if (!$("#recommend_name").val()) {
-      alert("추천코드를 입력해 주세요.");
-      $("#recommend_name").focus();
-      return;
-    }
-
-    let recommend_name = $("#recommend_name").val();
-    $.ajax({
-      type: "POST",
-      url: "./renewal_step04_recommend.php?recommend_name=" + $("#recommend_name").val(),
-      cache: false,
-      data: getFormInfo(),
-      contentType: false,
-      processData: false,
-      success: function(result) {
-        if (result.success == "1") {
-          EHDObject.customer.couponCode = 0; //쿠폰번호 초기화
-          EHDObject.customer.recommendCode = result.recommend_cd;
-          EHDObject.customer.discount = result.s_amt_per;
-          EHDObject.customer.salePrice = result.sale_amt;
-          EHDObject.customer.totalPrice = result.t_amount;
-
-          document.querySelector('#payment-info p > b').textContent = `${EHDObject.customer.totalPrice.toLocaleString('ko-KR')} 원`;
-          document.querySelector('#payment-info p > small').textContent = `${EHDObject.customer.salePrice.toLocaleString('ko-KR')} 원 할인`;
-          //generateCustomerForms();
-          alert(result.s_amt_per_txt);
-        } else {
-          alert(result.msg);
-        }
-      },
-      error: function(xhr, status, error) {
-        alert("AJAX실패. 상품변경에 따른정보를 가져오는데 실패하였습니다. 관리자에게 문의하십시오.");
-        return false;
-      }
-    });
-  }
-
-  //쿠폰 목록 가져오기
-  function getCouponList() {
-    let data = EHDObject.customer;
-    let url = './pop_get_coupon_list.php?usr_cd=' + encodeURIComponent(data.cellphone);
-    let request = $.ajax({
-      type: "POST",
-      url: url,
-      cache: false,
-      contentType: false,
-      processData: false,
-      success: function(result) {
-        if (result.success == "1") {
-          let couponList = result.list;
-          let tbody = '';
-          couponList.forEach((item, idx) => {
-            let date = item.start_date + '~' + item.end_date;
-            let row = '<tr> \
-                  <td class="common-txt01">' + item.subject + '</td> \
-                  <td class="bb-on" rowspan="2">' + Number.parseFloat(item.temp_discount).toFixed() + '%</td> \
-                  <td class="bb-on" rowspan="2"> \
-                    <div class="button-box flex-tc"> \
-                      <a href="javascript:void(0)" onClick="selCoupon(' + item.seq + ')" class="btn btn-white btn-xs">선택</a> \
-                    </div> \
-                  </td> \
-                </tr> \
-                <tr> \
-                  <td class="bb-on">' + date + '</td> \
-                </tr>';
-            tbody += row;
-          });
-          $('#coupon_list').html(tbody);
-        } else {
-          let row = '<tr><td class="bb-on" colspan="3">등록된 쿠폰이 없습니다.</td></tr>';
-          $('#coupon_list').html(row);
-        }
-      },
-      error: function(xhr, status, error) {
-        alert("AJAX실패. 상품변경에 따른정보를 가져오는데 실패하였습니다. 관리자에게 문의하십시오.");
-        return false;
-      }
-    });
-  }
-
-  //쿠폰 팝업
-  function openCoupon(num) {
-    getCouponList();
-    $('html').addClass('fixed');
-    $('.dim-bg').show().animate({
-      opacity: '.75'
-    }, 300);
-    $('[data-layer="layer0' + num + '"]').show().animate({
-      opacity: '1'
-    }, 300);
-  }
-
-  //쿠폰 선택 시 할인 적용
-  function selCoupon(seq) {
-    EHDObject.customer.couponCode = seq;
-    $.ajax({
-      type: "POST",
-      url: "./renewal_step04_coupon.php?cp_cd=" + seq,
-      data: getFormInfo(),
-      cache: false,
-      contentType: false,
-      processData: false,
-      success: function(result) {
-        if (result.success == "1") {
-          EHDObject.customer.recommend_cd = 0; //쿠폰번호 초기화
-          EHDObject.customer.couponName = result.cp_name;
-          EHDObject.customer.discount = Number.parseFloat(result.s_amt_per).toFixed();
-          EHDObject.customer.salePrice = result.sale_amt;
-          EHDObject.customer.totalPrice = result.t_amount;
-
-          document.querySelector('#payment-info p > b').textContent = `${EHDObject.customer.totalPrice.toLocaleString('ko-KR')} 원`;
-          document.querySelector('#payment-info p > small').textContent = `${EHDObject.customer.salePrice.toLocaleString('ko-KR')} 원 할인`;
-          //generateCustomerForms();
-          $('#recommend_name').val(result.cp_name);
-          $('#recommend_name').attr("readonly", true);
-        } else {
-          EHDObject.customer.couponCode = 0;
-        }
-        closeCoupon();
-      },
-      error: function(xhr, status, error) {
-        $("input[name='cp_cd']").val("");
-        alert("AJAX실패. 상품변경에 따른정보를 가져오는데 실패하였습니다. 관리자에게 문의하십시오.");
-        console.log(xhr.responseText);
-        return false;
-      }
-    });
-  }
-
-  //쿠폰 팝업 닫기
-  function closeCoupon() {
-    $('html').removeClass('fixed');
-    $('.dim-bg').animate({
-      opacity: '0'
-    }, 300, function() {
-      $('.dim-bg').hide();
-    })
-    $('[data-layer="layer01"]').animate({
-      opacity: '0'
-    }, 300, function() {
-      $('[data-layer="layer01"]').hide();
-    })
   }
 </script>
 <?php
