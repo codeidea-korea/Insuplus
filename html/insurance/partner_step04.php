@@ -78,7 +78,7 @@ $detect = new Mobile_Detect;
                   <div class="amount">0원(서비스 이용권 혜택가)</div>
                 </div>
                 <div class="row">
-                  <div class="name">긴급이송</div>
+                  <div class="name">긴급이후송</div>
                   <div class="amount">0원(서비스 이용권 혜택가)</div>
                 </div>
               </div>
