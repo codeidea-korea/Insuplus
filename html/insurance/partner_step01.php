@@ -1249,14 +1249,14 @@ include '../_include/_top.html';
 
     if (checkedIns) {
       if (Number.isNaN(__.customer.gPrice) || __.customer.gPrice <= 0) {
-        alert('가입자에 맞는 보험료가 없습니다.');
+        alert('가입조건을 다시 확인해주세요.');
         return;
       }
 
       existsZeroPrice =
         Array.isArray(__.companions) && __.companions.find((c) => Number.isNaN(c.gPrice) || c.gPrice <= 0);
       if (existsZeroPrice) {
-        alert('동반자에 맞는 보험료가 없습니다.');
+        alert('가입조건을 다시 확인해주세요.');
         return;
       }
     }
