@@ -306,17 +306,21 @@ $_SESSION["orderno"] = "";
 			$( document ).ready(function() { //임시팝업
 				// 현재 날짜를 가져옵니다.
 				let currentDate = new Date("<?= $currentDate; ?>");
+				let open_flag = 'N'; // 팝업을 띄울지 여부를 설정합니다. (Y: 띄우기, N: 띄우지 않기)
 
 				// 특정 기간을 설정합니다. (예: 2024년 6월 20일 ~ 2024년 6월 30일)
 				let startDate = new Date('2024-07-17 09:00');
 				let endDate = new Date('2024-07-25 23:50');
 
 				// 조건에 따라 팝업을 띄웁니다.
-				if (currentDate >= startDate && currentDate <= endDate) {
-					popupOpen('special');
-				} else {
-					popupOpen('mainPopup');
+				if(open_flag == 'Y') {
+					if (currentDate >= startDate && currentDate <= endDate) {
+						popupOpen('special');
+					} else {
+						popupOpen('mainPopup');
+					}
 				}
+				
 			});
 
 			function view_go_board(seq, id, name) {
