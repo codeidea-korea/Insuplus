@@ -56,7 +56,7 @@ include '../_include/_top.html';
                       type="input"
                       name="A-birth"
                       id="A-birth"
-                      placeholder="생년월일(19800101)"
+                      placeholder="생년월일을 확인해주세요."
                       maxlength="8"
                       required
                     />
@@ -1074,7 +1074,7 @@ include '../_include/_top.html';
       html.push(`    <div class="date-box">`);
       html.push(`			<div class="date-box-inner">`);
       html.push(
-        `				<input type="input" name="B-birth" id="B-birth-${i}" maxlength="8" placeholder="동반인 생년월일(19800101)" required />`
+        `				<input type="input" name="B-birth" id="B-birth-${i}" maxlength="8" placeholder="동반인 생년월일을 확인해주세요." required />`
       );
       html.push(`			</div>`);
       html.push(`    </div>`);
