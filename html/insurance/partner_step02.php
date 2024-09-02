@@ -1,6 +1,5 @@
 <?php
-include '../_include/_header_new.html';
-include '../_include/_top.html';
+include '../_include/_header_partner.html';
 ?>
       <section>
         <div class="container">
@@ -23,7 +22,7 @@ include '../_include/_top.html';
                         type="text"
                         name="A-name"
                         id="A-name"
-                        placeholder="한글 이름을 입력해주세요."
+                        placeholder="이름을 확인해주세요."
                         maxlength="30"
                         required
                       />
@@ -45,7 +44,7 @@ include '../_include/_top.html';
                           name="A-num2"
                           id="A-num2"
                           data-regexp="^[0-9]{7}$"
-                          placeholder="주민등록번호 뒷자리"
+                          placeholder="주민등록번호를 확인해주세요."
                           max="9999999"
                           maxlength="7"
                           oninput="maxLengthCheck(this)"
@@ -67,7 +66,7 @@ include '../_include/_top.html';
                         type="text"
                         name="A-cellphone"
                         id="A-cellphone"
-                        placeholder="예)01088889999"
+                        placeholder="휴대폰 번호를 확인해주세요."
                         maxlength="50"
                         required
                       />
@@ -87,7 +86,7 @@ include '../_include/_top.html';
                           type="text"
                           name="A-emailid"
                           id="A-emailid"
-                          placeholder="이메일 아이디"
+                          placeholder="이메일을 확인해주세요."
                           maxlength="50"
                           required
                         />
@@ -102,7 +101,7 @@ include '../_include/_top.html';
                           type="text"
                           name="A-emailaddress"
                           id="A-emailaddress"
-                          placeholder="이메일 서버"
+                          placeholder="이메일을 확인해주세요."
                           maxlength="50"
                           required
                         />
@@ -158,7 +157,7 @@ include '../_include/_top.html';
                         name="A-nameen"
                         id="A-nameen"
                         maxlength="100"
-                        placeholder="영문이름 (영문가입증명서 필요시)"
+                        placeholder="영문이름을 확인해주세요."
                       />
                     </div>
                   </div>
@@ -272,7 +271,7 @@ include '../_include/_top.html';
             html.push(`    <div class="input-box">`);
             html.push(`      <div class="input-box-inner">`);
             html.push(
-              `        <input type="text" id="B-name${idx}" maxlength="30" placeholder="한글 이름을 입력해주세요." required />`
+              `        <input type="text" id="B-name${idx}" maxlength="30" placeholder="이름을 확인해주세요." required />`
             );
             html.push(`      </div>`);
             html.push(`    </div>`);
@@ -287,7 +286,7 @@ include '../_include/_top.html';
             html.push(`        <div class="input-box-inner">`);
             html.push(`          <input type="number" id="B-num2${idx}" data-regexp="^[0-9]{7}$" max="9999999" `);
             html.push(`          maxlength="7" oninput="maxLengthCheck(this)" data-birth=${birth} `);
-            html.push(`          placeholder="주민등록번호 뒷자리" required />`);
+            html.push(`          placeholder="주민등록번호를 확인해주세요." required />`);
             html.push(`        </div>`);
             html.push(`      </div>`);
             html.push(`    </div>`);
@@ -299,7 +298,7 @@ include '../_include/_top.html';
             html.push(`    <div class="input-box flex-1">`);
             html.push(`      <div class="input-box-inner">`);
             html.push(
-              `        <input type="text" id="B-nameen${idx}" maxlength="100" placeholder="영문이름 (영문가입증명서 필요시)" />`
+              `        <input type="text" id="B-nameen${idx}" maxlength="100" placeholder="영문이름을 확인해주세요." />`
             );
             html.push(`      </div>`);
             html.push(`    </div>`);

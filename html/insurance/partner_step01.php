@@ -1,6 +1,5 @@
 <?php
-include '../_include/_header_new.html';
-include '../_include/_top.html';
+include '../_include/_header_partner.html';
 ?>
 <section>
   <div class="container">

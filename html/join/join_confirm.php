@@ -32,7 +32,7 @@
 								<div class='detail-col-input'>
 									<div class='input-group' style='width:100%;'>
 										<span class='input-group-addon'>******-</span>
-										<input type="tel" name='rnumber' placeholder="주민등록번호 뒷자리" autocomplete="off" class="form-control numberonly" size='12' maxlength="7" />
+										<input type="tel" name='rnumber' placeholder="주민등록번호를 확인해주세요." autocomplete="off" class="form-control numberonly" size='12' maxlength="7" />
 									</div>
 								</div>
 							</div>

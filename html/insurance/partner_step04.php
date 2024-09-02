@@ -1,6 +1,5 @@
 <?php
-include '../_include/_header_new.html';
-include '../_include/_top.html';
+include '../_include/_header_partner.html';
 include_once $_SERVER["DOCUMENT_ROOT"] . "/_config/lib.php";
 include $_SERVER["DOCUMENT_ROOT"] . "/_config/Mobile_Detect.php";
 include_once $_SERVER["DOCUMENT_ROOT"] . "/_config/Func.insurance.php"; //추가
