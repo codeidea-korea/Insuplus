@@ -310,15 +310,13 @@ $_SESSION["orderno"] = "";
 
 				// 특정 기간을 설정합니다. (예: 2024년 6월 20일 ~ 2024년 6월 30일)
 				let startDate = new Date('2024-07-17 09:00');
-				let endDate = new Date('2024-07-25 23:50');
+				let endDate = new Date('2024-09-30 23:50');
 
 				// 조건에 따라 팝업을 띄웁니다.
-				if(open_flag == 'Y') {
-					if (currentDate >= startDate && currentDate <= endDate) {
-						popupOpen('special');
-					} else {
-						popupOpen('mainPopup');
-					}
+				if (currentDate >= startDate && currentDate <= endDate) {
+					popupOpen('special');
+				} else {
+					// popupOpen('mainPopup');
 				}
 				
 			});
@@ -393,7 +391,7 @@ $_SESSION["orderno"] = "";
             <div class="popup-body">
                 <div class="popup-body-text" style="display: flex; align-items: center; justify-content: center;">
                     <a href="javascript:movePage2();">
-                        <img src="./noti-special.png?v=0718" style="width: 100%;"/>
+                        <img src="./noti-special.jpg?v=0904" style="width: 100%;"/>
                     </a>
                 </div>
                 <div class="popup-body-button">
@@ -404,7 +402,7 @@ $_SESSION["orderno"] = "";
 								</div>
                 <script>
                     function movePage2(){
-                        window.location.href="https://insuplus.co.kr:443/html/customer/event_list.php?mode=view&seq=85";
+                        window.location.href="https://insuplus.co.kr/html/customer/event_list.php?mode=view&seq=96";
                     }
 										function setCookieSpecial(name, value, expiredays) {
 											var todayDate = new Date();
