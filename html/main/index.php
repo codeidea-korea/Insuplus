@@ -385,7 +385,7 @@ $_SESSION["orderno"] = "";
     <div class="popup-box">
         <div class="box" data-name="special" style="max-width: 600px">
             <div class="popup-head">
-                <h3>안심여행하고 시원한 복날 보내세요!</h3>
+                <h3>9월은 싸다9!</h3>
                 <a href="javascript:;" class="close" onclick="popupClose();">닫기</a>
             </div>
             <div class="popup-body">
