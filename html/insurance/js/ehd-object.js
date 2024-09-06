@@ -15,7 +15,7 @@
       GET_PRODUCT_COUNTRY: { value: 'getProductCountry', enumerable: false },
       GET_PARTNERSHIP: { value: 'getPartnership', enumerable: false },
       GET_NOTICE: { value: 'getNotice', enumerable: false },
-      SERVICE_GROUP_NAME: { value: ['의료지원', '건강검진', '긴급이후송'], enumerable: false },
+      SERVICE_GROUP_NAME: { value: ['의료·여행편의 지원', '건강검진', '긴급이후송'], enumerable: false },
       PLAN_CD_NAME: { value: [, 'Lv1', 'Lv2', 'Lv3', 'Lv4', 'Lv5'], enumerable: false },
       NOT_AVAILABLE: { value: 'NOT-AVAILABLE', enumerable: false },
     });

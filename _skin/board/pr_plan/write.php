@@ -290,7 +290,7 @@ if ($client_mode == "Y") {
       const notAvailable = "NOT-AVAILABLE";
       const serviceDiv = document.querySelector('#service_area');
       const groupIds = ["medicalGroup", "healthGroup", "transferGroup"];
-      const groupNames = ["의료지원", "건강검진", "긴급이후송"];
+      const groupNames = ["의료·여행편의 지원", "건강검진", "긴급이후송"];
       const groupItems = [
         Array.from(serviceDiv.querySelectorAll('td')).filter(item=>item.textContent.trim() === groupNames[0]),
         Array.from(serviceDiv.querySelectorAll('td')).filter(item=>item.textContent.trim() === groupNames[1]),

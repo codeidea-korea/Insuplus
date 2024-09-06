@@ -569,9 +569,9 @@ include '../_include/_top.html';
         html.push(`    </div>`);
         html.push(`  </div>`);
         html.push(`  <div class="title-box mt12">`);
-        html.push(`    <h3>24시간 의료상담 및 병원예약, 의료·여행편의 지원</h3>`);
+        html.push(`    <h3>의료상담 및 병원예약, 여행편의 지원</h3>`);
         html.push(`  </div>`);
-        html.push(`  <p class="common-txt01">여행 중 도움이 필요하시면 24시간 언제 어디서든 연락해 주세요.</p>`);
+        html.push(`  <p class="common-txt01">여행 중 도움이 필요하시면 언제 어디서든 연락해 주세요.</p>`);
         // html.push(
         //   `  <p class="common-txt01">보험을 가입하지 않으시면 해외병원비 대신지불, 원격화상진료 서비스는 제공되지 않습니다.</p>`
         // );
