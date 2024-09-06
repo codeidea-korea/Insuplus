@@ -217,7 +217,7 @@ include '../_include/_top.html';
         </div>
       </form>
     </div>
-    <div class="hr-txt product-board">보험과 의료지원 서비스를 선택하여 가입할 수 있습니다.</div>
+    <div class="hr-txt product-board">보험과 의료·여행편의 지원 서비스를 선택하여 가입할 수 있습니다.</div>
     <!-- 서비스 및 보장내역 출력 begin-->
     <div class="product-board" id="option-list"></div>
     <!-- 서비스 및 보장내역 출력 end-->
@@ -569,12 +569,12 @@ include '../_include/_top.html';
         html.push(`    </div>`);
         html.push(`  </div>`);
         html.push(`  <div class="title-box mt12">`);
-        html.push(`    <h3>24시간 의료상담 및 병원예약</h3>`);
+        html.push(`    <h3>24시간 의료상담 및 병원예약, 의료·여행편의 지원</h3>`);
         html.push(`  </div>`);
-        html.push(`  <p class="common-txt01">여행중 아프면 24시간 언제 어디서든 연락하세요.</p>`);
-        html.push(
-          `  <p class="common-txt01">보험을 가입하지 않으시면 해외병원비 대신지불, 원격화상진료 서비스는 제공되지 않습니다.</p>`
-        );
+        html.push(`  <p class="common-txt01">여행 중 도움이 필요하시면 24시간 언제 어디서든 연락해 주세요.</p>`);
+        // html.push(
+        //   `  <p class="common-txt01">보험을 가입하지 않으시면 해외병원비 대신지불, 원격화상진료 서비스는 제공되지 않습니다.</p>`
+        // );
         html.push(`  <div class="table-form-box">`);
         html.push(`    <ul>`);
       }
@@ -694,12 +694,12 @@ include '../_include/_top.html';
           buff.push(`    <strong>${item.guarantee_name}</strong>`);
           buff.push(`    <div class="check-box">`);
           //20240618 이벤트 기간중 보장내역 선택 불가능 처리
-          if (checkEventDate()) {
+          // if (checkEventDate()) {
           buff.push(`      <div class="check-box-inner type01 unclickable">`);
           html.push(`  <style>.unclickable {pointer-events: none;}</style>`);
-          } else {
-          buff.push(`      <div class="check-box-inner type01">`);
-          }
+          // } else {
+          // buff.push(`      <div class="check-box-inner type01">`);
+          // }
           ///
           buff.push(`        <input type="checkbox" value="${item.guarantee_seq}" id="guarantee-${item.guarantee_seq}" checked/>`);
           buff.push(`        <label for="guarantee-${item.guarantee_seq}">선택</label>`);
