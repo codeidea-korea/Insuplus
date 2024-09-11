@@ -176,7 +176,8 @@ $amt_vat = $t_service_amt * 0.1;
 */
 
 //총괄 서비스 비용
-$t_amt = $t_amt + ($service_amt * (1+count($add_user_amt))) - $s_amount;
+// $t_amt = $t_amt + ($service_amt * (1+count($add_user_amt))) - $s_amount;
+$t_amt = $t_amt + $t_service_amt - $s_amount;
 
 
 echo(json_encode(array(

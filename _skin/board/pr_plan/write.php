@@ -361,7 +361,8 @@ if ($client_mode == "Y") {
       }
       
       function checkPlanType(dataList){
-        return ()=>dataList[0].plan_type === 'G'
+        // return ()=>dataList[0].plan_type === 'G'
+        return ()=>1===1;
       }
 
       if(Array.isArray(dataList) && dataList.length > 0){
