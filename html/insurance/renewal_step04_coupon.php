@@ -105,10 +105,13 @@ $user_age = fn_ins_age($birth);																		// 가입자 나이
 $user_amt = fn_sel_ins_amt($period,$chk_p,$plan_seq,$user_age,$gender);		// 가입자 여행비용
 $t_amt = 0;
 $t_add_user_amt = 0;
+$t_add_user_service_amt = 0;
 for($k=0;$k<5;$k++){
 	if ($arr_add_birth[$k]!=""){
 	$add_user_age = fn_ins_age($arr_add_birth[$k]);
 	$add_user_amt[$k] = fn_sel_ins_amt($period,$chk_p,$plan_seq,$add_user_age,$arr_add_gender[$k]);		// 동행자 여행비용
+	$add_user_service_amt[$k] = fn_ins_service_amt($plan_seq, $plan_view["ext3"], $period_month, $period_day, $period, $chk_p, $add_user_age, $arr_add_gender[$k]);
+	$t_add_user_service_amt = $t_add_user_service_amt + $add_user_service_amt[$k];
 	$t_amt = $t_amt + $add_user_amt[$k];		// 동반자 여행보험비용
 	$t_add_user_amt = $t_add_user_amt + $add_user_amt[$k];
 	}
@@ -118,7 +121,8 @@ $t_amt = $t_amt + $user_amt;							// 가입자 여행보험비용
 // 여행 서비스 비용
 $service_amt = fn_ins_service_amt($plan_seq, $plan_view["ext3"], $period_month, $period_day, $period, $chk_p, $user_age, $gender);
 //echo $service_amt." 서비스금액<br>";
-$t_service_amt = ($service_amt * (1+count($add_user_amt)));
+// $t_service_amt = ($service_amt * (1+count($add_user_amt)));
+$t_service_amt = $t_add_user_service_amt + $service_amt;
 //echo $t_service_amt." 서비스비용 총액<br>";
 // 보험비용
 $t_ins_amt = $user_amt + $t_add_user_amt;
@@ -172,7 +176,8 @@ $amt_vat = $t_service_amt * 0.1;
 */
 
 //총괄 서비스 비용
-$t_amt = $t_amt + ($service_amt * (1+count($add_user_amt))) - $s_amount;
+// $t_amt = $t_amt + ($service_amt * (1+count($add_user_amt))) - $s_amount;
+$t_amt = $t_amt + $t_service_amt - $s_amount;
 
 
 echo(json_encode(array(
