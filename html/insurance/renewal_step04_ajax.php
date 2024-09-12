@@ -369,7 +369,7 @@ if ($select_add_people >0){
 			$SQL2 .= " , o_name_en = '".$arr_add_en_name[$k]."' ";
 			$SQL2 .= " , ins_plan_cd = '".$add_user_ins_plan_cd[$k]."' ";
 			$SQL2 .= " , join_amount = '".$add_user_amt[$k]."' ";
-			$SQL2 .= " , join_service = '".$service_amt."' ";
+			$SQL2 .= " , join_service = '".$add_user_service_amt[$k]."' ";
 			$SQL2 .= " , vat_amount = '".$usr_vat_amount."' ";
 			$SQL2 .= " , s_amount = '".$usr_s_amount."' ";
 			$SQL2 .= " , t_amount = '".$usr_t_amount."' ";
