@@ -355,8 +355,8 @@ $RS2 = $dbcon -> query($SQL2);
 if ($select_add_people >0){
 	for($k=0;$k<5;$k++){
 		if ($_POST["add_gender"][$k] && $_POST["add_birth"][$k]){
-			$usr_s_amount = ($add_user_amt[$k] + $service_amt)/100*$s_amt_per;
-			$usr_t_amount =	$add_user_amt[$k] + $service_amt - $usr_s_amount;	// 가입자 결제금액
+			$usr_s_amount = ($add_user_amt[$k] + $add_user_service_amt[$k])/100*$s_amt_per;
+			$usr_t_amount =	$add_user_amt[$k] + $add_user_service_amt[$k] - $usr_s_amount;	// 가입자 결제금액
 			$SQL2 = "insert into tbl_order_list_joinTemp set";
 			$SQL2 .= " orderno = '".$orderNumber."' ";
 			$SQL2 .= " , gender = '".$arr_add_gender[$k]."' ";
@@ -369,7 +369,7 @@ if ($select_add_people >0){
 			$SQL2 .= " , o_name_en = '".$arr_add_en_name[$k]."' ";
 			$SQL2 .= " , ins_plan_cd = '".$add_user_ins_plan_cd[$k]."' ";
 			$SQL2 .= " , join_amount = '".$add_user_amt[$k]."' ";
-			$SQL2 .= " , join_service = '".$service_amt."' ";
+			$SQL2 .= " , join_service = '".$add_user_service_amt[$k]."' ";
 			$SQL2 .= " , vat_amount = '".$usr_vat_amount."' ";
 			$SQL2 .= " , s_amount = '".$usr_s_amount."' ";
 			$SQL2 .= " , t_amount = '".$usr_t_amount."' ";
