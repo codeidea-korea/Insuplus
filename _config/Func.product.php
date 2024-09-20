@@ -638,9 +638,10 @@
         from (
             select t1.depth0, t1.depth1, t1.depth2, t1.depth3, sub_a.product_seq
             from (
-              select product_seq, replace(group_concat(category_code), ',', '') category_codes
-              from tbl_board_product_category
-              group by product_seq  
+              select p.product_seq, replace(group_concat(p.category_code order by c.depth asc), ',', '') as category_codes
+              from tbl_board_product_category p
+              inner join tbl_board_category c on p.category_code = c.category_code
+              group by p.product_seq
             ) sub_a  
             inner join (
               select '$depth0' depth0, '$depth1' depth1, '$depth2' depth2, '$depth3' depth3
