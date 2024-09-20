@@ -55,7 +55,7 @@ include '../_include/_header_partner.html';
                       type="input"
                       name="A-birth"
                       id="A-birth"
-                      placeholder="생년월일을 확인해주세요."
+                      placeholder="예)20010902"
                       maxlength="8"
                       required
                     />
@@ -163,7 +163,7 @@ include '../_include/_header_partner.html';
               </div>
             </div>
 
-            <div class="flex flex-vc flex-tr mt24">
+            <div class="flex flex-vc flex-tr mt24" id="B-agree-div" style="display: none;">
               <div class="check-box">
                 <div class="check-box-inner">
                   <input
@@ -997,7 +997,12 @@ include '../_include/_header_partner.html';
     );
 
     if (emptyElement) {
-      alert(emptyElement.getAttribute('placeholder') || '');
+      if(emptyElement.name.includes('birth')) {
+        alert('생년월일을 확인해주세요.');
+
+      } else {
+        alert(emptyElement.getAttribute('placeholder') || '');
+      }
       emptyElement.focus();
       return false;
     }
@@ -1073,6 +1078,13 @@ include '../_include/_header_partner.html';
   function generateCompanionForms(num) {
     const html = [];
     const count = Number(num) || 0;
+    const bAgreeDiv = document.getElementById('B-agree-div');
+
+    if(count > 0) {
+      bAgreeDiv.style.display = 'block';
+    } else {
+      bAgreeDiv.style.display = 'none';
+    }
 
     document.querySelectorAll('#companions > div:not(:first-child)').forEach((el) => {
       const lastElement = document.querySelector('#companions > div:last-child');
