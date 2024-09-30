@@ -57,6 +57,14 @@ if ($client_mode == "Y") {
     $SQL_C .= "where b.depth = 1 and a.product_seq = " . $pr_cd . " ";
     $RS_C = $dbcon->query($SQL_C);
     $row_pcate = $dbcon->fetch_array($RS_C);
+
+    //이전글 다음글
+		$PAGE_SQL = "SELECT 
+      (select seq from tbl_board_plan where seq < ".$seq." ORDER BY seq DESC LIMIT 1) next,
+      (select seq from tbl_board_plan where seq > ".$seq." ORDER BY seq ASC LIMIT 1) prev
+    from dual";
+		$PAGE_RESULT = $dbcon -> query($PAGE_SQL);
+		$PAGE_ROW = $dbcon -> fetch_array($PAGE_RESULT);
   }
 
   ?>
@@ -617,13 +625,25 @@ if ($client_mode == "Y") {
     function pop_service() {
       window.open("/_skin/board/<?= $bc_skin ?>/pop_service.php", "_pop", "width=600,height=600");
     }
+    
+    function page_move(seq){
+      location.href = "plan_list.php?mode=mod&seq="+seq+"<?=$parameter?>";
+    }
 
+    const prev_seq = '<?=$PAGE_ROW["prev"]?>';
+    const next_seq = '<?=$PAGE_ROW["next"]?>';
     $(document).ready(function() {
       let pr_cd = `<?= $pr_cd ?>`;  // 상품코드
       let seq = `<?= $seq ?>`;  // 플랜코드
 
       chr_pr(pr_cd, seq);
       document.querySelector('button.copy_plan').addEventListener('click', copyPlan);
+
+      if(!prev_seq) {
+        $('#prev-btn').attr('disabled', true);
+      } else if(!next_seq) {
+        $('#next-btn').attr('disabled', true);
+      }
     });
   </script>
   <form name="WriteForm" action="" method="post" enctype="multipart/form-data" onsubmit="return WritePlanOkGo()" autocomplete="off">
@@ -651,6 +671,10 @@ if ($client_mode == "Y") {
       <span style="background-color: brown; color: white; padding: 4px 8px; border-radius: 5px; font-size: 0.5em;margin-left:20px;">
         PLAN_SEQ : <?= $seq ?>
       </span>
+      <div style="display: flex; justify-content: end; align-items: center;">
+        <button id="prev-btn" onclick="page_move('<?=$PAGE_ROW["prev"]?>')">이전글</button>
+        <button id="next-btn" onclick="page_move('<?=$PAGE_ROW["next"]?>')">다음글</button>
+      </div>
     </p>
     <table class="adm-view-tb">
       <colgroup>
