@@ -74,8 +74,8 @@
 	}
 ?>
 <script>
-	const prev_seq = '<?=$PAGE_ROW["prev"]?>';
-	const next_seq = '<?=$PAGE_ROW["next"]?>';
+	const prev_seq = '<?=$PAGE_ROW["next"]?>';
+	const next_seq = '<?=$PAGE_ROW["prev"]?>';
 	$(document).ready(function(){
 		if(!prev_seq) {
 			$('#prev-btn').attr('disabled', true);
@@ -145,8 +145,8 @@ function page_move(seq){
 	</tr>
 	<tr>
 		<td colspan="2" height="20" align="right">
-			<button id="prev-btn" onclick="page_move('<?=$PAGE_ROW["prev"]?>')">이전글</button>
-			<button id="next-btn" onclick="page_move('<?=$PAGE_ROW["next"]?>')">다음글</button>
+			<button id="prev-btn" onclick="page_move('<?=$PAGE_ROW["next"]?>')">이전글</button>
+			<button id="next-btn" onclick="page_move('<?=$PAGE_ROW["prev"]?>')">다음글</button>
 		</td>
 	</tr>
 </table>

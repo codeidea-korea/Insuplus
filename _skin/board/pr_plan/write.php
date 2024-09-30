@@ -60,8 +60,8 @@ if ($client_mode == "Y") {
 
     //이전글 다음글
 		$PAGE_SQL = "SELECT 
-      (select seq from tbl_board_plan where seq < ".$seq." ORDER BY seq DESC LIMIT 1) next,
-      (select seq from tbl_board_plan where seq > ".$seq." ORDER BY seq ASC LIMIT 1) prev
+      (select seq from tbl_board_plan where seq < ".$seq." ORDER BY seq DESC LIMIT 1) prev,
+      (select seq from tbl_board_plan where seq > ".$seq." ORDER BY seq ASC LIMIT 1) next
     from dual";
 		$PAGE_RESULT = $dbcon -> query($PAGE_SQL);
 		$PAGE_ROW = $dbcon -> fetch_array($PAGE_RESULT);
