@@ -10,23 +10,45 @@ $_SESSION["orderno"] = "";
             <h2>간편조회</h2>
             <p>해외여행기간을 선택해 주세요.</p>
           </div>
+          <!-- 10월 2일부터 31일 잠시 OFF
           <div class="check-link-box">
-            <ul>
-              <li>
-                <a href="">
-                  <strong>90일 미만</strong>
-                  <p>해외여행, 출장, 어학연수 등</p>
-                  <span>간편 조회 시작</span>
-                </a>
-              </li>
-              <li>
-                <a href="">
-                  <strong>90일 이상</strong>
-                  <p>유학, 워킹홀리데이, 해외근무 등</p>
-                  <span>간편 조회 시작</span>
-                </a>
-              </li>
-            </ul>
+          <ul>
+            <li>
+            <a href="">
+              <strong>90일 미만</strong>
+              <p>해외여행, 출장, 어학연수 등</p><br></br>
+              <p>★ 10월 한정 서비스료 10% 할인 ★</p>
+              <span>간편 조회 시작</span>
+            </a>
+            </li>
+            <li>
+            <a href="">
+              <strong>90일 이상</strong>
+              <br></br><p>유학, 워킹홀리데이, 해외근무 등</p><br></br>
+              <span>간편 조회 시작</span>
+            </a>
+            </li>
+          </ul>
+          </div> -->
+          <!-- 10월 2일부터 31일 이벤트 -->
+          <div class="check-link-box">
+          <ul>
+            <li>
+            <a href="">
+              <strong>90일 미만</strong>
+              <p>해외여행, 출장, 어학연수 등</p><br></br>
+              <p>★ 10월 한정 서비스료 10% 할인 ★</p>
+              <span>간편 조회 시작</span>
+            </a>
+            </li>
+            <li>
+            <a href="">
+              <strong>90일 이상</strong>
+              <br></br><p>유학, 워킹홀리데이, 해외근무 등</p><br></br>
+              <span>간편 조회 시작</span>
+            </a>
+            </li>
+          </ul>
           </div>
         </div>
       </section>
