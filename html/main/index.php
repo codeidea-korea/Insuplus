@@ -310,7 +310,7 @@ $_SESSION["orderno"] = "";
 
 				// 특정 기간을 설정합니다. (예: 2024년 6월 20일 ~ 2024년 6월 30일)
 				let startDate = new Date('2024-10-01 00:00');
-				let endDate = new Date('2024-10-31 23:55');
+				let endDate = new Date('2024-10-06 23:55');
 
 				// 조건에 따라 팝업을 띄웁니다.
 				if (currentDate >= startDate && currentDate <= endDate) {
