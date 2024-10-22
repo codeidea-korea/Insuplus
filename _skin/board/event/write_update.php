@@ -23,6 +23,20 @@ $partner_coupon_name = REQSTR($partner_coupon_name, "");
 $partner_coupon_discount = REQSTR($partner_coupon_discount, "");
 $event_url = $domain."/html/customer/event_list.php?mode=view&alliance_code=".encrypt($event_partnership_code)."&seq=".$seq;
 
+//쿠폰 조건 추가
+$duplicate_status_yn = REQSTR($duplicate_status_yn, "");
+$insurance_discount_applied = REQSTR($insurance_discount_applied, "");
+$service_fee_discount_applied = REQSTR($service_fee_discount_applied, "");
+$insurance_discount_rate = REQSTR($insurance_discount_rate, "");
+$insurance_max_discount_amount = REQSTR($insurance_max_discount_amount, "");
+$service_fee_discount_rate = REQSTR($service_fee_discount_rate, "");
+$service_fee_max_discount_amount = REQSTR($service_fee_max_discount_amount, "");
+$subscription_start_date = REQSTR($subscription_start_date, "");
+$subscription_end_date = REQSTR($subscription_end_date, "");
+$event_category_master_seq = REQSTR($event_category_master_seq, "");
+$min_companion = REQSTR($min_companion, "");
+$max_companion = REQSTR($max_companion, "");
+
 //==================================================================================================
 //엑셀업로드  시작
 //==================================================================================================
@@ -117,6 +131,20 @@ if($event_type == 'C'){
 $sql .= " , partner_event_yn='".$partner_event_yn."' ";
 $sql .= " , partner_coupon_yn='".$partner_coupon_yn."' ";
 $sql .= " , event_url='".$event_url."' ";
+
+// 새로운 변수 추가
+$sql .= " , duplicate_status_yn='".$duplicate_status_yn."' ";
+$sql .= " , insurance_discount_applied='".$insurance_discount_applied."' ";
+$sql .= " , service_fee_discount_applied='".$service_fee_discount_applied."' ";
+$sql .= " , insurance_discount_rate='".$insurance_discount_rate."' ";
+$sql .= " , insurance_max_discount_amount='".$insurance_max_discount_amount."' ";
+$sql .= " , service_fee_discount_rate='".$service_fee_discount_rate."' ";
+$sql .= " , service_fee_max_discount_amount='".$service_fee_max_discount_amount."' ";
+$sql .= " , subscription_start_date='".$subscription_start_date."' ";
+$sql .= " , subscription_end_date='".$subscription_end_date."' ";
+$sql .= " , event_category_master_seq='".$event_category_master_seq."' ";
+$sql .= " , min_companion='".$min_companion."' ";
+$sql .= " , max_companion='".$max_companion."' ";
 $sql .= " where seq= ".$seq."" ;
 $result = $dbcon -> query($sql);
 if (!$result) {
