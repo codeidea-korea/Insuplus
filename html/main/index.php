@@ -15,7 +15,7 @@ $_SESSION["orderno"] = "";
 <section class="no-bg">
 			<div class="main-box-01">
 				<div class="container">
-					<h2>해외여행보험에<br>안심플러스</h2>
+					<h2>해외여행자보험에<br>안심플러스</h2>
 					<p class="is-pc">여행의 처음부터 끝까지<br><strong class="ft-yellow2">인슈플러스</strong>가 24시간 동행합니다</p>
 					<p class="mt20 is-m">여행의 처음부터 끝까지<br><strong class="ft-yellow2">인슈플러스</strong>가<br>24시간 동행합니다</p>
 					<div class="is-pc">
@@ -31,7 +31,7 @@ $_SESSION["orderno"] = "";
 			<div class="tab-fixed-box">
 				<div class="tab-box-inner">
 					 <div class="tab-head">
-						<strong>해외여행보험 +</strong>
+						<strong>해외여행자보험 +</strong>
 					</div>
 					<div class="tab-body">
 						<ul>
