@@ -1,7 +1,5 @@
 <?php
-	
 	include_once $_SERVER["DOCUMENT_ROOT"]."/_config/lib.php";
-
 	if($_GET["id"] != null) {
 		$seq = $_GET["id"];
 		$SQL =  " SELECT 
@@ -19,19 +17,46 @@
 				,event_type
 				,event_url
 				,event_partnership_code
-		FROM tbl_board_event WHERE  seq = '".$seq."' ";
-		
+				,duplicate_status_yn
+				,insurance_discount_applied
+				,service_fee_discount_applied
+				,insurance_discount_rate
+				,insurance_max_discount_amount
+				,service_fee_discount_rate
+				,service_fee_max_discount_amount
+				,subscription_start_date
+				,subscription_end_date
+				,event_category_master_seq
+				,min_companion
+				,max_companion
+		FROM tbl_board_event WHERE seq = '".$seq."' ";
 		$result = $dbcon -> query($SQL);
-			
 	}
-
 	include '../_include/_header.html';
-
 ?>
 <form name="WriteForm" id="WriteForm" onsubmit="return false">
 <? while($ListRs = $dbcon -> fetch_array($result) ) {
 	extract($ListRs);
-?>
+	if($event_type == 'C' && is_null($discount)){
+		$discount = 0;
+		$symbol = '';
+		$text = '';
+		if($insurance_discount_applied == 'P') {
+			$symbol = '%';
+			$discount = $insurance_discount_rate;
+		} else if($insurance_discount_applied == 'P' && $service_fee_discount_applied == 'P') {
+			$symbol = '%';
+			$discount = max($insurance_discount_rate, $service_fee_discount_rate);
+		} else if($service_fee_discount_applied == 'P'){
+			$symbol = '%';
+			$discount = $service_fee_discount_rate;
+		} else if($service_fee_discount_applied == 'F') {
+			$symbol = '원';
+			$discount = $service_fee_max_discount_amount;
+		}
+		$text = $discount.$symbol;
+	}
+?> 
 <input type="hidden" name="mode" />
 <input type="hidden" name="seq" value="<?=$seq?>" />
 <input type="hidden" name="category" value="<?=$category?>" />
@@ -45,14 +70,14 @@
 <input type="hidden" name="event_type" value="<?=$event_type?>" />
 <input type="hidden" name="event_url" value="<?=$event_url?>" />
 <input type="hidden" name="event_partnership_code" value="<?=$event_partnership_code?>" />
+<input type="hidden" name="symbol" value="<?=$symbol?>" />
 	<div class='row-border form-inline'>
-		
 		<div class='detail-col-label'>쿠폰명</div>
 		<div class='detail-col-input'><?=$coupon_name?></div>
 		<div class='detail-col-label'>쿠폰 사용기간</div>
 		<div class='detail-col-input'><?=substr($expire_date_s, 0, 10)?> ~ <?=substr($expire_date_e, 0, 10)?></div>
 		<div class='detail-col-label'>할인율</div>
-		<div class='detail-col-input'><?=$discount?>%</div>
+		<div class='detail-col-input'><?=$text?></div>
 		<div class='detail-col-label'>휴대폰번호</div>
 		<div class='detail-col-input'><input type="number" id="hp" name='hp' placeholder="휴대폰번호를 입력해 주세요." class="form-control" size='20' <?=$OnlyNumber?>/></div>
 		<?}?>

@@ -70,7 +70,7 @@ echo $row_r["pg_id"]."<br>";
 		$cancle_date = date("Y-m-d H:i:s"); //변수명 주의
 		
 		
-		$SQL_ORDER  = " SELECT o.orderno, o.sale_gubun, o.cp_cd, o.s_date, o.s_date_time, o.e_date, o.e_date_time, o.chk_p ";
+		$SQL_ORDER  = " SELECT o.orderno, o.sale_gubun, o.cp_cd, o.new_cp_cd, o.s_date, o.s_date_time, o.e_date, o.e_date_time, o.chk_p ";
 		$SQL_ORDER .= ", o.pr_name, o.ins_name, o.plan_name, o.chk_service, o.t_amount, o.cancle_amount ";
 		$SQL_ORDER .=" , j.o_name, j.o_phone FROM tbl_order_list o INNER JOIN tbl_order_list_join j ON o.orderno = j.orderno ";
 		$SQL_ORDER .= " WHERE o.orderno = '".$orderno."' AND o.order_step='2' AND j.chk_join = 'N' ";
@@ -105,7 +105,11 @@ echo $row_r["pg_id"]."<br>";
 			if($row["sale_gubun"] == "C") {
 				$SQL  = " UPDATE tbl_board_coupon_history SET ";
 				$SQL .= " orderno = '', discount = 0, s_amount = 0, use_yn = 'N' ";
-				$SQL .= " WHERE seq = '".$row["cp_cd"]."' ";
+				if($row["new_cp_cd"]) {
+					$SQL .= " WHERE seq in (".$row["new_cp_cd"].") ";
+				} else {
+					$SQL .= " WHERE seq = '".$row["cp_cd"]."' ";
+				}
 
 				$RS_C1 = $dbcon -> query($SQL);
 			} 

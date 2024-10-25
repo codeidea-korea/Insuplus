@@ -146,12 +146,12 @@ $log = new log();
 						$SQL = "insert into tbl_order_list ";
 						$SQL .= " ( ";
 						$SQL .= " orderno,pr_name,ins_name,plan_name, agree_cd, service_name, rule_site_cd, rule_group_cd, rule_privacy_cd, ins_file_cd, service_file_cd ,s_date,s_date_time,e_date,e_date_time,ins_period,chk_p,o_name,o_email1,o_email2,purpose,join_cnt,join_ch,join_nation_cd,join_nation_name,order_step,ins_amount,s_amount,cp_amount,vat_amount,t_amount,service_amount,writedate,pg_id,pg_pay_type,pg_isdn,pay_name,chk_service ";
-						$SQL .= " ,sale_gubun,sale_discount,cp_cd,recommend_cd ";
+						$SQL .= " ,sale_gubun,sale_discount,new_cp_cd,recommend_cd ";
 						$SQL .= " ,pr_cd,ins_cd,plan_cd,service_cd ";
 						$SQL .= " ) ";
 						$SQL .= " select ";
 						$SQL .= " orderno,pr_name,ins_name,plan_name, agree_cd, service_name, rule_site_cd, rule_group_cd, rule_privacy_cd, ins_file_cd, service_file_cd  ,s_date,s_date_time,e_date,e_date_time,ins_period,chk_p,o_name,o_email1,o_email2,purpose,join_cnt,join_ch,join_nation_cd,join_nation_name,'".$order_step."',ins_amount,s_amount,cp_amount,vat_amount,t_amount,service_amount,now(),'".$mid."','".$resultMap["payMethod"]."','".$resultMap["tid"]."','".$pay_name."',chk_service ";
-						$SQL .= " ,sale_gubun,sale_discount,cp_cd,recommend_cd ";
+						$SQL .= " ,sale_gubun,sale_discount,new_cp_cd,recommend_cd ";
 						$SQL .= " ,pr_cd,ins_cd,plan_cd,service_cd ";
 						$SQL .= " from tbl_order_listTemp ";
 						$SQL .= " where orderno ='".$resultMap["MOID"]."' ";
@@ -186,12 +186,12 @@ $log = new log();
 						//===================================================
 						// 쿠폰 입력
 						//===================================================
-						$SQL_cp = " insert into tbl_order_list_coupon (orderno,coupon_name,coupon_seq,cp_sale_per,coupon_amount,writedate) ";
-						$SQL_cp .= " select orderno,coupon_name,coupon_seq,cp_sale_per,coupon_amount,now() from tbl_order_list_couponTemp where orderno= '".$resultMap["MOID"]."' ";
+						// $SQL_cp = " insert into tbl_order_list_coupon (orderno,coupon_name,coupon_seq,cp_sale_per,coupon_amount,writedate) ";
+						// $SQL_cp .= " select orderno,coupon_name,coupon_seq,cp_sale_per,coupon_amount,now() from tbl_order_list_couponTemp where orderno= '".$resultMap["MOID"]."' ";
 						
-						$log->log_write("쿠폰 히스토리 등록 (4) : ".$SQL_cp);
+						// $log->log_write("쿠폰 히스토리 등록 (4) : ".$SQL_cp);
 						
-						$result_cp = $dbcon -> query($SQL_cp);
+						// $result_cp = $dbcon -> query($SQL_cp);
 						
 						//===================================================
 						// 결제정보 출력
@@ -200,7 +200,7 @@ $log = new log();
 						$SQL_ORDER .= " , o.o_email1, o.o_email2 ";
 						$SQL_ORDER .= " , o.ins_file_cd, o.service_file_cd ";
 						$SQL_ORDER .= " , o.order_step, o.s_date, o.s_date_time, o.e_date, o.e_date_time, o.chk_p ";
-						$SQL_ORDER .= " , o.sale_gubun, o.sale_discount, o.cp_cd, o.recommend_cd, o.s_amount ";
+						$SQL_ORDER .= " , o.sale_gubun, o.sale_discount, o.new_cp_cd, o.recommend_cd, o.s_amount ";
 						$SQL_ORDER .= " , o.pr_name, o.ins_name, o.plan_name, o.chk_service, o.purpose ";
 						$SQL_ORDER .= " , o.ins_amount, o.service_amount, o.t_amount, j.regdate, o.plan_cd";
 						$SQL_ORDER .= " FROM tbl_order_list_join j INNER JOIN  tbl_order_list o  ON j.orderno = o.orderno ";
@@ -235,7 +235,7 @@ $log = new log();
 							$UP_SQL_CP = " UPDATE tbl_board_coupon_history SET ";
 							$UP_SQL_CP .= " orderno = '".$resultMap["MOID"]."' , discount = '".$row_order["sale_discount"]."' ";
 							$UP_SQL_CP .= " , s_amount = '".$row_order["s_amount"]."' , use_yn = 'Y' ";
-							$UP_SQL_CP .= " WHERE seq = '".$row_order["cp_cd"]."' "; 
+							$UP_SQL_CP .= " WHERE seq in (".$row_order["new_cp_cd"].") "; 
 							
 							$log->log_write(" 쿠폰사용내역 (6) : ".$UP_SQL_CP);
 							

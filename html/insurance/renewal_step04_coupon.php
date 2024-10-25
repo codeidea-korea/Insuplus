@@ -1,6 +1,7 @@
 <?php
 include_once $_SERVER["DOCUMENT_ROOT"]."/_config/lib.php";
 include_once $_SERVER["DOCUMENT_ROOT"]."/_config/Func.insurance.php"; //추가
+include_once $_SERVER["DOCUMENT_ROOT"]."/_config/Func.coupon.php";
 
 include_once $_SERVER["DOCUMENT_ROOT"]."/_config/class.log.php"; //추가
 
@@ -8,8 +9,6 @@ $log = new log();
 $log->log_write("coupon");
 
 header("Content-Type: application/json");
-?>
-<?
 
 $PR_INFO = getInsuProductInfo($PR_SEQ); //상품정보
 $chk_p = $PR_INFO["ext1"];
@@ -59,9 +58,6 @@ $s_date = $_POST["s_date"];					// 기간 시작
 	$en_name		= $_POST["en_name"];			// 영문여권 이름
 	$cp_cd			= $_GET["cp_cd"];				// 쿠폰코드
 
-	//if ($chk_p=="Y"){$period_gubun = "일";}else{$period_gubun = "달";}
-	//$period_txt = fn_tr_period($s_date." ".$s_date_time,$e_date." ".$e_date_time,$chk_p);		// 여행 기간
-	
 	$select_add_people = $_POST["select_add_people"];		// 동반인명수
 	if (!$select_add_people){$select_add_people = 0;}
 	$t_select_add_people = $select_add_people + 1;
@@ -89,14 +85,6 @@ $s_date = $_POST["s_date"];					// 기간 시작
 	exit;
 }
 
-
-// 플랜검색
-/*
-$SQL_PLAN = "select * from tbl_board_plan where seq=".$plan_seq." and s_date<='".$s_date."' and e_date>='".$s_date."' and plan_status='Y' AND secret='Y' ";
-//echo $SQL_PLAN;
-$result_plan = $dbcon -> query($SQL_PLAN);
-$row_plan = $dbcon -> fetch_array($result_plan);
-*/
 // 플랜검색
 $plan_view  = selPlanView($plan_seq, $t_s_date, $t_e_date, $chk_p);
 
@@ -120,71 +108,27 @@ $t_amt = $t_amt + $user_amt;							// 가입자 여행보험비용
 
 // 여행 서비스 비용
 $service_amt = fn_ins_service_amt($plan_seq, $plan_view["ext3"], $period_month, $period_day, $period, $chk_p, $user_age, $gender);
-//echo $service_amt." 서비스금액<br>";
-// $t_service_amt = ($service_amt * (1+count($add_user_amt)));
 $t_service_amt = $t_add_user_service_amt + $service_amt;
-//echo $t_service_amt." 서비스비용 총액<br>";
 // 보험비용
 $t_ins_amt = $user_amt + $t_add_user_amt;
 
 //최종합한 상품가격 필요
 $total_amount = $t_amt+$t_service_amt;
 
+$cp_discount_info = fn_calculate_coupon_discount($cp_cd, $t_ins_amt, $t_service_amt, $total_amount);
 
-//쿠폰 검색
-$SQL_CP = "select A.subject,B.temp_discount from tbl_board_event A inner join tbl_board_coupon_history B on A.seq=B.event_seq where B.seq='".$cp_cd."' ";
-$result_cp = $dbcon -> query($SQL_CP);
-$row_cp = $dbcon -> fetch_array($result_cp);
-
-//$s_amt_temp = $t_service_amt * ($row_cp["temp_discount"]/100);
-$s_amt_temp = $total_amount/100*$row_cp["temp_discount"];
-$s_amt_temp = floor($s_amt_temp); //할인금액 소수점 버린다.
-
-
-//할인폭이 3만원 이상인경우 3만원까지만 할인되도록
-if ($s_amt_temp<=30000){
-	$s_amount = $s_amt_temp;
-	$s_amt_per = $row_cp["temp_discount"];
-}else{
-	$s_amount = 30000;
-	$s_amt_per = (float)30000*100/$total_amount; //재계산 들어감
-}
-
-// 할인금액 처리
-//echo $s_amt_temp." 임시할인금액<br>";
-//echo $s_amount." 할인금액<br>";
-//echo $t_select_add_people." 사람수<br>";
-$cp_amt = $s_amount;														// 총 할인금액
-
-
-
-$t_service_temp_amt = $t_service_amt - $s_amount;						// 결제금액의 할인금액처리
-
-/*
-if($t_service_amt < 0) { //서비스료가 할인금액보다 작은 경우 상품가격에서 뺀다
-	$t_amt = $t_amt+$t_service_amt; 
-	$t_service_amt = 0;
-}
-*/
-/*
-$usr_s_amount = $s_amount / ($t_select_add_people);			// 개별 할인금액
-//echo $usr_s_amount." 각할인금액<br>";
-$usr_vat_amount = $usr_s_amount * 0.1;								// 개별 VAT
-$usr_t_amount =	$user_amt + $service_amt - $usr_s_amount;	// 가입자 결제금액
-//VAT
-$amt_vat = $t_service_amt * 0.1;
-*/
+$cp_amt = $cp_discount_info["totalDiscount"];				// 총 할인금액
+$s_amt_per = $cp_discount_info["s_amt_per"];								// 총 할인율
+$t_service_temp_amt = $t_service_amt - $cp_amt;						// 결제금액의 할인금액처리
 
 //총괄 서비스 비용
-// $t_amt = $t_amt + ($service_amt * (1+count($add_user_amt))) - $s_amount;
-$t_amt = $t_amt + $t_service_amt - $s_amount;
-
+$t_amt = $t_amt + $t_service_amt - $cp_amt;
 
 echo(json_encode(array(
 	"success"=>"1"
 	,"cp_name" => $row_cp["subject"]
 	,"s_amt_per_txt" => "할인쿠폰이 적용되었습니다."
-	,"s_amt_per" => "$s_amt_per"
+	,"s_amt_per" => $s_amt_per
 	,"sale_amt" => $cp_amt
 	,"t_amount" => $t_amt)));
 ?>

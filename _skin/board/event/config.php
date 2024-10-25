@@ -137,7 +137,7 @@
 				
 			}
 		}
-		if ($partner_name) {
+		if ($client_mode=="Y" && $partner_name) {
 			$query_where .= " and event_partnership_code = '".$partner_name."'";
 		}
 		$parameter .= "&search=".$search."&search_text=".urlencode($search_text)."&search_date_s=".$search_date_s."&event_type=".$event_type;

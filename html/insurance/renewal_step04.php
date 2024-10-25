@@ -6,6 +6,17 @@ include $_SERVER["DOCUMENT_ROOT"] . "/_config/Mobile_Detect.php";
 include_once $_SERVER["DOCUMENT_ROOT"] . "/_config/Func.insurance.php"; //추가
 $detect = new Mobile_Detect;
 ?>
+<style>
+  /* 선택된 행의 배경색을 검은색으로 변경하는 CSS */
+  .table-type01 tbody a.selected {
+    background:#DC3347 !important; color:#fff;
+  }
+  /* 비활성화된 버튼에 대한 스타일링 */
+  .btn.disabled {
+    opacity: 0.5; /* 흐릿하게 만듦 */
+    cursor: not-allowed; /* 클릭 불가능하게 표시 */
+  }
+</style>
 <section>
   <div class="container">
     <div class="white-box middle">
@@ -129,6 +140,40 @@ $detect = new Mobile_Detect;
         </thead>
         <tbody id="coupon_list"></tbody>
       </table>
+      <div class="button-box flex-tc">
+        <button type="button" class="btn btn-gray btn-s mt15" onClick="applyCoupon()">쿠폰 적용</button>
+        <script>
+          // 이벤트 위임 방식으로 적용
+          document.querySelector('#coupon_list').addEventListener('click', function(event) {
+            const a = event.target.closest('a');  // 클릭한 요소의 가장 가까운 a 찾기
+            if (a) {
+              a.classList.toggle('selected'); // 선택된 행 토글
+            }
+          });
+
+          function applyCoupon() {
+            // 선택된 모든 tr 요소에서 data-code 값을 추출하여 배열로 저장
+            const selectedRows = document.querySelectorAll('#coupon_list tr a.selected');
+            if (selectedRows.length === 0) {
+              alert('적용할 쿠폰을 선택해 주세요.');
+              return;
+            }
+
+            const couponSeqs = Array.from(selectedRows).map(row => {
+              const buttonElement = row.getAttribute('data-code');
+              // a[data-code]가 존재할 경우만 data-code 값을 가져옴
+              return buttonElement ? buttonElement : null;
+            }).filter(value => value !== null); // null 값은 제외
+
+            if (couponSeqs.length === 0) {
+              alert('쿠폰 정보를 찾을 수 없습니다.');
+              return;
+            }
+
+            selCoupon(couponSeqs);  // 배열로 selCoupon 함수에 전달
+          }
+        </script>
+      </div>
     </div>
     <button type="button" class="btn-close" data-layer-btn="layer01" onClick="closeCoupon(1)">
       <span class="tts">팝업 닫기</span>
@@ -245,6 +290,10 @@ $detect = new Mobile_Detect;
     formData.append('cp_cd', EHDObject.customer.couponCode ? EHDObject.customer.couponCode : 0); //쿠폰 코드
     formData.append('is_abroad_resident', EHDObject.customer.is_abroad_resident); // 해외거주 여부
     formData.append('join_ch', EHDObject.selectedPartnership ? EHDObject.selectedPartnership.partnership_seq : null); // 제휴사 코드
+    formData.append('depth0', EHDObject.depth0 ? EHDObject.depth0.code : ''); // 카테고리 코드
+    formData.append('depth1', EHDObject.depth1 ? EHDObject.depth1.code : ''); // 카테고리 코드
+    formData.append('depth2', EHDObject.depth2 ? EHDObject.depth2.code : ''); // 카테고리 코드
+    formData.append('depth3', EHDObject.depth3 ? EHDObject.depth3.code : ''); // 카테고리 코드
 
     EHDObject.companions.forEach((item, idx) => {
       formData.append('add_gender[]', item.gender);
@@ -392,6 +441,7 @@ $detect = new Mobile_Detect;
     let url = './pop_get_coupon_list.php?usr_cd=' + encodeURIComponent(data.cellphone);
     let request = $.ajax({
       type: "POST",
+      data: getFormInfo(),
       url: url,
       cache: false,
       contentType: false,
@@ -407,7 +457,7 @@ $detect = new Mobile_Detect;
                   <td class="bb-on" rowspan="2">' + Number.parseFloat(item.temp_discount).toFixed() + '%</td> \
                   <td class="bb-on" rowspan="2"> \
                     <div class="button-box flex-tc"> \
-                      <a href="javascript:void(0)" onClick="selCoupon(' + item.seq + ')" class="btn btn-white btn-xs">선택</a> \
+                      <a href="javascript:void(0)" class="btn btn-white btn-xs" data-status="'+item.duplicate_status_yn+'" data-code="'+item.seq+'" onclick="isDuplicateCoupon(this)">선택</a> \
                     </div> \
                   </td> \
                 </tr> \
@@ -429,24 +479,37 @@ $detect = new Mobile_Detect;
     });
   }
 
-  //쿠폰 팝업
-  function openCoupon(num) {
-    getCouponList();
-    $('html').addClass('fixed');
-    $('.dim-bg').show().animate({
-      opacity: '.75'
-    }, 300);
-    $('[data-layer="layer0' + num + '"]').show().animate({
-      opacity: '1'
-    }, 300);
+  function isDuplicateCoupon(clickedButton) {
+    // 클릭된 버튼의 data-status 값 확인
+    const status = clickedButton.getAttribute('data-status');
+    
+    // 클릭된 버튼이 선택된 상태인지 확인 (selected 클래스 확인)
+    const isSelected = clickedButton.classList.contains('selected');
+    if (status === 'N') {
+      if (isSelected) {
+        // 선택된 상태일 경우: 모든 버튼 다시 활성화
+        document.querySelectorAll('a[data-status="N"]').forEach(function(button) {
+          button.style.pointerEvents = 'auto'; // 클릭 활성화
+          button.classList.remove('disabled'); // 비활성화 스타일 제거
+        });
+      } else {
+        document.querySelectorAll('a[data-status="N"]').forEach(function(button) {
+          // 클릭된 버튼과 동일하지 않은 버튼만 비활성화
+          if (button !== clickedButton) {
+            button.style.pointerEvents = 'none'; // 클릭 비활성화
+            button.classList.add('disabled'); // 비활성화 스타일 추가
+          }
+        });
+      }
+    }
   }
 
   //쿠폰 선택 시 할인 적용
-  function selCoupon(seq) {
-    EHDObject.customer.couponCode = seq;
+  function selCoupon(seqList) {
+    EHDObject.customer.couponCode = seqList;
     $.ajax({
       type: "POST",
-      url: "./renewal_step04_coupon.php?cp_cd=" + seq,
+      url: "./renewal_step04_coupon.php?cp_cd=" + seqList,
       data: getFormInfo(),
       cache: false,
       contentType: false,
@@ -458,7 +521,6 @@ $detect = new Mobile_Detect;
           EHDObject.customer.discount = Number.parseFloat(result.s_amt_per).toFixed();
           EHDObject.customer.salePrice = result.sale_amt;
           EHDObject.customer.totalPrice = result.t_amount;
-
           document.querySelector('#payment-info p > b').textContent = `${EHDObject.customer.totalPrice.toLocaleString('ko-KR')} 원`;
           document.querySelector('#payment-info p > small').textContent = `${EHDObject.customer.salePrice.toLocaleString('ko-KR')} 원 할인`;
           //generateCustomerForms();
@@ -477,6 +539,18 @@ $detect = new Mobile_Detect;
         return false;
       }
     });
+  }
+
+  //쿠폰 팝업
+  function openCoupon(num) {
+    getCouponList();
+    $('html').addClass('fixed');
+    $('.dim-bg').show().animate({
+      opacity: '.75'
+    }, 300);
+    $('[data-layer="layer0' + num + '"]').show().animate({
+      opacity: '1'
+    }, 300);
   }
 
   //쿠폰 팝업 닫기

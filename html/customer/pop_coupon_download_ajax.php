@@ -36,32 +36,26 @@ if($_POST["mode"] == "insert") {
 			$SQL .= " ,temp_discount = '".$_POST["discount"]."' ";
 			$SQL .= " ,use_yn = 'N' ";
 			$SQL .= " ,writedate = now() ";
-	
 			if ($dbcon -> query($SQL) ) {
 				$result = '1';//쿠폰등록을 완료 하였습니다.
 			}
-	
 			$SQL = "SELECT coupon_name FROM tbl_board_event WHERE seq = '".$_POST["seq"]."'";
 			$result = $dbcon -> query($SQL);//쿠폰이름
 			$row= $dbcon -> fetch_array($result);
-
 			$param = array();
 			$param["discount"] = $_POST["discount"];
-			$param["discount_txt"] = $_POST["discount"]."%";
+			$param["discount_txt"] = $_POST["discount"].$_POST["symbol"];
 			$param["period"] = $expire_date_s. " ~ ".$expire_date_e;
 			$param["coupon_name"] = $row["coupon_name"];
 			kakaoCouponDown($param, $_POST["hp"]);//알림톡 쿠폰등록완료
-
 			$result = '1';
 		} else {
 			//$result = '4';//이벤트기간이 아닙니다.
 			$result = '2'; //이미 등록된 휴대폰
 		}
-
 	} else {
 		$result = '2';//이미 등록된 휴대폰번호입니다.
 	}
-	
 	$dbcon -> dbcon_close();
 }
 ?>
