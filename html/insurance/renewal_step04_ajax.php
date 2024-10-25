@@ -149,7 +149,7 @@ $sale_gubun = ""; //할인방법
 $s_amt_per = 0;
 $s_amount = 0;
 if ($cp_cd){ //쿠폰
-	// $sale_gubun = "C";
+	$sale_gubun = "C";
 	// $SQL_CP = " SELECT A.subject,B.temp_discount FROM tbl_board_event A INNER JOIN tbl_board_coupon_history B ";
 	// $SQL_CP .= " ON A.seq=B.event_seq where B.seq='".$cp_cd."' ";
 	// $result_cp = $dbcon -> query($SQL_CP);
@@ -163,7 +163,7 @@ if ($cp_cd){ //쿠폰
 	$s_amt_per = $cp_discount_info["s_amt_per"];								// 총 할인율
 
 }else if($recommend_cd) { //추천코드
-	// $sale_gubun = "R";
+	$sale_gubun = "R";
 	$SQL_RECOMMEND  = " SELECT seq, discount FROM tbl_board_recommend_code WHERE seq = '".$recommend_cd."' ";
 	$result_recommend = $dbcon -> query($SQL_RECOMMEND);
 	$row_recommend = $dbcon -> fetch_array($result_recommend);
@@ -396,17 +396,18 @@ for ($k=0;$k<count($_POST["pr_notice"]);$k++){
 
 //쿠폰등록
 // tbl_order_list_coupon 테이블 결제 구간 말고 사용하는 곳이 없음
-// if ($cp_cd){
-// 	$SQL_cp = "insert into tbl_order_list_couponTemp set ";
-// 	$SQL_cp .= " orderno = '".$orderNumber."' ";
-// 	$SQL_cp .= " ,coupon_name = '".$row_cp["subject"]."' ";
-// 	$SQL_cp .= " ,coupon_seq = '".$cp_cd."' ";
-// 	$SQL_cp .= " ,cp_sale_per = '".$s_amt_per."' ";
-// 	$SQL_cp .= " ,coupon_amount = '".$s_amount."' ";
-// 	$SQL_cp .= " ,writedate = now() ";
-// //	echo $SQL_cp."<br>";
-// 	$RS_N = $dbcon -> query($SQL_cp);
-// }
+if ($cp_cd){
+	$SQL_cp = "insert into tbl_order_list_couponTemp set ";
+	$SQL_cp .= " orderno = '".$orderNumber."' ";
+	$SQL_cp .= " ,coupon_name = '신규쿠폰' ";
+	// $SQL_cp .= " ,coupon_seq = '0' ";
+	$SQL_cp .= " ,new_cp_cd = '".$cp_cd."' ";
+	$SQL_cp .= " ,cp_sale_per = '".$s_amt_per."' ";
+	$SQL_cp .= " ,coupon_amount = '".$s_amount."' ";
+	$SQL_cp .= " ,writedate = now() ";
+//	echo $SQL_cp."<br>";
+	$RS_N = $dbcon -> query($SQL_cp);
+}
 
 $product_name = $row_plan["ins_plan_name"];
 if($row_plan["chk_service"] == "A" || $row_plan["chk_service"] == "B") {

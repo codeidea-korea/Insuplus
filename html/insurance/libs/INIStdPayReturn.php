@@ -186,12 +186,10 @@ $log = new log();
 						//===================================================
 						// 쿠폰 입력
 						//===================================================
-						// $SQL_cp = " insert into tbl_order_list_coupon (orderno,coupon_name,coupon_seq,cp_sale_per,coupon_amount,writedate) ";
-						// $SQL_cp .= " select orderno,coupon_name,coupon_seq,cp_sale_per,coupon_amount,now() from tbl_order_list_couponTemp where orderno= '".$resultMap["MOID"]."' ";
-						
-						// $log->log_write("쿠폰 히스토리 등록 (4) : ".$SQL_cp);
-						
-						// $result_cp = $dbcon -> query($SQL_cp);
+						$SQL_cp = " insert into tbl_order_list_coupon (orderno,coupon_name,new_cp_cd,cp_sale_per,coupon_amount,writedate) ";
+						$SQL_cp .= " select orderno,coupon_name,new_cp_cd,cp_sale_per,coupon_amount,now() from tbl_order_list_couponTemp where orderno= '".$resultMap["MOID"]."' ";
+						$result_cp = $dbcon -> query($SQL_cp);
+						$log->log_write("쿠폰 히스토리 등록 (4) : ".$SQL_cp);
 						
 						//===================================================
 						// 결제정보 출력

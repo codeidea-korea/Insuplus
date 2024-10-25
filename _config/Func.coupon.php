@@ -11,6 +11,7 @@ function fn_calculate_coupon_discount ($cp_cd, $t_ins_amt, $t_service_amt, $tota
   , A.service_fee_discount_rate
   , A.service_fee_max_discount_amount
   , A.event_category_master_seq
+  , B.discount 
   , B.temp_discount 
   from tbl_board_event A inner join tbl_board_coupon_history B on A.seq=B.event_seq where B.seq in (".$cp_cd.") ";
   $result_cp = $dbcon -> query($SQL_CP);
@@ -22,25 +23,48 @@ function fn_calculate_coupon_discount ($cp_cd, $t_ins_amt, $t_service_amt, $tota
   } else {
     $cp_list = array();
   }
-  // 전체 할인 금액 계산
-  $totalDiscount = 0;
+  $totalDiscount = 0;  // 총 할인 금액 초기화
+  $s_amt_per = 0;  // 최종 할인율
 
+  // 1. 구쿠폰 처리
   foreach ($cp_list as $coupon) {
-      $discountResult = calculateDiscount($coupon, $t_ins_amt, $t_service_amt);
-      $totalDiscount += $discountResult['totalDiscount'];
+    if (isset($coupon['temp_discount']) && $coupon['insurance_discount_applied'] === 'N' && $coupon['service_fee_discount_applied'] === 'N') {
+      // 구쿠폰 할인 계산
+      $discount = $coupon['temp_discount'];
+      $s_amt_temp = $total_amount / 100 * $discount;
+      $s_amt_temp = floor($s_amt_temp);  // 소수점 버림
 
-      // echo "쿠폰명: " . $coupon['subject'] . "<br>";
-      // echo "전체 할인 금액: " . number_format($discountResult['totalDiscount']) . "원<br>";
-      // echo "보험료 할인 금액: " . number_format($discountResult['insuranceDiscount']) . "원<br>";
-      // echo "서비스료 할인 금액: " . number_format($discountResult['serviceFeeDiscount']) . "원<br><br>";
+      // 최대 할인 금액 3000원 처리
+      if ($s_amt_temp <= 3000) {  
+          $s_amount = $s_amt_temp;
+          $s_amt_per = $discount;
+      } else {
+          $s_amount = 3000;  // 3000원까지 할인
+          $s_amt_per = (float)3000 * 100 / $total_amount;  // 재계산
+      }
+      $totalDiscount += $s_amount;  // 구쿠폰 할인 금액 합산
+
+      break;  // 구쿠폰은 1개만 적용되므로 루프 종료
+    }
+  }
+
+  // 2. 신쿠폰 처리 (중복 가능한 경우)
+  foreach ($cp_list as $coupon) {
+    if (isset($coupon['temp_discount']) && $coupon['insurance_discount_applied'] != 'N' || $coupon['service_fee_discount_applied'] != 'N') {
+      // 신쿠폰 처리
+      $discountResult = calculateDiscount($coupon, $t_ins_amt, $t_service_amt);
+      $totalDiscount += $discountResult['totalDiscount'];  // 신쿠폰 할인 금액 합산
+    }
   }
 
   // 최종 할인율 계산
   $discountPercentage = ($totalDiscount / $total_amount) * 100;
-  $s_amt_per = floor($discountPercentage);  // 소수점 버림
+  $s_amt_per = floor($discountPercentage);  // 소수점 버림 처리
+
+  // 최종 결과 반환
   return [
-    'totalDiscount' => $totalDiscount,
-    's_amt_per' => $s_amt_per
+      'totalDiscount' => $totalDiscount,  // 총 할인 금액
+      's_amt_per' => $s_amt_per  // 최종 할인율
   ];
 }
 
@@ -74,49 +98,10 @@ function calculateDiscount($couponData, $t_ins_amt, $t_service_amt) {
   // 전체 할인 계산
   $totalDiscount = $insuranceDiscount + $serviceFeeDiscount;
 
-  // 임시 할인이 적용되는 경우 처리
-  if (isset($couponData['temp_discount']) && $couponData['temp_discount'] > 0) {
-      $totalDiscount += $couponData['temp_discount'];
-  }
-
   return [
       'totalDiscount' => $totalDiscount,
       'insuranceDiscount' => $insuranceDiscount,
       'serviceFeeDiscount' => $serviceFeeDiscount
   ];
-}
-
-// 전체 할인 계산 처리
-function calculateTotalDiscount($coupons, $t_ins_amt, $t_service_amt) {
-	$nonDuplicateDiscount = 0;
-	$duplicateDiscount = 0;
-
-	// 중복할인 불가능한 쿠폰 먼저 처리
-	foreach ($coupons as $coupon) {
-			if ($coupon['duplicate_status_yn'] === 'N') {
-					// 비중복 쿠폰 먼저 적용
-					$discountResult = calculateDiscount($coupon, $t_ins_amt, $t_service_amt);
-					$nonDuplicateDiscount += $discountResult['totalDiscount'];
-
-					// 잔여 금액 갱신
-					$t_ins_amt -= $discountResult['insuranceDiscount'];
-					$t_service_amt -= $discountResult['serviceFeeDiscount'];
-			}
-	}
-
-	// 중복할인 가능한 쿠폰 처리
-	foreach ($coupons as $coupon) {
-			if ($coupon['duplicate_status_yn'] === 'Y') {
-					// 중복 가능 쿠폰은 잔여 금액에 대해 적용
-					$discountResult = calculateDiscount($coupon, $t_ins_amt, $t_service_amt);
-					$duplicateDiscount += $discountResult['totalDiscount'];
-			}
-	}
-
-	return [
-			'nonDuplicateDiscount' => $nonDuplicateDiscount,
-			'duplicateDiscount' => $duplicateDiscount,
-			'totalDiscount' => $nonDuplicateDiscount + $duplicateDiscount
-	];
 }
 ?>

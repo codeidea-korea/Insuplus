@@ -24,8 +24,8 @@
 				,insurance_max_discount_amount
 				,service_fee_discount_rate
 				,service_fee_max_discount_amount
-				,subscription_start_date
-				,subscription_end_date
+				,subscription_start_day
+				,subscription_end_day
 				,event_category_master_seq
 				,min_companion
 				,max_companion
