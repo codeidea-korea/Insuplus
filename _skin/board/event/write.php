@@ -136,9 +136,9 @@ if ($client_mode=="Y"){
 			<input type="radio" name="insurance_discount_applied" id="insurance_discount_applied_2" value="P" <? if ($insurance_discount_applied == "P") echo "checked"; ?>/> <label for="insurance_discount_applied_2">정률</label>
 		</td>
 		<th>보험료 할인율</th>
-		<td><input type="number" name="insurance_discount_rate" value="<?= $insurance_discount_rate ?>" min="0" max="100" maxlength="3" oninput="checkMaxRate(this)">%</td>
+		<td><input type="number" name="insurance_discount_rate" value="<?= ($insurance_discount_rate>0) ? $insurance_discount_rate : '' ?>" min="0" max="100" maxlength="3" oninput="checkMaxRate(this)">%</td>
 		<th>보험료 최대 할인금액</th>
-		<td>최대 <input type="number" name="insurance_max_discount_amount" value="<?= $insurance_max_discount_amount ?>" min="0" max="3" maxlength="1" oninput="checkMaxAmount(this)">만원</td>
+		<td>최대 <input type="number" name="insurance_max_discount_amount" value="<?= ($insurance_max_discount_amount>0) ? $insurance_max_discount_amount : '' ?>" min="1" max="100" maxlength="3" oninput="checkMaxAmount(this)"> 만원</td>
 	</tr>
 	<tr>
 		<th>서비스료 할인 적용여부</th>
@@ -148,20 +148,20 @@ if ($client_mode=="Y"){
 			<input type="radio" name="service_fee_discount_applied" id="service_fee_discount_applied_3" value="F" <? if ($service_discount_applied == "F") echo "checked"; ?> onchange="handleServiceFeeDiscountChange(this)"/> <label for="service_fee_discount_applied_3">정액</label>
 		</td>
 		<th>서비스료 할인율</th>
-		<td><input type="number" name="service_fee_discount_rate" value="<?= $service_fee_discount_rate ?>" min="0" max="100" maxlength="3" oninput="checkMaxRate(this)">%</td>
+		<td><input type="number" name="service_fee_discount_rate" value="<?= ($service_fee_discount_rate > 0) ? $service_fee_discount_rate : '' ?>" min="0" max="100" maxlength="3" oninput="checkMaxRate(this)">%</td>
 		<th>서비스료 최대 할인금액</th>
 		<td>최대
-			<input type="number" name="service_fee_max_discount_amount" id="service_fee_max" value="<?= $service_fee_max_discount_amount ?>" min="0" max="3" maxlength="1" oninput="checkMaxAmount(this)">
-			<input type="number" name="service_fee_max_discount_amount" id="service_fee_fixed" value="<?= number_format($service_fee_max_discount_amount) ?>" min="0" numberOnly>
+			<input type="number" name="service_fee_max_discount_amount" id="service_fee_max" value="<?= ($service_fee_max_discount_amount > 0) ? $service_fee_max_discount_amount : '' ?>" min="1" max="100" maxlength="3" oninput="checkMaxAmount(this)">
+			<input type="number" name="service_fee_max_discount_amount" id="service_fee_fixed" value="<?= ($service_fee_max_discount_amount > 0) ? number_format($service_fee_max_discount_amount) : '' ?>" min="0" numberOnly>
 			<span id="service_fee_name"></span>
 		</td>
 	</tr>
 	<tr>
 		<th>가입기간</th>
 		<td colspan="5">
-			<input type="number" id="subscription_start_date" name="subscription_start_date" value="<?= ($subscription_start_date) ? $subscription_start_date : '1' ?>" min="1" max="365" oninput="checkMaxValue(this)">
+			<input type="number" id="subscription_start_day" name="subscription_start_day" value="<?= ($subscription_start_day) ? $subscription_start_day : '1' ?>" min="1" max="365" oninput="checkMaxValue(this)">
 			<span style="padding-left: 5px; padding-right: 5px;">~</span>
-			<input type="number" id="subscription_end_date" name="subscription_end_date" value="<?= ($subscription_end_date) ? $subscription_end_date : '365' ?>" min="1" max="365" maxlength="3" oninput="checkMaxValue(this)">
+			<input type="number" id="subscription_end_day" name="subscription_end_day" value="<?= ($subscription_end_day) ? $subscription_end_day : '365' ?>" min="1" max="365" maxlength="3" oninput="checkMaxValue(this)">
 		</td>
 	</tr>
 	<tr>
@@ -584,6 +584,12 @@ if ($client_mode=="Y"){
 				alert('이벤트 종료일을 입력해주세요.');
 				$('#end_date').focus();
 				return false;
+			} else if($('#expire_date_s').val() == '') {
+				alert('쿠폰 사용기간 시작일을 입력해주세요.');
+				$('#expire_date_s').focus();
+			} else if($('#expire_date_e').val() == '') {
+				alert('쿠폰 사용기간 종료일을 입력해주세요.');
+				$('#expire_date_e').focus();
 			}
 			if($('#partner_coupon_yn').val() == 'Y') {
 				if($('#partner_coupon_name').val() == '') {
@@ -634,9 +640,11 @@ if ($client_mode=="Y"){
     }
 	}
 	function checkMaxAmount(input) {
-    if (input.value > 3) {
-    	input.value = 3;
-    }
+    if (input.value > 100) {
+    	input.value = 100;
+    } else if(input.value <= 0) {
+    	input.value = 1;
+		}
 	}
 	function checkMaxRate(input) {
 		if (input.value > 100) {
@@ -649,13 +657,13 @@ if ($client_mode=="Y"){
 			$('input[name=service_fee_discount_rate]').prop('disabled', true);
 			$('#service_fee_fixed').show();
 			$('#service_fee_max').hide();
-			$('#service_fee_max').val(0);
+			$('#service_fee_max').val();
 			$('#service_fee_name').text('원');
 		} else {
 			$('input[name=service_fee_discount_rate]').prop('disabled', false);
 			$('#service_fee_fixed').hide();
 			$('#service_fee_max').show();
-			$('#service_fee_fixed').val(0);
+			$('#service_fee_fixed').val();
 			$('#service_fee_name').text('만원');
 		}
 	}
@@ -666,6 +674,7 @@ if ($client_mode=="Y"){
 	}
 
 	$(document).ready(function() {
+		$('#service_fee_name').text('만원');
 		$("input:text[numberOnly]").on("keyup", function() {
 			$(this).val(addCommas($(this).val().replace(/[^0-9]/g,"")));
 		});

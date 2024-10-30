@@ -26,12 +26,12 @@ $event_url = $domain."/html/customer/event_list.php?mode=view&alliance_code=".en
 $duplicate_status_yn = REQSTR($duplicate_status_yn, "N");
 $insurance_discount_applied = REQSTR($insurance_discount_applied, "");
 $service_fee_discount_applied = REQSTR($service_fee_discount_applied, "");
-$insurance_discount_rate = REQSTR($insurance_discount_rate, "0");
-$insurance_max_discount_amount = REQSTR($insurance_max_discount_amount, "0");
-$service_fee_discount_rate = REQSTR($service_fee_discount_rate, "0");
-$service_fee_max_discount_amount = REQSTR($service_fee_max_discount_amount, "0");
-$subscription_start_date = REQSTR($subscription_start_date, "1");
-$subscription_end_date = REQSTR($subscription_end_date, "365");
+$insurance_discount_rate = REQSTR($insurance_discount_rate, null);
+$insurance_max_discount_amount = REQSTR($insurance_max_discount_amount, null);
+$service_fee_discount_rate = REQSTR($service_fee_discount_rate, null);
+$service_fee_max_discount_amount = REQSTR($service_fee_max_discount_amount, null);
+$subscription_start_day = REQSTR($subscription_start_day, "1");
+$subscription_end_day = REQSTR($subscription_end_day, "365");
 $event_category_master_seq = REQSTR($event_category_master_seq, null);
 $min_companion = REQSTR($min_companion, 0);
 $max_companion = REQSTR($max_companion, 5);
@@ -125,12 +125,12 @@ if($event_type == 'C'){
 	$sql .= " , duplicate_status_yn='".$duplicate_status_yn."' ";
 	$sql .= " , insurance_discount_applied='".$insurance_discount_applied."' ";
 	$sql .= " , service_fee_discount_applied='".$service_fee_discount_applied."' ";
-	$sql .= " , insurance_discount_rate='".$insurance_discount_rate."' ";
-	$sql .= " , insurance_max_discount_amount='".$insurance_max_discount_amount."' ";
-	$sql .= " , service_fee_discount_rate='".$service_fee_discount_rate."' ";
-	$sql .= " , service_fee_max_discount_amount='".$service_fee_max_discount_amount."' ";
-	$sql .= " , subscription_start_date='".$subscription_start_date."' ";
-	$sql .= " , subscription_end_date='".$subscription_end_date."' ";
+	$sql .= " , insurance_discount_rate=" . ($insurance_discount_rate === null ? "NULL" : "'$insurance_discount_rate'") . " ";
+	$sql .= " , insurance_max_discount_amount=" . ($insurance_max_discount_amount === null ? "NULL" : "'$insurance_max_discount_amount'") . " ";
+	$sql .= " , service_fee_discount_rate=" . ($service_fee_discount_rate === null ? "NULL" : "'$service_fee_discount_rate'") . " ";
+	$sql .= " , service_fee_max_discount_amount=" . ($service_fee_max_discount_amount === null ? "NULL" : "'$service_fee_max_discount_amount'") . " ";
+	$sql .= " , subscription_start_day='".$subscription_start_day."' ";
+	$sql .= " , subscription_end_day='".$subscription_end_day."' ";
 	if($event_category_master_seq) {
 		$sql .= " , event_category_master_seq='".$event_category_master_seq."' ";
 	}
