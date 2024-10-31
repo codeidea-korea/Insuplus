@@ -102,9 +102,6 @@ WHERE B.mobile = '".$user_hp."'
 if($_SESSION["ss_partner_seq"]){ //제휴사 쿠폰 조회
 	$SQL_WHERE .= "and A.event_partnership_code in (SELECT partnership_code FROM tbl_board_partner WHERE seq in ('01', '".$_SESSION["ss_partner_seq"]."')
 				AND start_Partner_period <= '".$today."' AND end_Partner_period >= '".$today."' ORDER BY seq ASC)";
-} else { //제휴사 쿠폰 제외
-	$SQL_WHERE .= "and A.event_partnership_code in (SELECT partnership_code FROM tbl_board_partner WHERE seq in ('01')
-				AND start_Partner_period <= '".$today."' AND end_Partner_period >= '".$today."' ORDER BY seq ASC)";
 }
 $result_cp = $dbcon -> query($SQL_CP.$SQL_WHERE);
 if($result_cp) {
