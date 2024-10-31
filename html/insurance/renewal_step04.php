@@ -128,7 +128,7 @@ $detect = new Mobile_Detect;
       <table class="table-type01">
         <colgroup>
           <col />
-          <col width="60px" />
+          <col width="100px" />
           <col width="80px" />
         </colgroup>
         <thead>
@@ -452,9 +452,16 @@ $detect = new Mobile_Detect;
           let tbody = '';
           couponList.forEach((item, idx) => {
             let date = item.start_date + '~' + item.end_date;
+            let unit = item.service_fee_discount_applied == 'F' ? '원' : '%';
+            let temp_discount = '';
+            if(item.service_fee_discount_applied == 'F') {
+              temp_discount = Number.parseFloat(item.temp_discount).toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '원';
+            } else {
+              temp_discount = item.temp_discount + '%';
+            }
             let row = '<tr> \
                   <td class="common-txt01">' + item.subject + '</td> \
-                  <td class="bb-on" rowspan="2">' + Number.parseFloat(item.temp_discount).toFixed() + '%</td> \
+                    <td class="bb-on" rowspan="2">' + temp_discount + '</td> \
                   <td class="bb-on" rowspan="2"> \
                     <div class="button-box flex-tc"> \
                       <a href="javascript:void(0)" class="btn btn-white btn-xs" data-status="'+item.duplicate_status_yn+'" data-code="'+item.seq+'" onclick="isDuplicateCoupon(this)">선택</a> \

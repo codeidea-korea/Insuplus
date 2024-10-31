@@ -92,7 +92,7 @@ function calculateDiscount($couponData, $t_ins_amt, $t_service_amt) {
       $serviceFeeDiscount = min($serviceFeeDiscount, $maxServiceFeeDiscount);
   } elseif ($couponData['service_fee_discount_applied'] === 'F') {
       // 정액 서비스료 할인 계산 (정액할인 시 최대 금액 대신 정액을 사용)
-      $serviceFeeDiscount = $couponData['service_fee_max_discount_amount'];
+      $serviceFeeDiscount = min($couponData['service_fee_max_discount_amount'], $t_service_amt);
   }
 
   // 전체 할인 계산
