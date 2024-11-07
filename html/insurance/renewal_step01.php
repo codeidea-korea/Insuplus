@@ -739,7 +739,7 @@ include '../_include/_top.html';
 
           buff.push(`            <div class="select-box flex-1">`);
           buff.push(`            <div class="select-box-inner" style="background-color: #DC3347;">`);
-          buff.push(`            <select class="tc" style="background-color: #DC3347 !important; color: #FFF !important">`);
+          buff.push(`            <select class="tc" style="background-color: #DC3347 !important;color: #FFF !important; background: url(../images/icon_select_white.png) no-repeat calc(100% - 14px) center / 14px 8px;">`);
           buff.push(`              <option value="${item.plan_cd}" selected>${item.g_amount}</option>`);
           anotherGuarantees.forEach((g) => buff.push(`<option value="${g.plan_cd}">${g.g_amount}</option>`));
           buff.push(`            </select>`);
