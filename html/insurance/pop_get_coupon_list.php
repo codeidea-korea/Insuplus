@@ -57,9 +57,9 @@ if ($_POST["s_date"] && $_POST["e_date"]){
 $SQL_CP =  " 
 SELECT 
 	(CASE 
-		WHEN B.partner_coupon IS NULL 
-		THEN A.subject 
-		ELSE A.partner_coupon_name 
+		WHEN A.partner_coupon_yn = 'Y'
+		THEN A.partner_coupon_name 
+		ELSE A.coupon_name 
 		END) AS subject 
 	, A.duplicate_status_yn
 	, A.insurance_discount_applied

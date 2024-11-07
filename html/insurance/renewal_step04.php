@@ -508,6 +508,22 @@ $detect = new Mobile_Detect;
           }
         });
       }
+    } else if (status === 'Y') {
+      if (isSelected) {
+        // 선택된 상태일 경우: 모든 버튼 다시 활성화
+        document.querySelectorAll('a[data-status="Y"]').forEach(function(button) {
+          button.style.pointerEvents = 'auto'; // 클릭 활성화
+          button.classList.remove('disabled'); // 비활성화 스타일 제거
+        });
+      } else {
+        document.querySelectorAll('a[data-status="Y"]').forEach(function(button) {
+          // 클릭된 버튼과 동일하지 않은 버튼만 비활성화
+          if (button !== clickedButton) {
+            button.style.pointerEvents = 'none'; // 클릭 비활성화
+            button.classList.add('disabled'); // 비활성화 스타일 추가
+          }
+        });
+      }
     }
   }
 
