@@ -532,8 +532,8 @@ include '../_include/_top.html';
    */
   function checkEventDate() {
     let currentDate = new Date();
-    let startDate = new Date('2024-08-09 00:00');
-    let endDate = new Date('2024-08-11 23:59:55');
+    let startDate = new Date('2024-11-11 00:00');
+    let endDate = new Date('2024-11-11 23:59:55');
 
     if (currentDate >= startDate && currentDate <= endDate) {
       return true;
@@ -727,7 +727,7 @@ include '../_include/_top.html';
         buff.push(`          <div class="table-head w300">`);
         buff.push(`            <strong>${item.service_name}</strong>`);
         buff.push(`          </div>`);
-        buff.push(`          <div class="table-body flex-tr">`);
+        buff.push(`          <div class="table-body flex-tr" style="justify-content: center;">`);
         if (k_idx === 0 && idx === 0) {
           // 보장내역 중 첫번째 보장내역을 select-box 로 변환하기위한 로직
           // 변환은 보장내역1 만 적용 한다
@@ -738,14 +738,18 @@ include '../_include/_top.html';
           });
 
           buff.push(`            <div class="select-box flex-1">`);
-          buff.push(`            <div class="select-box-inner">`);
-          buff.push(`            <select class="tc">`);
+          buff.push(`            <div class="select-box-inner" style="background-color: #DC3347;">`);
+          buff.push(`            <select class="tc" style="background-color: #DC3347 !important; color: #FFF !important">`);
           buff.push(`              <option value="${item.plan_cd}" selected>${item.g_amount}</option>`);
           anotherGuarantees.forEach((g) => buff.push(`<option value="${g.plan_cd}">${g.g_amount}</option>`));
           buff.push(`            </select>`);
           buff.push(`            </div>`);
         } else {
+          if (item.chk_service === 'Y') {
+            buff.push(`            <b class="point">${item.g_amount}</b>`);
+          } else {
           buff.push(`            <b>${item.g_amount}</b>`);
+          }
         }
         buff.push(`          </div>`);
         buff.push(`        </li>`);
