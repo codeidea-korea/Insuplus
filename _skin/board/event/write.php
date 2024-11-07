@@ -154,10 +154,10 @@ if ($client_mode=="Y"){
 		<th>서비스료 최대 할인금액</th>
 		<td>최대
 			<input type="number" name="service_fee_max" id="service_fee_max" value="<?= ($service_fee_discount_applied == "P") ? $service_fee_max_discount_amount : '' ?>" min="1" max="100" maxlength="3" oninput="checkMaxAmount(this)"
-			<?= ($service_fee_discount_applied == "F" && $service_fee_discount_applied != "N") ? 'style="display:none;"' : '' ?> >
+			<?= ($service_fee_discount_applied == "F") ? 'style="display:none;"' : '' ?> >
 			<input type="number" name="service_fee_fixed" id="service_fee_fixed" value="<?= ($service_fee_discount_applied == "F") ? $service_fee_max_discount_amount : '' ?>" min="0" numberOnly
-			<?= ($service_fee_discount_applied == "P" && $service_fee_discount_applied != "N") ? 'style="display:none;"' : '' ?> >
-			<span id="service_fee_name"><?= ($service_fee_discount_applied == "P" && $service_fee_discount_applied != "N") ? "만원" : ($service_fee_discount_applied == "F" && $service_fee_discount_applied != "N" ? "원" : "") ?></span>
+			<?= ($service_fee_discount_applied == "P" || $service_fee_discount_applied == "N") ? 'style="display:none;"' : '' ?> >
+			<span id="service_fee_name"><?= $service_fee_discount_applied == "P" || $service_fee_discount_applied == "N" ? "만원" : "원" ?></span>
 		</td>
 	</tr>
 	<tr>
@@ -219,7 +219,7 @@ if ($client_mode=="Y"){
 		<th>제휴이벤트</th>
 		<td>
 			<input type="checkbox" name="partner_event_yn" value="Y" <? if ($partner_event_yn == "Y") { echo "checked"; } ?>/> <span class="txt_red">※ 제휴 이벤트 인 경우 체크</span>
-			<input type="checkbox" name="partner_coupon_yn" value="Y" <? if ($partner_coupon_yn == "Y") { echo "checked"; } ?>/> <span class="txt_red">※ 제휴 쿠폰 사용할 경우 체크</span>
+			<input type="checkbox" name="partner_coupon_yn" value="Y" <? if ($partner_coupon_yn == "Y") { echo "checked"; } ?> disabled/> <span class="txt_red">※ 제휴 쿠폰 사용할 경우 체크</span>
 		</td>
 	<? } ?>
 		<th>제휴사</th>
@@ -236,17 +236,17 @@ if ($client_mode=="Y"){
 	<tr>
 		<th>제휴쿠폰명</th>
 		<td>
-			<input type="text" id="partner_coupon_name" name="partner_coupon_name" value="<?=$partner_coupon_name?>"/>
+			<input type="text" id="partner_coupon_name" name="partner_coupon_name" value="<?=$partner_coupon_name?>" disabled/>
 		</td>
 		<th>제휴쿠폰 할인율</th>
 		<td colspan="3">
-			<input type="text" id="partner_coupon_discount" name="partner_coupon_discount" value="<?=$partner_coupon_discount?>" maxlength="11" onkeypress="return fn_press(event, 'numbers');" onkeydown="fn_press_han(this);" style="ime-mode:disabled;"/>%
+			<input type="text" id="partner_coupon_discount" name="partner_coupon_discount" value="<?=$partner_coupon_discount?>" maxlength="11" onkeypress="return fn_press(event, 'numbers');" onkeydown="fn_press_han(this);" style="ime-mode:disabled;" disabled/>%
 		</td>
 	</tr>
 	<tr>
 		<th>제휴쿠폰 등록</th>
 		<td colspan="5">
-			<input type="file" id="file1" name="file1">
+			<input type="file" id="file1" name="file1" disabled>
 			<a href="/_data/쿠폰양식.xlsx"><u>쿠폰양식 다운로드</u></a>
 			<? if($partnerCouponCnt && $partnerCouponCnt > 0) {?>
 				<span style="color: red;">등록된 제휴쿠폰 수 : <?= $partnerCouponCnt?></span>
