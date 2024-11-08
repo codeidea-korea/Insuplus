@@ -8,14 +8,21 @@ include_once $_SERVER["DOCUMENT_ROOT"]."/_config/Func.alrimTalk.php";
   $mobile = $_POST["phone"];
   $param["name"] = "테스트";
   $param["pr_name"] = "테스트_상품";
-  $param["period"] = "2024-01-02 ~ 2024-02-01";
+  $param["period"] = "2024-00-00 ~ 2024-00-00";
   $param["t_amount"] = 1000;
   $param["promotion"] = "IP3DJOUJ89DA";
   $param["coupon_name"] = "쿠폰테스트";
   $param["discount"] = "10%";
+  $param["bank"] = "국민은행";
+  $param["account"] = "7894-05-12345567";
+  $param["cancle_date"] = date("Y-m-d");
+  $param["cancle_amount"] = 1000;
 
-  // kakaoPromotionSend($param,$mobile);
-  // kakaoJoin($param,$mobile);
-  kakaoInsuplusJoin($param,$mobile);
+  kakaoJoinCancel($param, $mobile);       // 가입취소
+  // kakaoInsuplusJoin($param,$mobile);   // 가입안내
+  // kakaoCouponDown($param,$mobile);     // 쿠폰 다운로드
+  // kakaoJoinBankInfo($param,$mobile);   // 가입 입금안내
+  // kakaoPromotionSend($param,$mobile);  // 프로모션 발송
+  // kakaoJoin($param,$mobile);           // 가입
 ?>
 {resulte: 1}
