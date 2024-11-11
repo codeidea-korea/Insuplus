@@ -136,7 +136,7 @@ function kakaoCouponDown($param, $mobile) {
 	$message = "24시간 해외여행안심 서비스 인슈플러스 쿠폰이 발행되었습니다. 본 쿠폰은 모든 상품 가입 시 사용하실 수 있으며, 휴대폰번호를 입력하여 친구에게 선물하실 수 있습니다.
 
 ■ 쿠폰명 : ".$param["coupon_name"]."
-■ 혜택 : ".$param["discount"]." 할인
+■ 혜택 : ".$param["discount"]."% 할인
 ■ 사용기간 : ".$param["period"]."
 
 * 쿠폰 사용 안내
