@@ -41,6 +41,7 @@ $max_companion = REQSTR($max_companion, 5);
 //==================================================================================================
 //엑셀업로드  시작
 //==================================================================================================
+/*
 error_reporting(E_ALL ^ E_NOTICE ^ E_DEPRECATED ^ E_USER_DEPRECATED);
 include $_SERVER["DOCUMENT_ROOT"]."/_util/PHPExcel-1.8/Classes/PHPExcel.php";
 if ($_FILES["file1"] && $event_partnership_code != ""){
@@ -112,6 +113,8 @@ if ($_FILES["file1"] && $event_partnership_code != ""){
 	alert_close("제휴사를 선택해주세요.");
 	exit;
 }
+*/
+
 try {
 $sql  = " UPDATE tbl_board_".$bc_id." SET ";
 $sql .= " event_type='".$event_type."' ";
