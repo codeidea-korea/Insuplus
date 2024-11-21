@@ -84,7 +84,9 @@ FROM tbl_board_event aa
       if($_SESSION["ss_partner_seq"]){ //제휴사 쿠폰 조회
         $SQL_CP .= "AND a.event_partnership_code in (SELECT partnership_code FROM tbl_board_partner WHERE seq in ('".$_SESSION["ss_partner_seq"]."') 
         AND start_Partner_period <= '".$today."' AND end_Partner_period >= '".$today."' ORDER BY seq ASC) AND a.partner_event_yn = 'Y'";
-      }
+      } else {
+				$SQL_CP .= "AND a.partner_event_yn = 'N'";
+			}
 $SQL_CP .= "		GROUP BY seq
 	) tb ON aa.seq = tb.seq
 LEFT JOIN tbl_event_coupon_category C ON aa.event_category_master_seq = C.event_category_master_seq

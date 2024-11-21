@@ -53,6 +53,10 @@ $SQL_Q = "
 		B.event_category_master_seq,
 		B.min_companion,
 		B.max_companion,
+		B.insurance_discount_applied,
+		B.service_fee_discount_applied,
+		B.insurance_max_discount_amount,
+		B.service_fee_max_discount_amount,
 		C.partnership_name 
 	FROM 
 ";
@@ -149,7 +153,8 @@ while ($row = $dbcon->fetch_array($RS_Q)) {
 						<tr>
 							<th class="bg-navy border-navy">쿠폰명</th>
 							<th class="bg-navy border-navy">사용기간</th>
-							<th class="bg-navy border-navy">할인율</th>
+							<th class="bg-navy border-navy">할인</th>
+							<th class="bg-navy border-navy">최대할인금액</th>
 							<th class="bg-navy border-navy">쿠폰조건</th>
 							<th class="bg-navy border-navy">친구에게 쿠폰전송</th>
 						</tr>
@@ -170,6 +175,18 @@ while ($row = $dbcon->fetch_array($RS_Q)) {
 								$isCompanion = (isset($row_Q["min_companion"]) && isset($row_Q["max_companion"])) ? true : false;
 								$isPeriod = (isset($row_Q["subscription_start_day"]) && isset($row_Q["subscription_end_day"])) ? true : false;
 								$isDup = $row_Q["duplicate_status_yn"] == "Y" ? true : false;
+								$insurance_discount_applied = $row_Q["insurance_discount_applied"];
+								$service_fee_discount_applied = $row_Q["service_fee_discount_applied"];
+								$insurance_max_discount_amount = $row_Q["insurance_max_discount_amount"];
+								$service_fee_max_discount_amount = $row_Q["service_fee_max_discount_amount"];
+								$max_dixcount = 0;
+								if($row_Q["temp_discount"] && $insurance_discount_applied === "N" && $service_fee_discount_applied === "N"){
+									$max_dixcount = 30000;
+								} else if($service_fee_discount_applied === "F"){
+									$max_dixcount = $row_Q["service_fee_max_discount_amount"];
+								} else {
+									$max_dixcount = ($insurance_max_discount_amount+$service_fee_max_discount_amount)*10000;
+								}
 								
 								if ($categorySeq) {
 									$coupon_conditions .= $row_Q["partnership_name"];
@@ -190,7 +207,8 @@ while ($row = $dbcon->fetch_array($RS_Q)) {
 								<tr>
 									<td data-title="쿠폰명"><?= $row_Q["coupon_name"] ?></td>
 									<td data-title="사용기간"><?= $row_Q["start_date"] ?> ~ <?= $row_Q["end_date"] ?></td>
-									<td data-title="할인율"><?= number_format($row_Q["temp_discount"]) ?>%</td>
+									<td data-title="할인"><?= number_format($row_Q["temp_discount"]) ?><?= (strlen($row_Q["temp_discount"]) > 3) ? "원" : "%"?></td>
+									<td data-title="최대할인금액"><?= number_format($max_dixcount) ?>원</td>
 									<td data-title="쿠폰조건"><span style="padding: 5px;text-align: left;"><?= $coupon_conditions?></span></td>
 									<td class="p-y-05 p-x-1">
 										<div class="input-group">
