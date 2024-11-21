@@ -43,8 +43,24 @@ if (count($join_data) <= 0) {
 $name = all_seed_dec($join_data[0]["o_name"]);
 
 // 가입자 쿠폰리스트 검색
-$SQL_Q = " SELECT A.*,B.coupon_name FROM ";
-$SQL_Q .= " tbl_board_coupon_history A inner join tbl_board_event B on A.event_seq=B.seq where A.mobile='" . $_SESSION["enc_hp"] . "' and A.use_yn='N' AND A.end_date>='" . date("Y-m-d") . "' ";
+$SQL_Q = " 
+	SELECT 
+		A.*,
+		B.coupon_name,
+		B.duplicate_status_yn,
+		B.subscription_start_day,
+		B.subscription_end_day,
+		B.event_category_master_seq,
+		B.min_companion,
+		B.max_companion,
+		C.partnership_name 
+	FROM 
+";
+$SQL_Q .= " 
+tbl_board_coupon_history A 
+inner join tbl_board_event B on A.event_seq=B.seq 
+inner join tbl_board_partner C on B.event_partnership_code = C.partnership_code 
+where A.mobile='" . $_SESSION["enc_hp"] . "' and A.use_yn='N' AND A.end_date>='" . date("Y-m-d") . "' ";
 $SQL_Q .= " ORDER BY A.seq DESC ";
 $RS_Q = $dbcon->query($SQL_Q);
 
@@ -134,17 +150,48 @@ while ($row = $dbcon->fetch_array($RS_Q)) {
 							<th class="bg-navy border-navy">쿠폰명</th>
 							<th class="bg-navy border-navy">사용기간</th>
 							<th class="bg-navy border-navy">할인율</th>
+							<th class="bg-navy border-navy">쿠폰조건</th>
 							<th class="bg-navy border-navy">친구에게 쿠폰전송</th>
 						</tr>
 					</thead>
 					<tbody class="text-center">
 						<?
 						if (count($coupon_data) > 0) {
-							foreach ($coupon_data as $row_Q) { ?>
+							foreach ($coupon_data as $row_Q) { 
+								// 카테고리 조건이 없는 경우 : ‘전체상품’
+								// 카테고리 조건 있는 경우 : ‘제휴사명’
+								// 동반가입 조건 있는 경우 : ‘1~5명 가입시 사용 가능’
+								// 위 인원수는 ‘동반인 조건 +1명’으로 표기 (가입자 포함)
+								// 가입기간 조건 있는 경우 : ‘1~90일 가입시 사용 가능’
+								// 중복가능한 경우 : ‘타 쿠폰과 중복사용 가능’
+								$coupon_conditions = "";
+								$isDup = $row_Q["duplicate_status_yn"] == "Y" ? true : false;
+								$categorySeq = $row_Q["event_category_master_seq"];
+								$isCompanion = (isset($row_Q["min_companion"]) && isset($row_Q["max_companion"])) ? true : false;
+								$isPeriod = (isset($row_Q["subscription_start_day"]) && isset($row_Q["subscription_end_day"])) ? true : false;
+								$isDup = $row_Q["duplicate_status_yn"] == "Y" ? true : false;
+								
+								if ($categorySeq) {
+									$coupon_conditions .= $row_Q["partnership_name"];
+								} else {
+									$coupon_conditions .= "전체상품";
+								}
+								if ($isCompanion) {
+									$coupon_conditions .= "<br>" . ($row_Q["min_companion"] + 1) ."~".($row_Q["max_companion"] + 1) . "명 가입시 사용 가능";
+								}
+								if ($isPeriod) {
+									$coupon_conditions .= "<br>" . $row_Q["subscription_start_day"] . "~" . $row_Q["subscription_end_day"] . "일 가입시 사용 가능";
+								}
+								if ($isDup) {
+									$coupon_conditions .= "<br>타 쿠폰과 중복사용 가능";
+								}
+						
+						?>
 								<tr>
 									<td data-title="쿠폰명"><?= $row_Q["coupon_name"] ?></td>
 									<td data-title="사용기간"><?= $row_Q["start_date"] ?> ~ <?= $row_Q["end_date"] ?></td>
 									<td data-title="할인율"><?= number_format($row_Q["temp_discount"]) ?>%</td>
+									<td data-title="쿠폰조건"><span style="padding: 5px;text-align: left;"><?= $coupon_conditions?></span></td>
 									<td class="p-y-05 p-x-1">
 										<div class="input-group">
 											<input type="tel" name="fr_hp<?= $row_Q["seq"] ?>" id="fr_hp<?= $row_Q["seq"] ?>" placeholder="친구 휴대폰번호를 입력해 주세요." class="form-control numberonly" maxlength="12" size="12" />
@@ -162,7 +209,7 @@ while ($row = $dbcon->fetch_array($RS_Q)) {
 					</tbody>
 				</table>
 				<ul class="icons list-unstyled line-height-8 m-t-2">
-					<li><i class="ti ti-check"></i>할인 적용&nbsp;시 최대&nbsp;3만원 이상&nbsp;할인받을 수 없습니다.</li>
+					<li><i class="ti ti-check"></i>할인 적용 시 쿠폰의 최대 금액을 초과하여 할인 받을 수 없습니다. 단, 보험료는 최대 3만원 이상 할인 받으실 수 없습니다.</li>
 					<li><i class="ti ti-check"></i>친구에게 가지고 있는 쿠폰을 전송할 수 있습니다.</li>
 				</ul>
 			</div>

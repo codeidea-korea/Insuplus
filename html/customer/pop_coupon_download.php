@@ -40,21 +40,28 @@
 	if($event_type == 'C' && is_null($discount)){
 		$discount = 0;
 		$symbol = '';
-		$text = '';
-		if($insurance_discount_applied == 'P') {
-			$symbol = '%';
-			$discount = $insurance_discount_rate;
-		} else if($insurance_discount_applied == 'P' && $service_fee_discount_applied == 'P') {
-			$symbol = '%';
-			$discount = max($insurance_discount_rate, $service_fee_discount_rate);
-		} else if($service_fee_discount_applied == 'P'){
-			$symbol = '%';
-			$discount = $service_fee_discount_rate;
-		} else if($service_fee_discount_applied == 'F') {
+		$discountName = '';
+		$discountValue = '';
+		if($service_fee_discount_applied == 'F') {
 			$symbol = '원';
-			$discount = $service_fee_max_discount_amount;
+			$discount = number_format($service_fee_max_discount_amount);
+			$discountName = '서비스료 할인';
+		} else {
+			if($insurance_discount_applied == 'P' && $service_fee_discount_applied == 'P') {
+				$symbol = '%';
+				$discount = max($insurance_discount_rate, $service_fee_discount_rate);
+				$discountName = '인슈플러스 할인';
+			} else if($insurance_discount_applied == 'P') {
+				$symbol = '%';
+				$discount = $insurance_discount_rate;
+				$discountName = '인슈플러스 할인';
+			} else if($service_fee_discount_applied == 'P'){
+				$symbol = '%';
+				$discount = $service_fee_discount_rate;
+				$discountName = '서비스료 할인';
+			}
 		}
-		$text = $discount.$symbol;
+		$discountValue = $discount.$symbol;
 	}
 ?> 
 <input type="hidden" name="mode" />
@@ -76,8 +83,8 @@
 		<div class='detail-col-input'><?=$coupon_name?></div>
 		<div class='detail-col-label'>쿠폰 사용기간</div>
 		<div class='detail-col-input'><?=substr($expire_date_s, 0, 10)?> ~ <?=substr($expire_date_e, 0, 10)?></div>
-		<div class='detail-col-label'>할인율</div>
-		<div class='detail-col-input'><?=$text?></div>
+		<div class='detail-col-label'><?= $discountName?></div>
+		<div class='detail-col-input'><?=$discountValue?></div>
 		<div class='detail-col-label'>휴대폰번호</div>
 		<div class='detail-col-input'><input type="number" id="hp" name='hp' placeholder="휴대폰번호를 입력해 주세요." class="form-control" size='20' <?=$OnlyNumber?>/></div>
 		<?}?>

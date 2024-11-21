@@ -74,7 +74,11 @@ $detect = new Mobile_Detect;
               <h3>할인 정보</h3>
             </div>
             <div class="coupon-box" id="coupon_ui">
-              <div class="coupon-inner">
+            <div class="coupon-inner">
+                <a href="javascript:void(0)" onClick="openCoupon(2)" class="wfull ml0">쿠폰 다운로드</a>
+                <!-- <a href="javascript:void(0)" id="btnCoupon" class="wfull ml0" data-toggle='pop-modal' data-size='md' data-href="" data-title='쿠폰' target='modal_iframe'>사용가능한 쿠폰 조회</a> -->
+              </div>
+              <div class="coupon-inner mt10">
                 <a href="javascript:void(0)" onClick="openCoupon(1)" class="wfull ml0">사용가능한 쿠폰 조회</a>
                 <!-- <a href="javascript:void(0)" id="btnCoupon" class="wfull ml0" data-toggle='pop-modal' data-size='md' data-href="" data-title='쿠폰' target='modal_iframe'>사용가능한 쿠폰 조회</a> -->
               </div>
@@ -127,14 +131,16 @@ $detect = new Mobile_Detect;
     <div class="table-wrap">
       <table class="table-type01">
         <colgroup>
-          <col />
-          <col width="100px" />
-          <col width="80px" />
+          <col width="70%" />
+          <col width="10%" />
+          <col width="10%" />
+          <col width="10%" />
         </colgroup>
         <thead>
           <tr>
             <th>쿠폰명/사용가능 기간</th>
-            <th>할인율</th>
+            <th>할인</th>
+            <th>최대할인금액</th>
             <th>선택</th>
           </tr>
         </thead>
@@ -170,12 +176,43 @@ $detect = new Mobile_Detect;
               return;
             }
 
-            selCoupon(couponSeqs);  // 배열로 selCoupon 함수에 전달
+            selCoupon(couponSeqs, 1);  // 배열로 selCoupon 함수에 전달
           }
         </script>
       </div>
     </div>
     <button type="button" class="btn-close" data-layer-btn="layer01" onClick="closeCoupon(1)">
+      <span class="tts">팝업 닫기</span>
+    </button>
+  </div>
+</div>
+
+<div class="layer-container" style="display: none; opacity: 0" data-layer="layer02">
+  <div class="layer-box">
+    <h3 class="layer-title">쿠폰 다운로드</h3>
+    <div class="table-wrap">
+      <table class="table-type01">
+        <colgroup>
+          <col width="70%" />
+          <col width="10%" />
+          <col width="10%" />
+          <col width="10%" />
+        </colgroup>
+        <thead>
+          <tr>
+            <th>쿠폰명/사용가능 기간</th>
+            <th>할인</th>
+            <th>최대할인금액</th>
+            <th>받기</th>
+          </tr>
+        </thead>
+        <tbody id="download_coupon_list"></tbody>
+      </table>
+      <div class="button-box flex-tc">
+        <button type="button" class="btn btn-gray btn-s mt15" onClick="closeCoupon(2)">닫기</button>
+      </div>
+    </div>
+    <button type="button" class="btn-close" data-layer-btn="layer01" onClick="closeCoupon(2)">
       <span class="tts">팝업 닫기</span>
     </button>
   </div>
@@ -436,54 +473,137 @@ $detect = new Mobile_Detect;
   }
 
   //쿠폰 목록 가져오기
-  function getCouponList() {
-    let data = EHDObject.customer;
-    let url = './pop_get_coupon_list.php?usr_cd=' + encodeURIComponent(data.cellphone);
-    let request = $.ajax({
-      type: "POST",
-      data: getFormInfo(),
-      url: url,
-      cache: false,
-      contentType: false,
-      processData: false,
-      success: function(result) {
-        if (result.success == "1") {
-          let couponList = result.list;
-          let tbody = '';
-          couponList.forEach((item, idx) => {
-            let date = item.start_date + '~' + item.end_date;
-            let unit = item.service_fee_discount_applied == 'F' ? '원' : '%';
-            let temp_discount = '';
-            if(item.service_fee_discount_applied == 'F') {
-              temp_discount = Number.parseFloat(item.temp_discount).toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '원';
-            } else {
-              temp_discount = item.temp_discount + '%';
-            }
-            let row = '<tr> \
-                  <td class="common-txt01">' + item.subject + '</td> \
+  function getCouponList(num) {
+    if(num === 1){ // 사용가능한 쿠폰 조회
+      let data = EHDObject.customer;
+      let url = './pop_get_coupon_list.php?usr_cd=' + encodeURIComponent(data.cellphone);
+      let request = $.ajax({
+        type: "POST",
+        data: getFormInfo(),
+        url: url,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(result) {
+          if (result.success == "1") {
+            let couponList = result.list;
+            let tbody = '';
+            couponList.forEach((item, idx) => {
+              let date = item.start_date + '~' + item.end_date;
+              let unit = item.service_fee_discount_applied == 'F' ? '원' : '%';
+              let temp_discount = '';
+              let insurance_max_discount_amount = 0;
+              insurance_max_discount_amount = item.insurance_max_discount_amount ? Number.parseFloat(item.insurance_max_discount_amount)*10000 : 0;
+              let service_fee_max_discount_amount = 0;
+              service_fee_max_discount_amount = item.service_fee_max_discount_amount ? Number.parseFloat(item.service_fee_max_discount_amount)*10000 : 0;
+              if(item.service_fee_discount_applied == 'F') {
+                temp_discount = Number.parseFloat(item.temp_discount).toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '원';
+                max_amount = Number.parseFloat(item.temp_discount).toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '원';
+              } else {
+                temp_discount = item.temp_discount + '%';
+                if(item.temp_discount && item.insurance_discount_applied === "N" && item.service_fee_discount_applied === "N" ) { //구쿠폰은 최대할인 금액 3만원
+                  max_amount = Number.parseFloat(30000).toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '원';
+                } else {
+                  max_amount = Number.parseFloat(insurance_max_discount_amount + service_fee_max_discount_amount).toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '원';
+                }
+              }
+              let row = '<tr> \
+                    <td class="common-txt01">' + item.subject + '</td> \
                     <td class="bb-on" rowspan="2">' + temp_discount + '</td> \
-                  <td class="bb-on" rowspan="2"> \
-                    <div class="button-box flex-tc"> \
-                      <a href="javascript:void(0)" class="btn btn-white btn-xs" data-status="'+item.duplicate_status_yn+'" data-code="'+item.seq+'" onclick="isDuplicateCoupon(this)">선택</a> \
-                    </div> \
-                  </td> \
-                </tr> \
-                <tr> \
-                  <td class="bb-on">' + date + '</td> \
-                </tr>';
-            tbody += row;
-          });
-          $('#coupon_list').html(tbody);
-        } else {
-          let row = '<tr><td class="bb-on" colspan="3">등록된 쿠폰이 없습니다.</td></tr>';
-          $('#coupon_list').html(row);
+                    <td class="bb-on" rowspan="2">' + max_amount + '</td> \
+                    <td class="bb-on" rowspan="2"> \
+                      <div class="button-box flex-tc"> \
+                        <a href="javascript:void(0)" class="btn btn-white btn-xs" data-status="'+item.duplicate_status_yn+'" data-code="'+item.seq+'" onclick="isDuplicateCoupon(this)">선택</a> \
+                      </div> \
+                    </td> \
+                  </tr> \
+                  <tr> \
+                    <td class="bb-on">' + date + '</td> \
+                  </tr>';
+              tbody += row;
+            });
+            $('#coupon_list').html(tbody);
+          } else {
+            let row = '<tr><td class="bb-on" colspan="4">등록된 쿠폰이 없습니다.</td></tr>';
+            $('#coupon_list').html(row);
+          }
+        },
+        error: function(xhr, status, error) {
+          alert("AJAX실패. 상품변경에 따른정보를 가져오는데 실패하였습니다. 관리자에게 문의하십시오.");
+          return false;
         }
-      },
-      error: function(xhr, status, error) {
-        alert("AJAX실패. 상품변경에 따른정보를 가져오는데 실패하였습니다. 관리자에게 문의하십시오.");
-        return false;
-      }
-    });
+      });
+    } else if(num === 2) { //쿠폰 다운로드
+      let data = EHDObject.customer;
+      let url = './pop_get_download_coupon_list.php?usr_cd=' + encodeURIComponent(data.cellphone);
+      let request = $.ajax({
+        type: "POST",
+        data: getFormInfo(),
+        url: url,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(result) {
+          if (result.success == "1") {
+            let couponList = result.list;
+            let tbody = '';
+            couponList.forEach((item, idx) => {
+              let date = item.expire_date_s + '~' + item.expire_date_e;
+              let unit = item.service_fee_discount_applied == 'F' ? '원' : '%';
+              let discount = 0;
+              let temp_discount = '';
+              let insurance_max_discount_amount = 0;
+              insurance_max_discount_amount = item.insurance_max_discount_amount ? Number.parseFloat(item.insurance_max_discount_amount)*10000 : 0;
+              let service_fee_max_discount_amount = 0;
+              service_fee_max_discount_amount = item.service_fee_max_discount_amount ? Number.parseFloat(item.service_fee_max_discount_amount)*10000 : 0;
+
+              if(item.service_fee_discount_applied == 'F') {
+                temp_discount = Number.parseFloat(item.service_fee_max_discount_amount).toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                discount = item.service_fee_max_discount_amount;
+                max_amount = Number.parseFloat(item.service_fee_max_discount_amount).toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+              } else {
+                if (item.insurance_discount_applied === 'P' && item.service_fee_discount_applied === 'P') {
+                  temp_discount = Math.max(item.insurance_discount_rate, item.service_fee_discount_rate);
+                  discount = Math.max(item.insurance_discount_rate, item.service_fee_discount_rate);
+                } else if (item.insurance_discount_applied === 'P' && item.service_fee_discount_applied === 'N') {
+                  temp_discount = item.insurance_discount_rate;
+                  discount = item.insurance_discount_rate;
+                } else if (item.insurance_discount_applied === 'N' && item.service_fee_discount_applied === 'P') {
+                  temp_discount = item.service_fee_discount_rate;
+                  discount = item.service_fee_discount_rate;
+                }
+                max_amount = Number.parseFloat(insurance_max_discount_amount + service_fee_max_discount_amount).toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+              }
+
+              
+
+              let row = '<tr> \
+                    <td class="common-txt01">' + item.subject + '</td> \
+                    <td class="bb-on" rowspan="2">' + temp_discount + unit + '</td> \
+                    <td class="bb-on" rowspan="2">' + max_amount + '원' + '</td> \
+                    <td class="bb-on" rowspan="2"> \
+                      <div class="button-box flex-tc"> \
+                        <a href="javascript:void(0)" class="btn btn-white btn-xs" data-seq="'+item.seq+'" data-value="'+discount+'" data-unit="'+ unit +'" onclick="downLoadCoupon(this)">받기</a> \
+                      </div> \
+                    </td> \
+                  </tr> \
+                  <tr> \
+                    <td class="bb-on">' + date + '</td> \
+                  </tr>';
+              tbody += row;
+            });
+            $('#download_coupon_list').html(tbody);
+          } else {
+            let row = '<tr><td class="bb-on" colspan="4">사용가능한 쿠폰이 없습니다.</td></tr>';
+            $('#download_coupon_list').html(row);
+          }
+        },
+        error: function(xhr, status, error) {
+          alert("AJAX실패. 상품변경에 따른정보를 가져오는데 실패하였습니다. 관리자에게 문의하십시오.");
+          return false;
+        }
+      });
+    }
   }
 
   function isDuplicateCoupon(clickedButton) {
@@ -553,7 +673,7 @@ $detect = new Mobile_Detect;
         } else {
           EHDObject.customer.couponCode = 0;
         }
-        closeCoupon();
+        closeCoupon(1);
       },
       error: function(xhr, status, error) {
         $("input[name='cp_cd']").val("");
@@ -566,7 +686,7 @@ $detect = new Mobile_Detect;
 
   //쿠폰 팝업
   function openCoupon(num) {
-    getCouponList();
+    getCouponList(num);
     $('html').addClass('fixed');
     $('.dim-bg').show().animate({
       opacity: '.75'
@@ -577,18 +697,48 @@ $detect = new Mobile_Detect;
   }
 
   //쿠폰 팝업 닫기
-  function closeCoupon() {
+  function closeCoupon(num) {
     $('html').removeClass('fixed');
     $('.dim-bg').animate({
       opacity: '0'
     }, 300, function() {
       $('.dim-bg').hide();
     })
-    $('[data-layer="layer01"]').animate({
+    $('[data-layer="layer0' + num + '"]').animate({
       opacity: '0'
     }, 300, function() {
-      $('[data-layer="layer01"]').hide();
+      $('[data-layer="layer0' + num + '"]').hide();
     })
+  }
+
+  function downLoadCoupon(clickedButton) {
+    const discount = clickedButton.getAttribute('data-value');
+    const seq = clickedButton.getAttribute('data-seq');
+    const unit = clickedButton.getAttribute('data-unit');
+    $.ajax({
+      type: "POST",
+      url: "./pop_coupon_download_ajax.php?seq=" + seq + "&discount=" + discount + "&unit=" + unit,
+      data: getFormInfo(),
+      cache: false,
+      contentType: false,
+      processData: false,
+      success: function(result) {
+        if (result.success == "1") {
+          clickedButton.style.pointerEvents = 'none'; // 클릭 불가
+          clickedButton.style.opacity = '0.6';       // 비활성화된 것처럼 보이게 처리
+          clickedButton.style.backgroundColor = 'gray'; // 배경색 변경
+        } else {
+          alert("이미 다운로드 받은 쿠폰입니다.");
+        }
+        // closeCoupon(2);
+      },
+      error: function(xhr, status, error) {
+        $("input[name='cp_cd']").val("");
+        alert("AJAX실패. 쿠폰 다운로드에 실패하였습니다. 관리자에게 문의하십시오.");
+        console.log(xhr.responseText);
+        return false;
+      }
+    });
   }
 </script>
 <?php

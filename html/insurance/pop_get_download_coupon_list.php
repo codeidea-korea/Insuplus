@@ -54,55 +54,53 @@ if ($_POST["s_date"] && $_POST["e_date"]){
 	$t_select_add_people = $select_add_people + 1;
 }
 //쿠폰 검색
-$SQL_CP =  " 
+$SQL_CP = " 
 SELECT 
-	(CASE 
-		WHEN A.partner_coupon_yn = 'Y'
-		THEN A.partner_coupon_name 
-		ELSE A.coupon_name 
-		END) AS subject 
-	, A.duplicate_status_yn
-	, A.insurance_discount_applied
-	, A.service_fee_discount_applied
-	, A.insurance_discount_rate
-	, A.insurance_max_discount_amount
-	, A.service_fee_discount_rate
-	, A.service_fee_max_discount_amount
-	, A.subscription_start_day
-	, A.subscription_end_day
-	, A.event_category_master_seq
-	, A.min_companion
-	, A.max_companion
-	, B.temp_discount 
-	, B.seq
-	, B.temp_discount
-	, B.start_date
-	, B.end_date
-	, B.event_seq 
-FROM tbl_board_event A 
-INNER JOIN tbl_board_coupon_history B on A.seq=B.event_seq  
-LEFT JOIN tbl_event_coupon_category C ON A.event_category_master_seq = C.event_category_master_seq
+	aa.seq
+	, DATE_FORMAT(aa.expire_date_s, '%Y-%m-%d') expire_date_s
+	, DATE_FORMAT(aa.expire_date_e, '%Y-%m-%d')expire_date_e
+	, (CASE WHEN aa.partner_coupon_yn = 'Y' THEN aa.partner_coupon_name ELSE aa.coupon_name END) AS subject 
+	, aa.duplicate_status_yn
+	, aa.insurance_discount_applied
+	, aa.service_fee_discount_applied
+	, aa.insurance_discount_rate
+	, aa.insurance_max_discount_amount
+	, aa.service_fee_discount_rate
+	, aa.service_fee_max_discount_amount
+	, aa.subscription_start_day
+	, aa.subscription_end_day
+	, aa.event_category_master_seq
+	, aa.min_companion
+	, aa.max_companion
+FROM tbl_board_event aa
+	INNER JOIN (
+		select a.seq, (select count(event_seq) from tbl_board_coupon_history where event_seq=a.seq) cnt
+		FROM tbl_board_event a
+		WHERE a.event_type = 'C'
+			AND a.expire_date_s <='".$today."' 
+			AND a.expire_date_e >='".$today."'
+			AND a.event_partnership_code != 'insuplus'
+			AND a.seq not in (select event_seq from tbl_board_coupon_history where mobile = '".$user_hp."')";
+      if($_SESSION["ss_partner_seq"]){ //제휴사 쿠폰 조회
+        $SQL_CP .= "AND a.event_partnership_code in (SELECT partnership_code FROM tbl_board_partner WHERE seq in ('".$_SESSION["ss_partner_seq"]."') 
+        AND start_Partner_period <= '".$today."' AND end_Partner_period >= '".$today."' ORDER BY seq ASC) AND a.partner_event_yn = 'Y'";
+      }
+$SQL_CP .= "		GROUP BY seq
+	) tb ON aa.seq = tb.seq
+LEFT JOIN tbl_event_coupon_category C ON aa.event_category_master_seq = C.event_category_master_seq
 "; 
 //결제일 기준 쿠폰조회 추후 쿠폰 전체 조회 후 사용가능한 쿠폰만 선택되도록 변경 예정
 $SQL_WHERE .= " 
-WHERE B.mobile = '".$user_hp."'
-	AND B.use_yn='N' 
-	AND B.start_date <='".$today."' 
-	AND B.end_date >='".$today."'
-	AND (A.subscription_start_day IS NULL OR A.subscription_start_day <= ".$period_day.")
-	AND (A.subscription_end_day IS NULL OR A.subscription_end_day >= ".$period_day.")
-	AND (A.min_companion IS NULL OR A.min_companion <= ".$select_add_people.")
-	AND (A.max_companion IS NULL OR A.max_companion >= ".$select_add_people.")
+WHERE tb.cnt < aa.coupon_size 
+AND (aa.subscription_start_day IS NULL OR aa.subscription_start_day <= ".$period_day.")
+	AND (aa.subscription_end_day IS NULL OR aa.subscription_end_day >= ".$period_day.")
+	AND (aa.min_companion IS NULL OR aa.min_companion <= ".$select_add_people.")
+	AND (aa.max_companion IS NULL OR aa.max_companion >= ".$select_add_people.")
 	AND (C.depth0 IS NULL OR C.depth0 = '".$depth0."')
 	AND (C.depth1 IS NULL OR C.depth1 = '".$depth1."')
 	AND (C.depth2 IS NULL OR C.depth2 = '".$depth2."')
 	AND (C.depth3 IS NULL OR C.depth3 = '".$depth3."')
 ";
-
-if($_SESSION["ss_partner_seq"]){ //제휴사 쿠폰 조회
-	$SQL_WHERE .= "and A.event_partnership_code in (SELECT partnership_code FROM tbl_board_partner WHERE seq in ('01', '".$_SESSION["ss_partner_seq"]."')
-				AND start_Partner_period <= '".$today."' AND end_Partner_period >= '".$today."' ORDER BY seq ASC) AND A.partner_event_yn = 'Y'";
-}
 $result_cp = $dbcon -> query($SQL_CP.$SQL_WHERE);
 if($result_cp) {
 	$list = array();
@@ -118,7 +116,7 @@ if($result_cp) {
 	);
 	exit;
 } else {
-	echo(json_encode(array("success"=>"-1","msg"=>"등록된 쿠폰이 없습니다.")));
+	echo(json_encode(array("success"=>"-1","msg"=>"사용가능한 쿠폰이 없습니다.")));
 	exit;
 }
 ?>
