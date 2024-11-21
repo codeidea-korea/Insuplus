@@ -75,12 +75,10 @@ $detect = new Mobile_Detect;
             </div>
             <div class="coupon-box" id="coupon_ui">
             <div class="coupon-inner">
-                <a href="javascript:void(0)" onClick="openCoupon(2)" class="wfull ml0">쿠폰 다운로드</a>
-                <!-- <a href="javascript:void(0)" id="btnCoupon" class="wfull ml0" data-toggle='pop-modal' data-size='md' data-href="" data-title='쿠폰' target='modal_iframe'>사용가능한 쿠폰 조회</a> -->
+                <a href="javascript:void(0)" onClick="openCoupon(2)" class="wfull ml0">할인 쿠폰 다운로드</a>
               </div>
               <div class="coupon-inner mt10">
-                <a href="javascript:void(0)" onClick="openCoupon(1)" class="wfull ml0">사용가능한 쿠폰 조회</a>
-                <!-- <a href="javascript:void(0)" id="btnCoupon" class="wfull ml0" data-toggle='pop-modal' data-size='md' data-href="" data-title='쿠폰' target='modal_iframe'>사용가능한 쿠폰 조회</a> -->
+                <a href="javascript:void(0)" onClick="openCoupon(1)" class="wfull ml0">할인 쿠폰 선택</a>
               </div>
 
               <div class="coupon-inner mt10">
@@ -91,7 +89,7 @@ $detect = new Mobile_Detect;
                 </div>
                 <a id="discount_btn" href="javascript:fnRecommend_code()">할인 적용</a>
               </div>
-              <p>※ 쿠폰과 추천코드는 중복사용되지 않습니다. 다인가입시 합산한 금액에서 할인이 적용됩니다.<b>(최대 3만원 할인)</b></p>
+              <p>※ 쿠폰과 추천코드는 중복사용되지 않습니다. 다인가입시 합산한 금액에서 할인이 적용됩니다.</p>
             </div>
           </div>
         </div>
