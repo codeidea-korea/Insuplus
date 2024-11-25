@@ -16,16 +16,32 @@ $start_date = REQSTR($start_date, "");
 $end_date = REQSTR($end_date, "");
 $expire_date_s = REQSTR($expire_date_s, "");
 $expire_date_e = REQSTR($expire_date_e, "");
-$discount = REQSTR($discount, "");
 $coupon_size = REQSTR($coupon_size, "");
 $partner_event_yn = REQSTR($partner_event_yn, "N");
 $partner_coupon_name = REQSTR($partner_coupon_name, "");
 $partner_coupon_discount = REQSTR($partner_coupon_discount, "");
 $event_url = $domain."/html/customer/event_list.php?mode=view&alliance_code=".encrypt($event_partnership_code)."&seq=".$seq;
 
+//쿠폰 조건 추가
+$duplicate_status_yn = REQSTR($duplicate_status_yn, "N");
+$insurance_discount_applied = REQSTR($insurance_discount_applied, "");
+$service_fee_discount_applied = REQSTR($service_fee_discount_applied, "");
+$insurance_discount_rate = REQSTR($insurance_discount_rate, null);
+$insurance_max_discount_amount = REQSTR($insurance_max_discount_amount, null);
+$service_fee_discount_rate = REQSTR($service_fee_discount_rate, null);
+$service_fee_max = REQSTR($service_fee_max, null);
+$service_fee_fixed = REQSTR($service_fee_fixed, null);
+$service_fee_max_discount_amount = (!is_null($service_fee_max) ? $service_fee_max : $service_fee_fixed);
+$subscription_start_day = REQSTR($subscription_start_day, "1");
+$subscription_end_day = REQSTR($subscription_end_day, "365");
+$event_category_master_seq = REQSTR($event_category_master_seq, null);
+$min_companion = REQSTR($min_companion, 0);
+$max_companion = REQSTR($max_companion, 5);
+
 //==================================================================================================
 //엑셀업로드  시작
 //==================================================================================================
+/*
 error_reporting(E_ALL ^ E_NOTICE ^ E_DEPRECATED ^ E_USER_DEPRECATED);
 include $_SERVER["DOCUMENT_ROOT"]."/_util/PHPExcel-1.8/Classes/PHPExcel.php";
 if ($_FILES["file1"] && $event_partnership_code != ""){
@@ -97,7 +113,9 @@ if ($_FILES["file1"] && $event_partnership_code != ""){
 	alert_close("제휴사를 선택해주세요.");
 	exit;
 }
+*/
 
+try {
 $sql  = " UPDATE tbl_board_".$bc_id." SET ";
 $sql .= " event_type='".$event_type."' ";
 $sql .= " , event_partnership_code='".$event_partnership_code."' ";
@@ -108,7 +126,22 @@ if($event_type == 'C'){
 	$sql .= " , expire_date_s='".$expire_date_s."' ";
 	$sql .= " , expire_date_e='".$expire_date_e."' ";
 	$sql .= " , coupon_size='".$coupon_size."' ";
-	$sql .= " , discount='".$discount."' ";
+	// 새로운 변수 추가
+	$sql .= " , duplicate_status_yn='".$duplicate_status_yn."' ";
+	$sql .= " , insurance_discount_applied='".$insurance_discount_applied."' ";
+	$sql .= " , service_fee_discount_applied='".$service_fee_discount_applied."' ";
+	$sql .= " , insurance_discount_rate=" . ($insurance_discount_rate === null ? "NULL" : "'$insurance_discount_rate'") . " ";
+	$sql .= " , insurance_max_discount_amount=" . ($insurance_max_discount_amount === null ? "NULL" : "'$insurance_max_discount_amount'") . " ";
+	$sql .= " , service_fee_discount_rate=" . ($service_fee_discount_rate === null ? "NULL" : "'$service_fee_discount_rate'") . " ";
+	$sql .= " , service_fee_max_discount_amount=" . ($service_fee_max_discount_amount === null ? "NULL" : "'$service_fee_max_discount_amount'") . " ";
+	$sql .= " , subscription_start_day='".$subscription_start_day."' ";
+	$sql .= " , subscription_end_day='".$subscription_end_day."' ";
+	if($event_category_master_seq) {
+		$sql .= " , event_category_master_seq='".$event_category_master_seq."' ";
+	}
+	$sql .= " , min_companion=".$min_companion." ";
+	$sql .= " , max_companion=".$max_companion." ";
+
 	if($partner_coupon_discount > 0) {
 		$sql .= " , partner_coupon_discount='" . $partner_coupon_discount . "' ";
 	}
@@ -119,6 +152,11 @@ $sql .= " , partner_coupon_yn='".$partner_coupon_yn."' ";
 $sql .= " , event_url='".$event_url."' ";
 $sql .= " where seq= ".$seq."" ;
 $result = $dbcon -> query($sql);
+} catch (Exception $e) {
+	alert_back($e->getMessage());
+	$dbcon -> dbcon_close();
+	exit;
+}
 if (!$result) {
 	$dbcon -> dbcon_close();
 	//echo "에러<BR>".mysql_errno($dbcon)." : ".mysql_error($dbcon)." <br>";

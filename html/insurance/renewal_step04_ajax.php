@@ -4,6 +4,7 @@ include_once $_SERVER["DOCUMENT_ROOT"]."/_config/class.log.php";
 include $_SERVER["DOCUMENT_ROOT"]."/_config/Mobile_Detect.php";
 include_once $_SERVER["DOCUMENT_ROOT"]."/_config/Func.insurance.php"; //추가
 include_once $_SERVER["DOCUMENT_ROOT"]."/_config/class.log.php"; //추가
+include_once $_SERVER["DOCUMENT_ROOT"]."/_config/Func.coupon.php";
 
 $log = new log();
 
@@ -145,14 +146,21 @@ $total_amount = $t_amt+$t_service_amt;
 
 //쿠폰 검색
 $sale_gubun = ""; //할인방법
+$s_amt_per = 0;
+$s_amount = 0;
 if ($cp_cd){ //쿠폰
 	$sale_gubun = "C";
-	$SQL_CP = " SELECT A.subject,B.temp_discount FROM tbl_board_event A INNER JOIN tbl_board_coupon_history B ";
-	$SQL_CP .= " ON A.seq=B.event_seq where B.seq='".$cp_cd."' ";
-	$result_cp = $dbcon -> query($SQL_CP);
-	$row_cp = $dbcon -> fetch_array($result_cp);
+	// $SQL_CP = " SELECT A.subject,B.temp_discount FROM tbl_board_event A INNER JOIN tbl_board_coupon_history B ";
+	// $SQL_CP .= " ON A.seq=B.event_seq where B.seq='".$cp_cd."' ";
+	// $result_cp = $dbcon -> query($SQL_CP);
+	// $row_cp = $dbcon -> fetch_array($result_cp);
 
 	$discount = $row_cp["temp_discount"];
+
+	$cp_discount_info = fn_calculate_coupon_discount($cp_cd, $t_ins_amt, $t_service_amt, $total_amount);
+
+	$s_amount = $cp_discount_info["totalDiscount"];				// 총 할인금액
+	$s_amt_per = $cp_discount_info["s_amt_per"];								// 총 할인율
 
 }else if($recommend_cd) { //추천코드
 	$sale_gubun = "R";
@@ -161,11 +169,6 @@ if ($cp_cd){ //쿠폰
 	$row_recommend = $dbcon -> fetch_array($result_recommend);
 
 	$discount = $row_recommend["discount"];
-}else{
-	$s_amount = 0;
-}
-$s_amt_per = 0;
-if($sale_gubun) { //할인적용
 	$s_amt_temp = $total_amount/100*$discount;
 	$s_amt_temp = floor($s_amt_temp);
 
@@ -317,7 +320,7 @@ $SQL1 .= " , join_nation_cd = '".$c_code."' ";
 $SQL1 .= " , join_nation_name = '".$c_name."' ";
 $SQL1 .= " , sale_gubun = '".$sale_gubun."' ";
 $SQL1 .= " , sale_discount = '".$s_amt_per."' ";
-$SQL1 .= " , cp_cd = '".$cp_cd."' ";
+$SQL1 .= " , new_cp_cd = '".$cp_cd."' ";
 $SQL1 .= " , recommend_cd = '".($recommend_cd > 0 ? $recommend_cd : 0)."' ";
 $SQL1 .= " , ins_amount = '".($t_ins_amt > 0 ? $t_ins_amt : 0)."' ";
 $SQL1 .= " , service_amount = '".($t_service_amt> 0 ? $t_service_amt : 0)."' ";
@@ -381,7 +384,6 @@ if ($select_add_people >0){
 	}
 }
 
-
 // 동의사항에서 정보 입력
 for ($k=0;$k<count($_POST["pr_notice"]);$k++){
 	$SQL_N = "insert into tbl_order_list_noticeTemp set ";
@@ -393,11 +395,13 @@ for ($k=0;$k<count($_POST["pr_notice"]);$k++){
 }
 
 //쿠폰등록
+// tbl_order_list_coupon 테이블 결제 구간 말고 사용하는 곳이 없음
 if ($cp_cd){
 	$SQL_cp = "insert into tbl_order_list_couponTemp set ";
 	$SQL_cp .= " orderno = '".$orderNumber."' ";
-	$SQL_cp .= " ,coupon_name = '".$row_cp["subject"]."' ";
-	$SQL_cp .= " ,coupon_seq = '".$cp_cd."' ";
+	$SQL_cp .= " ,coupon_name = '신규쿠폰' ";
+	// $SQL_cp .= " ,coupon_seq = '0' ";
+	$SQL_cp .= " ,new_cp_cd = '".$cp_cd."' ";
 	$SQL_cp .= " ,cp_sale_per = '".$s_amt_per."' ";
 	$SQL_cp .= " ,coupon_amount = '".$s_amount."' ";
 	$SQL_cp .= " ,writedate = now() ";
@@ -405,7 +409,6 @@ if ($cp_cd){
 	$RS_N = $dbcon -> query($SQL_cp);
 }
 
-//$product_name = print_ins($row_plan["ins_cd"])." ".$Arr_plan_cd[$row_plan["plan_cd"]]; //결제 상품명 
 $product_name = $row_plan["ins_plan_name"];
 if($row_plan["chk_service"] == "A" || $row_plan["chk_service"] == "B") {
 	$product_name .= " ".$Arr_txt_plus[$row_plan["chk_service"]];

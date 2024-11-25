@@ -137,7 +137,9 @@
 				$SQL .= " ,cancle_amount = '".str_replace(",", "", $cancle_con)."' ";
 				$SQL .= "where orderno='".$orderno."'  ";
 				$result = $dbcon -> query($SQL);
-		} else {													//금액이 없을 경우 해지일 기준으로 환불금액 처리
+		} 
+		/* 쿠폰 할인 방식 변경으로 자동환불 주석처리함 20241107
+		else {													//금액이 없을 경우 해지일 기준으로 환불금액 처리
 			if($join_cnt > 1){										//동반인 가입자 환불 일괄처리
 				$arr_add_gender = array();
 				$arr_add_birth = array();
@@ -219,15 +221,7 @@
 				} else {
 					$refund_money = 0;
 				}
-
-				/* 환불금액 자동 계산 수정전
-				$SQL = "update tbl_order_list set ";
-				$SQL .= " order_step = 'R' ";
-				$SQL .= " ,cancle_con = '".$refund_money."' ";
-				$SQL .= " ,refund_date = '".$e_date_text."'";
-				$SQL .= "where orderno='".$orderno."'  ";
-				*/
-
+				
 				$SQL = "update tbl_order_list set ";
 				$SQL .= " order_step = 'R' ";
 				$SQL .= " ,cancle_con = '".$refund_money."' ";
@@ -238,8 +232,6 @@
 				$SQL .= "where orderno='".$orderno."'  ";
 				$result = $dbcon -> query($SQL);
 				
-				
-
 			} else {	//일괄처리
 				$datetime1 = date_create($birth);
 				//$datetime2 = date_create($refund_date);	//나이 계산 해지일 기준
@@ -286,14 +278,6 @@
 				} else {
 					$refund_money = 0;
 				}
-				/* 환불금액 자동 계산 수정전
-				$SQL = "update tbl_order_list set ";
-				$SQL .= " order_step = 'R' ";
-				$SQL .= " ,cancle_con = '".$refund_money."' ";
-				$SQL .= " ,refund_date = '".$e_date_text."'";
-				$SQL .= "where orderno='".$orderno."'  ";
-				*/
-
 				$SQL = "update tbl_order_list set ";
 				$SQL .= " order_step = 'R' ";
 				$SQL .= " ,cancle_con = '".$refund_money."' ";
@@ -313,7 +297,7 @@
 				
 				$result = $dbcon -> query($SQL);
 			}
-		}
+		}*/
 	}
 
 ?>

@@ -59,7 +59,7 @@
 		//쿠폰,추천코드 내역가져오기
 		if($row["sale_gubun"] == "C") {
 			$sql_sale  =  " SELECT discount,(select coupon_name FROM tbl_board_event WHERE seq = h.event_seq) as coupon_name ";
-			$sql_sale .= " FROM tbl_board_coupon_history h WHERE seq  = '".$row["cp_cd"]."' ";
+			$sql_sale .= " FROM tbl_board_coupon_history h WHERE seq in (".$row["new_cp_cd"].") ";
 			$rs_sale = $dbcon -> query($sql_sale);
 			$row_sale = $dbcon -> fetch_array($rs_sale);
 		} else if($row["sale_gubun"] == "R") {
