@@ -95,8 +95,8 @@ function fn_calculate_coupon_discount ($cp_cd, $t_ins_amt, $t_service_amt, $tota
       $total_discount_info["no_dup_insurance_discount_rate"] = $old_coupon["temp_discount"] ? $old_coupon["temp_discount"] : 0;
       $total_discount_info["no_dup_service_fee_discount_rate"] = $old_coupon["temp_discount"] ? $old_coupon["temp_discount"] : 0;
       $total_discount_info["no_dup_service_fee_discount_fixed_amount"] = 0;
-      $total_discount_info["no_dup_max_insurance_discount_amount"] = 30000;
-      $total_discount_info["no_dup_max_service_discount_amount"] = 30000;
+      $total_discount_info["no_dup_max_insurance_discount_amount"] = 10000;
+      $total_discount_info["no_dup_max_service_discount_amount"] = 20000;
       $total_discount_info["no_dup_insurance_discount_applied"] = "P";
       $total_discount_info["no_dup_service_fee_discount_applied"] = "P";
     } else if ($coupon["duplicate_status_yn"] === "N") { //중복불가 쿠폰
