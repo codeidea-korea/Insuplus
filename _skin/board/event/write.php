@@ -153,11 +153,11 @@ if ($client_mode=="Y"){
 		>%</td>
 		<th>서비스료 최대 할인금액</th>
 		<td>최대
-			<input type="number" name="service_fee_max" id="service_fee_max" value="<?= ($service_fee_discount_applied == "P") ? $service_fee_max_discount_amount : '' ?>" min="1" max="100" maxlength="3" oninput="checkMaxAmount(this)"
-			<?= ($service_fee_discount_applied == "F") ? 'style="display:none;"' : '' ?> >
+			<input type="number" name="service_fee_max" id="service_fee_max" value="<?= (!is_null($service_fee_discount_applied) && $service_fee_discount_applied == "P") ? $service_fee_max_discount_amount : '' ?>" min="1" max="100" maxlength="3" oninput="checkMaxAmount(this)"
+			<?= (!is_null($service_fee_discount_applied) && $service_fee_discount_applied == "F") ? 'style="display:none;"' : '' ?> >
 			<input type="number" name="service_fee_fixed" id="service_fee_fixed" value="<?= ($service_fee_discount_applied == "F") ? $service_fee_max_discount_amount : '' ?>" min="0" numberOnly
-			<?= ($service_fee_discount_applied == "P" || $service_fee_discount_applied == "N") ? 'style="display:none;"' : '' ?> >
-			<span id="service_fee_name"><?= $service_fee_discount_applied == "P" || $service_fee_discount_applied == "N" ? "만원" : "원" ?></span>
+			<?= (is_null($service_fee_discount_applied) || $service_fee_discount_applied == "P" || $service_fee_discount_applied == "N") ? 'style="display:none;"' : '' ?> >
+			<span id="service_fee_name"><?= is_null($service_fee_discount_applied) || $service_fee_discount_applied == "P" || $service_fee_discount_applied == "N" ? "만원" : "원" ?></span>
 		</td>
 	</tr>
 	<tr>
