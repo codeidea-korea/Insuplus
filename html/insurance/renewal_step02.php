@@ -67,7 +67,7 @@ include '../_include/_top.html';
                         type="text"
                         name="A-cellphone"
                         id="A-cellphone"
-                        placeholder="휴대폰 번호를 확인해주세요."
+                        placeholder="'-'없이 숫자만 입력해주세요."
                         maxlength="50"
                         required
                       />
@@ -158,7 +158,7 @@ include '../_include/_top.html';
                         name="A-nameen"
                         id="A-nameen"
                         maxlength="100"
-                        placeholder="영문이름을 확인해주세요."
+                        placeholder="여권 영문이름과 동일하게 입력해주세요."
                       />
                     </div>
                   </div>
@@ -358,7 +358,13 @@ include '../_include/_top.html';
         });
 
         if (element) {
-          alert(element.getAttribute('placeholder'));
+          switch (element.id) {
+            case 'A-cellphone':
+              alert('휴대폰 번호를 확인해주세요.');
+              break;
+            default:
+              alert(element.getAttribute('placeholder'));
+          }
           element.focus();
           return false;
         }

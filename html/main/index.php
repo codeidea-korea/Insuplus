@@ -15,7 +15,7 @@ $_SESSION["orderno"] = "";
 <section class="no-bg">
 			<div class="main-box-01">
 				<div class="container">
-					<h2>해외여행보험에<br>안심플러스</h2>
+					<h2>해외여행자보험에<br>안심플러스</h2>
 					<p class="is-pc">여행의 처음부터 끝까지<br><strong class="ft-yellow2">인슈플러스</strong>가 24시간 동행합니다</p>
 					<p class="mt20 is-m">여행의 처음부터 끝까지<br><strong class="ft-yellow2">인슈플러스</strong>가<br>24시간 동행합니다</p>
 					<div class="is-pc">
@@ -31,7 +31,7 @@ $_SESSION["orderno"] = "";
 			<div class="tab-fixed-box">
 				<div class="tab-box-inner">
 					 <div class="tab-head">
-						<strong>해외여행보험 +</strong>
+						<strong>해외여행자보험 +</strong>
 					</div>
 					<div class="tab-body">
 						<ul>
@@ -309,8 +309,8 @@ $_SESSION["orderno"] = "";
 				let open_flag = 'N'; // 팝업을 띄울지 여부를 설정합니다. (Y: 띄우기, N: 띄우지 않기)
 
 				// 특정 기간을 설정합니다. (예: 2024년 6월 20일 ~ 2024년 6월 30일)
-				let startDate = new Date('2024-07-17 09:00');
-				let endDate = new Date('2024-09-30 23:50');
+				let startDate = new Date('2024-10-01 00:00');
+				let endDate = new Date('2024-10-06 23:55');
 
 				// 조건에 따라 팝업을 띄웁니다.
 				if (currentDate >= startDate && currentDate <= endDate) {
@@ -385,13 +385,13 @@ $_SESSION["orderno"] = "";
     <div class="popup-box">
         <div class="box" data-name="special" style="max-width: 600px">
             <div class="popup-head">
-                <h3>9월은 싸다9!</h3>
+                <h3>10월의 어느 멋진 할인</h3>
                 <a href="javascript:;" class="close" onclick="popupClose();">닫기</a>
             </div>
             <div class="popup-body">
                 <div class="popup-body-text" style="display: flex; align-items: center; justify-content: center;">
                     <a href="javascript:movePage2();">
-                        <img src="./noti-special.jpg?v=0904" style="width: 100%;"/>
+                        <img src="./noti-special.jpg?v=0930" style="width: 100%;"/>
                     </a>
                 </div>
                 <div class="popup-body-button">
@@ -402,7 +402,7 @@ $_SESSION["orderno"] = "";
 								</div>
                 <script>
                     function movePage2(){
-                        window.location.href="https://insuplus.co.kr/html/customer/event_list.php?mode=view&seq=96";
+                        window.location.href="/html/customer/event_list.php?mode=view&seq=102";
                     }
 										function setCookieSpecial(name, value, expiredays) {
 											var todayDate = new Date();

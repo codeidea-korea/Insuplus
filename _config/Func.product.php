@@ -638,16 +638,21 @@
         from (
             select t1.depth0, t1.depth1, t1.depth2, t1.depth3, sub_a.product_seq
             from (
-              select product_seq, replace(group_concat(category_code), ',', '') category_codes
-              from tbl_board_product_category
-              group by product_seq  
+              select p.product_seq, replace(group_concat(p.category_code order by c.depth asc), ',', '') as category_codes
+              from tbl_board_product_category p
+              inner join tbl_board_category c on p.category_code = c.category_code
+              group by p.product_seq
             ) sub_a  
             inner join (
               select '$depth0' depth0, '$depth1' depth1, '$depth2' depth2, '$depth3' depth3
             ) t1 on (sub_a.category_codes = concat(t1.depth0, t1.depth1, t1.depth2, t1.depth3))
           ) a 
-          left join tbl_board_product b on (a.product_seq = b.seq)
-          left join tbl_board_plan c on (b.seq = c.pr_cd)
+          left join tbl_board_product b on (a.product_seq = b.seq AND b.secret = 'Y')
+          left join tbl_board_plan c on (
+                                          b.seq = c.pr_cd 
+                                          AND STR_TO_DATE(CONCAT(s_date, ' ', LPAD(s_date_time, 2, '0')), '%Y-%m-%d %H') <= NOW() 
+                                          AND STR_TO_DATE(CONCAT(e_date, ' ', LPAD(e_date_time, 2, '0')), '%Y-%m-%d %H') >= NOW()
+                                        )
           left join (
             select 1 plan_cd, 'Lv1' plan_name union all
             select 2 plan_cd, 'Lv2' plan_name union all
@@ -656,6 +661,7 @@
             select 5 plan_cd, 'Lv5' plan_name
           ) d on (c.plan_cd = d.plan_cd)
       ) z
+      where pr_cd is not null 
       group by pr_cd, plan_cd, plan_name
     ";
 

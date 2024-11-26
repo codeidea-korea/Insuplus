@@ -163,7 +163,11 @@
 			if($row_r["sale_gubun"] == "C" && $j_cnt < 2) {
 				$SQL  = " UPDATE tbl_board_coupon_history SET ";
 				$SQL .= " orderno = '', discount = 0, s_amount = 0, use_yn = 'N' ";
-				$SQL .= " WHERE seq = '".$row_r["cp_cd"]."' ";
+				if($row_r["new_cp_cd"]){
+					$SQL .= " WHERE seq in (".$row_r["new_cp_cd"].") ";
+				} else {
+					$SQL .= " WHERE seq = '".$row_r["cp_cd"]."' ";
+				}
 					
 				$RS_C1 = $dbcon -> query($SQL);
 			}

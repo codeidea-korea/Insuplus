@@ -16,6 +16,19 @@
         obj.value = obj.value.replace(/[\ㄱ-ㅎㅏ-ㅣ가-힣]/g, '');
 	}
 </script>
+<style>
+	input[type="number"]::-webkit-outer-spin-button,
+	input[type="number"]::-webkit-inner-spin-button {
+			-webkit-appearance: none;
+			margin: 0;
+	}
+
+	/* Firefox */
+	input[type="number"] {
+			-moz-appearance: textfield;
+			text-align: right;
+	}
+</style>
 <?
 //사용자 모드입니다
 if ($client_mode=="Y"){
@@ -31,7 +44,7 @@ if ($client_mode=="Y"){
 	$row = $dbcon -> fetch_array($RS);
 	$partnerCouponCnt = $row[0];
 ?>
-<form name="WriteForm" action="" method="post" enctype="multipart/form-data" onsubmit="return submitchk()">
+<form name="WriteForm" id="WriteForm" action="" method="post" enctype="multipart/form-data" onsubmit="return submitchk()">
 <input type="hidden" name="bc_id" value="<?=$bc_id?>">
 <input type="hidden" name="page" value="<?=$page?>">
 <input type="hidden" name="search_category" value="<?=$search_category?>">
@@ -49,13 +62,15 @@ if ($client_mode=="Y"){
 <table class="adm-view-tb">
 	<colgroup>
 		<col width="8%"> 
-		<col width="42%">
+		<col width="22%">
 		<col width="8%">
-		<col width="42%">
+		<col width="22%">
+		<col width="8%">
+		<col width="22%">
 	</colgroup>
 	<tr>
 		<th>이벤트명</th>
-		<td colspan="3">
+		<td colspan="5">
 			<? $subject = REQSTR2($subject); ?>
 			<input type="text" id="subject"name="subject" value="<?=$subject?>" class="w100p"/>
 			<? if ( $bc_notice_use == "Y" && $auth_notice ) { ?>
@@ -71,17 +86,17 @@ if ($client_mode=="Y"){
 		<th>작성일</th>
 		<td><?=$PrintRegDate?></td>
 		<th>조회수</th>
-		<td><?=$view_cnt?></td>
+		<td colspan="3"><?=$view_cnt?></td>
 		<? } ?>
 	</tr>
 	<tr>
 		<th>구분</th>
 		<td>
-			<input type="radio" name="event_type" id="event_type" value="N" <? if (!$event_type || $event_type == "N") echo "checked"; ?>/><label>일반</label>
-			<input type="radio" name="event_type" id="event_type" value="C" <? if ($event_type == "C") echo "checked"; ?>/><label>쿠폰</label>
+			<input type="radio" name="event_type" id="event_type_1" value="N" <? if (!$event_type || $event_type == "N") echo "checked"; ?>/><label for="event_type_1">일반</label>
+			<input type="radio" name="event_type" id="event_type_2" value="C" <? if ($event_type == "C") echo "checked"; ?>/><label for="event_type_2">쿠폰</label>
 		</td>
 		<th>쿠폰명</th>
-		<td>
+		<td colspan="3">
 			<input type="text" name="coupon_name" value="<?=$coupon_name?>" class="w100p"/>
 		</td>
 	</tr>
@@ -92,6 +107,10 @@ if ($client_mode=="Y"){
 			<span style="padding-left: 5px; padding-right: 5px;">~</span>
 			<input type="text" id="end_date" name="end_date" value="<?=substr($end_date, 0, 10)?>" class="datepicker w100">
 		</td>
+		<th>할인율 (사용안함)</th>
+		<td>
+			<input type="text" id="discount" name="discount" value="<?=$discount?>" maxlength="11" onkeypress="return fn_press(event, 'numbers');" onkeydown="fn_press_han(this);" disabled/>%
+		</td>
 	</tr>
 	<tr>
 		<th>쿠폰 사용기간</th>
@@ -100,14 +119,97 @@ if ($client_mode=="Y"){
 			<span style="padding-left: 5px; padding-right: 5px;">~</span>
 			<input type="text" id="expire_date_e" name="expire_date_e" value="<?=substr($expire_date_e, 0, 10)?>" class="datepicker w100">
 		</td>
-		<th>할인율</th>
+		<th>중복여부</th>
+		<td colspan="3">
+			<select id="duplicate_status_yn" name="duplicate_status_yn" class="selectSt01">
+				<option value="" selected>선택</option>
+				<option value="Y" <? if ($duplicate_status_yn == "Y") echo "selected"; ?>>중복가능</option>
+				<option value="N" <? if ($duplicate_status_yn == "N") echo "selected"; ?>>중복불가</option>
+			</select>
+		</td>
+	</tr>
+
+	<tr>
+		<th>보험료 할인</th>
 		<td>
-		<input type="text" id="discount" name="discount" value="<?=$discount?>" maxlength="11" onkeypress="return fn_press(event, 'numbers');" onkeydown="fn_press_han(this);" style="ime-mode:disabled;"/>%
+			<input type="radio" name="insurance_discount_applied" id="insurance_discount_applied_1" value="N" <? if (!$insurance_discount_applied || $insurance_discount_applied == "N") echo "checked"; ?> onchange="handleInsuranceDiscountChange(this)"/> <label for="insurance_discount_applied_1">미적용</label>
+			<input type="radio" name="insurance_discount_applied" id="insurance_discount_applied_2" value="P" <? if ($insurance_discount_applied == "P") echo "checked"; ?> onchange="handleInsuranceDiscountChange(this)"/> <label for="insurance_discount_applied_2">정률</label>
+		</td>
+		<th>보험료 할인율</th>
+		<td><input type="number" name="insurance_discount_rate" value="<?= ($insurance_discount_rate>0) ? $insurance_discount_rate : '' ?>" min="0" max="100" maxlength="3" oninput="checkMaxRate(this)">%</td>
+		<th>보험료 최대 할인금액</th>
+		<td>최대 <input type="number" name="insurance_max_discount_amount" value="<?= ($insurance_max_discount_amount>0) ? $insurance_max_discount_amount : '' ?>" min="1" max="100" maxlength="3" oninput="checkMaxAmount(this)"> 만원</td>
+	</tr>
+	<tr>
+		<th>서비스료 할인 적용여부</th>
+		<td>
+			<input type="radio" name="service_fee_discount_applied" id="service_fee_discount_applied_1" value="N" <? if (!$service_fee_discount_applied || $service_fee_discount_applied == "N") echo "checked"; ?> onchange="handleServiceFeeDiscountChange(this)"/> <label for="service_fee_discount_applied_1">미적용</label>
+			<input type="radio" name="service_fee_discount_applied" id="service_fee_discount_applied_2" value="P" <? if ($service_fee_discount_applied == "P") echo "checked"; ?> onchange="handleServiceFeeDiscountChange(this)"/> <label for="service_fee_discount_applied_2">정률</label>
+			<input type="radio" name="service_fee_discount_applied" id="service_fee_discount_applied_3" value="F" <? if ($service_fee_discount_applied == "F") echo "checked"; ?> onchange="handleServiceFeeDiscountChange(this)"/> <label for="service_fee_discount_applied_3">정액</label>
+		</td>
+		<th>서비스료 할인율</th>
+		<td><input type="number" name="service_fee_discount_rate" value="<?= ($service_fee_discount_rate > 0) ? $service_fee_discount_rate : '' ?>" min="0" max="100" maxlength="3" oninput="checkMaxRate(this)"
+		<? if ($service_fee_discount_applied == "F" && $service_fee_discount_applied != "N") { echo "disabled"; } ?>
+		>%</td>
+		<th>서비스료 최대 할인금액</th>
+		<td>최대
+			<input type="number" name="service_fee_max" id="service_fee_max" value="<?= (!is_null($service_fee_discount_applied) && $service_fee_discount_applied == "P") ? $service_fee_max_discount_amount : '' ?>" min="1" max="100" maxlength="3" oninput="checkMaxAmount(this)"
+			<?= (!is_null($service_fee_discount_applied) && $service_fee_discount_applied == "F") ? 'style="display:none;"' : '' ?> >
+			<input type="number" name="service_fee_fixed" id="service_fee_fixed" value="<?= ($service_fee_discount_applied == "F") ? $service_fee_max_discount_amount : '' ?>" min="0" numberOnly
+			<?= (is_null($service_fee_discount_applied) || $service_fee_discount_applied == "P" || $service_fee_discount_applied == "N") ? 'style="display:none;"' : '' ?> >
+			<span id="service_fee_name"><?= is_null($service_fee_discount_applied) || $service_fee_discount_applied == "P" || $service_fee_discount_applied == "N" ? "만원" : "원" ?></span>
 		</td>
 	</tr>
 	<tr>
+		<th>가입기간</th>
+		<td colspan="5">
+			<input type="number" id="subscription_start_day" name="subscription_start_day" value="<?= ($subscription_start_day) ? $subscription_start_day : '1' ?>" min="1" max="365" oninput="checkMaxValue(this)">
+			<span style="padding-left: 5px; padding-right: 5px;">~</span>
+			<input type="number" id="subscription_end_day" name="subscription_end_day" value="<?= ($subscription_end_day) ? $subscription_end_day : '365' ?>" min="1" max="365" maxlength="3" oninput="checkMaxValue(this)">
+		</td>
+	</tr>
+	<tr>
+		<th>카테고리</th>
+		<td colspan="5">
+			<input type="hidden" id="event_category_master_seq" name="event_category_master_seq" value="<?=$event_category_master_seq?>"/>
+			<a href="javascript:;" onclick="fnCategory()" class="btn-form-normal">선택</a>
+		</td>
+	</tr>
+	<tr>
+		<th>동반인 수</th>
+		<td colspan="5">
+			<select id="min_companion" name="min_companion" class="selectSt01">
+				<option value="">선택</option>
+				<? for($i = 0; $i <= 5; $i++) { ?>
+				<option value="<?=$i?>" <? 
+					if ($min_companion == $i) {
+						echo "selected";
+					} else if (!$min_companion && $i === 0) {
+						echo "selected";
+					}
+				?>><?=$i?></option>
+				<? } ?>
+			</select>
+			<span style="padding-left: 5px; padding-right: 5px;">명 ~</span>
+			<select id="max_companion" name="max_companion" class="selectSt01">
+				<option value="">선택</option>
+				<? for($i = 0; $i <= 5; $i++) { ?>
+				<option value="<?=$i?>" <? 
+					if ($max_companion == $i) {
+						echo "selected";
+					} else if (!$max_companion && $i === 5) {
+						echo "selected";
+					}
+				?>><?=$i?></option>
+				<? } ?>
+			</select>
+			<span style="padding-left: 5px; padding-right: 5px;">명</span>
+		</td>
+	</tr>
+
+	<tr>
 		<th>쿠폰수량</th>
-		<td colspan="3">
+		<td colspan="5">
 		<input type="text" id="coupon_size" name="coupon_size" value="<?=$coupon_size?>" maxlength="11" onkeypress="return fn_press(event, 'numbers');" onkeydown="fn_press_han(this);" style="ime-mode:disabled;"/>개
 		</td>
 	</tr>
@@ -117,33 +219,34 @@ if ($client_mode=="Y"){
 		<th>제휴이벤트</th>
 		<td>
 			<input type="checkbox" name="partner_event_yn" value="Y" <? if ($partner_event_yn == "Y") { echo "checked"; } ?>/> <span class="txt_red">※ 제휴 이벤트 인 경우 체크</span>
-			<input type="checkbox" name="partner_coupon_yn" value="Y" <? if ($partner_coupon_yn == "Y") { echo "checked"; } ?>/> <span class="txt_red">※ 제휴 쿠폰 사용할 경우 체크</span>
+			<input type="checkbox" name="partner_coupon_yn" value="Y" <? if ($partner_coupon_yn == "Y") { echo "checked"; } ?> disabled/> <span class="txt_red">※ 제휴 쿠폰 사용할 경우 체크</span>
 		</td>
 	<? } ?>
 		<th>제휴사</th>
-		<td><select title="제휴사 선택" id="event_partnership_code" class="selectSt01" name="event_partnership_code">
-			<option value="">선택해주세요.</option>
-			<?while ($CateListRs = $dbcon -> fetch_array($ArrCateListRs[1]) ) {
-				extract($CateListRs);?>
-			<option value="<?=$partnership_code?>" <? if ($event_partnership_code == $partnership_code ) echo "selected"; ?>><?=$partnership_name?></option>
-			<?}?>
+		<td colspan="3">
+			<select title="제휴사 선택" id="event_partnership_code" class="selectSt01" name="event_partnership_code">
+				<option value="">선택해주세요.</option>
+				<?while ($CateListRs = $dbcon -> fetch_array($ArrCateListRs[1]) ) {
+					extract($CateListRs);?>
+				<option value="<?=$partnership_code?>" <? if ($event_partnership_code == $partnership_code ) echo "selected"; ?>><?=$partnership_name?></option>
+				<?}?>
 			</select>
 		</td>
 	</tr>
 	<tr>
 		<th>제휴쿠폰명</th>
 		<td>
-			<input type="text" id="partner_coupon_name" name="partner_coupon_name" value="<?=$partner_coupon_name?>"/>
+			<input type="text" id="partner_coupon_name" name="partner_coupon_name" value="<?=$partner_coupon_name?>" disabled/>
 		</td>
 		<th>제휴쿠폰 할인율</th>
-		<td>
-			<input type="text" id="partner_coupon_discount" name="partner_coupon_discount" value="<?=$partner_coupon_discount?>" maxlength="11" onkeypress="return fn_press(event, 'numbers');" onkeydown="fn_press_han(this);" style="ime-mode:disabled;"/>%
+		<td colspan="3">
+			<input type="text" id="partner_coupon_discount" name="partner_coupon_discount" value="<?=$partner_coupon_discount?>" maxlength="11" onkeypress="return fn_press(event, 'numbers');" onkeydown="fn_press_han(this);" style="ime-mode:disabled;" disabled/>%
 		</td>
 	</tr>
 	<tr>
 		<th>제휴쿠폰 등록</th>
-		<td colspan="3">
-			<input type="file" id="file1" name="file1">
+		<td colspan="5">
+			<input type="file" id="file1" name="file1" disabled>
 			<a href="/_data/쿠폰양식.xlsx"><u>쿠폰양식 다운로드</u></a>
 			<? if($partnerCouponCnt && $partnerCouponCnt > 0) {?>
 				<span style="color: red;">등록된 제휴쿠폰 수 : <?= $partnerCouponCnt?></span>
@@ -157,7 +260,7 @@ if ($client_mode=="Y"){
 	?>
 	<tr>
 		<th>제휴 트래킹 URL</th>
-		<td colspan="3">
+		<td colspan="5">
 			<input type="text" name="event_url" value="<?=$event_url?>" maxlength="200" class="w100p">
 		</td>
 	</tr>
@@ -173,7 +276,7 @@ if ($client_mode=="Y"){
 			<span class="txt_red">(406 x 103)</span>
 
 		</th>
-		<td colspan="3">
+		<td colspan="5">
 			<table id="Tbl<?=$ObjFileName?>" class="fileTb"></table>
 			<script>
 				function readURL(input) {
@@ -255,7 +358,7 @@ if ($client_mode=="Y"){
 
 	<tr>
 		<th>내용</th>
-		<td colspan="3">
+		<td colspan="5">
 			<?
 		    if ( $bc_editor_use == "Y" ) {
 		        $content = RESSTR($content);
@@ -276,7 +379,7 @@ if ($client_mode=="Y"){
 	?>
 	<tr>
 		<th>공개/비공개</th>
-		<td colspan="3">
+		<td colspan="5">
 			<input type="radio" name="secret" value="N" <?=$secret?> <? if ($secret == "N" || $secret == "") echo "checked"; ?>>
 			<label>공개</label>
 			<input type="radio" name="secret" value="Y" <?=$secret?> <? if ($secret == "Y") echo "checked"; ?>>
@@ -301,7 +404,7 @@ if ($client_mode=="Y"){
         }
 			?>
 		</th>
-		<td colspan="3">
+		<td colspan="5">
 			<table border="0" cellpadding="0" cellspacing="0" width="100%" name="DivFile" id="DivFile">
 				<script>
 				function UseUpfile(Obj, idx) {
@@ -484,6 +587,12 @@ if ($client_mode=="Y"){
 				alert('이벤트 종료일을 입력해주세요.');
 				$('#end_date').focus();
 				return false;
+			} else if($('#expire_date_s').val() == '') {
+				alert('쿠폰 사용기간 시작일을 입력해주세요.');
+				$('#expire_date_s').focus();
+			} else if($('#expire_date_e').val() == '') {
+				alert('쿠폰 사용기간 종료일을 입력해주세요.');
+				$('#expire_date_e').focus();
 			}
 			if($('#partner_coupon_yn').val() == 'Y') {
 				if($('#partner_coupon_name').val() == '') {
@@ -521,4 +630,67 @@ if ($client_mode=="Y"){
 		}
 	WriteOkGo();
 	}
+
+	function fnCategory() {
+		let seq = $('#event_category_master_seq').val();
+		var popCategory = window.open('popup_category.php?seq='+ seq,'popCategory','top=0,left=0, width=935,height=600');
+		popCategory.focus();
+	}
+
+	function checkMaxValue(input) {
+    if (input.value > 365) {
+    	input.value = 365;
+    }
+	}
+	function checkMaxAmount(input) {
+    if (input.value > 100) {
+    	input.value = 100;
+    }
+	}
+	function checkMaxRate(input) {
+		if (input.value > 100) {
+			input.value = 100;
+		}
+	}
+
+	function handleInsuranceDiscountChange(input) {
+		if (input.value == 'N') {
+			$('input[name=insurance_discount_rate]').val('');
+			$('input[name=insurance_max_discount_amount]').val('');
+		}
+	}
+
+	function handleServiceFeeDiscountChange(input) {
+		if (input.value == 'F') {
+			$('input[name=service_fee_discount_rate]').prop('disabled', true);
+			$('#service_fee_fixed').show();
+			$('#service_fee_max').hide();
+			$('#service_fee_max').val();
+			$('#service_fee_name').text('원');
+		} else {
+			$('input[name=service_fee_discount_rate]').prop('disabled', false);
+			$('#service_fee_fixed').hide();
+			$('#service_fee_max').show();
+			$('#service_fee_fixed').val();
+			$('#service_fee_name').text('만원');
+		}
+	}
+
+	//3자리 단위마다 콤마 생성
+	function addCommas(x) {
+		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
+
+	$(document).ready(function() {
+		$("input:text[numberOnly]").on("keyup", function() {
+			$(this).val(addCommas($(this).val().replace(/[^0-9]/g,"")));
+		});
+		$("input:text[numberOnly]").on("focusout", function() {
+			$(this).val(addCommas($(this).val().replace(/[^0-9]/g,"")));
+		});
+		$("input:text[numberOnly]").on("focusin", function() {
+			$(this).val($(this).val().replace(/[^0-9]/g,""));
+		});
+	});
+
 </script>

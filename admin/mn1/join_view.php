@@ -47,9 +47,43 @@
 		$SQL_TEL = "select * from tbl_telemedicine_cd_list where join_orderno = '".$row_L["orderno"]."'";
 		$RS_TEL = $dbcon -> query($SQL_TEL);
 		$row_tel= $dbcon -> fetch_array($RS_TEL);
+
+		//이전글 다음글
+		$PAGE_SQL = "SELECT prev.seq AS prev, next.seq AS next
+									FROM (
+											SELECT seq, @rownum := @rownum + 1 AS row_num
+											FROM (SELECT B.seq FROM tbl_order_list A 
+														INNER JOIN tbl_order_list_join B ON A.orderno = B.orderno 
+														ORDER BY A.seq DESC) AS sorted_list, (SELECT @rownum := 0) AS r
+									) AS curr
+									LEFT JOIN (
+											SELECT seq, @rownum2 := @rownum2 + 1 AS row_num
+											FROM (SELECT B.seq FROM tbl_order_list A 
+														INNER JOIN tbl_order_list_join B ON A.orderno = B.orderno 
+														ORDER BY A.seq DESC) AS sorted_list2, (SELECT @rownum2 := 0) AS r2
+									) AS prev ON prev.row_num = curr.row_num - 1
+									LEFT JOIN (
+											SELECT seq, @rownum3 := @rownum3 + 1 AS row_num
+											FROM (SELECT B.seq FROM tbl_order_list A 
+														INNER JOIN tbl_order_list_join B ON A.orderno = B.orderno 
+														ORDER BY A.seq DESC) AS sorted_list3, (SELECT @rownum3 := 0) AS r3
+									) AS next ON next.row_num = curr.row_num + 1
+									WHERE curr.seq = ".$seq.";";
+		$PAGE_RESULT = $dbcon -> query($PAGE_SQL);
+		$PAGE_ROW = $dbcon -> fetch_array($PAGE_RESULT);
 	}
 ?>
 <script>
+	const prev_seq = '<?=$PAGE_ROW["next"]?>';
+	const next_seq = '<?=$PAGE_ROW["prev"]?>';
+	$(document).ready(function(){
+		if(!prev_seq) {
+			$('#prev-btn').attr('disabled', true);
+		} else if(!next_seq) {
+			$('#next-btn').attr('disabled', true);
+		}
+	});
+
 function list_go() {
 	location.href = "join_list.php";
 }
@@ -99,6 +133,10 @@ function fnDelJoinCh() {
 	ff.delJoinChBtn.style.display = 'none';
 }
 
+function page_move(seq){
+	location.href = "join_view.php?seq="+seq+"<?=$parameter?>";
+}
+
 </script>
 <table border="0" cellpadding="0" cellspacing="0" width="100%">
 	<tr>
@@ -106,7 +144,10 @@ function fnDelJoinCh() {
 		<td valign="top" class="a_st">가입자</td>
 	</tr>
 	<tr>
-		<td colspan="2" height="20"></td>
+		<td colspan="2" height="20" align="right">
+			<button id="prev-btn" onclick="page_move('<?=$PAGE_ROW["next"]?>')">이전글</button>
+			<button id="next-btn" onclick="page_move('<?=$PAGE_ROW["prev"]?>')">다음글</button>
+		</td>
 	</tr>
 </table>
 <form name="frm_join" method="post">
