@@ -124,6 +124,9 @@ for($k=0;$k<5;$k++){
 	$t_add_user_service_amt = $t_add_user_service_amt + $add_user_service_amt[$k];
 	$t_amt = $t_amt + $add_user_amt[$k];		// 동반자 여행보험비용
 	$t_add_user_amt = $t_add_user_amt + $add_user_amt[$k];
+	
+	$usr_s_amount = floor(($add_user_amt[$k]+$add_user_service_amt[$k])/100*$s_amt_per);			// 가입자 할인금액
+	$usr_service_temp_amt = $service_amt - $usr_s_amount;		// 과세대상 결제총액 = 서비스료 - 할인금액
 	}
 }
 $t_amt = $t_amt + $user_amt;							// 가입자 여행보험비용
@@ -203,7 +206,14 @@ $log->log_write("t_service_temp_amt=".$t_service_temp_amt);
 
 //$usr_s_amount = floor($s_amount/($t_select_add_people));			// 가입자 할인금액
 $usr_s_amount = floor(($user_amt+$service_amt)/100*$s_amt_per);			// 가입자 할인금액
-$usr_vat_amount = floor($amt_vat/($t_select_add_people));			// 개별 VAT, 소수점 버림
+$usr_service_temp_amt = $service_amt - $usr_s_amount;		// 과세대상 결제총액 = 서비스료 - 할인금액
+$usr_value_of_supply = round($usr_service_temp_amt / 1.1);	//공급가액 (서비스 과세금액)  과세대상 결제총액 / 1.1
+//VAT
+$usr_vat_amount = $usr_service_temp_amt - $usr_value_of_supply; 		//부가세 = 과세대상 결제총액 - 공급가액
+if($usr_service_temp_amt < 0) { //서비스 금액보다 할인금액이 큰 경우
+	$usr_vat_amount = 0;
+}
+// $usr_vat_amount = floor($amt_vat/($t_select_add_people));			// 개별 VAT, 소수점 버림
 $usr_t_amount =	$user_amt + $service_amt - $usr_s_amount;	// 가입자 결제금액
 
 
@@ -358,8 +368,15 @@ $RS2 = $dbcon -> query($SQL2);
 if ($select_add_people >0){
 	for($k=0;$k<5;$k++){
 		if ($_POST["add_gender"][$k] && $_POST["add_birth"][$k]){
-			$usr_s_amount = ($add_user_amt[$k] + $add_user_service_amt[$k])/100*$s_amt_per;
-			$usr_t_amount =	$add_user_amt[$k] + $add_user_service_amt[$k] - $usr_s_amount;	// 가입자 결제금액
+			$add_user_s_amount = ($add_user_amt[$k] + $add_user_service_amt[$k])/100*$s_amt_per;
+			$add_user_t_amount =	$add_user_amt[$k] + $add_user_service_amt[$k] - $add_user_s_amount;	// 가입자 결제금액
+			$add_user_service_temp_amt = $add_user_service_amt[$k] - $add_user_s_amount;		// 과세대상 결제총액 = 서비스료 - 할인금액
+			$add_user_value_of_supply = round($add_user_service_temp_amt / 1.1);	//공급가액 (서비스 과세금액)  과세대상 결제총액 / 1.1
+			//VAT
+			$add_user_vat_amount = $add_user_service_temp_amt - $add_user_value_of_supply; 		//부가세 = 과세대상 결제총액 - 공급가액
+			if($add_user_service_temp_amt < 0) { //서비스 금액보다 할인금액이 큰 경우
+				$add_user_vat_amount = 0;
+			}
 			$SQL2 = "insert into tbl_order_list_joinTemp set";
 			$SQL2 .= " orderno = '".$orderNumber."' ";
 			$SQL2 .= " , gender = '".$arr_add_gender[$k]."' ";
@@ -373,9 +390,9 @@ if ($select_add_people >0){
 			$SQL2 .= " , ins_plan_cd = '".$add_user_ins_plan_cd[$k]."' ";
 			$SQL2 .= " , join_amount = '".$add_user_amt[$k]."' ";
 			$SQL2 .= " , join_service = '".$add_user_service_amt[$k]."' ";
-			$SQL2 .= " , vat_amount = '".$usr_vat_amount."' ";
-			$SQL2 .= " , s_amount = '".$usr_s_amount."' ";
-			$SQL2 .= " , t_amount = '".$usr_t_amount."' ";
+			$SQL2 .= " , vat_amount = '".$add_user_vat_amount."' ";
+			$SQL2 .= " , s_amount = '".$add_user_s_amount."' ";
+			$SQL2 .= " , t_amount = '".$add_user_t_amount."' ";
 			$SQL2 .= " , regdate = now() ";
 //			echo $SQL2."<br>";
 			$RS2 = $dbcon -> query($SQL2);
