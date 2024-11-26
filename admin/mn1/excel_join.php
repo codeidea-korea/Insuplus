@@ -158,6 +158,7 @@ if ($_GET["mode"] == "excel" && getLen($ss_u_idx) > 0) {
 			tol.join_nation_name AS tol_join_nation_name,
 			tol.sale_gubun AS tol_sale_gubun,
 			tol.cp_cd AS tol_cp_cd,
+			tol.new_cp_cd AS tol_new_cp_cd,
 			tol.recommend_cd AS tol_recommend_cd,
 			tol.o_email1 AS tol_o_email1, 
 			tol.o_email2 AS tol_o_email2, 
@@ -183,7 +184,7 @@ if ($_GET["mode"] == "excel" && getLen($ss_u_idx) > 0) {
 			tol.o_memo as tol_o_memo
 		FROM  tbl_order_list tol INNER JOIN tbl_order_list_join tolj ON (tol.orderno=tolj.orderno)
 		) a
-	LEFT OUTER JOIN tbl_board_coupon_history tbch ON (a.tol_cp_cd=tbch.seq)
+	LEFT OUTER JOIN tbl_board_coupon_history tbch ON (a.tol_cp_cd=tbch.seq or a.tol_new_cp_cd=tbch.seq)
 	LEFT OUTER JOIN tbl_board_event tbe ON (tbch.event_seq=tbe.seq)
 	LEFT OUTER JOIN tbl_board_recommend_code tbrc ON (a.tol_recommend_cd=tbrc.seq)
 	LEFT OUTER JOIN tbl_board_partner tbp ON (a.tol_join_ch= tbp.seq)
@@ -216,6 +217,7 @@ if ($_GET["mode"] == "excel" && getLen($ss_u_idx) > 0) {
 			tol.join_nation_name AS tol_join_nation_name,
 			tol.sale_gubun AS tol_sale_gubun,
 			tol.cp_cd AS tol_cp_cd,
+			tol.new_cp_cd AS tol_new_cp_cd,
 			tol.recommend_cd AS tol_recommend_cd,
 			tol.o_email1 AS tol_o_email1, 
 			tol.o_email2 AS tol_o_email2, 
@@ -244,7 +246,7 @@ if ($_GET["mode"] == "excel" && getLen($ss_u_idx) > 0) {
 		FROM  tbl_order_list tol
 		INNER JOIN tbl_order_list_join tolj ON (tol.orderno=tolj.orderno)
 		) a
-	LEFT OUTER JOIN tbl_board_coupon_history tbch ON (a.tol_cp_cd=tbch.seq)
+	LEFT OUTER JOIN tbl_board_coupon_history tbch ON (a.tol_cp_cd=tbch.seq or a. tol_new_cp_cd=tbch.seq)
 	LEFT OUTER JOIN tbl_board_event tbe ON (tbch.event_seq=tbe.seq)
 	LEFT OUTER JOIN tbl_board_recommend_code tbrc ON (a.tol_recommend_cd=tbrc.seq)
 	LEFT OUTER JOIN tbl_board_partner tbp ON (a.tol_join_ch= tbp.seq)
