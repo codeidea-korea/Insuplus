@@ -115,7 +115,7 @@ if ($_GET["mode"] == "excel" && getLen($ss_u_idx) > 0) {
   $field .= "togjl.o_name AS togjl_client_name ";
 
   $table  = " tbl_order_list A
-  LEFT OUTER JOIN tbl_board_coupon_history tbch ON (A.cp_cd=tbch.seq)
+  LEFT OUTER JOIN tbl_board_coupon_history tbch ON (A.cp_cd=tbch.seq or A.new_cp_cd=tbch.seq)
   LEFT OUTER JOIN tbl_board_event tbe ON (tbch.event_seq=tbe.seq)
   LEFT OUTER JOIN tbl_board_recommend_code tbrc ON (A.recommend_cd=tbrc.seq)
   LEFT OUTER JOIN tbl_board_partner tbp ON (A.join_ch= tbp.seq) 
