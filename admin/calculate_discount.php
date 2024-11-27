@@ -185,7 +185,7 @@ include_once $_SERVER["DOCUMENT_ROOT"]."/_config/Func.coupon.php";
 
       //할인금액 재계산 적용하기
       $update_SQL = "UPDATE tbl_order_list_join SET s_amount = '".$add_usr_s_amount."', t_amount = '".$add_usr_t_amount."' WHERE seq = '".$user_seq[$k]."'";
-      $dbcon -> query($update_SQL);
+      // $dbcon -> query($update_SQL);
     }
     echo "join user done<br>";
   }
