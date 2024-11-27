@@ -137,6 +137,12 @@ function fn_calculate_coupon_discount ($cp_cd, $t_ins_amt, $t_service_amt, $tota
   // 할인 금액 계산
   $total_discount_info["service_discount_amount"] = calculateServiceFeeDiscount($t_service_amt, $total_discount_info);
 
+
+  // 보험료 할인율
+  $total_discount_insurance_rate = $total_discount_info["insurance_discount_amount"] / $t_ins_amt * 100;
+  // 서비스료 할인율
+  $total_discount_service_rate = $total_discount_info["service_discount_amount"] / $t_service_amt * 100;
+
   $totalDiscount = floor($total_discount_info["insurance_discount_amount"] + $total_discount_info["service_discount_amount"]);
   $totalDiscount = $totalDiscount >= $total_amount ? $total_amount : $totalDiscount; // 할인금액은 상품가격 보다 클 수 없음
 
@@ -145,8 +151,12 @@ function fn_calculate_coupon_discount ($cp_cd, $t_ins_amt, $t_service_amt, $tota
 
   // 최종 결과 반환
   return [
-      "totalDiscount" => $totalDiscount,  // 총 할인 금액
-      "s_amt_per" => $s_amt_per  // 최종 할인율
+    "insurance_discount_amount" => $total_discount_info["insurance_discount_amount"],  // 보험료 할인 금액
+    "service_discount_amount" => $total_discount_info["service_discount_amount"],  // 서비스료 할인 금액
+    "insurance_discount_rate" => $total_discount_insurance_rate,  // 보험료 할인율
+    "service_discount_rate" => $total_discount_service_rate,  // 서비스료 할인율
+    "totalDiscount" => $totalDiscount,  // 총 할인 금액
+    "s_amt_per" => $s_amt_per  // 최종 할인율
   ];
 }
 

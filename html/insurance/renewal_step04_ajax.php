@@ -148,6 +148,7 @@ $total_amount = $t_amt+$t_service_amt;
 $sale_gubun = ""; //할인방법
 $s_amt_per = 0;
 $s_amount = 0;
+$usr_s_amount = 0;
 if ($cp_cd){ //쿠폰
 	$sale_gubun = "C";
 	// $SQL_CP = " SELECT A.subject,B.temp_discount FROM tbl_board_event A INNER JOIN tbl_board_coupon_history B ";
@@ -161,6 +162,12 @@ if ($cp_cd){ //쿠폰
 
 	$s_amount = $cp_discount_info["totalDiscount"];				// 총 할인금액
 	$s_amt_per = $cp_discount_info["s_amt_per"];								// 총 할인율
+	$insurance_discount_rate = $cp_discount_info["insurance_discount_rate"];	// 보험료 할인율
+	$service_discount_rate = $cp_discount_info["service_discount_rate"];		// 서비스료 할인율
+
+	$usr_ins_dis_amount = floor($user_amt/100*$insurance_discount_rate);	// 가입자 보험료 할인금액
+	$usr_service_dis_amount = floor($service_amt/100*$service_discount_rate);	// 가입자 서비스료 할인금액
+	$usr_s_amount = $usr_ins_dis_amount + $usr_service_dis_amount;	// 가입자 총 할인금액
 
 }else if($recommend_cd) { //추천코드
 	$sale_gubun = "R";
@@ -179,6 +186,7 @@ if ($cp_cd){ //쿠폰
 		$s_amount = 30000;
 		$s_amt_per = (float)30000*100/$total_amount; //재계산 들어감
 	}
+	$usr_s_amount = floor(($user_amt+$service_amt)/100*$s_amt_per);			// 가입자 할인금액
 }
 
 // 할인금액 처리
@@ -202,10 +210,9 @@ $log->log_write("t_service_temp_amt=".$t_service_temp_amt);
 
 
 //$usr_s_amount = floor($s_amount/($t_select_add_people));			// 가입자 할인금액
-$usr_s_amount = floor(($user_amt+$service_amt)/100*$s_amt_per);			// 가입자 할인금액
+// $usr_s_amount = floor(($user_amt+$service_amt)/100*$s_amt_per);			// 가입자 할인금액
 $usr_vat_amount = floor($amt_vat/($t_select_add_people));			// 개별 VAT, 소수점 버림
 $usr_t_amount =	$user_amt + $service_amt - $usr_s_amount;	// 가입자 결제금액
-
 
 //총괄 서비스 비용
 // $t_amt = $t_amt + ($service_amt * (1+count($add_user_amt))) - $s_amount;
@@ -358,8 +365,17 @@ $RS2 = $dbcon -> query($SQL2);
 if ($select_add_people >0){
 	for($k=0;$k<5;$k++){
 		if ($_POST["add_gender"][$k] && $_POST["add_birth"][$k]){
-			$usr_s_amount = ($add_user_amt[$k] + $add_user_service_amt[$k])/100*$s_amt_per;
-			$usr_t_amount =	$add_user_amt[$k] + $add_user_service_amt[$k] - $usr_s_amount;	// 가입자 결제금액
+			$add_usr_s_amount = 0;
+			if ($cp_cd){
+				$add_user_ins_dis_amount = floor($add_user_amt[$k]/100*$insurance_discount_rate);	// 가입자 보험료 할인금액
+				$add_user_service_dis_amount = floor($add_user_service_amt[$k]/100*$service_discount_rate);	// 가입자 서비스료 할인금액
+				$add_usr_s_amount = $add_user_ins_dis_amount + $add_user_service_dis_amount;	// 가입자 총 할인금액
+			} else if($recommend_cd) {
+				$add_usr_s_amount = ($add_user_amt[$k] + $add_user_service_amt[$k])/100*$s_amt_per;	// 가입자 총 할인금액
+			}
+
+			// $usr_s_amount = ($add_user_amt[$k] + $add_user_service_amt[$k])/100*$s_amt_per;
+			$add_usr_t_amount =	$add_user_amt[$k] + $add_user_service_amt[$k] - $usr_s_amount;	// 가입자 결제금액
 			$SQL2 = "insert into tbl_order_list_joinTemp set";
 			$SQL2 .= " orderno = '".$orderNumber."' ";
 			$SQL2 .= " , gender = '".$arr_add_gender[$k]."' ";
@@ -374,8 +390,8 @@ if ($select_add_people >0){
 			$SQL2 .= " , join_amount = '".$add_user_amt[$k]."' ";
 			$SQL2 .= " , join_service = '".$add_user_service_amt[$k]."' ";
 			$SQL2 .= " , vat_amount = '".$usr_vat_amount."' ";
-			$SQL2 .= " , s_amount = '".$usr_s_amount."' ";
-			$SQL2 .= " , t_amount = '".$usr_t_amount."' ";
+			$SQL2 .= " , s_amount = '".$add_usr_s_amount."' ";
+			$SQL2 .= " , t_amount = '".$add_usr_t_amount."' ";
 			$SQL2 .= " , regdate = now() ";
 //			echo $SQL2."<br>";
 			$RS2 = $dbcon -> query($SQL2);
