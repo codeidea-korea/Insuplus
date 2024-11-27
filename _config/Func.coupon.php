@@ -139,9 +139,17 @@ function fn_calculate_coupon_discount ($cp_cd, $t_ins_amt, $t_service_amt, $tota
 
 
   // 보험료 할인율
-  $total_discount_insurance_rate = $total_discount_info["insurance_discount_amount"] / $t_ins_amt * 100;
+  if($total_discount_info["insurance_discount_amount"] > 0){
+    $total_discount_insurance_rate = $total_discount_info["insurance_discount_amount"] / $t_ins_amt * 100;
+  } else {
+    $total_discount_insurance_rate = 0;
+  }
   // 서비스료 할인율
-  $total_discount_service_rate = $total_discount_info["service_discount_amount"] / $t_service_amt * 100;
+  if($total_discount_info["service_discount_amount"]>0){
+    $total_discount_service_rate = $total_discount_info["service_discount_amount"] / $t_service_amt * 100;
+  } else {
+    $total_discount_service_rate = 0;
+  }
 
   $totalDiscount = floor($total_discount_info["insurance_discount_amount"] + $total_discount_info["service_discount_amount"]);
   $totalDiscount = $totalDiscount >= $total_amount ? $total_amount : $totalDiscount; // 할인금액은 상품가격 보다 클 수 없음
@@ -161,6 +169,9 @@ function fn_calculate_coupon_discount ($cp_cd, $t_ins_amt, $t_service_amt, $tota
 }
 
 function calculateInsuranceDiscount($insuranceAmount, $total_discount_info) {
+  if($insuranceAmount === 0) {
+    return 0;
+  }
   // 중복 불가 보험료 할인 계산
   $noDupDiscount = $insuranceAmount * ($total_discount_info["no_dup_insurance_discount_rate"] / 100);
   $noDupDiscount = min($noDupDiscount, $total_discount_info["no_dup_max_insurance_discount_amount"]); // 최대 할인 금액 적용
@@ -180,6 +191,9 @@ function calculateInsuranceDiscount($insuranceAmount, $total_discount_info) {
 }
 
 function calculateServiceFeeDiscount($serviceAmount, $total_discount_info) {
+  if($serviceAmount === 0) {
+    return 0;
+  }
   $noDupDiscount = 0;
   $dupDiscount = 0;
 
