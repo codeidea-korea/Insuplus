@@ -212,7 +212,34 @@ $log = new log();
 						$s_coupon_date = date("Y-m-d",strtotime($row_order["regdate"]));
 						$e_coupon_date = date("Y-m-d",strtotime($s_coupon_date." +180 days "));
 						
-						$SQL_EVENT  = " SELECT seq,discount,coupon_name FROM tbl_board_event WHERE event_type='C' AND event_partnership_code = 'insuplus'";
+						$SQL_EVENT  = "SELECT 
+														seq
+														,category
+														,subject
+														,content
+														,coupon_name
+														,start_date
+														,end_date
+														,expire_date_s
+														,expire_date_e
+														,discount
+														,coupon_size
+														,event_type
+														,event_url
+														,event_partnership_code
+														,duplicate_status_yn
+														,insurance_discount_applied
+														,service_fee_discount_applied
+														,insurance_discount_rate
+														,insurance_max_discount_amount
+														,service_fee_discount_rate
+														,service_fee_max_discount_amount
+														,subscription_start_day
+														,subscription_end_day
+														,event_category_master_seq
+														,min_companion
+														,max_companion";
+						$SQL_EVENT .= " FROM tbl_board_event WHERE event_type='C' AND event_partnership_code = 'insuplus'";
 						$SQL_EVENT .= " AND start_date <= now() AND end_date >= now()";
 						$SQL_EVENT .= " ORDER BY seq desc LIMIT 0,1 ";
 						
@@ -220,6 +247,28 @@ $log = new log();
 						
 						$result_event = $dbcon -> query($SQL_EVENT);
 						$row_event = $dbcon->fetch_array($result_event);
+
+						$discount = 0;
+						$symbol = '%';
+						$discountValue = '';
+						if($row_event) {
+							if($row_event["service_fee_discount_applied"] == 'F') {
+								$symbol = '원';
+								$discount = number_format($row_event["service_fee_max_discount_amount"]);
+							} else {
+								if($row_event["insurance_discount_applied"] == 'P' && $row_event["service_fee_discount_applied"] == 'P') {
+									$symbol = '%';
+									$discount = max($row_event["insurance_discount_rate"], $row_event["service_fee_discount_rate"]);
+								} else if($row_event["insurance_discount_applied"] == 'P') {
+									$symbol = '%';
+									$discount = $row_event["insurance_discount_rate"];
+								} else if($row_event["service_fee_discount_applied"] == 'P'){
+									$symbol = '%';
+									$discount = $row_event["service_fee_discount_rate"];
+								}
+							}
+						}
+						$discountValue = $discount.$symbol;
 
 						// 플랜검색
 						$SQL_PLAN = "select * from tbl_board_plan where seq=".$row_order["plan_cd"]."";
@@ -266,7 +315,7 @@ $log = new log();
 								$INS_SQL_CP .= " , ori_mobile, temp_discount, use_yn, writedate) ";
 								$INS_SQL_CP .= "  VALUES ";
 								$INS_SQL_CP .= " ('".$resultMap["MOID"]."', '".$row_event["seq"]."', '".$s_coupon_date."', '".$e_coupon_date."','".$row_order["o_phone"]."' ";
-								$INS_SQL_CP .= " ,'".$row_order["o_phone"]."', '".$row_event["discount"]."','N', now()) ";
+								$INS_SQL_CP .= " ,'".$row_order["o_phone"]."', '".$discount."','N', now()) ";
 								
 								$log->log_write("  감사쿠폰발행(7)   : ".$INS_SQL_CP);
 								
@@ -375,7 +424,7 @@ $log = new log();
 						}
 
 						//가입감사쿠폰은 항상 알림톡 발송 하도록 20231201
-						$param["discount"] = $row_event["discount"];
+						$param["discount"] = $discountValue;
 						$param["discount_txt"] = $param["discount"]."% (할인 최대한도 30,000원)";
 						$param["coupon_name"] = $row_event["coupon_name"];
 						$param["coupon_period"] = $s_coupon_date." ~ ".$e_coupon_date;
