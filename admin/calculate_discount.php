@@ -45,7 +45,6 @@ include_once $_SERVER["DOCUMENT_ROOT"]."/_config/Func.coupon.php";
   // $order_info_SQL .= " AND orderno in ('P_202411251433561732512837667','P_202411251406321732511193778') ";
   $order_info_SQL .= " AND new_cp_cd is not null
     AND order_step in ('1', '2')
-    AND join_cnt > 1
     AND writedate >= '2024-11-25'
     AND writedate <= '2024-11-27 13:47'
   ORDER BY writedate DESC";
@@ -135,7 +134,7 @@ include_once $_SERVER["DOCUMENT_ROOT"]."/_config/Func.coupon.php";
     }
     
     $total_amount = $t_ins_amt+$t_service_amt;
-    echo "총 결제금액: ".$total_amount;
+    echo "상품가격 : ".$total_amount;
     //쿠폰 검색
     $sale_gubun = ""; //할인방법
     $s_amt_per = 0;
@@ -169,7 +168,8 @@ include_once $_SERVER["DOCUMENT_ROOT"]."/_config/Func.coupon.php";
         $s_amt_per = (float)30000*100/$total_amount; //재계산 들어감
       }
     }
-    echo " 총 할인금액: ".$s_amount."<br/>";
+    echo " 총 할인금액: ".$s_amount;
+    echo " 총 결제금액: ".($total_amount-$s_amount)."<br/>";
 
     for($k=0; $k<$select_add_people; $k++){
       $add_usr_s_amount = 0;
@@ -180,12 +180,12 @@ include_once $_SERVER["DOCUMENT_ROOT"]."/_config/Func.coupon.php";
       } else if($order_row["recommend_cd"]) {
         $add_usr_s_amount = ($user_amt[$k] + $user_service_amt[$k])/100*$s_amt_per;	// 가입자 총 할인금액
       }
-      $add_usr_t_amount =	$user_amt[$k] + $user_service_amt[$k] - $usr_s_amount;	// 가입자 결제금액
+      $add_usr_t_amount =	$user_amt[$k] + $user_service_amt[$k] - $add_usr_s_amount;	// 가입자 결제금액
       echo "seq: ".$user_seq[$k]." 개별 결제금액: ".$add_usr_t_amount." 개별 할인금액: ".$add_usr_s_amount."<br/>";
 
       //할인금액 재계산 적용하기
-      // $update_SQL = "UPDATE tbl_order_list_join SET s_amount = '".$add_usr_s_amount."', t_amount = '".$add_usr_t_amount."' WHERE seq = '".$user_seq[$k]."'";
-      // $dbcon -> query($update_SQL);
+      $update_SQL = "UPDATE tbl_order_list_join SET s_amount = '".$add_usr_s_amount."', t_amount = '".$add_usr_t_amount."' WHERE seq = '".$user_seq[$k]."'";
+      $dbcon -> query($update_SQL);
     }
     echo "join user done<br>";
   }
