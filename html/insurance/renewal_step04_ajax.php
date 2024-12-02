@@ -375,7 +375,7 @@ if ($select_add_people >0){
 			}
 
 			// $usr_s_amount = ($add_user_amt[$k] + $add_user_service_amt[$k])/100*$s_amt_per;
-			$add_usr_t_amount =	$add_user_amt[$k] + $add_user_service_amt[$k] - $usr_s_amount;	// 가입자 결제금액
+			$add_usr_t_amount =	$add_user_amt[$k] + $add_user_service_amt[$k] - $add_usr_s_amount;	// 가입자 결제금액
 			$SQL2 = "insert into tbl_order_list_joinTemp set";
 			$SQL2 .= " orderno = '".$orderNumber."' ";
 			$SQL2 .= " , gender = '".$arr_add_gender[$k]."' ";
