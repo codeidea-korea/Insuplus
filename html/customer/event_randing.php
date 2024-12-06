@@ -4,12 +4,12 @@
     <meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
-	<title>PAYCOX인슈플러스X롯데면세점</title>
+	<title>PAYCOX인슈플러스</title>
 	<meta name="description" content="24시간 여행안심 서비스 인슈플러스! 현지 병원예약, 24시간 의료상담, 병원비 대신지불, 의료이송까지되는 해외안심 서비스를 인슈플러스에서 알아보세요!">
 	<meta name="keywords" content="해외여행자보험, 여행자보험비교, 단기여행자보험, 장기여행자보험, 해외여행자보험추천, 여행자보험가입, 해외여행보험">
 	<meta name="author" content="Korea Assistance">
 	<meta property="og:type" content="website">
-	<meta property="og:title" content="PAYCOX인슈플러스X롯데면세점">
+	<meta property="og:title" content="PAYCOX인슈플러스">
 	<meta property="og:description" content="24시간 여행안심 서비스 인슈플러스! 현지 병원예약, 24시간 의료상담, 병원비 대신지불, 의료이송까지되는 해외안심 서비스를 인슈플러스에서 알아보세요!">
 	<meta property="og:site_name" content="인슈플러스 공식홈페이지">
 	<meta property="og:url" content="https://www.insuplus.co.kr/html/main/index.php">
@@ -1288,7 +1288,7 @@
 										<dd>
 											<div class="qa_a">A</div>
 											<div class="qa_title">
-											   PAYCO 포인트는 PAYCO로 여행 상품을 결제하신 경우에만 적립되며 가입하신 상품 개시일의 익월 말일에 결제하신 PAYCO 계정으로 적립됩니다.
+												PAYCO 포인트는 PAYCO로 여행 상품을 결제하신 경우에만 적립되며 가입하신 상품 개시일의 익월 말일에 가입하신 핸드폰 번호로 PAYCO 포인트 쿠폰을 발송해 드립니다.
 											</div>
 										</dd>
                     <dt>

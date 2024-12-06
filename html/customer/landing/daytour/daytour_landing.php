@@ -1281,7 +1281,7 @@
 										<dd>
 											<div class="qa_a">A</div>
 											<div class="qa_title">
-											   PAYCO 포인트는 PAYCO로 여행 상품을 결제하신 경우에만 적립되며 가입하신 상품 개시일의 익월 말일에 결제하신 PAYCO 계정으로 적립됩니다.
+												PAYCO 포인트는 PAYCO로 여행 상품을 결제하신 경우에만 적립되며 가입하신 상품 개시일의 익월 말일에 가입하신 핸드폰 번호로 PAYCO 포인트 쿠폰을 발송해 드립니다.
 											</div>
 										</dd>									
                     <dt>
