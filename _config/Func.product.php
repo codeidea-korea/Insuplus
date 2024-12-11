@@ -1095,7 +1095,7 @@
       $FOOTER .= "<strong style='font-size:14px;'>Tel: +82 2 360 2545</strong><br>B1, 7,Chungjeong-ro, Seodaemun-gu, Seoul, Korea</td></tr></table>";
     } else {
       $FOOTER = "<table width='100%' cellspacing='0' cellpadding='0' border='0' style='background:#29354c; padding:10px 20px;'>";
-      $FOOTER .= "<tr valign='middle'><td style='text-align:left;'><img src='[DROOT]/html/images/footer-logo2.png' align='absmiddle'></td>";
+      $FOOTER .= "<tr valign='middle'><td style='text-align:left;'><img src='[DROOT]/html/images/footer-logo2.png?v=1' align='absmiddle'></td>";
       $FOOTER .= "<td style='text-align:right;color:#fff;'>";
       $FOOTER .= "<strong style='font-size:14px;'>Tel: +82 2 360 2525</strong><br>F8, 7,Chungjeong-ro, Seodaemun-gu, Seoul, Korea</td></tr></table>";
     }
