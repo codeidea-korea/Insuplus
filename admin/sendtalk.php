@@ -18,8 +18,8 @@ include_once $_SERVER["DOCUMENT_ROOT"]."/_config/Func.alrimTalk.php";
   $param["cancle_date"] = date("Y-m-d");
   $param["cancle_amount"] = 1000;
 
-  kakaoJoinCancel($param, $mobile);       // 가입취소
-  // kakaoInsuplusJoin($param,$mobile);   // 가입안내
+  // kakaoJoinCancel($param, $mobile);       // 가입취소
+  kakaoInsuplusJoin($param,$mobile);   // 가입안내
   // kakaoCouponDown($param,$mobile);     // 쿠폰 다운로드
   // kakaoJoinBankInfo($param,$mobile);   // 가입 입금안내
   // kakaoPromotionSend($param,$mobile);  // 프로모션 발송
