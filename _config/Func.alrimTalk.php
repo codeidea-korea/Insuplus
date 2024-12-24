@@ -45,7 +45,7 @@ function kakaoJoin($param, $mobile)
 //감사 인슈플러스 보험 알림톡
 function kakaoInsuplusJoin($param, $mobile) {
 
-	$templet_code = "007";
+	$templet_code = "006";
 
 	$message = $param["name"]." 고객님 인슈플러스에 가입해 주셔서 감사합니다. 가입하신 상품 안내 드립니다.
 
@@ -64,7 +64,7 @@ function kakaoInsuplusJoin($param, $mobile) {
 
 ■ 제휴 혜택 안내 (더 라운지)
 전세계 공항 라운지, 공항리무진 등 프리미엄 서비스를 인슈플러스 혜택 가격으로 이용하실 수 있습니다.
-▷ 할인 혜택 받기 : https://bit.ly/4a9Vbfk
+▷ 할인 혜택 받기 : https://bit.ly/4gswtKv
 
 ■ 리얼후기를 부탁해!
 가입 및 서비스후기를 개인SNS에 남겨주신 모든 분들에게 네이버페이 최대 38,000포인트를 드립니다. 
