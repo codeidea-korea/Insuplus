@@ -352,7 +352,7 @@ include '../_include/_top.html';
                   </div> \
                 </div> \
               </div>';
-              agreeBox.innerHTML = agreeBox.getInnerHTML() + agreeBody;
+              agreeBox.innerHTML = agreeBox.innerHTML + agreeBody;
             }
           });
 
@@ -380,7 +380,7 @@ include '../_include/_top.html';
                   </div> \
                 </div> \
               </div>';
-              agreeBox.innerHTML = agreeBox.getInnerHTML() + sAgreeBody;
+              agreeBox.innerHTML = agreeBox.innerHTML + sAgreeBody;
             }
         });
       });

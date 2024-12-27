@@ -351,7 +351,7 @@ include '../_include/_header_partner.html';
                   </div> \
                 </div> \
               </div>';
-              agreeBox.innerHTML = agreeBox.getInnerHTML() + agreeBody;
+              agreeBox.innerHTML = agreeBox.innerHTML + agreeBody;
             }
           });
 
@@ -379,7 +379,7 @@ include '../_include/_header_partner.html';
                   </div> \
                 </div> \
               </div>';
-              agreeBox.innerHTML = agreeBox.getInnerHTML() + sAgreeBody;
+              agreeBox.innerHTML = agreeBox.innerHTML + sAgreeBody;
             }
         });
       });

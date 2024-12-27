@@ -1309,8 +1309,13 @@ include '../_include/_top.html';
     if (EHDObject.isLongterm() === 1) {
       arrivalElement.max = EHDObject.getFormatedDate(new Date(dDate.getTime() + oneYear));
       if (!arrivalElement.value) {
-        if (selectedRadioButton) {
-          const dataName = selectedRadioButton.getAttribute('data-name');
+        if (selectedRadioButton || EHDObject.depth0.code === 'E002') {
+          let dataName = '';
+          if (EHDObject.depth0.code === 'E002') {
+            dataName = '장기체류';
+          } else {
+            dataName = selectedRadioButton.getAttribute('data-name');
+          }
           let returnDate;
           switch (dataName) {
             case '워킹홀리데이':
