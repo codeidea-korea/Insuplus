@@ -26,7 +26,7 @@
     }
 </script>
   <body>
-    <input type="number" id="phone" placeholder="010xxxxxxxx" value="01037818005">
+    <input type="number" id="phone" placeholder="010xxxxxxxx" value="">
     <button id="send_btn" onclick="sendTalk()">send</button>
   </body>
   
