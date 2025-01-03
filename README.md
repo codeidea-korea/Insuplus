@@ -65,3 +65,9 @@
 
 [참고사항]
 1. _config/config.php에서 설정 변경하여 DB 접속주소, PG 결제시 실결제 or 테스트 결제로 변경 가능함 (54L부터 주석 참고)
+
+[배포방법]
+1. 프로젝트 경로로 이동
+2. git 명령어로 소스 현행화
+   - git pull origin #branch name
+   - git pull origin main (운영기준준) 
