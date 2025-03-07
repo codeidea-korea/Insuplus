@@ -5,6 +5,7 @@ services:
     build:
       context: .
     image: ins-img:latest
+    container_name: insplus
     restart: always
     ports:
       - '80:80'
