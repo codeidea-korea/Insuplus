@@ -216,7 +216,8 @@ include '../_include/_header_partner.html';
         </div>
       </form>
     </div>
-    <div class="hr-txt product-board">해외여행자보험 가입 시 추가 비용 없이 해외의료지원 및 긴급 이·후송 서비스를 제공받을 수 있습니다.</div>
+    <!-- yjhdev -->
+    <!-- <div class="hr-txt product-board">해외여행자보험 가입 시 추가 비용 없이 해외의료지원 및 긴급 이·후송 서비스를 제공받을 수 있습니다.</div> -->
     <!-- 서비스 및 보장내역 출력 begin-->
     <div class="product-board" id="option-list"></div>
     <!-- 서비스 및 보장내역 출력 end-->
