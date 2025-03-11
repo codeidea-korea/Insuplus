@@ -45,7 +45,7 @@ function kakaoJoin($param, $mobile)
 //감사 인슈플러스 보험 알림톡
 function kakaoInsuplusJoin($param, $mobile) {
 
-	$templet_code = "006";
+	$templet_code = "005";
 
 	$message = $param["name"]." 고객님 인슈플러스에 가입해 주셔서 감사합니다. 가입하신 상품 안내 드립니다.
 
@@ -54,7 +54,7 @@ function kakaoInsuplusJoin($param, $mobile) {
 ■ 가입 기간 : ".$param["period"]."
 ■ 결제 금액 : ".number_format($param["t_amount"])."원
 
-병원예약, 원격화상진료, 의료상담, 보험청구 등 모든 서비스는 24시간 알람센터 카카오톡 채널 또는 전화로 요청하실 수 있습니다.
+병원예약, 의료상담, 보험청구, 긴급이후송 등 모든 서비스는 24시간 알람센터 카카오톡 채널 또는 전화로 요청하실 수 있습니다.
 고객님의 행복한 여행을 위해 인슈플러스가 항상 함께하겠습니다. 
 
 ☎  24시간 알람센터
@@ -64,11 +64,12 @@ function kakaoInsuplusJoin($param, $mobile) {
 
 ■ 제휴 혜택 안내 (더 라운지)
 전세계 공항 라운지, 공항리무진 등 프리미엄 서비스를 인슈플러스 혜택 가격으로 이용하실 수 있습니다.
-▷ 할인 혜택 받기 : https://bit.ly/4gswtKv
+▷ 할인 혜택 받기 : https://vvd.bz/BO0
 
-■ 리얼후기를 부탁해!
-가입 및 서비스후기를 개인SNS에 남겨주신 모든 분들에게 네이버페이 최대 38,000포인트를 드립니다. 
-▷ 이벤트 확인 하기 : https://bit.ly/3C8iJoY
+■ 요즘 대세, 인플인증 EVENT
+인슈플러스 가입인증 챌린지 참여하면 100% 네이버페이 포인트 지급!
+최대 38,000 포인트가 걸린 우수리뷰어에도 도전해 보세요.
+▷ 이벤트 확인 하기 : https://vvd.bz/BNy
 
 ※ 가입증명서(국문, 영문) 다운로드 및 취소는 증명서발급 페이지를 클릭해 주세요. 취소는 출국 전일까지 가능합니다.";
 
