@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  insplus:
+    build:
+      context: .
+    image: ins-img:latest
+    restart: always
+    ports:
+      - '80:80'
+    volumes:
+      - ../biz_insplus:/var/www/html
