@@ -68,8 +68,8 @@ $url_Now = getURL();            // 다른 곳에 중복해 쓸 경우에는 getU
 	define("SIGNKEY","UTM2cWdEZzExVUtJMmVkeGJwL0c4QT09"); //가맹점 운영 사인키
 	
 	//운영,개발여부
-	// define("SERVER_CHECK","DEV"); //개발
-	define("SERVER_CHECK","REAL"); //운영
+	define("SERVER_CHECK","DEV"); //개발
+	// define("SERVER_CHECK","REAL"); //운영
 
 
 	// MySQL DB SMS 접속정보

@@ -1,6 +1,7 @@
 <?
 	########################################
 	#### 공지글을 가져온다. ####
+
 	if ($bc_notice_use == "Y") {
 		$field = " * ";
 //		if ($bc_category_use == "Y") {
@@ -29,6 +30,7 @@
 
 		$total_Notice = $ArrNoticeRs[0];
 	}
+ 
 	########################################
 
 //	echo "query_where : ".$query_where."<BR>";
@@ -70,7 +72,7 @@
 	$total_page = ceil($total_record/$num_per_page);
 	$no = $total_record - $first;
 
-	########################################
+	########################################  
 
 	//echo $bc_skin."<BR>";
 
@@ -540,8 +542,10 @@
 				}
 			}
 		}
+      
 	}
 	else {
+       
 		$list_type = "null";
 		include $path_skin_board.$bc_skin."/list_middle.php";
 	}

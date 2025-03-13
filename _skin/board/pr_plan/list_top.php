@@ -97,6 +97,7 @@ $RS_PR = $dbcon -> query($SQL_PR);
 // 보험사 불러오기
 $SQL_Ins = "select seq,subject from tbl_board_ins_list  ";
 $RS_Ins = $dbcon -> query($SQL_Ins);
+
 ?>
 <table class="adm-searchForm">
 <colgroup>

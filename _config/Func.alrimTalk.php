@@ -47,7 +47,7 @@ function kakaoInsuplusJoin($param, $mobile) {
 
 	$templet_code = "005";
 
-	$message = $param["name"]." 고객님 인슈플러스에 가입해 주셔서 감사합니다. 가입하신 상품 안내 드립니다.
+	$message = $param["name"]." 고객님 인슈플러스를 가입해 주셔서 감사합니다. 가입하신 상품 안내 드립니다.
 
 ■ 가입자명 : ".$param["name"]."
 ■ 상품명 : ".$param["pr_name"]."
@@ -55,9 +55,9 @@ function kakaoInsuplusJoin($param, $mobile) {
 ■ 결제 금액 : ".number_format($param["t_amount"])."원
 
 병원예약, 의료상담, 보험청구, 긴급이후송 등 모든 서비스는 24시간 알람센터 카카오톡 채널 또는 전화로 요청하실 수 있습니다.
-고객님의 행복한 여행을 위해 인슈플러스가 항상 함께하겠습니다. 
+고객님의 행복한 여행을 위해 인슈플러스가 항상 함께하겠습니다.
 
-☎  24시간 알람센터
+☎ 24시간 알람센터
 02-360-2545
 
 ■ 카카오톡 채널 추가하시면 친구 전용 할인혜택을 받으실 수 있습니다.
@@ -287,7 +287,7 @@ function kakaoSend($message, $templet_code, $mobile) {
 	if(!$templet_code) { //템플릿 코드가 없는 경우 문자 발송
 		$message = "";
 	}
-	
+	//1910034757
 	$sql = " INSERT INTO TSMS_AGENT_MESSAGE (
 				SERVICE_SEQNO, SEND_MESSAGE, SUBJECT, BACKUP_MESSAGE, BACKUP_PROCESS_CODE
 				, MESSAGE_TYPE, CONTENTS_TYPE, RECEIVE_MOBILE_NO, CALLBACK_NO, JOB_TYPE
@@ -310,7 +310,7 @@ function kakaoSend($message, $templet_code, $mobile) {
 				now(),
 				'admin',
 				'N',
-				'',
+				'', 
 				'',
 				'',
 				'',

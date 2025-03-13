@@ -22,6 +22,7 @@
 		<td>
 		<?php
 			$bc_id = "plan";
+           
 			include_once $path_board."board.php";
 			$dbcon -> dbcon_close();
 		?>
