@@ -110,13 +110,17 @@ $table      = " tbl_order_list A inner join tbl_order_list_join B on A.orderno=B
 $where      = $query_where;
 $orderby      = $search_orderby;
 $limit        = $first . ", " . $num_per_page;
+// 20250316 yjhzzzzdev - 조건문 없으면 검색 X
+$ArrRS =[];
+if(isset($where) && $where) {
+    $ArrRS      = $dbcon->getList($field, $table, $where, $orderby, $limit);
+}
 
-$ArrRS      = $dbcon->getList($field, $table, $where, $orderby, $limit);
 $total_record  = $ArrRS[0];
 $result      = $ArrRS[1];
 unset($ArrRS);
 
-// 페이지 & 리스트 설정
+// 페이지 & 리스트 설정 
 $total_page    = ceil($total_record / $num_per_page);
 $no        = $total_record - $first;
 
