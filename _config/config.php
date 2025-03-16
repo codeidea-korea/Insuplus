@@ -219,6 +219,14 @@ $url_Now = getURL();            // 다른 곳에 중복해 쓸 경우에는 getU
 
 	#### 관리자 권한
 	$auth_admin		= 4;
+    
+    // 20250316 yjhzzzzdev 추가
+    $current_path = $_SERVER['REQUEST_URI'];
+    // "/admin/member/"가 포함되어 있는지 확인
+    if (strpos($current_path, '/admin/member/') !== false) {
+        $auth_admin = 99;
+    } 
+
 	$auth_client			= 1;
 	$join_user_level = 1;
 	$login_user_level	= 1;
