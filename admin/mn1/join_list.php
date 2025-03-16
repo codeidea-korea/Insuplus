@@ -9,7 +9,7 @@ include $path_admin . "inc/header.php";
 <?
 $page_btn_prev = ">>"; // > 버튼
 $page_btn_next = "<<"; // < 버튼
-
+  
 // 페이지 설정
 $page          = REQSTR($page, 1);
 $num_per_page      = REQSTR($num_per_page, 30);

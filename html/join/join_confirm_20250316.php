@@ -28,7 +28,7 @@ include '../_include/_sidebar.html';
 						<div class='row-border row-sm'>
 							<div class='detail-col-label'>휴대폰번호</div>
 							<div class='detail-col-input'><input type="tel" name='hp' autocomplete="off" placeholder="휴대폰번호" class="form-control numberonly" maxlength="12" size='20' /></div>
-							<div class='detail-col-label'>인증번호</div>
+							<div class='detail-col-label'>주민등록번호</div>
 							<div class='detail-col-input'>
 								<div class='input-group' style='width:100%;'>
 									<span class='input-group-addon'>******-</span>

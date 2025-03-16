@@ -133,9 +133,13 @@ $log = new log();
 						 [중요!] 승인내용에 이상이 없음을 확인한 뒤 가맹점 DB에 해당건이 정상처리 되었음을 반영함
 								처리중 에러 발생시 망취소를 한다.
 				       ******************************************************************************/
-					   if ($resultMap["payMethod"]=="Card" || $resultMap["payMethod"]=="VCard"){$pay_name = "CARD / ".$resultMap["CARD_PurchaseName"]." / ".$resultMap["CARD_Num"]." ";$order_step = "2"; $join_status="Y";}
-					   if ($resultMap["payMethod"]=="HPP" || $resultMap["payMethod"]=="MOBILE"){$pay_name = "HPP";$order_step = "2";$join_status="Y";}
-					   if ($resultMap["payMethod"]=="VBank"){$pay_name = "가상계좌 / ".$resultMap["vactBankName"]." / ".$resultMap["VACT_Num"]."";$order_step = "1"; $join_status="W";}
+                      // 20250316 yjhzzzzdev 수정
+                      if ($resultMap["payMethod"]=="Card" || $resultMap["payMethod"]=="VCard"){$pay_name = "CARD / ".$resultMap["CARD_PurchaseName"];}
+                      if ($resultMap["payMethod"]=="HPP" || $resultMap["payMethod"]=="MOBILE"){$pay_name = "HPP";$order_step = "2";$join_status="Y";}
+                      if ($resultMap["payMethod"]=="VBank"){$pay_name = "가상계좌 / ".$resultMap["vactBankName"];}
+                      //    if ($resultMap["payMethod"]=="Card" || $resultMap["payMethod"]=="VCard"){$pay_name = "CARD / ".$resultMap["CARD_PurchaseName"]." / ".$resultMap["CARD_Num"]." ";$order_step = "2"; $join_status="Y";}
+					//    if ($resultMap["payMethod"]=="HPP" || $resultMap["payMethod"]=="MOBILE"){$pay_name = "HPP";$order_step = "2";$join_status="Y";}
+					//    if ($resultMap["payMethod"]=="VBank"){$pay_name = "가상계좌 / ".$resultMap["vactBankName"]." / ".$resultMap["VACT_Num"]."";$order_step = "1"; $join_status="W";}
 
 
 //                        echo "<tr><th class='td01'><p>거래 성공 여부</p></th>";
