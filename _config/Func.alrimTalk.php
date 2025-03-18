@@ -76,9 +76,9 @@ function kakaoInsuplusJoin($param, $mobile) {
 	kakaoSend($message, $templet_code, $mobile);
 
 }
+ 
 
-
-//감사 알림톡
+//감사 알림톡 
 function kakaoQnaAnswer($param, $mobile) {
 
 $templet_code = "060";
@@ -279,10 +279,22 @@ function kakaoPromotionSend($param, $mobile) {
 
 }
 
+function kakaoInsuplusCertificationNumberSend($param,$mobile){
+
+ 
+    $templet_code = "091";
+	
+	$message = "[인슈플러스]
+본인확인 인증번호는 [".$param."] 입니다."; 
+
+	kakaoSend($message, $templet_code, $mobile);
+    echo $param; 
+}
+
 //알림톡 전송
 function kakaoSend($message, $templet_code, $mobile) {
 	global $dbcon;
-	$lms_message = $message;
+	$lms_message = $message; 
 	
 	if(!$templet_code) { //템플릿 코드가 없는 경우 문자 발송
 		$message = "";

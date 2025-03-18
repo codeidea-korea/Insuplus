@@ -679,10 +679,18 @@ function inplus_mail_send($join_seq,$chk_eng){
 	/* 여기서부터 수정해주시기 바랍니다. */
 	$subject = '[회원가입] [$NAME]님 환영합니다. ';   //필수입력
 	$body = '[$NAME]님 환영합니다. 치환 문자 입니다. 수신 이메일 : [$EMAIL] 수신번호 : [$MOBILE] 메모 : [$NOTE]';                 //필수입력
-	$sender = "izm9870@nvaer.com";          //필수입력
+	
+    // $sender = "izm9870@nvaer.com";          //필수입력
+	// $sender_name = "DirectSend";
+	// $username = "kassist";                //필수입력
+	// $key = "MHvEdNfJ0kZrp4b";           //필수입력
+
+
+    //20250318 추가 신규
+    $sender = "izm9870@nvaer.com";          //필수입력
 	$sender_name = "DirectSend";
-	$username = "kassist";                //필수입력
-	$key = "MHvEdNfJ0kZrp4b";           //필수입력
+	$username = "insuplus";                //필수입력
+	$key = "KIsg5ekF3H0hUG2";           //필수입력
 
 	$receiver = '{"name":"정해원","email":"izm9870@gmail.com"}';
 

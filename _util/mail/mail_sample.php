@@ -38,10 +38,19 @@ $ch = curl_init();
 /* 여기서부터 수정해주시기 바랍니다. */
 $subject = '[회원가입] [$NAME]님 환영합니다. ';   //필수입력
 $body = '[$NAME]님 환영합니다. 치환 문자 입니다. 수신 이메일 : [$EMAIL] 수신번호 : [$MOBILE] 메모 : [$NOTE]';                 //필수입력
+
+
+// $sender = "anstndud99@daum.net";          //필수입력
+// $sender_name = "DirectSend";
+// $username = "kassist";                //필수입력
+// $key = "MHvEdNfJ0kZrp4b";           //필수입력
+
+
+//20250318 추가 신규
 $sender = "anstndud99@daum.net";          //필수입력
 $sender_name = "DirectSend";
-$username = "kassist";                //필수입력
-$key = "MHvEdNfJ0kZrp4b";           //필수입력
+$username = "insuplus";                //필수입력
+$key = "KIsg5ekF3H0hUG2";           //필수입력
 
 //수신자 정보 추가 - 필수 입력(주소록 미사용시), 치환문자 미사용시 치환문자 데이터를 입력하지 않고 사용할수 있습니다.
 //치환문자 미사용시 {"email":"aaaa@directsend.co.kr"} 이메일만 입력 해주시기 바랍니다.

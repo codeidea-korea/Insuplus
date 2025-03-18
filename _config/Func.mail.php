@@ -3,14 +3,28 @@ function mailJoinSend($param,$email) {
 	$ch = curl_init();
 
 	/* 여기서부터 수정해주시기 바랍니다. */
-	$subject = '[인슈플러스] [$NAME] 고객님 인슈플러스에 가입해 주셔서 감사합니다. ';   //필수입력
+	$subject = '[인슈플러스] [$NAME] 고객님 인슈플러스에 가입해 주셔서 감사합니다.! ';   //필수입력
 	//$body = '[$NAME]님 환영합니다. 치환 문자 입니다. 수신 이메일 : [$EMAIL] 수신번호 : [$MOBILE] 메모 : [$NOTE]';                 //필수입력
-	$sender = "help@insuplus.co.kr";         //필수입력 config.php
+	// $sender = "help@insuplus.co.kr";         //필수입력 config.php
+	// $sender_name = "인슈플러스";
+	// $username = "kassist";                //필수입력
+	// $key = "MHvEdNfJ0kZrp4b";           //필수입력
+
+	// $sender = "help@insuplus.co.kr";         //필수입력 config.php
+	// $sender_name = "인슈플러스";
+	// $username = "kassist";                //필수입력
+	// $key = "MHvEdNfJ0kZrp4b";           //필수입력
+
+
+
+    //20250318 추가 신규
+    $sender = "help@insuplus.co.kr";         //필수입력 config.php
 	$sender_name = "인슈플러스";
-	$username = "kassist";                //필수입력
-	$key = "MHvEdNfJ0kZrp4b";           //필수입력
+	$username = "insuplus";                //필수입력
+	$key = "KIsg5ekF3H0hUG2";           //필수입력
 
 
+ 
 	$body = "<section class='insurplus_wrap' style='position:relative;text-align:center;width: 760px; background:#fff;padding:0px;margin:10px auto'>";
 	$body .= "<div class='top_image'>";
 	$body .= "<img src='http://www.insuplus.co.kr/html/images/sub-register-result-banner.png' class='pc-image' /></div>";
@@ -167,8 +181,8 @@ function mailJoinSend($param,$email) {
 	if(curl_errno($ch)){
 		echo 'Curl error: ' . curl_error($ch);
 	}else{
-		//print_R($response);
-		//echo "1";
+		// print_r($response);
+		// echo "1";
 	}
 
 	curl_close ($ch);
@@ -180,10 +194,17 @@ function mailJoinSend2($param,$email,$file_url, $file_name) {
 	/* 여기서부터 수정해주시기 바랍니다. */
 	$subject = '[$NAME] 고객님 '.$param['service_name'].'에 가입해 주셔서 감사합니다. ';   //필수입력
 	//$body = '[$NAME]님 환영합니다. 치환 문자 입니다. 수신 이메일 : [$EMAIL] 수신번호 : [$MOBILE] 메모 : [$NOTE]';                 //필수입력
-	$sender = "assist@flyingdoctors.co.kr";         //필수입력 config.php
+	// $sender = "assist@flyingdoctors.co.kr";         //필수입력 config.php
+	// $sender_name = "플라잉닥터스";
+	// $username = "kassist";                //필수입력
+	// $key = "MHvEdNfJ0kZrp4b";           //필수입력
+    
+
+    //20250318 추가 신규
+    $sender = "assist@flyingdoctors.co.kr";         //필수입력 config.php
 	$sender_name = "플라잉닥터스";
-	$username = "kassist";                //필수입력
-	$key = "MHvEdNfJ0kZrp4b";           //필수입력
+	$username = "insuplus";                //필수입력
+	$key = "KIsg5ekF3H0hUG2";           //필수입력
 
 	$body = "<section class='insurplus_wrap' style='position:relative;text-align:center;width: 760px; background:#fff;padding:0px;margin:10px auto'>";
 	$body .= "<div class='top_image'>";
@@ -354,10 +375,16 @@ function mailBizJoinSend($param,$email,$file_url, $file_name) {
 	$subject = '[플라잉닥터스] 해외안전관리서비스 가입 증명서 발송';   //필수입력
 	//$subject = '[세종학당재단] 파견교원 안전관리서비스 가입 증명서 발송';
 	//$body = '[$NAME]님 환영합니다. 치환 문자 입니다. 수신 이메일 : [$EMAIL] 수신번호 : [$MOBILE] 메모 : [$NOTE]';                 //필수입력
-	$sender = "assist@flyingdoctors.co.kr";         //필수입력 config.php
+	// $sender = "assist@flyingdoctors.co.kr";         //필수입력 config.php
+	// $sender_name = "플라잉닥터스";
+	// $username = "kassist";                //필수입력
+	// $key = "MHvEdNfJ0kZrp4b";           //필수입력
+
+    //20250318 추가 신규
+    $sender = "assist@flyingdoctors.co.kr";         //필수입력 config.php
 	$sender_name = "플라잉닥터스";
-	$username = "kassist";                //필수입력
-	$key = "MHvEdNfJ0kZrp4b";           //필수입력
+	$username = "insuplus";                //필수입력
+	$key = "KIsg5ekF3H0hUG2";           //필수입력
 
 	$body = "<section class='insurplus_wrap' style='position:relative;text-align:center;width: 760px; background:#fff;padding:0px;margin:10px auto'>";
 	$body .= "<div class='top_image'>";
@@ -501,11 +528,16 @@ function mailReJoinSend($param,$email) {
 
 	/* 여기서부터 수정해주시기 바랍니다. */
 	$subject = '[인슈플러스] [$NAME]고객님 보험 만료 안내 드립니다.';   //필수입력
-	$sender = "help@insuplus.co.kr";         //필수입력 config.php
-	$sender_name = "인슈플러스";
-	$username = "kassist";                //필수입력
-	$key = "MHvEdNfJ0kZrp4b";           //필수입력
+	// $sender = "help@insuplus.co.kr";         //필수입력 config.php
+	// $sender_name = "인슈플러스";
+	// $username = "kassist";                //필수입력
+	// $key = "MHvEdNfJ0kZrp4b";           //필수입력
 
+    // 신규
+    $sender = "yjhzzzzdev@gmail.com";         //필수입력 config.php
+	$sender_name = "인슈플러스 - 개발";
+	$username = "insuplus";                //필수입력
+	$key = "KIsg5ekF3H0hUG2";           //필수입력
 
 	$body = "<section class='insurplus_wrap' style='position:relative;text-align:center;width: 700px; background:#fff;padding:0px;margin:10px auto'>";
 	$body .= "<div class='top_image'>";
@@ -632,10 +664,16 @@ function mailJoinFlyingSend($param,$email) {
 	/* 여기서부터 수정해주시기 바랍니다. */
 	$subject = '[인슈플러스] [$NAME] 고객님 인슈플러스에 가입해 주셔서 감사합니다. ';   //필수입력
 	//$body = '[$NAME]님 환영합니다. 치환 문자 입니다. 수신 이메일 : [$EMAIL] 수신번호 : [$MOBILE] 메모 : [$NOTE]';                 //필수입력
-	$sender = "help@insuplus.co.kr";         //필수입력 config.php
+	// $sender = "help@insuplus.co.kr";         //필수입력 config.php
+	// $sender_name = "인슈플러스";
+	// $username = "kassist";                //필수입력
+	// $key = "MHvEdNfJ0kZrp4b";           //필수입력
+
+    //20250318 추가 신규
+    $sender = "help@insuplus.co.kr";         //필수입력 config.php
 	$sender_name = "인슈플러스";
-	$username = "kassist";                //필수입력
-	$key = "MHvEdNfJ0kZrp4b";           //필수입력
+	$username = "insuplus";                //필수입력
+	$key = "KIsg5ekF3H0hUG2";           //필수입력
 
 
 	$body = "<section class='insurplus_wrap' style='position:relative;text-align:center;width: 760px; background:#fff;padding:0px;margin:10px auto'>";
@@ -805,10 +843,17 @@ function mailRestrictedUsersSend($param,$email) {
 
 	/* 여기서부터 수정해주시기 바랍니다. */
 	$subject = '가입제한대상자 [$NAME] 가입시도';   //필수입력
-	$sender = "help@insuplus.co.kr";         //필수입력 config.php
+	// $sender = "help@insuplus.co.kr";         //필수입력 config.php
+	// $sender_name = "인슈플러스";
+	// $username = "kassist";                //필수입력
+	// $key = "MHvEdNfJ0kZrp4b";           //필수입력
+
+    
+    //20250318 추가 신규
+    $sender = "help@insuplus.co.kr";         //필수입력 config.php
 	$sender_name = "인슈플러스";
-	$username = "kassist";                //필수입력
-	$key = "MHvEdNfJ0kZrp4b";           //필수입력
+	$username = "insuplus";                //필수입력
+	$key = "KIsg5ekF3H0hUG2";           //필수입력
 
 	$body = "<section class='insurplus_wrap' style='position:relative;text-align:center;width: 400px; background:#fff;padding:0px;margin:10px auto'>";
 	$body .= "<p style='margin:10px 0 20px 10px; color:#333; font-size:14px; text-align:left;'>";
