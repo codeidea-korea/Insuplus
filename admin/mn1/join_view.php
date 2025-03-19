@@ -29,7 +29,7 @@
 		$SQL .= " from tbl_order_list l WHERE orderno='".$row_L["orderno"]."' ";
 		$result = $dbcon -> query($SQL);
 		$row= $dbcon -> fetch_array($result);
-	
+        print_r($row); 
 		// 가입자 리스트 가져오기
 		$SQL = "select * from tbl_order_list_join where orderno ='".$row_L["orderno"]."' order by seq ";
 		$RS_JOIN_LIST = $dbcon -> query($SQL);

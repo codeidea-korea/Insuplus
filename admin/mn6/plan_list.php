@@ -21,15 +21,15 @@
 	<tr>
 		<td>
 		<?php
-			$bc_id = "plan";
-           
+			$bc_id = "plan"; 
+           // echo $path_board;
 			include_once $path_board."board.php";
 			$dbcon -> dbcon_close();
 		?>
 		</td>
-	</tr>
+	</tr> 
 </table>
 
 <? include $path_admin."inc/footer.php"; ?>
 
-<? $dbcon -> dbcon_close();?>
+<? $dbcon -> dbcon_close();?> 

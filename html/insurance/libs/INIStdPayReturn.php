@@ -125,6 +125,9 @@ $log = new log();
 					$log->log_write("결제 성공여부 : ".$resultMap["resultCode"]);
                     // signature 데이터 생성
                     $secureSignature = $util->makeSignatureAuth($secureMap);
+                    
+                    // 가상계좌번호 추가
+                    $VACT_Num= '';$resultMap["VACT_Num"];
                     /*************************  결제보안 추가 2016-05-18 END ****************************/
 					if ((strcmp("0000", $resultMap["resultCode"]) == 0) && (strcmp($secureSignature, $resultMap["authSignature"]) == 0) ){	//결제보안 추가 2016-05-18
 					   /*****************************************************************************
@@ -134,9 +137,9 @@ $log = new log();
 								처리중 에러 발생시 망취소를 한다.
 				       ******************************************************************************/
                       // 20250316 yjhzzzzdev 수정
-                      if ($resultMap["payMethod"]=="Card" || $resultMap["payMethod"]=="VCard"){$pay_name = "CARD / ".$resultMap["CARD_PurchaseName"];}
+                      if ($resultMap["payMethod"]=="Card" || $resultMap["payMethod"]=="VCard"){$pay_name = "CARD / ".$resultMap["CARD_PurchaseName"];$order_step = "2"; $join_status="Y";}
                       if ($resultMap["payMethod"]=="HPP" || $resultMap["payMethod"]=="MOBILE"){$pay_name = "HPP";$order_step = "2";$join_status="Y";}
-                      if ($resultMap["payMethod"]=="VBank"){$pay_name = "가상계좌 / ".$resultMap["vactBankName"];}
+                      if ($resultMap["payMethod"]=="VBank"){$pay_name = "가상계좌 / ".$resultMap["vactBankName"]; $VACT_Num= $resultMap["VACT_Num"];}
                       //    if ($resultMap["payMethod"]=="Card" || $resultMap["payMethod"]=="VCard"){$pay_name = "CARD / ".$resultMap["CARD_PurchaseName"]." / ".$resultMap["CARD_Num"]." ";$order_step = "2"; $join_status="Y";}
 					//    if ($resultMap["payMethod"]=="HPP" || $resultMap["payMethod"]=="MOBILE"){$pay_name = "HPP";$order_step = "2";$join_status="Y";}
 					//    if ($resultMap["payMethod"]=="VBank"){$pay_name = "가상계좌 / ".$resultMap["vactBankName"]." / ".$resultMap["VACT_Num"]."";$order_step = "1"; $join_status="W";}
@@ -402,7 +405,9 @@ $log = new log();
 								//추가 알림톡
 								$arr_pay_name = explode("/", $param["pay_name"]);
 								$param["bank"] = $arr_pay_name[1];
-								$param["account"] = $arr_pay_name[2];
+                                //20250319 yjhzzzzdev 변경
+                                $param["account"] = $VACT_Num;
+								//$param["account"] = $arr_pay_name[2];
 								kakaoJoinBankInfo($param, $mobile);
 							}
 						} else {
@@ -422,7 +427,8 @@ $log = new log();
 								//추가 알림톡
 								$arr_pay_name = explode("/",$param["pay_name"]);
 								$param["bank"] = $arr_pay_name[1];
-								$param["account"] = $arr_pay_name[2];
+							    //20250319 yjhzzzzdev 변경
+                                $param["account"] = $VACT_Num;
 								kakaoJoinBankInfo($param,$mobile);
 							}
 						}

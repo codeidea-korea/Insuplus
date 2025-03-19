@@ -476,9 +476,10 @@ if ($ext5){
   </tr>
   <?
   $k = 0;
+
   $SQL_O1 = "select * from tbl_board_product_service where pr_seq='".$seq."' ";
   $RS_O1 = $dbcon -> query($SQL_O1);
-  
+
   while($rows_o1 = $dbcon -> fetch_array($RS_O1)){
     
   ?>

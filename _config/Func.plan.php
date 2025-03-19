@@ -684,7 +684,7 @@ function inplus_mail_send($join_seq,$chk_eng){
 	// $sender_name = "DirectSend";
 	// $username = "kassist";                //필수입력
 	// $key = "MHvEdNfJ0kZrp4b";           //필수입력
-
+ 
 
     //20250318 추가 신규
     $sender = "izm9870@nvaer.com";          //필수입력
