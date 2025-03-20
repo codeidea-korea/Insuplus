@@ -29,7 +29,7 @@
 		$SQL .= " from tbl_order_list l WHERE orderno='".$row_L["orderno"]."' ";
 		$result = $dbcon -> query($SQL);
 		$row= $dbcon -> fetch_array($result);
-        print_r($row); 
+        // print_r($row); 
 		// 가입자 리스트 가져오기
 		$SQL = "select * from tbl_order_list_join where orderno ='".$row_L["orderno"]."' order by seq ";
 		$RS_JOIN_LIST = $dbcon -> query($SQL);
@@ -138,7 +138,7 @@ function page_move(seq){
 }
 
 </script>
-<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<table border="0" cellpadding="0" cellspacing="0" width="100%"> 
 	<tr>
 		<td width="16" height="22" valign="top" align="center" style="padding-top:6px"><img src="<?=$url_admin?>images/admin_st_ball.gif"></td>
 		<td valign="top" class="a_st">가입자</td>

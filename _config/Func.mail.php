@@ -44,14 +44,15 @@ function mailJoinSend($param,$email) {
 	$body .= "<td style='border-bottom:1px solid #d6d6d6;text-align:left;width:auto;color:#333;padding:14.5px 15px;border-left:1px solid #d6d6d6;'>#{name}</td>";
 	$body .= "</tr>";
 	if(strtolower($param["payMethod"]) == "vbank") { //가상계좌
+   $VACT_Num = $param["account"];
 	$arr_pay_name = explode("/",$param["pay_name"]);
-	$body .= "<tr>";
+	$body .= "<tr>"; 
 	$body .= "<th style='border-bottom:1px solid #d6d6d6;font-weight:400;text-align:center;width:25%;background-color:#f6f6f6;'>결제상태</th>";
 	$body .= "<td style='border-bottom:1px solid #d6d6d6;text-align:left;width:auto;color:#333;padding:14.5px 15px;border-left:1px solid #d6d6d6;'>입금전</td>";
 	$body .= "</tr>";
 	$body .= "<tr>";
 	$body .= "<th style='border-bottom:1px solid #d6d6d6;font-weight:400;text-align:center;width:25%;background-color:#f6f6f6;'>가상계좌</th>";
-	$body .= "<td style='border-bottom:1px solid #d6d6d6;text-align:left;width:auto;color:#333;padding:14.5px 15px;border-left:1px solid #d6d6d6;'>".$arr_pay_name[1].":".$arr_pay_name[2]."</td>";
+	$body .= "<td style='border-bottom:1px solid #d6d6d6;text-align:left;width:auto;color:#333;padding:14.5px 15px;border-left:1px solid #d6d6d6;'>".$arr_pay_name[1].":".$VACT_Num."</td>";
 	$body .= "</tr>";
 	} else {
 	$body .= "<tr>";
@@ -226,13 +227,14 @@ function mailJoinSend2($param,$email,$file_url, $file_name) {
 	$body .= "</tr>";
 	if(strtolower($param["payMethod"]) == "vbank") { //가상계좌
 	$arr_pay_name = explode("/",$param["pay_name"]);
+    $VACT_Num = $param["account"];
 	$body .= "<tr>";
 	$body .= "<th style='border-bottom:1px solid #d6d6d6;font-weight:400;text-align:center;width:25%;background-color:#f6f6f6;'>결제상태</th>";
 	$body .= "<td style='border-bottom:1px solid #d6d6d6;text-align:left;width:auto;color:#333;padding:14.5px 15px;border-left:1px solid #d6d6d6;'>입금전</td>";
 	$body .= "</tr>";
 	$body .= "<tr>";
 	$body .= "<th style='border-bottom:1px solid #d6d6d6;font-weight:400;text-align:center;width:25%;background-color:#f6f6f6;'>가상계좌</th>";
-	$body .= "<td style='border-bottom:1px solid #d6d6d6;text-align:left;width:auto;color:#333;padding:14.5px 15px;border-left:1px solid #d6d6d6;'>".$arr_pay_name[1].":".$arr_pay_name[2]."</td>";
+	$body .= "<td style='border-bottom:1px solid #d6d6d6;text-align:left;width:auto;color:#333;padding:14.5px 15px;border-left:1px solid #d6d6d6;'>".$arr_pay_name[1].":".$VACT_Num."</td>";
 	$body .= "</tr>";
 	} else {
 	$body .= "<tr>";
@@ -696,13 +698,14 @@ function mailJoinFlyingSend($param,$email) {
 	$body .= "</tr>";
 	if(strtolower($param["payMethod"]) == "vbank") { //가상계좌
 	$arr_pay_name = explode("/",$param["pay_name"]);
+    $VACT_Num = $param["account"];
 	$body .= "<tr>";
 	$body .= "<th style='border-bottom:1px solid #d6d6d6;font-weight:400;text-align:center;width:25%;background-color:#f6f6f6;'>결제상태</th>";
 	$body .= "<td style='border-bottom:1px solid #d6d6d6;text-align:left;width:auto;color:#333;padding:14.5px 15px;border-left:1px solid #d6d6d6;'>입금전</td>";
 	$body .= "</tr>";
 	$body .= "<tr>";
 	$body .= "<th style='border-bottom:1px solid #d6d6d6;font-weight:400;text-align:center;width:25%;background-color:#f6f6f6;'>가상계좌</th>";
-	$body .= "<td style='border-bottom:1px solid #d6d6d6;text-align:left;width:auto;color:#333;padding:14.5px 15px;border-left:1px solid #d6d6d6;'>".$arr_pay_name[1].":".$arr_pay_name[2]."</td>";
+	$body .= "<td style='border-bottom:1px solid #d6d6d6;text-align:left;width:auto;color:#333;padding:14.5px 15px;border-left:1px solid #d6d6d6;'>".$arr_pay_name[1].":".$VACT_Num."</td>";
 	$body .= "</tr>";
 	} else {
 	$body .= "<tr>";
