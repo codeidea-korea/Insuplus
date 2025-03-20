@@ -146,7 +146,7 @@
 
 	########################
 
-//	echo "mode : ".$mode."<BR>";
+	// echo "mode : ".$mode."<BR>";
 //
 //	echo "ss_u_level : ".$ss_u_level."<BR>";
 //	echo "auth_level : ".$auth_level."<BR>";

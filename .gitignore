@@ -64,3 +64,6 @@ _util/PHPExcel-1.8/Documentation/assets/ClassDiagrams/obj/Debug/ClassDiagrams.cs
 *.bak
 *.xlsx
 
+vendor/
+*data*bak/
+_data.tar.gz

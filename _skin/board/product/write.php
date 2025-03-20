@@ -243,7 +243,8 @@ window.addEventListener('load', ()=>{
 
 
   <?
-    if ( $bc_upfile_cnt > 0 && $auth_upload ) {
+
+    if ( $bc_upfile_cnt > 0 && $auth_upload ) { 
   ?>
   <tr>
     <td class="b_txt_w">
@@ -386,6 +387,7 @@ window.addEventListener('load', ()=>{
   </script>
   <?
     }
+ 
   ?>
 
   <?
@@ -417,16 +419,19 @@ window.addEventListener('load', ()=>{
 
 
 <?
+
 // 보험사 가져오기
 $SQL_BCate = "select seq,subject from tbl_board_ins_list  ";
 $RS_BCate = $dbcon -> query($SQL_BCate);
 $RS_BCate1 = $dbcon -> query($SQL_BCate);
 $Bcate_array = array();
+
 while ($CateListRs = $dbcon -> fetch_array($RS_BCate1) ) {
   //$Bcate_array["seq"][] = $CateListRs["seq"];
   //$Bcate_array["subject"][] = $CateListRs["subject"];
   $Bcate_array[] = $CateListRs;
 }
+
 
 // 보장내역 가져오기
 if ($ext4){
@@ -452,71 +457,9 @@ if ($ext5){
 
 ?>
 <script type="text/javascript">
-<!--
-function pop_nation(seq){
-  window.open("/_skin/board/<?=$bc_skin?>/pop_nation.php?pr_seq="+seq,"_pop","width=700,height=900");
-}
 
-function pop_service(){
-  window.open("/_skin/board/<?=$bc_skin?>/pop_service.php","_pop","width=600,height=600");
-}
-
-function pop_guarantee(selector){
-  window.open(`/_skin/board/<?=$bc_skin?>/pop_guarantee.php?selector=${selector}`,"_pop","width=600,height=600");
-}
-
-$( document ).ready( function() {
-  // 라인삭제
-  $(document).on("click",".delrow",function(){
-    $(this).closest("tr").remove();
-  });
-
-  // 보험사 라인생성
-  $("#addTR").click(function () {
-    var length = Number($("#arr_num1").val())+1;
-    var row = "<tr>";
-    row += "<td>"+Number(length)+"</td>";
-    row += "<td><select name='ins_seq["+length+"]' class='select'>";
-    row += "<option value=''>:: 선택 ::</option>";
-    row += "<option value='00'>:: 없음 ::</option>";
-    <?
-                while ($CateListRs = $dbcon -> fetch_array($RS_BCate) ) {
-    ?>
-    row += "<option value='<?=$CateListRs["seq"]?>'><?=$CateListRs["subject"]?></option>";
-    <?}?>
-    row += "</select></td>";
-    row += "<td>";
-    row += "<input type='radio' name='service_gubun["+length+"]' value='A' <?if ("A"==$rows_o1["service_gubun"]){?>checked<?}?>>A타입";
-    row += "<input type='radio' name='service_gubun["+length+"]' value='B' <?if ("B"==$rows_o1["service_gubun"]){?>checked<?}?>>B타입";
-    <?
-        $SQL_CMN_CD = "select cd_nm, cd_val1 from safety_training.fd_cmn_cd where grp_cd = 'CC13' order by ord ASC";
-        $RS_CMN_CD = $dbcon -> query($SQL_CMN_CD);
-        while($rows_cd = $dbcon -> fetch_array($RS_CMN_CD)){
-      ?>
-    row += "<input type='radio' name='service_gubun["+length+"]' value='<?= $rows_cd["cd_val1"]?>' <?if ($rows_cd["cd_val1"]==$rows_o1["service_gubun"]){?>checked<?}?>><?= $rows_cd["cd_nm"]?>";
-      <? } ?>
-    //row += "<td><input type='radio' name='service_gubun["+length+"]' value='A'>A타입     <input type='radio' name='service_gubun["+length+"]' value='B'>B타입    <input type='radio' name='service_gubun["+length+"]' value='N' checked> 없음</td>";
-    row += "<td><span class='inp_orange'><input type='button' value='삭제' class='delrow'></span></td>";
-    row += "</tr>";
-    $("#service_tb").append(row);
-    $("#arr_num1").val(length);
-  });
-
-
-  // 보험사 라인생성
-  $("#addNotice").click(function () {
-    var length = Number($("#arr_num2").val())+1;
-    var row = "<tr>";
-    row += "<td>"+Number(length)+"</td>";
-    row += "<td><input type='text' name='pr_notice["+length+"]' value='' class='input' style='width:100%;'></td>";
-    row += "<td><span class='inp_orange'><input type='button' value='삭제' class='delrow'></span></td>";
-    row += "</tr>";
-    $("#notice_tb").append(row);
-    $("#arr_num2").val(length);
-  });
-});
-//-->
 </script>
+
 <p class="tit_sub mt40"><del>2. 보험사 및 서비스 등록</del></p>
 <table id="service_tb" class="adm-list-tb">
   <colgroup>
@@ -533,9 +476,10 @@ $( document ).ready( function() {
   </tr>
   <?
   $k = 0;
+
   $SQL_O1 = "select * from tbl_board_product_service where pr_seq='".$seq."' ";
   $RS_O1 = $dbcon -> query($SQL_O1);
-  
+
   while($rows_o1 = $dbcon -> fetch_array($RS_O1)){
     
   ?>

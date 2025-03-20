@@ -12,7 +12,7 @@
 	$page_per_block	= REQSTR($page_per_block, 10);
 	$first					= $num_per_page*($page-1);
 	$last					= $num_per_page*$page;
-
+ 
 	// 검색설정
 	$query_where		= "";
 	$query_where .= " and u_level <= '".$ss_u_level."' ";

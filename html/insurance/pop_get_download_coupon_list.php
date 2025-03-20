@@ -79,6 +79,7 @@ FROM tbl_board_event aa
 		WHERE a.event_type = 'C'
 			AND a.expire_date_s <='".$today."' 
 			AND a.expire_date_e >='".$today."'
+            AND a.start_date <= '".$today."' AND a.end_date >= '".$today."'
 			AND a.event_partnership_code != 'insuplus'
 			AND a.seq not in (select event_seq from tbl_board_coupon_history where mobile = '".$user_hp."')";
       if($_SESSION["ss_partner_seq"]){ //제휴사 쿠폰 조회

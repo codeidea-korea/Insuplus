@@ -118,7 +118,7 @@ include_once $_SERVER["DOCUMENT_ROOT"]."/_config/lib.php";
 		</script>
 	</head>
   <body class='<?php if(strpos($_SERVER['PHP_SELF'], "/main/index")){echo 'index';}?> font-wb'>
-		<?php
+<?php
 // 상품검색
 $SQL_PR_top = " select seq, subject from tbl_board_product WHERE secret = 'Y' AND ext2 = 'Y' order by sort_order asc ";
 $RS_PR_top = $dbcon -> query($SQL_PR_top);

@@ -54,22 +54,29 @@ $url_Now = getURL();            // 다른 곳에 중복해 쓸 경우에는 getU
 	// $mysql_host = "211.43.14.191:3306"; //DEV
 	// $mysql_host = "insu-db.cdaumq0ugull.ap-northeast-2.rds.amazonaws.com:3306"; //NEWLIVE
 	
-	$mysql_host ="dev-db.cdaumq0ugull.ap-northeast-2.rds.amazonaws.com:3306"; //DEV
+	$mysql_host ="dev-db-my57.cdaumq0ugull.ap-northeast-2.rds.amazonaws.com"; //DEV 
 	$mysql_user					= "insplus";
+	// $mysql_password				= "!insplus#";
+	$mysql_password				= "!insplus#"; //DEV
 	// $mysql_password				= "!insplus#";
 	$mysql_password				= "!insplus#"; //DEV
 	$mysql_database_name		= "insplus";
 	
 	//결제정보
 	// define("MID","INIpayTest"); //가맹점 테스트 ID
-	// define("SIGNKEY","SU5JTElURV9UUklQTEVERVNfS0VZU1RS"); //가맹점 테스트 사인키
+	// define("SIGNKEY","SU5JTElURV9UUklQTEVERVNfS0VZU1RS"); //가맹점 테스트 사인키 
 	
-	define("MID","insplus001"); //가맹점 운영 ID
-	define("SIGNKEY","UTM2cWdEZzExVUtJMmVkeGJwL0c4QT09"); //가맹점 운영 사인키
+    //구 이니시스
+	// define("MID","insplus001"); //가맹점 운영 ID
+	// define("SIGNKEY","UTM2cWdEZzExVUtJMmVkeGJwL0c4QT09"); //가맹점 운영 사인키 
+	
+    //신규 이니시스	  
+	 define("MID","bizinsigh1"); //가맹점 운영 ID
+	 define("SIGNKEY","bERqdzJqbTNoNEdua3hJK29vZko3UT09"); //가맹점 운영 사인키
 	
 	//운영,개발여부
 	// define("SERVER_CHECK","DEV"); //개발
-	define("SERVER_CHECK","REAL"); //운영
+	 define("SERVER_CHECK","REAL"); //운영
 
 
 	// MySQL DB SMS 접속정보
@@ -219,6 +226,14 @@ $url_Now = getURL();            // 다른 곳에 중복해 쓸 경우에는 getU
 
 	#### 관리자 권한
 	$auth_admin		= 4;
+    
+    // 20250316 yjhzzzzdev 추가
+    $current_path = $_SERVER['REQUEST_URI'];
+    // "/admin/member/"가 포함되어 있는지 확인
+    if (strpos($current_path, '/admin/member/') !== false) {
+        $auth_admin = 99;
+    } 
+
 	$auth_client			= 1;
 	$join_user_level = 1;
 	$login_user_level	= 1;
@@ -252,9 +267,26 @@ $url_Now = getURL();            // 다른 곳에 중복해 쓸 경우에는 getU
 	// 구글 FCM 푸시 서버키 - ECLS용
 	define("GOOGLE_SERVER_KEY", "AAAA-gy9hBM:APA91bGPq59US9pJMmwIhjCAw0-OI43kdR1Q0h-G2FpWRWQvp3pc-rleYiRmG8FoZfXiYKFhCxHiQ4al4f_qeh_Oee_NEUTWV3ORahAyeEsAtxy_sIyTeDqt6oNv4X_Jav3yQKYEP0NF");
 
-	//Seed 암호문 키
-	$g_bszUser_key = "0x19,0x33,0x3F,0x8F,0x18,0x17,0x79,0xF1,0xE9,0xF3,0x94,0x37,0x0A,0xD4,0x05,0x89";
-	$g_bszIV = "0x23,0x8D,0x66,0xA7,0x35,0xA2,0x11,0x81,0x6F,0xB3,0xD9,0x1A,0x36,0x16,0x25,0x01";
+    function loadCryptoKeys($filePath) {
+        $keys = [];
+        $lines = file($filePath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        
+        foreach ($lines as $line) {
+            list($key, $value) = explode('=', $line, 2);
+            $keys[trim($key)] = trim($value);
+        }
+        
+        return $keys;
+    }
+
+    $cryptoKeys = loadCryptoKeys('/home/crypto/crypto_keys.txt');
+    $g_bszUser_key = $cryptoKeys['USER_KEY'];
+    $g_bszIV = $cryptoKeys['IV'];
+
+    // $g_bszUser_key = "0x19,0x33,0x3F,0x8F,0x18,0x17,0x79,0xF1,0xE9,0xF3,0x94,0x37,0x0A,0xD4,0x05,0x89";
+	// $g_bszIV = "0x23,0x8D,0x66,0xA7,0x35,0xA2,0x11,0x81,0x6F,0xB3,0xD9,0x1A,0x36,0x16,0x25,0x01";
+
+
 
 	$insuplus_phone = "02.360.2545";
 	$insuplus_email = "help@insuplus.co.kr"; //보상안내에서만 사용

@@ -216,7 +216,8 @@ include '../_include/_header_partner.html';
         </div>
       </form>
     </div>
-    <div class="hr-txt product-board">해외여행자보험 가입 시 추가 비용 없이 해외의료지원 및 긴급 이·후송 서비스를 제공받을 수 있습니다.</div>
+    <!-- yjhdev -->
+    <!-- <div class="hr-txt product-board">해외여행자보험 가입 시 추가 비용 없이 해외의료지원 및 긴급 이·후송 서비스를 제공받을 수 있습니다.</div> -->
     <!-- 서비스 및 보장내역 출력 begin-->
     <div class="product-board" id="option-list"></div>
     <!-- 서비스 및 보장내역 출력 end-->
@@ -548,9 +549,12 @@ include '../_include/_header_partner.html';
     // 의료지원 서비스 항목
     commonServices.forEach((item, idx) => {
       if (idx === 0) {
+        //yjhdev 데이터로 관리되고있어 1차적으로 하드 수정
+       let service_group_name =  item.service_group_name === '의료·여행편의 지원' ? '이후송 서비스' : item.service_group_name
+       html.push(`<div class="white-box middle mt24">`);
         html.push(`<div class="white-box middle mt24">`);
         html.push(`  <div class="title-state-box">`);
-        html.push(`    <strong>${item.service_group_name}</strong>`);
+        html.push(`    <strong>${service_group_name}</strong>`);
         html.push(`    <div class="check-box">`);
         
         //20240618 이벤트 기간중 보장내역 선택 불가능 처리
@@ -561,7 +565,7 @@ include '../_include/_header_partner.html';
         html.push(`      <div class="check-box-inner type01" style="display: none;">`);
         }
         html.push(
-          `        <input type="checkbox" value="${item.service_group_name}" id="service-0${orderNumber}" checked />`
+          `        <input type="checkbox" value="${service_group_name}" id="service-0${orderNumber}" checked />`
         );
         html.push(`        <label for="service-0${orderNumber++}">선택</label>`);
         html.push(`      </div>`);
@@ -570,15 +574,24 @@ include '../_include/_header_partner.html';
  
         html.push(`  <button type="button" class="btn-more off">자세히 보기</button>`);
         html.push(`  <div class="table-form-box mt12" style="display: none;">`);
-        html.push(`  <div class="title-box mt12"><h3>24시간 의료 서비스</h3></div><p class="common-txt01">여행 중 24시간 의료 상담 서비스 제공(원격진료, 전문의상담, 응급의료 상담 등)</p>`);
-        html.push(`  <div class="title-box mt12"><h3>현지 병원예약</h3></div><p class="common-txt01">여행 중 현지 병원 방문 필요 시 증상에 맞는 제휴병원 추천 및 예약 서비스 제공</p>`);
-        html.push(`  <div class="title-box mt12"><h3>해외병원비 대신지불 (지불보증)</h3></div><p class="common-txt01">가입한 보험 한도 내에서 발생한 병원비를 대신 지불해주는 서비스</p>`);
-        html.push(`  <div class="title-box mt12"><h3>원격화상진료</h3></div><p class="common-txt01">휴대폰을 통해 간편하게 원격진료 서비스 제공</p>`);
-        html.push(`  <div class="title-box mt12"><h3>여행 출국 전 정보</h3></div><p class="common-txt01">출국 전 여행지 정보 제공(기후, 환율, 교통 및 숙박 등)</p>`);
-        html.push(`  <div class="title-box mt12"><h3>수화물 분실 및 여권분실 시 지원</h3></div><p class="common-txt01">여행지에서 여권 및 수화물 분실 시 도움받을 수 있는 절차 안내 서비스</p>`);
-        html.push(`  <div class="title-box mt12"><h3>긴급 통역 지원</h3></div><p class="common-txt01">병원 방문 시 의료통역 서비스 제공</p>`);
-        html.push(`  <div class="title-box mt12"><h3>예방접종 및 비자요건 정보</h3></div><p class="common-txt01">여행지별 필요 예방접종 및 비자에 대한 정보 제공</p>`);
-        html.push(`  <div class="title-box mt12"><h3>법률 관련 알선</h3></div><p class="common-txt01">여행 중 사고 발생 시 법률 관련 변호사 알선</p>`);
+        // yjhdev 수정
+        html.push(`  <div class="title-box mt12"><h3>국가내 의료이송 4천만원 보장</h3></div>`);
+        html.push(`  <div class="title-box mt12"><h3>유해송환 4천만원 보장</h3></div>`);
+        html.push(`  <div class="title-box mt12"><h3>인접국 의료이송 무제한 보장</h3></div>`);
+        html.push(`  <div class="title-box mt12"><h3>본국 의료이송 무제한 보장</h3></div>`);
+        html.push(`  <div class="title-box mt12"><h3>보안이송 2천만원 보장</h3></div>`);
+        html.push(`  <div class="title-box mt12"><h3>간병인 항공편 이코노미 항공권 지원</h3></div>`);
+        html.push(`  <div class="title-box mt12"><h3>자녀송환 시 동반 친/인척 항공편 이코노미 항공권 지원</h3></div>`);
+
+       // html.push(`  <div class="title-box mt12"><h3>24시간 의료 서비스</h3></div><p class="common-txt01">여행 중 24시간 의료 상담 서비스 제공(원격진료, 전문의상담, 응급의료 상담 등)</p>`);
+       // html.push(`  <div class="title-box mt12"><h3>현지 병원예약</h3></div><p class="common-txt01">여행 중 현지 병원 방문 필요 시 증상에 맞는 제휴병원 추천 및 예약 서비스 제공</p>`);
+       // html.push(`  <div class="title-box mt12"><h3>해외병원비 대신지불 (지불보증)</h3></div><p class="common-txt01">가입한 보험 한도 내에서 발생한 병원비를 대신 지불해주는 서비스</p>`);
+       // html.push(`  <div class="title-box mt12"><h3>원격화상진료</h3></div><p class="common-txt01">휴대폰을 통해 간편하게 원격진료 서비스 제공</p>`);
+       // html.push(`  <div class="title-box mt12"><h3>여행 출국 전 정보</h3></div><p class="common-txt01">출국 전 여행지 정보 제공(기후, 환율, 교통 및 숙박 등)</p>`);
+       // html.push(`  <div class="title-box mt12"><h3>수화물 분실 및 여권분실 시 지원</h3></div><p class="common-txt01">여행지에서 여권 및 수화물 분실 시 도움받을 수 있는 절차 안내 서비스</p>`);
+       // html.push(`  <div class="title-box mt12"><h3>긴급 통역 지원</h3></div><p class="common-txt01">병원 방문 시 의료통역 서비스 제공</p>`);
+       // html.push(`  <div class="title-box mt12"><h3>예방접종 및 비자요건 정보</h3></div><p class="common-txt01">여행지별 필요 예방접종 및 비자에 대한 정보 제공</p>`);
+       // html.push(`  <div class="title-box mt12"><h3>법률 관련 알선</h3></div><p class="common-txt01">여행 중 사고 발생 시 법률 관련 변호사 알선</p>`);
 
         // html.push(`    <ul>`);
       }
@@ -599,6 +612,7 @@ include '../_include/_header_partner.html';
     // html.push(`    </ul>`);
     // html.push(`  </div>`);
     html.push(`</div>`);
+    html.push(`</div>`);
 
     if (Array.isArray(optionServices) && optionServices.length > 0) {
       // 건강검진, 긴급이후송 서비스 항목
@@ -610,7 +624,7 @@ include '../_include/_header_partner.html';
         if (idx === 0) {
           html.push(`<div class="white-box middle mt24">`);
           html.push(`  <div class="title-state-box">`);
-          html.push(`    <strong class="memo">긴급이후송</strong>`);
+          html.push(`    <strong class="memo">해외 의료 및 보안지원 서비스</strong>`);
           html.push(`  </div>`);
         }
 
@@ -640,13 +654,20 @@ include '../_include/_header_partner.html';
           // html.push(`  <p class="common-txt01">${message}</p>`);
           html.push(`  <button type="button" class="btn-more off">자세히 보기</button>`);
           html.push(`  <div class="table-form-box mt12" style="display: none;">`);
-          html.push(`  <div class="title-box mt12"><h3>국가내 의료이송 2천만원 보장</h3></div><p class="common-txt01">의료진 동반 의료시설 후송 서비스</p>`);
-          html.push(`  <div class="title-box mt12"><h3>인접국 의료이송 1억원 보장</h3></div><p class="common-txt01">응급상황 시 치료가능한 인접국으로 이송 서비스</p>`);
-          html.push(`  <div class="title-box mt12"><h3>긴급의료 본국이송 (에어앰뷸런스) 2억원 보장</h3></div><p class="common-txt01">질병 또는 사고로 인한 한국 이송 필요 시 에어엠뷸런스 이송 서비스</p>`);
-          html.push(`  <div class="title-box mt12"><h3>긴급의료 본국이송 (일반항공) 2천만원 보장</h3></div><p class="common-txt01">질병 또는 사고로 인한 한국 이송 필요 시 일반항공 이송 서비스</p>`);
-          html.push(`  <div class="title-box mt12"><h3>유해송환 2천만원 보장</h3></div><p class="common-txt01">사망 시 유해송환 절차 지원 서비스</p>`);
-          html.push(`  <div class="title-box mt12"><h3>간병 친/인척 항공편</h3></div><p class="common-txt01">간병 목적의 친/인척 출국 시 이코노미 항공요금 지원 서비스</p>`);
-          html.push(`  <div class="title-box mt12"><h3>자녀동반 귀국 시 항공편</h3></div><p class="common-txt01">가입자 응급상황 발생 시, 15세 미만 자녀 및 친/인척 귀국 항공요금 지원 서비스</p>`);
+          html.push(`  <div class="title-box mt12"><h3>의료 보안상담 및 조언 서비스 제공</h3></div>`);
+          html.push(`  <div class="title-box mt12"><h3>의료시설 안내 및 예약 서비스 제공</h3></div>`);
+          html.push(`  <div class="title-box mt12"><h3>입원수속 지원 및 의료 모니터링 서비스 제공</h3></div>`);
+          html.push(`  <div class="title-box mt12"><h3>심리상담 및 의료통역 서비스 제공</h3></div>`);
+          html.push(`  <div class="title-box mt12"><h3>의료비 지불보증 서비스 제공</h3></div>`);
+          html.push(`  <div class="title-box mt12"><h3>국가별 의료보안정보 제공</h3></div>`);
+  
+        //   html.push(`  <div class="title-box mt12"><h3>국가내 의료이송 2천만원 보장</h3></div><p class="common-txt01">의료진 동반 의료시설 후송 서비스</p>`);
+        //   html.push(`  <div class="title-box mt12"><h3>인접국 의료이송 1억원 보장</h3></div><p class="common-txt01">응급상황 시 치료가능한 인접국으로 이송 서비스</p>`);
+        //   html.push(`  <div class="title-box mt12"><h3>긴급의료 본국이송 (에어앰뷸런스) 2억원 보장</h3></div><p class="common-txt01">질병 또는 사고로 인한 한국 이송 필요 시 에어엠뷸런스 이송 서비스</p>`);
+        //   html.push(`  <div class="title-box mt12"><h3>긴급의료 본국이송 (일반항공) 2천만원 보장</h3></div><p class="common-txt01">질병 또는 사고로 인한 한국 이송 필요 시 일반항공 이송 서비스</p>`);
+        //   html.push(`  <div class="title-box mt12"><h3>유해송환 2천만원 보장</h3></div><p class="common-txt01">사망 시 유해송환 절차 지원 서비스</p>`);
+        //   html.push(`  <div class="title-box mt12"><h3>간병 친/인척 항공편</h3></div><p class="common-txt01">간병 목적의 친/인척 출국 시 이코노미 항공요금 지원 서비스</p>`);
+        //   html.push(`  <div class="title-box mt12"><h3>자녀동반 귀국 시 항공편</h3></div><p class="common-txt01">가입자 응급상황 발생 시, 15세 미만 자녀 및 친/인척 귀국 항공요금 지원 서비스</p>`);
 
         //   html.push(`    <ul>`);
         }

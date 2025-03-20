@@ -1,6 +1,7 @@
 <?
 	########################################
 	#### 공지글을 가져온다. ####
+
 	if ($bc_notice_use == "Y") {
 		$field = " * ";
 //		if ($bc_category_use == "Y") {
@@ -16,7 +17,7 @@
 		}
 
 		$table = "tbl_board_".$bc_id." A";
-		$where = " and notice = 'Y' ";
+		$where = " and notice = 'Y' "; 
 		$where .= $query_where;
 		if ( !($bc_hidden_use == "Y" && $auth_hidden) ) { $where .= " and hidden <> 'Y' ";}
 		if ($auth_level < $auth_admin ) $where .= " and hidden <> 'D' ";
@@ -29,6 +30,7 @@
 
 		$total_Notice = $ArrNoticeRs[0];
 	}
+ 
 	########################################
 
 //	echo "query_where : ".$query_where."<BR>";
@@ -70,12 +72,12 @@
 	$total_page = ceil($total_record/$num_per_page);
 	$no = $total_record - $first;
 
-	########################################
+	########################################  
 
 	//echo $bc_skin."<BR>";
-
+    // echo $path_skin_board.$bc_skin; 
 	include_once $path_skin_board.$bc_skin."/list_top.php";
-
+    // echo "2"; 
 	#### 공지글 시작 ####
 	if ($bc_notice_use == "Y") {
 		if ( $total_Notice > 0 ) {
@@ -259,7 +261,8 @@
 		}
 		unset($ArrNoticeRs);
 	}
-	#### 공지글 끝 ####
+
+      #### 공지글 끝 ####
 ?>
 
 <?
@@ -540,8 +543,10 @@
 				}
 			}
 		}
+      
 	}
 	else {
+       
 		$list_type = "null";
 		include $path_skin_board.$bc_skin."/list_middle.php";
 	}

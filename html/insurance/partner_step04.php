@@ -1,8 +1,8 @@
 <?php
 include '../_include/_header_partner.html';
-include_once $_SERVER["DOCUMENT_ROOT"] . "/_config/lib.php";
-include $_SERVER["DOCUMENT_ROOT"] . "/_config/Mobile_Detect.php";
-include_once $_SERVER["DOCUMENT_ROOT"] . "/_config/Func.insurance.php"; //추가
+include_once $_SERVER['DOCUMENT_ROOT'] . '/_config/lib.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/_config/Mobile_Detect.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/_config/Func.insurance.php';  // 추가
 $detect = new Mobile_Detect;
 ?>
 <section>
@@ -67,7 +67,8 @@ $detect = new Mobile_Detect;
                 <div class="name">결제금액</div>
                 <div class="amount">0원</div>
               </div>
-              <div class="multi-row">
+              <!-- yjhdev -->
+              <!-- <div class="multi-row">
                 <div class="row">
                   <div class="name">여행자보험</div>
                   <div class="amount">0원</div>
@@ -80,7 +81,7 @@ $detect = new Mobile_Detect;
                   <div class="name">긴급이후송</div>
                   <div class="amount">0원(서비스 이용권 혜택가)</div>
                 </div>
-              </div>
+              </div> -->
             </div>
             <div class="title-box mt24">
               <h3>결제방법</h3>
@@ -132,9 +133,9 @@ $detect = new Mobile_Detect;
 
 <!-- // 레이어 팝업 -->
 <!-- 이니시스 표준결제 js -->
-<? if (SERVER_CHECK == "DEV") { ?>
+<? if (SERVER_CHECK == 'DEV') { ?>
   <script language="javascript" type="text/javascript" src="https://stgstdpay.inicis.com/stdjs/INIStdPay.js" charset="UTF-8"></script>
-<? } else if (SERVER_CHECK == "REAL") { ?>
+<? } else if (SERVER_CHECK == 'REAL') { ?>
   <script language="javascript" type="text/javascript" src="https://stdpay.inicis.com/stdjs/INIStdPay.js" charset="UTF-8"></script>
 <? } ?>
 <script src="./js/swiper.js?a=1"></script>
@@ -198,7 +199,8 @@ $detect = new Mobile_Detect;
     // 결제 금액 업데이트
     document.querySelector('#payment-info .single-row .amount').textContent = `${customer.totalPrice.toLocaleString('ko-KR')} 원`;
     // 여행자보험 금액 업데이트
-    document.querySelector('#payment-info .multi-row .row:nth-child(1) .amount').textContent = `${customer.totalPrice.toLocaleString('ko-KR')} 원`;
+    // yjhdev
+    // document.querySelector('#payment-info .multi-row .row:nth-child(1) .amount').textContent = `${customer.totalPrice.toLocaleString('ko-KR')} 원`;
 
   }
   window.addEventListener('load', (e) => {

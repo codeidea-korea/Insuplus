@@ -21,7 +21,9 @@
 <table width="100%" cellpadding="0" cellspacing="0" border="0">
 	<tr>
 		<td>
+
 		<?php
+        // echo $path_board;// /app/projects/insuplus/_util/board/
 			$bc_id = "product";
 			$sorder=" sort_order desc ,seq desc";
 			include_once $path_board."board.php";

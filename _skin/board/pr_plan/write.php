@@ -692,7 +692,7 @@ if ($client_mode == "Y") {
         </tr>
       <? } ?>
       <tr>
-        <th>상품명</th>
+        <th>상품명1</th>
         <td>
           <select name="pr_cd" onchange="chr_pr(this.value, <?= $seq ?>);">
             <option value="">:: 선택 ::</option>
