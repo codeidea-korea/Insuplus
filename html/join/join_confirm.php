@@ -71,12 +71,14 @@ include '../_include/_sidebar.html';
                                 </div>  
                             </div>
 						</div>
+                        <p class="m-t-2">※ 5회 연속 실패 시,  인증번호를 재발급 받아야 하니 유의해 주세요.</p>
 						<div class='row m-t-2'> 
 							<div class='col-md-4 col-md-offset-4 col-sm-6 col-xs-6 col-sm-offset-3 col-xs-offset-3'>
                             <a href='javascript:chk_submit();' class='btn btn-lg btn-block btn-theme-bg'>조회하기</a>
 							</div>
 						</div>
 					</div>
+                   
 					<div class='bg-light-yellow p-a-1 m-t-2 text-left'>
 						<h5 class='text-black m-b-1'><img src="../images/ic-noti.svg" align="absmiddle" alt="" height="24" />&nbsp;알려드립니다.</h5>
 						<ul class='icons list-unstyled'>
@@ -92,7 +94,7 @@ include '../_include/_sidebar.html';
 		</div> 
 	</div>
 </form>
-<script type="text/javascript">
+<script type="text/javascript"> 
 
     let certiNum = '';
     let cert = false;
