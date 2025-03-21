@@ -1,12 +1,12 @@
 <?
 	include_once $_SERVER["DOCUMENT_ROOT"]."/_config/lib.php";
-	admin_chk($auth_admin, $url_admin_login_out);// 관리자 체크
+	admin_chk($auth_admin, '/admin/mn1/join_list.php');// 관리자 체크
 
 	//$dbcon -> setDebug(1);
 	$page_btn_prev =">>"; // > 버튼
 	$page_btn_next ="<<"; // < 버튼
 
-	// 페이지 설정
+	// 페이지 설정 
 	$page				= REQSTR($page, 1);
 	$num_per_page	= REQSTR($num_per_page, 10);
 	$page_per_block	= REQSTR($page_per_block, 10);
