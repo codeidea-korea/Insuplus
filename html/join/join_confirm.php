@@ -30,7 +30,7 @@ include '../_include/_sidebar.html';
 	</div>
 </div>
 <div class="breadcrumb-wrap">
-	<div class="container"> 
+	<div class="container">  
 		<ol class="breadcrumb">
 			<li><a href="../main/index.php">InsuPlus HOME</a></li>
 			<li>가입확인</li>
