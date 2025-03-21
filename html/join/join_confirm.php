@@ -155,10 +155,10 @@ include '../_include/_sidebar.html';
             url: 'join_confirm_ajax.php',
             type: 'post', 
             data: {
-                'mobile': mobile
+                'mobile': mobile 
             },
             success: function (data) {
-                alert('인증번호가 발송되었습니다.'+data);
+                alert('인증번호가 발송되었습니다.');
                 $("#hp").attr('readonly', true);
                 certiNum = data.trim();
             },
@@ -170,7 +170,7 @@ include '../_include/_sidebar.html';
     }
 
     function validatePhoneNumber(phoneNumber) {
-  
+   
     const regex = /^01(?:0|1|[6-9])(?:\d{3}|\d{4})\d{4}$/;
     return regex.test(phoneNumber);
     }
