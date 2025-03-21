@@ -54,7 +54,7 @@ if (!$RS_V){
 		<div class="breadcrumb-image">
 			<div class="container">
 				<h2>가입확인</h2>
-				<h4>가입내역 및 쿠폰내역을 확인해 주세요</h4>
+				<h4>가입내역 및 쿠폰내역을 확인해 주세요</h4> 
 			</div>
 		</div>
 		<div class="breadcrumb-wrap">

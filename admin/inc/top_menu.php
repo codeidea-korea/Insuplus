@@ -131,12 +131,12 @@ $(document).ready(function(){
 
 
 								<?
-								if ( $sc_menu_member == "Y" && $ss_u_level > 8) {
+								if ( $sc_menu_member == "Y" && $ss_u_level > 98) { 
 							    // 회원관리
 								?>
 								<td><a href="<?=$url_admin?>member/member_list.php">회원관리</a></td>
 								<?
-								}
+								} 
 								if (  $ss_u_level > 8) {
 							    // 게시판 관리
 								?>
