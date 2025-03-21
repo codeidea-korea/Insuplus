@@ -14,7 +14,7 @@ if (!$orderno || !$chk1 || !$chk2){
 }
 
 // 가입가입내역 검색
-$SQL_V = "select * from tbl_order_list where orderno in (select orderno from tbl_order_list_join where o_phone = '".$_SESSION["enc_hp"]."' and o_isdn2='".$_SESSION["enc_rnumber"]."' and orderno='".$orderno."' and chk_join='N')";
+$SQL_V = "select * from tbl_order_list where orderno in (select orderno from tbl_order_list_join where o_phone = '".$_SESSION["enc_hp"]."' and o_name='".$_SESSION["enc_nm"]."' and orderno='".$orderno."' and chk_join='N')";
 $RS_V = $dbcon -> query($SQL_V);
 if (!$RS_V){
 	echo "<script>alert('해당 가입내역이 없습니다.');</script>";

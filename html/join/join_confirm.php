@@ -104,7 +104,7 @@ include '../_include/_sidebar.html';
         }
 
         if(failCount > 5){
-            alert("인증번호를 5회 연속 실패하였습니다. \n [인증받기] 재시도 후 다시 입력해주세요.");
+            alert("인증번호를 5회 연속 실패하였습니다. \n[인증받기] 재시도 후 다시 입력해주세요.");
             certiNum ='';
             return;
         }
@@ -113,7 +113,7 @@ include '../_include/_sidebar.html';
             cert = true;
             alert("인증번호가 확인되었습니다.");
         }else{
-            alert("인증번호가 일치하지않습니다. \n 다시입력해주세요. \n 실패횟수 : "+failCount+" 회");
+            alert("인증번호가 일치하지않습니다. \n다시입력해주세요. \n실패횟수 : "+failCount+" 회");
             failCount++;
             return false;
         }
@@ -158,7 +158,7 @@ include '../_include/_sidebar.html';
                 'mobile': mobile
             },
             success: function (data) {
-                alert('인증번호가 발송되었습니다.');
+                alert('인증번호가 발송되었습니다.'+data);
                 $("#hp").attr('readonly', true);
                 certiNum = data.trim();
             },
