@@ -138,8 +138,8 @@ $log = new log();
 				       ******************************************************************************/
                       // 20250316 yjhzzzzdev 수정
                       if ($resultMap["payMethod"]=="Card" || $resultMap["payMethod"]=="VCard"){$pay_name = "CARD / ".$resultMap["CARD_PurchaseName"];$order_step = "2"; $join_status="Y";}
-                      if ($resultMap["payMethod"]=="HPP" || $resultMap["payMethod"]=="MOBILE"){$pay_name = "HPP";$order_step = "2";$join_status="Y";}
-                      if ($resultMap["payMethod"]=="VBank"){$pay_name = "가상계좌 / ".$resultMap["vactBankName"]; $VACT_Num= $resultMap["VACT_Num"];}
+                      if ($resultMap["payMethod"]=="HPP" || $resultMap["payMethod"]=="MOBILE"){$pay_name = "HPP";$order_step = "2";$join_status="Y";} 
+                      if ($resultMap["payMethod"]=="VBank"){$pay_name = "가상계좌 / ".$resultMap["vactBankName"]; $VACT_Num= $resultMap["VACT_Num"];$order_step = "1"; $join_status="W";} 
                       //    if ($resultMap["payMethod"]=="Card" || $resultMap["payMethod"]=="VCard"){$pay_name = "CARD / ".$resultMap["CARD_PurchaseName"]." / ".$resultMap["CARD_Num"]." ";$order_step = "2"; $join_status="Y";}
 					//    if ($resultMap["payMethod"]=="HPP" || $resultMap["payMethod"]=="MOBILE"){$pay_name = "HPP";$order_step = "2";$join_status="Y";}
 					//    if ($resultMap["payMethod"]=="VBank"){$pay_name = "가상계좌 / ".$resultMap["vactBankName"]." / ".$resultMap["VACT_Num"]."";$order_step = "1"; $join_status="W";}

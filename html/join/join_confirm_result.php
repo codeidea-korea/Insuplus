@@ -6,16 +6,16 @@ include "../_include/_sidebar.html";
 <?
 // 전화번호와 주민등록번호에 대한 부분처리
 $hp = $_POST["hp"];
-$rnumber = $_POST["rnumber"];
+$nm = $_POST["nm"];
 
 if ($_POST["hp"]) {
 	$_SESSION["enc_hp"] = all_seed_enc($hp);
 }
-if ($_POST["rnumber"]) {
-	$_SESSION["enc_rnumber"] = all_seed_enc($rnumber);
+if ($_POST["nm"]) {
+	$_SESSION["enc_nm"] = all_seed_enc($nm);
 }
 
-if (!$_SESSION["enc_hp"] || !$_SESSION["enc_rnumber"]) {
+if (!$_SESSION["enc_hp"] || !$_SESSION["enc_nm"]) {
 	echo "<script>alert('잘못된 경로로 입장하셨습니다.');</script>";
 	exit;
 }
@@ -24,7 +24,7 @@ if (!$_SESSION["enc_hp"] || !$_SESSION["enc_rnumber"]) {
 $SQL_J_list  = "select * ";
 $SQL_J_list .= " , (SELECT plan_cd FROM tbl_board_plan WHERE seq = o.plan_cd ) as plan ";
 $SQL_J_list .= " , (SELECT guarantee1_ins_seq FROM tbl_board_plan WHERE seq = o.plan_cd ) as guarantee1_ins_seq ";
-$SQL_J_list .= " from tbl_order_list o where orderno in (select orderno from tbl_order_list_join where o_phone = '" . $_SESSION["enc_hp"] . "' and o_isdn2='" . $_SESSION["enc_rnumber"] . "' and chk_join='N') order by seq desc ";
+$SQL_J_list .= " from tbl_order_list o where orderno in (select orderno from tbl_order_list_join where o_phone = '" . $_SESSION["enc_hp"] . "' and o_name = '" . $_SESSION["enc_nm"] . "' and chk_join='N') order by seq desc ";
 //echo $SQL_J_list;
 $RS_J_list = $dbcon->query($SQL_J_list);
 $join_data = array(); //가입데이터

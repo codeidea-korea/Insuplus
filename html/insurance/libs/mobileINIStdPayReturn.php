@@ -233,7 +233,7 @@ $inimx = new INImx;
 				처리중 에러 발생시 망취소를 한다.
 			******************************************************************************/
           // 20250316 yjhzzzzdev 수정
-            
+            $m_vacct = '';
 			if ($inimx->m_payMethod=="CARD"){
 					$order_step = "2"; 
 					$join_status="Y";
@@ -248,6 +248,7 @@ $inimx = new INImx;
 				$order_step = "1"; 
 				$join_status="W";
 				$pay_name = "가상계좌 / ".$Bank_Name;
+                $m_vacct = $inimx->m_vacct;
 			}
 
         //     if ($inimx->m_payMethod=="CARD"){
@@ -500,7 +501,7 @@ $inimx = new INImx;
 					//추가 알림톡
 					$arr_pay_name = explode("/", $param["pay_name"]);
 					$param["bank"] = $arr_pay_name[1];
-					$param["account"] = $arr_pay_name[2];
+					$param["account"] = $m_vacct;
 					kakaoJoinBankInfo($param, $mobile);
 				}
 			}  else {
@@ -521,7 +522,7 @@ $inimx = new INImx;
 					//추가 알림톡
 					$arr_pay_name = explode("/",$param["pay_name"]);
 					$param["bank"] = $arr_pay_name[1];
-					$param["account"] = $arr_pay_name[2];
+					$param["account"] = $m_vacct;
 					kakaoJoinBankInfo($param,$mobile);
 				}
 			}
