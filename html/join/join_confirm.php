@@ -104,7 +104,7 @@ include '../_include/_sidebar.html';
         }
 
         if(failCount > 5){
-            alert("인증번호를 5회 연속 실패하였습니다. \n[인증받기] 재시도 후 다시 입력해주세요.");
+            alert("인증번호를 5회 연속 실패하였습니다. \n페이지 새로고침하신 뒤 [인증받기] 재시도 후 다시 입력해주세요.");
             certiNum ='';
             return;
         }
