@@ -25,12 +25,12 @@ $SQL_J_list  = "select * ";
 $SQL_J_list .= " , (SELECT plan_cd FROM tbl_board_plan WHERE seq = o.plan_cd ) as plan ";
 $SQL_J_list .= " , (SELECT guarantee1_ins_seq FROM tbl_board_plan WHERE seq = o.plan_cd ) as guarantee1_ins_seq ";
 $SQL_J_list .= " from tbl_order_list o where orderno in (select orderno from tbl_order_list_join where o_phone = '" . $_SESSION["enc_hp"] . "' and o_name = '" . $_SESSION["enc_nm"] . "' and chk_join='N') order by seq desc ";
-//echo $SQL_J_list;
+// echo $SQL_J_list;
 $RS_J_list = $dbcon->query($SQL_J_list);
 $join_data = array(); //가입데이터
 
 while ($row = $dbcon->fetch_array($RS_J_list)) {
-	$join_data[] = $row;
+	$join_data[] = $row; 
 }
 
 
