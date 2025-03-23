@@ -92,11 +92,13 @@ body {
 </div>
 </body>
 <script>
-    $(document).ready(function(){
-      $("input[type='text'], input[type='password']").each(function(){
-        $(this).val("");
-      });
-    });
+  document.addEventListener('DOMContentLoaded', function() {
+  const textAndPasswordInputs = document.querySelectorAll("input[type='text'], input[type='password']");
+  
+  textAndPasswordInputs.forEach(function(input) {
+    input.value = "";
+  });
+});
 </script>
 </html>
 
