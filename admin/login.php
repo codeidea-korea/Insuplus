@@ -2,24 +2,40 @@
 	include_once $_SERVER["DOCUMENT_ROOT"]."/_config/lib.php";
 	$act					= REQSTR($act,"");
 
+    $_SESSION['auth_code'] = '';
+	$_SESSION['otpValid'] = 0; //2차인증 시도횟수
+
 	if ( $act == "ok" ) {
 		$user				= REQSTR($_POST[user],"");
 		$pass			= REQSTR($_POST[pass],"");
 
 		LoginProcess($user, $pass, 2);
-		if($_SESSION["ss_u_level"] == "7") {
-			alert_page($msg_login_ok,"/admin/mn1/join_partner_list.php");
-		} else if($_SESSION["ss_u_level"] == "6") {
-			alert_page($msg_login_ok,"/admin/mn1/join_ins_list.php");
-		} else {
-			// alert_page($msg_login_ok,$url_admin_login_ok);
-			alert_page("",$url_admin_login_ok);
-		}
-	}
+
+		echo $_SESSION['ss_u_email'];
+        if($_SESSION['ss_u_email'] != '@' ){
+            // 인증 성공
+            $authCode = random_int(100000, 999999); // 6자리 난수 생성
+            $_SESSION['auth_code'] = $authCode; // 세션에 저장 
+            $_SESSION['is_authenticated'] = false; // 2차 인증 완료 전 상태
+			$emailAddr = $_SESSION['ss_u_email'];
+            //$emailAddr = "rbswsky@naver.com";
+        	include_once $_SERVER["DOCUMENT_ROOT"]."/admin/mailer.php";
+        	header('Location: verify.php');
+        } else {
+            if($_SESSION["ss_u_level"] == "7") {
+                alert_page($msg_login_ok,"/admin/mn1/join_partner_list.php");
+            } else if($_SESSION["ss_u_level"] == "6") { 
+                alert_page($msg_login_ok,"/admin/mn1/join_ins_list.php");
+            } else {
+                // alert_page($msg_login_ok,$url_admin_login_ok);
+                alert_page("",$url_admin_login_ok);
+            }
+		} 
+	} 
 
 	$dbcon -> dbcon_close();
-?>
 
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
