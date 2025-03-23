@@ -9,7 +9,7 @@ include $path_admin . "inc/header.php";
 <?
 $page_btn_prev = ">>"; // > 버튼
 $page_btn_next = "<<"; // < 버튼
-  
+
 // 페이지 설정
 $page          = REQSTR($page, 1);
 $num_per_page      = REQSTR($num_per_page, 30);
@@ -41,7 +41,6 @@ $search_sort      = REQSTR($search_sort, "");
 $search_date_txt    = REQSTR($search_date_txt, "");
 $search_date_s      = REQSTR($search_date_s, "");
 $search_date_e      = REQSTR($search_date_e, "");
-$search_ins_date_order = "";
 
 // 2023-11-08 added
 $category_cd      = REQSTR($category_cd  , "");
@@ -72,26 +71,13 @@ if (is_null($group_join_type) || $group_join_type === "B2C") {
 }
 if (strlen($client_id) > 0) $query_where .= "and 1 = (select COUNT(*) from tbl_order_group_join_list where group_join_id = A.group_join_id and client_id = " . $client_id . ")";
 
-if (strlen($search_date_s) > 0) {
-  if($search_date_txt == 'A.s_date' || $search_date_txt == 'A.e_date') {
-    $query_where .= " and " . $search_date_txt . " >= '" . $search_date_s . "' ";
-  } else {
-    $query_where .= " and " . $search_date_txt . " >= '" . $search_date_s . " 00:00:00' ";
-  }
-}
-if (strlen($search_date_e) > 0) {
-  if($search_date_txt == 'A.s_date' || $search_date_txt == 'A.e_date') {
-    $query_where .= " and " . $search_date_txt . " <= '" . $search_date_e . "' ";
-  } else {
-    $query_where .= " and " . $search_date_txt . " <= '" . $search_date_e . " 23:59:59' ";
-  }
-}
 
-if($search_date_txt == 'A.s_date' || $search_date_txt == 'A.e_date') {
-  $search_orderby = $search_date_txt . " asc, " . $search_date_txt . "_time asc";
-} else {
-  $search_orderby = " A.seq desc";
-}
+if (strlen($search_date_s) > 0) $query_where .= " and " . $search_date_txt . " >= '" . $search_date_s . " 00:00:00' ";
+if (strlen($search_date_e) > 0) $query_where .= " and " . $search_date_txt . " <= '" . $search_date_e . " 23:59:59' ";
+
+
+if (strlen($search_orderby) == 0) $search_orderby .= " A.seq ";
+if (strlen($search_sort) == 0) $search_sort .= "desc";
 
 $parameter = "&pr_name=" . $pr_name . "&ins_name=" . $ins_name . "&plan_name=" . $plan_name . "&chk_service=" . $chk_service .
   "&search=" . $search . "&search_text=" . $search_text . "&search_orderby=" . $search_orderby .
@@ -108,19 +94,18 @@ $field         = " A.*, B.*, C.partnership_name as partnership_name, D.guarantee
 
 $table      = " tbl_order_list A inner join tbl_order_list_join B on A.orderno=B.orderno left join tbl_board_partner C ON A.join_ch = C.seq left join tbl_board_plan D on A.plan_cd = D.seq ";
 $where      = $query_where;
-$orderby      = $search_orderby;
+$orderby      = $search_orderby . " " . $search_sort;
 $limit        = $first . ", " . $num_per_page;
 // 20250316 yjhzzzzdev - 조건문 없으면 검색 X
 $ArrRS =[];
 if(isset($where) && $where) {
     $ArrRS      = $dbcon->getList($field, $table, $where, $orderby, $limit);
 }
-
 $total_record  = $ArrRS[0];
 $result      = $ArrRS[1];
 unset($ArrRS);
 
-// 페이지 & 리스트 설정 
+// 페이지 & 리스트 설정
 $total_page    = ceil($total_record / $num_per_page);
 $no        = $total_record - $first;
 
@@ -144,15 +129,50 @@ var clareCalendar = {<?= $calendar_opt ?>});
   }
 
   function excel_go(name) {
-    if (name == 'all') {
-      location.href = 'excel_join.php?mode=excel&<?= $GLOBALS["parameter"] ?>';
-    } else if (name == 'hanwha') {
-      location.href = 'excel_hanwha.php?mode=excel&<?= $GLOBALS["parameter"] ?>';
-    } else if (name == 'hyundai') {
-      location.href = 'excel_hyundai.php?mode=excel&<?= $GLOBALS["parameter"] ?>';
-    } else if (name == 'meritz') {
-      location.href = 'excel_meritz.php?mode=excel&<?= $GLOBALS["parameter"] ?>';
-    }
+    $('#popupOverlay').fadeIn();
+    $('#popup').fadeIn();
+    $('#excel_type').val(name);
+  }
+
+  function excelReason(name){
+  var reason = $('#reason').val().trim();
+
+      if (!reason) {
+          alert('사유를 입력해 주세요.');
+          return;
+      }
+
+      var nameList = {"all":"가입자 : 전체 가입자 엑셀 다운로드", "hanwha":"가입자 :한화손해보험 엑셀 다운로드", "hyundai":"가입자 :현대해상 엑셀 다운로드", "meritz":"가입자 :메리츠보험 엑셀 다운로드"};
+
+      // Ajax로 사유 저장
+      $.ajax({
+          type: 'POST',
+          url: '../ajax_excel_reason.php',
+          data: { program: nameList[name], reason: reason },
+          dataType: 'json',
+          success: function (response) {
+              if (response.success) {
+                  if (name == 'all') {
+                    location.href = 'excel_join.php?mode=excel&<?= $GLOBALS["parameter"] ?>';
+                  } else if (name == 'hanwha') {
+                    location.href = 'excel_hanwha.php?mode=excel&<?= $GLOBALS["parameter"] ?>';
+                  } else if (name == 'hyundai') {
+                    location.href = 'excel_hyundai.php?mode=excel&<?= $GLOBALS["parameter"] ?>';
+                  } else if (name == 'meritz') {
+                    location.href = 'excel_meritz.php?mode=excel&<?= $GLOBALS["parameter"] ?>';
+                  }
+                  $('#popupOverlay').fadeOut();
+                  $('#popup').fadeOut();
+              } else {
+                  alert('사유 저장 실패! 다시 시도해 주세요.');
+              }
+          },
+          error: function () {
+            alert('서버 오류가 발생했습니다.');
+          }
+      });
+      $("#excel_type").val('');
+      $("#reason").val('');
   }
 
   function pop_client() {
@@ -355,8 +375,8 @@ window.addEventListener('load', ()=>{
             <th>가입자</th>
             <td>
               <select name="search">
-                <option value="o_name" <? if ($search == "o_name") { ?>selected<? } ?>>이름</option>
                 <option value="o_phone" <? if ($search == "o_phone") { ?>selected<? } ?>>휴대폰번호</option>
+                <option value="o_name" <? if ($search == "o_name") { ?>selected<? } ?>>이름</option>
                 <option value="orderno" <? if ($search == "orderno") { ?>selected<? } ?>>주문번호</option>
               </select>
               <input type="text" name="search_text" class="w400" value="<?= $search_text ?>" style="margin-left: 10px;" />
@@ -518,7 +538,7 @@ window.addEventListener('load', ()=>{
 </table>
 
 
-
+<? include_once $path_admin . "inc/reason_popup.php"; ?>
 
 
 <? include $path_admin . "inc/footer.php"; ?>
