@@ -84,7 +84,7 @@ body {
 <p class="txt1">Administrator</p>
 <form name="form1" action="" method="post" onSubmit="return checkForm();">
 <input type="hidden" name="act" value="ok">
-	<p><input type="text" name="user" value="" autocomplete="false" maxlength="20" tabindex="1" placeholder="아이디"></p>
+	<p><input type="text" name="user" value="" autocomplete="off" maxlength="20" tabindex="1" placeholder="아이디"></p>
 	<p><input type="password" name="pass" value="" maxlength="20" tabindex="2" placeholder="비밀번호" autocomplete="new-password"></p>
 	<p><input type="submit" value="로그인" /></p>
 	<p class="copyright">Copyrights © KoreaAssistance, All rights reserved.</p>
