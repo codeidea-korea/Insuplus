@@ -63,14 +63,14 @@ $url_Now = getURL();            // 다른 곳에 중복해 쓸 경우에는 getU
 	//결제정보
 	// define("MID","INIpayTest"); //가맹점 테스트 ID
 	// define("SIGNKEY","SU5JTElURV9UUklQTEVERVNfS0VZU1RS"); //가맹점 테스트 사인키 
-	
+	 
     //구 이니시스
-	// define("MID","insplus001"); //가맹점 운영 ID
-	// define("SIGNKEY","UTM2cWdEZzExVUtJMmVkeGJwL0c4QT09"); //가맹점 운영 사인키 
+	//  define("MID","insplus001"); //가맹점 운영 ID
+	//  define("SIGNKEY","UTM2cWdEZzExVUtJMmVkeGJwL0c4QT09"); //가맹점 운영 사인키 
 	
-    //신규 이니시스	  
-	 define("MID","bizinsigh1"); //가맹점 운영 ID
-	 define("SIGNKEY","bERqdzJqbTNoNEdua3hJK29vZko3UT09"); //가맹점 운영 사인키
+    //신규 이니시스	    
+	define("MID","bizinsigh1"); //가맹점 운영 ID
+	define("SIGNKEY","bERqdzJqbTNoNEdua3hJK29vZko3UT09"); //가맹점 운영 사인키
 	
 	//운영,개발여부
 	// define("SERVER_CHECK","DEV"); //개발

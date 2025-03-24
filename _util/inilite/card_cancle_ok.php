@@ -3,7 +3,6 @@ include "../common/loginchk.html";
 include $_SERVER["DOCUMENT_ROOT"]."/html/_common/dbconn.php";
 include $_SERVER["DOCUMENT_ROOT"]."/html/_common/function.php";
 
-
 //접속 권한, 네비게이션 위치 START
 $menuMcategory = "09140000";
 $SQ_mn_auth = " select admin_auth from menuCategory where catecode='".$menuMcategory."' ";
@@ -42,14 +41,15 @@ if ($mn_auth[0]){
      * 2. INIpay41 클래스의 인스턴스 생성 *
      ***************************************/
     $inipay = new INILite;
-
-
+ 
+    
     /*********************
      * 3. 취소 정보 설정 *
      *********************/
     //$inipay->m_inipayHome = "/home/endoshop/public_html/shop/_util/inilite"; //상점 수정 필요
     $inipay->m_inipayHome = $_SERVER["DOCUMENT_ROOT"]."/log/pg";
     $inipay->m_key = "SU5JTElURV9UUklQTEVERVNfS0VZU1RS"; //상점 수정 필요
+    // $inipay->m_key = "bERqdzJqbTNoNEdua3hJK29vZko3UT09"; //상점 수정 필요
     $inipay->m_ssl = "true";                //ssl지원하면 true로 셋팅해 주세요.
     $inipay->m_type = "cancel"; // 고정
     $inipay->m_log = "true";              // true로 설정하면 로그가 생성됨(적극권장)

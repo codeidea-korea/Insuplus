@@ -200,13 +200,46 @@ $RS_Ins = $dbcon->query($SQL_Ins);
 				});
 </script>
 <script>
-	function view_go(n) {
+function view_go(n) {
 		location.href = "pay_view.php?orderno=" + n + "<?= $parameter ?>";
 	}
 
 	function excel_go() {
-		location.href = "excel_payhistory.php?mode=excel&<?= $GLOBALS["parameter"] ?>";
+        $('#popupOverlay').fadeIn();
+        $('#popup').fadeIn();
 	}
+
+	function excelReason(name){
+      var reason = $('#reason').val().trim();
+
+          if (!reason) {
+              alert('사유를 입력해 주세요.');
+              return;
+          }
+
+          // Ajax로 사유 저장
+          $.ajax({
+              type: 'POST',
+              url: '../ajax_excel_reason.php',
+              data: { program: "결제내역엑셀", reason: reason },
+              dataType: 'json',
+              success: function (response) {
+                  if (response.success) {
+                      location.href = "excel_payhistory.php?mode=excel&<?= $GLOBALS["parameter"] ?>";
+                      $('#popupOverlay').fadeOut();
+                      $('#popup').fadeOut();
+                  } else {
+                      alert('사유 저장 실패! 다시 시도해 주세요.');
+                  }
+              },
+              error: function () {
+                  alert('서버 오류가 발생했습니다.');
+              }
+          });
+          $("#excel_type").val('');
+          $("#reason").val('');
+      }
+
 
 	function pop_client() {
 		var popPlan = window.open('popup_get_flying_client.php', 'popPlan', 'top=0,left=0, width=1155,height=765');
@@ -533,7 +566,7 @@ window.addEventListener('load', ()=>{
 
 
 
-
+<? include_once $path_admin . "inc/reason_popup.php"; ?>
 
 <? include $path_admin . "inc/footer.php"; ?>
 <? $dbcon->dbcon_close(); ?>
