@@ -87,7 +87,8 @@
 				//if($result_cp) { //쿠폰발행 알림톡 전송 <--쿠폰 발행 필요시 밑에 주석 처리 후 주석 해제하여 사용
 				if(1==1){ //가상계좌 이메일 알림톡 확인 용도로 변경
 					$param["name"] = all_seed_dec($row_order["o_name"]);
-					$param["pr_name"] = $row_order["pr_name"] . " " . $row_order["ins_name"] . " " . $row_order["plan_name"];
+					// $param["pr_name"] = $row_order["pr_name"] . " " . $row_order["ins_name"] . " " . $row_order["plan_name"];
+                    $param["pr_name"] = $row_order["ins_name"] . " " . $row_order["plan_name"];
 					if ($row_order["chk_service"] == "C" || $row_order["chk_service"] == "D") {
 						$param["pr_name"] .= " " . $service_nm["cd_nm"] . "타입";
 						$param["service_name"] = $service_nm["cd_nm"] . "타입";

@@ -6,9 +6,9 @@ ZIP file contains following 3 files.
   - mpriv.pem    
   - keypass.enc  
  
-Copy these 3 files to directory [key/insplus001].    
+Copy these 3 files to directory [key/bizinsigh1].    
  
-Merchant ID   : insplus001    
+Merchant ID   : bizinsigh1    
 Key Password  : 1111 
 Admin Password: 1111 
  
@@ -16,4 +16,4 @@ please visit https://iniweb.inicis.com
 for your Merchant Administration.    
 This site provides your payment transaction details and account details by calculation period.   
  
-You can also log on this site using your Merchant ID(insplus001).    
+You can also log on this site using your Merchant ID(bizinsigh1).    

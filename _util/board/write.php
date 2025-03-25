@@ -155,7 +155,7 @@
 ?>
 
 <? 
-
+// echo $path_skin_board.$bc_skin;
 include $path_skin_board.$bc_skin."/write.php";?>
 
 <script>

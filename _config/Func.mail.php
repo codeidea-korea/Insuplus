@@ -104,7 +104,8 @@ function mailJoinSend($param,$email) {
 	$body = str_replace("#{name}",$param['name'],$body);
 	$body = str_replace("#{period}",$param['period'],$body);
 	$body = str_replace("#{pr_name}",$param['pr_name'],$body);
-	$body = str_replace("#{plan_name}",$param['plan_name'],$body);
+	// $body = str_replace("#{plan_name}",$param['plan_name'],$body);
+    $body = str_replace("#{plan_name}", !empty($param['plan_name']) ? $param['plan_name'] : $param['pr_name'], $body);
 	$body = str_replace("#{amount}",number_format($param['amount']),$body);
 	$body = str_replace("#{t_amount}",number_format($param['t_amount']),$body);
 	$body = str_replace("#{domain}",$param['domain'],$body);
