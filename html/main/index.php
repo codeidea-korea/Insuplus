@@ -309,16 +309,16 @@ $_SESSION["orderno"] = "";
 				let open_flag = 'N'; // 팝업을 띄울지 여부를 설정합니다. (Y: 띄우기, N: 띄우지 않기)
 
 				// 특정 기간을 설정합니다. (예: 2024년 6월 20일 ~ 2024년 6월 30일)
-				let startDate = new Date('2024-12-26 12:00');
-				let endDate = new Date('2024-12-26 19:00');
+				let startDate = new Date('2025-03-26 12:00');
+				let endDate = new Date('2025-03-27 23:00');
 
 				// 조건에 따라 팝업을 띄웁니다.
 				if (currentDate >= startDate && currentDate <= endDate) {
-					// popupOpen('special');
-					popupOpen('noti');
+					// popupOpen('special'); 
+					popupOpen('noti-20250328');
 				} else {
 					// popupOpen('mainPopup');
-				}
+				} 
 				
 			});
 
@@ -433,6 +433,36 @@ $_SESSION["orderno"] = "";
                 </div>
 								<div style="text-align: right;">
 									<a href="javascript:;" onclick="setCookieNoti('noti', 'Y', 1);"> 오늘 그만보기</a>
+								</div>
+                <script>
+										function setCookieNoti(name, value, expiredays) {
+											var todayDate = new Date();
+											todayDate.setDate(todayDate.getDate() + expiredays);
+											document.cookie = name + "=" + escape(value) + "; path=/; expires=" + todayDate.toGMTString() + ";"
+											popupClose();
+										}
+                </script>
+            </div>
+        </div>
+    </div>
+
+    		<!-- main 팝업 처리 시작 20241224 추가 -->
+    <div class="popup-box">
+        <div class="box" data-name="noti-20250328" style="max-width: 600px">
+            <div class="popup-head">
+                <h3>서비스 제공사 변경 안내</h3>
+                <a href="javascript:;" class="close" onclick="popupClose();">닫기</a>
+            </div>
+            <div class="popup-body">
+                <div class="popup-body-text" style="display: flex; align-items: center; justify-content: center;">
+                    <a href="javascript:;">
+                        <img src="./noti-20250328_insu.png?v=1224" style="width: 100%;"/>
+                    </a>
+                </div>
+                <div class="popup-body-button">
+                </div>
+								<div style="text-align: right;">
+									<a href="javascript:;" onclick="setCookieNoti('noti-20250328', 'Y', 1);"> 오늘 그만보기</a>
 								</div>
                 <script>
 										function setCookieNoti(name, value, expiredays) {

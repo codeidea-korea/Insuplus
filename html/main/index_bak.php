@@ -20,7 +20,7 @@ $_SESSION["orderno"] = "";
 <div class="fullwidthbanner">
 	<div class="tp-banner owl-carousel owl-theme">
 		<!-- SLIDE -->
-		<?
+		<? 
 		foreach ($rs_banner as $row) {
 			$arr_img_info = setFileName($row["imgfile"])[0];
 		?>

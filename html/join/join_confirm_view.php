@@ -196,7 +196,7 @@ if (!$RS_V){
 <input type="hidden" name="mode" value="">
 <input type="hidden" name="seq" value="">
 </form>
-<form name="downForm" id="downForm" method="post">
+<form name="downForm" id="downForm" method="post"> 
 	<input type="hidden" name="mode" value="down" />
 	<input type="hidden" name="file" value="" />
 	<input type="hidden" name="filename" value="" />
@@ -207,7 +207,7 @@ if (!$RS_V){
 
 function ord_Cancle(val){
 	<? if($row_r["pg_pay_type"] != 'VBank') {?>
-	if (confirm("취소하시겠습니까? 신중히 고려 부탁드립니다.")){
+	if (confirm("취소하시겠습니까? 신중히 고려 부탁드립니다.")){ 
 	var ff = document.frm_cancle;
 	ff.orderno.value=val;
 	ff.action = "join_confirm_view_cancle_all.php";

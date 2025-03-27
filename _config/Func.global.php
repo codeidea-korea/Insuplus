@@ -1464,15 +1464,15 @@ function getFullPlanName($seq) {
 
 //제휴사 찾기
 function getPartnerSeq($partnership_code) {
-	global $dbcon;
+	global $dbcon; 
 	$today = date("Y-m-d");
 	
 	$SQL  = " SELECT seq FROM tbl_board_partner WHERE partnership_code = '".$partnership_code."' ";
 	$SQL .= " AND start_Partner_period <= '".$today."' AND end_Partner_period >= '".$today."' ORDER BY seq ASC limit 0,1 ";
-	
+	// echo $SQL ;
 	$RS = $dbcon->query($SQL);
 	$ROW = $dbcon -> fetch_array($RS);
-	
+	 
 	return $ROW["seq"];
 }
 
