@@ -310,15 +310,15 @@ $_SESSION["orderno"] = "";
 				let open_flag = 'N'; // 팝업을 띄울지 여부를 설정합니다. (Y: 띄우기, N: 띄우지 않기) 
 
 				// 특정 기간을 설정합니다. (예: 2024년 6월 20일 ~ 2024년 6월 30일)
-				let startDate = new Date('2025-03-28 00:00');
-				let endDate = new Date('2025-03-27 23:00');
-                // && currentDate <= endDate
+				let startDate = new Date('2025-03-28 00:00');  
+				let endDate = new Date('2025-04-01 23:59'); 
+                //
 				// 조건에 따라 팝업을 띄웁니다.
-				if (currentDate >= startDate) {
+				if (currentDate >= startDate  && currentDate <= endDate) {
 					// popupOpen('special'); 
 					popupOpen('noti-20250328');
 				} else {
-					// popupOpen('mainPopup');
+					// popupOpen('mainPopup'); 
 				} 
 				
 			});
