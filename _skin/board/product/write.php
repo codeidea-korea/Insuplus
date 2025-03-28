@@ -434,6 +434,7 @@ while ($CateListRs = $dbcon -> fetch_array($RS_BCate1) ) {
 
 
 // 보장내역 가져오기
+//  echo 'ext :: '.$ext;
 if ($ext4){
   $SQL_GUA = "select * from tbl_board_guarantee where seq=".$ext4." ";
   $RS_GUA = $dbcon -> query($SQL_GUA);
