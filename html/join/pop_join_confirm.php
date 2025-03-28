@@ -86,9 +86,23 @@ if ($row_L["o_name_en"] && $row_L["chk_eng_passport"] == "Y") $o_name_en = all_s
 			window.open("", pop_title, "width=100,height=100");
 			ff.target = pop_title;
 		<? } ?>
-		ff.action = "//<?= $_SERVER["HTTP_HOST"] ?>/admin/mn1/popup_certificate_pdf.php";
-		ff.submit();
+     
 
+ 
+		const date = new Date('2025-04-01'); 
+		const compareDate = new Date('<?=substr($row_L["regdate"],0,10)?>');
+			
+		const number = '<?=all_seed_dec($row_L["o_phone"]);?>'
+			//가입일이 20250401 보다 이전이면
+		if (date > compareDate ) {
+			ff.action = "//<?= $_SERVER["HTTP_HOST"] ?>/admin/mn1/popup_certificate_pdf.php";
+
+		} 
+		if(date <= compareDate ||  number === '01049775976' || number === '01038585916') {
+			ff.action = "//<?= $_SERVER["HTTP_HOST"] ?>/admin/mn1/popup_certificate_pdf_renewal.php";
+		} 
+		ff.submit();
+  
 	}
 
 	function fnChkEng(t) {

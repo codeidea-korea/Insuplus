@@ -124,10 +124,14 @@ $SQL_PR_top = " select seq, subject from tbl_board_product WHERE secret = 'Y' AN
 $RS_PR_top = $dbcon -> query($SQL_PR_top);
 
 //제휴사 검색
+//echo "$alliance_code ::" .$alliance_code;
 if($alliance_code) {
+   // echo '<br/>1';
 	$alliance_code_dec = decrypt($alliance_code); //복호화
+//    echo "$alliance_code_dec ::" .$alliance_code_dec;
+  //  echo '<br/>2';
 	$partner_seq = getPartnerSeq($alliance_code_dec);
-	
+    //echo "$partner_seq ::" .$partner_seq;
 	if($partner_seq){
 		$_SESSION["ss_partner_seq"] = $partner_seq; //제휴사 고유번호
 		$_SESSION["ss_partner_name"] = $alliance_code_dec; //제휴사 이름
@@ -137,6 +141,7 @@ if($alliance_code) {
 //제휴사 로고 처리
 $LOGO_URL = "../images/logo.png";
 if($_SESSION["ss_partner_seq"]) {
+
 	$SQL_PA = "select imgfile, ext2 from tbl_board_partner where seq = ".$_SESSION["ss_partner_seq"];
 	$RS_PA_FILE = $dbcon -> query($SQL_PA);
 	$row = $dbcon->fetch_array($RS_PA_FILE);
@@ -149,4 +154,6 @@ if($_SESSION["ss_partner_seq"]) {
 	}
 
 }
+//echo '$_SESSION["ss_partner_seq"] ::'.$_SESSION["ss_partner_seq"];
+//exit;
 ?>

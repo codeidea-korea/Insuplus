@@ -1,4 +1,7 @@
 <?
+
+$testFlag = true;
+
   #### 신규 카테고리 설정값(pc_nu, pc_sort) 세팅
   function setNewCategoryInfo($pre_pc_num) {
     $dbcon = $GLOBALS["dbcon"];
@@ -981,18 +984,46 @@
     }
 
   //인슈플러스 배너
-  function makeInsCertHeader($lang) {
-    $header = "";
+  //20250327 수정
+  function makeInsCertHeader($lang ,$writedate) {
+   $header ='';
+    $date = new DateTime('2025-04-01');
+    $compareDate = new DateTime(substr($writedate, 0, 10));
+    $current_ip = $_SERVER['REMOTE_ADDR'];
+    $specific_ip = '39.120.99.113'; // 여기에 특정 IP 주소 입력
+ 
     if($lang === "E"){
-      $header = '<div style="width:100%; margin:0 0 15px 0; border-bottom:2px solid #dc3347">
-              <img src="[DROOT]/html/images/join_certification_title2_220208.png" width="100%" />
+
+    
+      
+        if ($date > $compareDate) { 
+            $header= '<div style="width:100%; margin:0 0 15px 0; border-bottom:2px solid #dc3347"> 
+                    <img src="[DROOT]/html/images/join_certification_title2_220208.png" width="100%" />
+                    </div>';
+        }
+
+        if($date <= $compareDate || ($current_ip === $specific_ip &&   $testFlag)) {
+            $header=  '<div style="width:100%; margin:0 0 15px 0; border-bottom:2px solid #dc3347">
+            <img src="[DROOT]/html/images/join_certification_title2_250401.png" width="100%" />
             </div>';
+        } 
     } else {
-      $header = '<div style="width:100%; margin:0 0 15px 0; border-bottom:2px solid #dc3347">      
-              <img src="[DROOT]/html/images/join_certification_title1_190909.png" width="100%" />
-            </div>';
+
+      
+        if($date > $compareDate) {
+            $header =  '<div style="width:100%; margin:0 0 15px 0; border-bottom:2px solid #dc3347">        
+                    <img src="[DROOT]/html/images/join_certification_title1_190909.png" width="100%" />
+                    </div>';
+        }
+
+        if($date <= $compareDate || ($current_ip === $specific_ip &&   $testFlag)) {
+            $header =    '<div style="width:100%; margin:0 0 15px 0; border-bottom:2px solid #dc3347">      
+                        <img src="[DROOT]/html/images/join_certification_title1_250401.png" width="100%" />
+                        </div>';
+        }
     }
-    return $header;
+
+    return  $header;
   }
 
   //플라잉닥터스 배너
@@ -1011,11 +1042,29 @@
   }
 
   //인슈 BODY
-  function makeInsCertBody($chk_lang, $JOIN_INFO_TABLE, $CHK_SERVICE, $G_TABLE) {
+  function makeInsCertBody($chk_lang, $JOIN_INFO_TABLE, $CHK_SERVICE, $G_TABLE, $wrtiedate) {
     $BODY = '';
+
+    $date = new DateTime('2025-04-01');
+    $compareDate = new DateTime(substr($writedate, 0, 10));
+    $current_ip = $_SERVER['REMOTE_ADDR']; 
+    $specific_ip = '39.120.99.113'; // 여기에 특정 IP 주소 입력
+      
+    $brand ='';
+    $brand_e ='';
+
+    if($date <= $compareDate || ($current_ip === $specific_ip &&   $testFlag)){
+        $brand = '비즈인사이트';
+        $brand_e = 'Biz Insight';
+    }else{
+        $brand = '플라잉닥터스';
+        $brand_e = 'Flying Doctors';
+    }
+
+ 
     if($chk_lang === 'K') {
       $BODY = '<div style="padding:0 18px;">
-            <h3 style="font-size:15px;font-weight: 400;margin: 0px 0px 18px 0;">플라잉닥터스는 <br>해외에서 발생하는 개인의 질병/상해 사고를 24시간 알람센터에서 대응하여, 안전하게 귀국할 수 있도록 도와드립니다.</h3>
+            <h3 style="font-size:15px;font-weight: 400;margin: 0px 0px 18px 0;">'.$brand.'는 <br>해외에서 발생하는 개인의 질병/상해 사고를 24시간 알람센터에서 대응하여, 안전하게 귀국할 수 있도록 도와드립니다.</h3>
             <h4 style="font-size: 14px;font-weight:400;background-color: #C21E2E;color: #fff;padding: 6px 10px;border-radius: 8px;margin:0px 0 5px 0;">가입정보</h4>
             <table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-top: solid 2px #595959;border-bottom: solid 2px #595959; margin:0 0 14px 0;">
               '.$JOIN_INFO_TABLE.'
@@ -1025,7 +1074,7 @@
           </div>';
     } else {
       $BODY = '<div style="padding:0 25px;">
-            <h3 style="font-size:15px;font-weight: 400;margin: 0px 0px 18px 0;">Flying Doctors helps you return home safely with medical assistance services 24/7 alarm center.</h3>
+            <h3 style="font-size:15px;font-weight: 400;margin: 0px 0px 18px 0;">'.$brand_e.' helps you return home safely with medical assistance services 24/7 alarm center.</h3>
             <h4 style="font-size: 14px;font-weight:400;background-color: #C21E2E;color: #fff;padding: 6px 10px;border-radius: 8px;margin:20px 0 5px 0;">Subscription Information</h4>
             <table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-top: solid 2px #595959;border-bottom: solid 2px #595959; margin:0 0 14px 0;">
               <tbody>
@@ -1072,17 +1121,44 @@
   }
 
   //인슈 국문 footer
-  function makeInsCertFooter() {
-    return '<table width="100%" cellspacing="0" cellpadding="0" border="0" style="background:#29354c; padding:20px;">
-          <tr valign="middle">
-            <td style="text-align:left;">
-              <img src="[DROOT]/html/images/footer-logo1.png" align="absmiddle">
-            </td>
-            <td style="text-align:right;color:#fff;">
-              <strong style="font-size:14px;">Tel: +82 2 360 2545</strong><br>B1, 7,Chungjeong-ro, Seodaemun-gu, Seoul, Korea
-            </td>
-          </tr>
-        </table>';
+  //20250327 수정
+  function makeInsCertFooter($writedate) {
+
+    $date = new DateTime('2025-04-01');
+    $compareDate = new DateTime(substr($writedate, 0, 10));
+    $current_ip = $_SERVER['REMOTE_ADDR'];
+    $specific_ip = '39.120.99.113'; // 여기에 특정 IP 주소 입력
+
+
+    if($date <= $compareDate || ($current_ip === $specific_ip &&   $testFlag)) {
+     
+        return '<table width="100%" cellspacing="0" cellpadding="0" border="0" style="background:#29354c; padding:20px;">
+                    <tr valign="middle">
+                    <td style="text-align:left;">
+                        <img src="[DROOT]/html/images/footer-logo1_20250401.png" align="absmiddle">
+                    </td>
+                    <td style="text-align:right;color:#fff;">
+                        <strong style="font-size:14px;">Tel: +82 2 360 2545</strong><br>F8, 7,Chungjeong-ro, Seodaemun-gu, Seoul, Korea
+                    </td>
+                    </tr>
+                </table>';
+
+    }
+
+   // 가입일이 20250401 보다 이전이면 
+    if ($date > $compareDate) {
+        return '<table width="100%" cellspacing="0" cellpadding="0" border="0" style="background:#29354c; padding:20px;">
+                    <tr valign="middle">
+                    <td style="text-align:left;">
+                        <img src="[DROOT]/html/images/footer-logo1.png" align="absmiddle">
+                    </td>
+                    <td style="text-align:right;color:#fff;">
+                        <strong style="font-size:14px;">Tel: +82 2 360 2545</strong><br>B1, 7,Chungjeong-ro, Seodaemun-gu, Seoul, Korea
+                    </td>
+                    </tr>
+                </table>';
+        
+    } 
   }
 
   //플라잉닥터스 footer

@@ -27,7 +27,7 @@
         @font-face {
           font-family: 'LotteMartDream';
           font-style: normal;
-          font-weight: 300;
+          font-weight: 300; 
           src: url("/font/LotteMartDream_Light.woff") format('woff');
         }
         @font-face {
