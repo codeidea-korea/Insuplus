@@ -98,7 +98,7 @@ if ($row_L["o_name_en"] && $row_L["chk_eng_passport"] == "Y") $o_name_en = all_s
 			ff.action = "//<?= $_SERVER["HTTP_HOST"] ?>/admin/mn1/popup_certificate_pdf.php";
 
 		} 
-		if(date <= compareDate ||  number === '01049775976' || number === '01038585916') {
+		if(date <= compareDate ||  number === '01049775976' || number === '01038585916' || number === '01020493619') {
 			ff.action = "//<?= $_SERVER["HTTP_HOST"] ?>/admin/mn1/popup_certificate_pdf_renewal.php";
 		} 
 		ff.submit();

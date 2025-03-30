@@ -73,6 +73,7 @@ $row_r = $dbcon->fetch_array($RS_V);
 						<tr>
 							<th>구분</th>
 							<td colspan="3">
+                                
 								<label for="assistance">코리아어시스턴스</label><input type="radio" name="chk_fly_type" id="assistance" value="A" checked />
 								<label for="bizinsight">비즈인사이트</label><input type="radio" name="chk_fly_type" id="bizinsight" value="B" />
 							</td>
@@ -181,7 +182,20 @@ $row_r = $dbcon->fetch_array($RS_V);
 				return;
 			}
 			var formData = $("#frm_cert").serialize();
-			var urlAddr = "popup_certificate_pdf.php";
+			
+			let date = new Date('2025-04-01'); 
+			let compareDate = new Date('<?=substr($row_L["regdate"],0,10)?>');
+            let number = $("input[name='mobile']").val();
+			var urlAddr = "";
+			if (date > compareDate ) {
+				urlAddr= "popup_certificate_pdf.php";
+
+			} 
+			if(date <= compareDate ||  number === '01049775976' || number === '01038585916' || number === '01020493619') {
+				urlAddr= "popup_certificate_pdf_renewal.php";
+			} 
+
+            alert(urlAddr);
 			$.ajax({
 				url: urlAddr,
 				data: formData,
@@ -204,7 +218,20 @@ $row_r = $dbcon->fetch_array($RS_V);
 		} else {
 			var pop_certificate = window.open('about:blank', 'certificate');
 			var ff = document.frm_cert;
-			ff.action = "popup_certificate_pdf.php";
+
+            let date = new Date('2025-04-01'); 
+			let compareDate = new Date('<?=substr($row_L["regdate"],0,10)?>');
+            let number = $("input[name='mobile']").val();
+			var urlAddr = "";
+			if (date > compareDate ) {
+				urlAddr= "popup_certificate_pdf.php";
+
+			} 
+			if(date <= compareDate ||  number === '01049775976' || number === '01038585916' || number === '01020493619') {
+				urlAddr= "popup_certificate_pdf_renewal.php";
+			} 
+
+			ff.action = urlAddr;
 			ff.target = "certificate";
 			ff.submit();
 		} 
