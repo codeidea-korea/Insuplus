@@ -994,20 +994,6 @@
     }
     return $header;
   }
-   //인슈플러스 배너 20250401
-  function makeInsCertHeaderNew($lang) {
-    $header = "";
-    if($lang === "E"){
-      $header = '<div style="width:100%; margin:0 0 15px 0; border-bottom:2px solid #dc3347">
-              <img src="[DROOT]/html/images/join_certification_title2_250401.png" width="100%" />
-            </div>';
-    } else {
-      $header = '<div style="width:100%; margin:0 0 15px 0; border-bottom:2px solid #dc3347">      
-              <img src="[DROOT]/html/images/join_certification_title1_250401.png" width="100%" />
-            </div>';
-    }
-    return $header;
-  }
 
   //플라잉닥터스 배너
   function makeFlyingCertHeader($lang) {
@@ -1023,8 +1009,6 @@
     }
     return $header;
   }
-
-  
 
   //인슈 BODY
   function makeInsCertBody($chk_lang, $JOIN_INFO_TABLE, $CHK_SERVICE, $G_TABLE) {
@@ -1054,38 +1038,6 @@
     }
     return $BODY;
   }
-
-  //인슈 BODY 20250401
-  function makeInsCertBodyNew($chk_lang, $JOIN_INFO_TABLE, $CHK_SERVICE, $G_TABLE) {
-    $BODY = '';
-    if($chk_lang === 'K') {
-      $BODY = '<div style="padding:0 18px;">
-            <h3 style="font-size:15px;font-weight: 400;margin: 0px 0px 18px 0;">비즈인사이트는 <br>해외에서 발생하는 개인의 질병/상해 사고를 24시간 알람센터에서 대응하여, 안전하게 귀국할 수 있도록 도와드립니다.</h3>
-            <h4 style="font-size: 14px;font-weight:400;background-color: #C21E2E;color: #fff;padding: 6px 10px;border-radius: 8px;margin:0px 0 5px 0;">가입정보</h4>
-            <table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-top: solid 2px #595959;border-bottom: solid 2px #595959; margin:0 0 14px 0;">
-              '.$JOIN_INFO_TABLE.'
-            </table>
-            '.$CHK_SERVICE.'
-            '.$G_TABLE.'
-          </div>';
-    } else {
-      $BODY = '<div style="padding:0 25px;">
-            <h3 style="font-size:15px;font-weight: 400;margin: 0px 0px 18px 0;">Biz Insight helps you return home safely with medical assistance services 24/7 alarm center.</h3>
-            <h4 style="font-size: 14px;font-weight:400;background-color: #C21E2E;color: #fff;padding: 6px 10px;border-radius: 8px;margin:20px 0 5px 0;">Subscription Information</h4>
-            <table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-top: solid 2px #595959;border-bottom: solid 2px #595959; margin:0 0 14px 0;">
-              <tbody>
-                '.$JOIN_INFO_TABLE.'
-              </tbody>
-            </table>
-            '.$CHK_SERVICE.'
-            '.$G_TABLE.'
-          </div>';
-    }
-    return $BODY;
-  }
-
-
-
 
   //플라잉닥터스 BODY
   function makeFlyingCertBody($chk_lang, $chk_fly_type_name, $JOIN_INFO_TABLE, $CHK_SERVICE, $chk_kor_service, $G_TABLE) {
@@ -1128,20 +1080,6 @@
             </td>
             <td style="text-align:right;color:#fff;">
               <strong style="font-size:14px;">Tel: +82 2 360 2545</strong><br>B1, 7,Chungjeong-ro, Seodaemun-gu, Seoul, Korea
-            </td>
-          </tr>
-        </table>';
-  }
-
-  //인슈 국문 footer
-  function makeInsCertFooterNew() {
-    return '<table width="100%" cellspacing="0" cellpadding="0" border="0" style="background:#29354c; padding:20px;">
-          <tr valign="middle">
-            <td style="text-align:left;">
-              <img src="[DROOT]/html/images/footer-logo1_20250401.png" align="absmiddle">
-            </td>
-            <td style="text-align:right;color:#fff;">
-              <strong style="font-size:14px;">Tel: +82 2 360 2545</strong><br>F8, 7,Chungjeong-ro, Seodaemun-gu, Seoul, Korea
             </td>
           </tr>
         </table>';

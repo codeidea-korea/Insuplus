@@ -218,27 +218,11 @@ foreach($arr_join_seq as $join_row){
     if($certType != "I") {
       $plan_service_all = getPlanService($row_r["pr_cd"], $row_r["plan_cd"]);
 
-      
-
-      $date = new DateTime('2025-04-01');
-      $compareDate = new DateTime(substr($row_r['$writedate'], 0, 10));
-      $current_ip = $_SERVER['REMOTE_ADDR'];
-      $specific_ip = '39.120.99.113'; // 여기에 특정 IP 주소 입력
-
-        $signSrc = '';
-    //    $signSrc_e = '';
-        $brand = '';
-        $brand_e = '';
-        if($date <= $compareDate || ($current_ip === $specific_ip &&   $testFlag)){
-            $signSrc = '[DROOT]/html/images/biz_sign_20250401.png';
-            $brand = '비즈인사이트';
-            $brand_e = 'Biz Insight';
-        }else{
-            $signSrc = '[DROOT]/html/images/korea_assistance_stamp.png';
-            $brand = '플라잉닥터스';
-            $brand_e = 'Flying Doctors';
-          
-        }
+       
+        $signSrc = '[DROOT]/html/images/biz_sign_20250401.png';
+        $brand = '비즈인사이트'; 
+        $brand_e = 'Biz Insight';
+     
 
       if ($chk_lang == "E") {
         //영문 인슈플러스
@@ -453,11 +437,13 @@ foreach($arr_join_seq as $join_row){
       }
     }
    //20250327 수정
-    $HEADER = makeInsCertHeader($chk_lang,$row_r['writedate']);
+    $HEADER = makeInsCertHeaderNew($chk_lang);
     $JOIN_INFO_TABLE = makeInsJoinInfo($JOIN_INFO, $chk_lang);
-    $BODY = makeInsCertBody($chk_lang, $JOIN_INFO_TABLE, $CHK_SERVICE, $G_TABLE ,$row_r['writedate']); 
-    $FOOTER = makeInsCertFooter( $row_r['writedate']);
+    $BODY = makeInsCertBodyNew($chk_lang, $JOIN_INFO_TABLE, $CHK_SERVICE, $G_TABLE); 
+    $FOOTER = makeInsCertFooterNew();
     
+
+
   } else if($group_join_type === "B2B") { //단체가입자 플라잉닥터스 템플릿
     $cert_type = "플라잉닥터스";
     $chk_kor_service = "";
@@ -612,7 +598,7 @@ foreach($arr_join_seq as $join_row){
             }
           } else {
             $G_TABLE .= "<h3 style='font-size:15px;font-weight: 400; font-family: \"NanumGothic\";line-height: 1.5;margin:12px 0 5px 0;'>상기 고객을 피보험자로 하여 아래와 같이 <span style='color:#dc3347'>".$plan_sign_image[$page_loop_idx]["subject"]."</span>에 가입되었음을 확인 합니다.</h3>";
-            $G_TABLE .= "<p style='font-size:12px;margin:0 0 30px 0;color:#333;'>보험계약의 자세한 사항에 대하여는 <span style='color:#dc3347'>".$plan_sign_image[$page_loop_idx]["subject"]."</span> 약관을 참조하시기 바랍니다.<br> ".$$brand." 다음의 담보내용과 보상한도액에 의거하여 서비스를 제공합니다.</p>";
+            $G_TABLE .= "<p style='font-size:12px;margin:0 0 30px 0;color:#333;'>보험계약의 자세한 사항에 대하여는 <span style='color:#dc3347'>".$plan_sign_image[$page_loop_idx]["subject"]."</span> 약관을 참조하시기 바랍니다.<br> ".$brand."는 다음의 담보내용과 보상한도액에 의거하여 서비스를 제공합니다.</p>";
             $G_TABLE .= "<table width='100%' cellspacing='0' cellpadding='0' border='0' style='border-top:solid 2px #595959;border-bottom:solid 2px #595959;'>";
             $G_TABLE .= "<colgroup><col width='50%' /><col width='*' /></colgroup><thead><tr>";
             $G_TABLE .= "<th style='background-color: #f6f6f6;padding:5px 15px;font-size:13px;font-weight:400;text-align:center;border-bottom:2px solid #595959;'>담보내용</th>";
