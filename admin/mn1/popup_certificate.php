@@ -191,7 +191,7 @@ $row_r = $dbcon->fetch_array($RS_V);
 				urlAddr= "popup_certificate_pdf.php";
 
 			} 
-			if(date <= compareDate ||  number === '01049775976' || number === '01038585916' || number === '01020493619') {
+			if(date <= compareDate ) {
 				urlAddr= "popup_certificate_pdf_renewal.php";
 			} 
 
@@ -227,7 +227,7 @@ $row_r = $dbcon->fetch_array($RS_V);
 				urlAddr= "popup_certificate_pdf.php";
 
 			} 
-			if(date <= compareDate ||  number === '01049775976' || number === '01038585916' || number === '01020493619') {
+			if(date <= compareDate ) {
 				urlAddr= "popup_certificate_pdf_renewal.php";
 			} 
 
