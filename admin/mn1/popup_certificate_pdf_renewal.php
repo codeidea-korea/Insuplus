@@ -394,7 +394,7 @@ foreach($arr_join_seq as $join_row){
             }
             
             $G_TABLE .= "</tbody></table>";
-            $G_TABLE .= "<p style='font-size:12px;margin:8px 0 18px 0;color:#333;'>이 보험계약은 보험계약자 및 보험료 납부자가 인슈플러스인 단체보험으로 예금자보험법에 의거, 예금자보호대상에서 제외됩니다.</p>";
+            $G_TABLE .= "<p style='font-size:12px;margin:8px 0 18px 0;color:#333;'>이 보험계약은 보험계약자 및 보험료 납부자가 비즈인사이트인 단체보험으로 예금자보험법에 의거, 예금자보호대상에서 제외됩니다.</p>";
             $G_TABLE .= "<h3 style='font-size:15px;font-weight: 400; font-family: \"NanumGothic\";line-height: 1.5;margin:0px 0 5px 0;'>유의사항</h3>";
             $G_TABLE .= "<ul style='text-align: left; margin: 0px 0 0 20px;padding: 0;line-height: 1.75;color: #333; font-size: 13px;'>";
             $G_TABLE .= "  <li>만 15세 미만은 상해사망 / 질병사망 담보가 적용되지 않습니다. (상법 732조)</li>";

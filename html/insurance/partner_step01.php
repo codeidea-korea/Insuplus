@@ -323,6 +323,7 @@ include '../_include/_header_partner.html';
   function generateCompanionList() {
     const companions = [EHDObject.customer, ...EHDObject.companions];
     if (Array.isArray(companions) && companions.length > 0) {
+        console.log(companions);
       let html = companions.map((item) => {
         let h = [];
         h.push(`<li data-data="has">`);
@@ -366,10 +367,11 @@ include '../_include/_header_partner.html';
     let totalPrice = 0;
     const __ = EHDObject;
     const companions = [__.customer, ...__.companions];
-
+    // console.log(companions)
     if (Array.isArray(companions) && companions.length > 0) {
       companions.forEach((c, i) => {
         const p = __.calculatePriceByPerson(c);
+        // console.log( p)
         setPriceIntoCompanionList(p.totalPrice, i);
         c.price = p.totalPrice;
         c.sPrice = p.sPrice;
@@ -434,6 +436,7 @@ include '../_include/_header_partner.html';
    * 검색된 플랜의 요금테이블을 가져와 요금 계산
    */
   function calculateSelectedOptions() {
+
     let {
       plans,
       services,
@@ -441,6 +444,8 @@ include '../_include/_header_partner.html';
       SERVICE_GROUP_NAME: serviceGroupNames,
       selectedItems: { services: sOptions, guarantees: gOptions },
     } = EHDObject;
+
+    console.log("plans :: ", plans);
 
     const yn = (bool) => (bool ? 'Y' : 'N'); // 선택 여부 Y : 선택, N : 선택하지 않음
     let ext1, ext2, ext3; // ext1 : 보장보험1, ext2 : 보장보험2, ext3 : 서비스
@@ -456,10 +461,14 @@ include '../_include/_header_partner.html';
     ext3_opt2 = yn(sOptions && sOptions.find((o) => o === serviceGroupNames[2]));
     ext3_opt2_count = services.filter((o) => o.service_group_name === serviceGroupNames[2]).length;
 
+    console.log('보험/서비스 선택 여부 :', ext1, ext2, ext3, ext3_comm, ext3_opt1, ext3_opt2);
+
     let targetPlans = plans.filter(
       (p) => p.ext1 === ext1 && p.ext2 === ext2 && p.ext3 === ext3 && p.plan_cd === EHDObject.plan_cd
     );
-    // console.log('보험/서비스 선택 플랜 :', targetPlans);
+
+    console.log('보험/서비스 선택 플랜 :', targetPlans);
+    console.log('보험/서비스 선택 플랜 ext3:', ext3);
 
     if (ext3 === 'Y') {
       targetPlans = targetPlans.filter((p1) =>
@@ -517,7 +526,7 @@ include '../_include/_header_partner.html';
           );
         }
       }
-      // console.log('공통/옵션 서비스 선택 플랜 :', targetPlans);
+       console.log('공통/옵션 서비스 선택 플랜 :', targetPlans);
     }
 
     EHDObject.selectedPlan = targetPlans[0];
@@ -946,10 +955,12 @@ include '../_include/_header_partner.html';
         generateServiceList
       );
 
+   
       // 플랜정보 중 보장내역1, 보장내역2가 있는 플랜으로 보장내역 가져와 출력
       plan = EHDObject.plans.find(
         (item) => item.ext1 === 'Y' && item.ext2 === 'Y' && item.plan_cd === EHDObject.plan_cd
       );
+
       plan = plan || EHDObject.plans.find((item) => item.ext1 === 'Y' && item.plan_cd === EHDObject.plan_cd);
       EHDObject.getPlanInfo({ api: EHDObject.GET_GUARANTEE, pr_cd: plan?.pr_cd, plan_seq: plan?.plan_seq }, () => {
         // 보장내역정보를 가져온 후 수행되어야 할 로직이기 때문에 콜백에 구현
@@ -957,10 +968,12 @@ include '../_include/_header_partner.html';
         let anotherPlan;
         const temp = [];
         // 현재 선택된 plan_cd 이외의  group by plan_cd
-        //
+
         anotherPlan = EHDObject.plans.filter((item) => {
-          if (!temp.includes(item.plan_cd) && item.plan_cd !== plan.plan_cd && item.ext1 === 'Y') {
+         
+          if (!temp.includes(item.plan_cd) && item.plan_cd === plan.plan_cd && item.ext1 === 'Y') {
             temp.push(item.plan_cd);
+          
             return true;
           } else {
             return false;
@@ -968,6 +981,7 @@ include '../_include/_header_partner.html';
         });
         // group by plan_cd 에서 plan_seq 만 취합 구분자 "|" 로 연결
         const planSeqs = anotherPlan?.reduce((prev, curr) => `${prev}|${curr.plan_seq}`, '');
+    
         EHDObject.getPlanInfo(
           {
             api: EHDObject.GET_ANOTHER_GUARANTEES,

@@ -217,7 +217,7 @@
         gPrice,
         sPrice,
       };
-
+      console.log(this);
       if (!this.selectedPlan) {
         return price;
       } else if (!monthPeriod || !dayPeriod || !age || !gender) {
