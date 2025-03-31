@@ -24,4 +24,4 @@ if(!empty($moveEvent)) {
 } else {
   header( "Location: /html/main/" );
 }
-?>
+?> 
