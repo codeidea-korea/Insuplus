@@ -6,6 +6,7 @@ if (!$api){
 	exit;
 }
 
+
 $functionParam = [
   "api"=>$api,
   "pr_cd"=>$pr_cd,
@@ -14,7 +15,7 @@ $functionParam = [
   "keyword"=>$keyword
 ];
 
-// echo 'categories(0) : '.var_dump($functionParam);
+//  echo 'categories(0) : '.var_dump($functionParam);
 $rows = getPlanInfo_new($functionParam);
 echo json_encode($rows);
 ?>
