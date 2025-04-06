@@ -48,7 +48,7 @@ include '../_include/_sidebar.html';
                         <p class="m-b-2">(동반가입자의 경우 대표가입자의 정보를 입력해주세요.)</p>
 						<div class='row-border row-sm'> 
                             <div class='detail-col-label'>이름</div>
-                            <div class='detail-col-input'><input type="text" id="nm" name='nm' autocomplete="off" placeholder="이름" class="form-control" maxlength="12" size='20' /></div>
+			    <div class='detail-col-input'><input type="text" id="nm" name='nm' autocomplete="off" placeholder="이름" class="form-control" maxlength="30" size='20' /></div>
 							<div class='detail-col-label'>휴대폰번호</div>
 							<div class='detail-col-input'>
                                 <div class='input-group' style='width:100%; '>
