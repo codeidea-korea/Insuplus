@@ -56,7 +56,7 @@ if (!$RS_V){
 				<h2>가입확인</h2>
 				<h4>가입내역 및 쿠폰내역을 확인해 주세요</h4> 
 			</div>
-		</div>
+		</div> 
 		<div class="breadcrumb-wrap">
             <div class="container">
 				<ol class="breadcrumb">
@@ -135,7 +135,11 @@ if (!$RS_V){
 							<td class='text-right p-r-1' data-title='할인금액'><?=number_format($row_L["s_amount"])?>원</td>
 							<td class='text-right p-r-1' data-title='결제금액'><?=number_format($row_L["t_amount"])?>원</td>
 							<td data-title='결제상태'>
-								<? if($row_L["join_status"] == "N") {?>
+                                
+								<?
+;
+                                
+                                if($row_L["join_status"] == "N") {?>
 									<span class="text-danger"><?=$arr_join_step[$row_L["join_status"]]?></span>
 								<? } else {?>
 									<?=$arr_join_step[$row_L["join_status"]]?>
@@ -165,7 +169,21 @@ if (!$RS_V){
 				<div class='clearfix'>
 					<div class='row-border responsive'>
 						<div class='detail-col-label'>결제정보</div>
-						<div class='detail-col-input colspan-3 text-left'> <?=$row_r["pay_name"]?></div>
+						<div class='detail-col-input colspan-3 text-left'> 
+                        
+                        <? 
+                      
+
+                            $pay_name =  all_seed_dec($row_r["pay_name"]);
+                            
+                            if( explode(" / ",$pay_name)[0] === 'CARD' ){
+                                echo implode(" / ", array_slice(explode(" / ", $pay_name), 0, 2));
+
+                            }else{
+                                echo $pay_name;
+                            }
+                        ?>
+                        </div>
 						<div class='detail-col-label'>상품가격</div>
 						<div class='detail-col-input colspan-3 text-right'>
 							<div class='clearfix text-right'><h4><span class='text-black'><?=number_format($row_r["ins_amount"]+$row_r["service_amount"])?></span> <small>원</small></h3></h4></div>
