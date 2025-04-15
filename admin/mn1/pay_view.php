@@ -204,7 +204,18 @@ var clareCalendar = {<?=$calendar_opt?>});
 					</tr>
 					<tr>
 						<th>결제정보</th>
-						<td><?=$row["pay_name"]?></td>
+						<td>
+                        <? 
+                            $pay_name =  all_seed_dec($row["pay_name"]);
+
+                            if( explode(" / ",$pay_name)[0] === 'CARD' ){
+                                echo implode(" / ", array_slice(explode(" / ", $pay_name), 0, 2));
+
+                            }else{
+                                echo $pay_name;
+                            }
+                        ?>
+                        </td>
 						<th>PG결제번호</th>
 						<td><?=$row["pg_isdn"]?></td>
 					</tr>
