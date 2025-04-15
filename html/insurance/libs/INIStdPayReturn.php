@@ -116,6 +116,8 @@ $log = new log();
 //                    echo "## 승인 API 결과 ##";
 
                     $resultMap = json_decode($authResultString, true);
+                    // var_dump($resultMap);
+                    // exit;
                     /*************************  결제보안 추가 2016-05-18 START ****************************/
                     $secureMap["mid"]		= $mid;							//mid
                     $secureMap["tstamp"]	= $timestamp;					//timestemp
@@ -127,7 +129,7 @@ $log = new log();
                     $secureSignature = $util->makeSignatureAuth($secureMap); 
                     
                     // 가상계좌번호 추가
-                    $VACT_Num= '';$resultMap["VACT_Num"];
+                    $resultMap["VACT_Num"];
                     /*************************  결제보안 추가 2016-05-18 END ****************************/
 					if ((strcmp("0000", $resultMap["resultCode"]) == 0) && (strcmp($secureSignature, $resultMap["authSignature"]) == 0) ){	//결제보안 추가 2016-05-18
 					   /*****************************************************************************
@@ -141,7 +143,17 @@ $log = new log();
                     //   if ($resultMap["payMethod"]=="HPP" || $resultMap["payMethod"]=="MOBILE"){$pay_name = "HPP";$order_step = "2";$join_status="Y";} 
                     //   if ($resultMap["payMethod"]=="VBank"){$pay_name = "가상계좌 / ".$resultMap["vactBankName"]; $VACT_Num= $resultMap["VACT_Num"];$order_step = "1"; $join_status="W";} 
                     // 20250407 원복
-                         if ($resultMap["payMethod"]=="Card" || $resultMap["payMethod"]=="VCard"){$pay_name = "CARD / ".$resultMap["CARD_PurchaseName"]." / ".$resultMap["CARD_Num"]." ";$order_step = "2"; $join_status="Y";}
+                        //  if ($resultMap["payMethod"]=="Card" || $resultMap["payMethod"]=="VCard"){$pay_name = "CARD / ".$resultMap["CARD_PurchaseName"]." / ".$resultMap["CARD_Num"]." ";$order_step = "2"; $join_status="Y";}
+
+                        if ($resultMap["payMethod"]=="Card" || $resultMap["payMethod"]=="VCard") {
+                            // CARD_PurchaseName이 없거나 비어있으면 P_FN_NM으로 대체
+                            $purchaseName = empty($resultMap["CARD_PurchaseName"]) ? $resultMap["P_FN_NM"] : $resultMap["CARD_PurchaseName"];
+                            
+                            $pay_name = "CARD / ".$purchaseName." / ".$resultMap["CARD_Num"]." ";
+                            $order_step = "2";
+                            $join_status="Y";
+                        }
+
 					   if ($resultMap["payMethod"]=="HPP" || $resultMap["payMethod"]=="MOBILE"){$pay_name = "HPP";$order_step = "2";$join_status="Y";}
 					   if ($resultMap["payMethod"]=="VBank"){$pay_name = "가상계좌 / ".$resultMap["vactBankName"]." / ".$resultMap["VACT_Num"]."";$order_step = "1"; $join_status="W";}
 
@@ -158,11 +170,11 @@ $log = new log();
 						$SQL .= " ,pr_cd,ins_cd,plan_cd,service_cd ";
 						$SQL .= " ) ";
 						$SQL .= " select ";
-						$SQL .= " orderno,pr_name,ins_name,plan_name, agree_cd, service_name, rule_site_cd, rule_group_cd, rule_privacy_cd, ins_file_cd, service_file_cd  ,s_date,s_date_time,e_date,e_date_time,ins_period,chk_p,o_name,o_email1,o_email2,purpose,join_cnt,join_ch,join_nation_cd,join_nation_name,'".$order_step."',ins_amount,s_amount,cp_amount,vat_amount,t_amount,service_amount,now(),'".$mid."','".$resultMap["payMethod"]."','".$resultMap["tid"]."','".$pay_name."',chk_service ";
+						$SQL .= " orderno,pr_name,ins_name,plan_name, agree_cd, service_name, rule_site_cd, rule_group_cd, rule_privacy_cd, ins_file_cd, service_file_cd  ,s_date,s_date_time,e_date,e_date_time,ins_period,chk_p,o_name,o_email1,o_email2,purpose,join_cnt,join_ch,join_nation_cd,join_nation_name,'".$order_step."',ins_amount,s_amount,cp_amount,vat_amount,t_amount,service_amount,now(),'".$mid."','".$resultMap["payMethod"]."','".$resultMap["tid"]."','".all_seed_enc($pay_name)."',chk_service ";
 						$SQL .= " ,sale_gubun,sale_discount,new_cp_cd,recommend_cd ";
 						$SQL .= " ,pr_cd,ins_cd,plan_cd,service_cd ";
 						$SQL .= " from tbl_order_listTemp ";
-						$SQL .= " where orderno ='".$resultMap["MOID"]."' ";
+						$SQL .= " where orderno ='".$resultMap["MOID"]."' "; 
 //						echo $SQL." 첫번째<br>";
 						$log->log_write("=== pc 결제내역 START === ");
 						$log->log_write("결제내역등록(1) : ".$SQL);
