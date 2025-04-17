@@ -37,8 +37,9 @@ $PG_IP = $TEMP_IP;
 $log->log_write("**************log_write vacct start***********");
 
 
-if ($PG_IP == "203.238.37.15" || $PG_IP == "39.115.212.9" || $PG_IP == "183.109.71.153" || 
-	$PG_IP == "118.129.210.25" || $PG_IP == "183.109.71.153" || $PG_IP == "203.238.37.15") {  //PG에서 보냈는지 IP로 체크
+// if ($PG_IP == "203.238.37.15" || $PG_IP == "39.115.212.9" || $PG_IP == "183.109.71.153" || 
+// 	$PG_IP == "118.129.210.25" || $PG_IP == "183.109.71.153" || $PG_IP == "203.238.37.15") {  //PG에서 보냈는지 IP로 체크
+
     $msg_id = $msg_id;             //메세지 타입
     $no_tid = $no_tid;             //거래번호
     $no_oid = $no_oid;             //상점 주문번호
@@ -361,8 +362,8 @@ if ($PG_IP == "203.238.37.15" || $PG_IP == "39.115.212.9" || $PG_IP == "183.109.
 			echo "FAIL";
 		}
 	}
-} else {
-	$log->log_write("log_write vacct error : ".$PG_IP);
-}
+// } else {
+// 	$log->log_write("log_write vacct error : ".$PG_IP);
+// }
 $dbcon -> dbcon_close();
 ?>
