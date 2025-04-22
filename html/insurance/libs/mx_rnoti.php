@@ -301,8 +301,12 @@ include_once $_SERVER["DOCUMENT_ROOT"]."/_config/class.log.php";
 				$result_data_order_check = $dbcon -> query($sql_data_order_check);
 				$row_data_order_check = $dbcon->fetch_array($result_data_order_check);
 				
-				$vbank_num = str_replace(" ","",$row_data_order_check["pay_name"]);
-				$vbank_num = explode("/",$vbank_num)[2];
+                $before_pay_name = all_seed_dec($row_data_order_check["pay_name"]);
+                $vbank_num = str_replace(" ","",$before_pay_name);
+                $vbank_num = explode("/",$vbank_num)[2];
+
+				// $vbank_num = str_replace(" ","",$row_data_order_check["pay_name"]);
+				// $vbank_num = explode("/",$vbank_num)[2];
 				$o_phone = $row_data_order_check["o_phone"];
 				
 				$no_vacct = $P_RMESG1;
