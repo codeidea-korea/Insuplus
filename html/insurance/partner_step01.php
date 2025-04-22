@@ -322,8 +322,9 @@ include '../_include/_header_partner.html';
    */
   function generateCompanionList() {
     const companions = [EHDObject.customer, ...EHDObject.companions];
+    // //console.log("companions :: ". companions);
     if (Array.isArray(companions) && companions.length > 0) {
-        console.log(companions);
+        // //console.log("companions :: ". companions);
       let html = companions.map((item) => {
         let h = [];
         h.push(`<li data-data="has">`);
@@ -367,11 +368,13 @@ include '../_include/_header_partner.html';
     let totalPrice = 0;
     const __ = EHDObject;
     const companions = [__.customer, ...__.companions];
-    // console.log(companions)
+    // //console.log("__.customer ::",__.customer);
+    // //console.log("__.companions ::",__.companions);
+    // //console.log("companions ::" ,companions)
     if (Array.isArray(companions) && companions.length > 0) {
       companions.forEach((c, i) => {
         const p = __.calculatePriceByPerson(c);
-        // console.log( p)
+        // //console.log( p)
         setPriceIntoCompanionList(p.totalPrice, i);
         c.price = p.totalPrice;
         c.sPrice = p.sPrice;
@@ -420,15 +423,17 @@ include '../_include/_header_partner.html';
     const sElements = Array.from(document.querySelectorAll('input[id^=service-0]'));
     const gElements = Array.from(document.querySelectorAll('input[id^=guarantee-]'));
     const selectedItems = { guarantees: [], services: [] };
-
+    //console.log(sElements)
     sElements.forEach((e) => {
-      if (e.checked) selectedItems.services.push(e.value);
+      if (e.checked) selectedItems.services.push(e.value) ;
     });
     gElements.forEach((e) => {
       if (e.checked) selectedItems.guarantees.push(e.value);
     });
 
     EHDObject.selectedItems = selectedItems;
+
+    // //console.log("434    EHDObject.selectedItems" ,   EHDObject.selectedItems);
   }
 
   /**
@@ -445,13 +450,15 @@ include '../_include/_header_partner.html';
       selectedItems: { services: sOptions, guarantees: gOptions },
     } = EHDObject;
 
-    console.log("plans :: ", plans);
+    // //console.log("plans :: ", plans); 
+    // yjhdev 추가
+    // //console.log("455 serviceGroupNames[0]::",serviceGroupNames[0]);
 
     const yn = (bool) => (bool ? 'Y' : 'N'); // 선택 여부 Y : 선택, N : 선택하지 않음
     let ext1, ext2, ext3; // ext1 : 보장보험1, ext2 : 보장보험2, ext3 : 서비스
     let ext3_comm, ext3_opt1, ext3_opt2; // comm : 공통서비스, opt1~2 : 옵션서비스1~2,
     services = services || [];
-
+    // //console.log("458 sOptions",sOptions);
     ext1 = yn(gOptions && plans.find((p) => gOptions.find((g) => g == p.guarantee_seq1)));
     ext2 = yn(gOptions && plans.find((p) => gOptions.find((g) => g == p.guarantee_seq2)));
     ext3 = yn(sOptions && sOptions.length > 0);
@@ -461,16 +468,22 @@ include '../_include/_header_partner.html';
     ext3_opt2 = yn(sOptions && sOptions.find((o) => o === serviceGroupNames[2]));
     ext3_opt2_count = services.filter((o) => o.service_group_name === serviceGroupNames[2]).length;
 
-    console.log('보험/서비스 선택 여부 :', ext1, ext2, ext3, ext3_comm, ext3_opt1, ext3_opt2);
+    // //console.log('보험/서비스 선택 여부 :', ext1, ext2, ext3, ext3_comm, ext3_opt1, ext3_opt2);
 
     let targetPlans = plans.filter(
       (p) => p.ext1 === ext1 && p.ext2 === ext2 && p.ext3 === ext3 && p.plan_cd === EHDObject.plan_cd
     );
 
-    console.log('보험/서비스 선택 플랜 :', targetPlans);
-    console.log('보험/서비스 선택 플랜 ext3:', ext3);
+    //console.log('보험/서비스 선택 플랜 :', targetPlans);
+    //console.log('보험/서비스 선택 플랜 ext3:', ext3);
+    //console.log('보험/서비스 선택 플랜 services:', services);
+    //console.log('보험/서비스 선택 플랜 ext3_opt2:', ext3_opt2);
+    //console.log('보험/서비스 선택 플랜 ext3_opt2_count:', ext3_opt2_count);
+    //console.log('보험/서비스 선택 플랜 ext3_comm:', ext3_comm);
 
     if (ext3 === 'Y') {
+    //console.log("481 targetPlans :: ",targetPlans);
+    //console.log("482 serviceGroupNames :: ",serviceGroupNames[0]);
       targetPlans = targetPlans.filter((p1) =>
         services.find((p2) =>
           p2.pr_cd === p1.pr_cd &&
@@ -482,7 +495,8 @@ include '../_include/_header_partner.html';
             : p2.k_amount === NOT_AVAILABLE
         )
       );
-
+      //console.log("499 targetPlans ::",targetPlans);
+    //   해당안됨
       if (ext3_opt1_count > 0) {
         if (ext3_opt1 === 'Y') {
           targetPlans = targetPlans.filter((p1) =>
@@ -504,7 +518,8 @@ include '../_include/_header_partner.html';
           );
         }
       }
-
+      //console.log("514 serviceGroupNames[2]" ,serviceGroupNames[2]);
+      //console.log("515 NOT_AVAILABLE" ,NOT_AVAILABLE);
       if (ext3_opt2_count > 0) {
         if (ext3_opt2 === 'Y') {
           targetPlans = targetPlans.filter((p1) =>
@@ -526,11 +541,11 @@ include '../_include/_header_partner.html';
           );
         }
       }
-       console.log('공통/옵션 서비스 선택 플랜 :', targetPlans);
+       //console.log('공통/옵션 서비스 선택 플랜 :', targetPlans);
     }
-
+    //console.log("590 targetPlans ::",targetPlans);
     EHDObject.selectedPlan = targetPlans[0];
-    // console.log('최종 선택된 플랜 :', EHDObject.selectedPlan);
+    // //console.log('최종 선택된 플랜 :', EHDObject.selectedPlan);
     if (EHDObject.selectedPlan) {
       EHDObject.getPlanInfo({ api: EHDObject.GET_PLAN_PRICE, plan_seq: EHDObject.selectedPlan.plan_seq }, setPriceAll);
     } else setPriceAll();
@@ -559,11 +574,13 @@ include '../_include/_header_partner.html';
     commonServices.forEach((item, idx) => {
       if (idx === 0) {
         //yjhdev 데이터로 관리되고있어 1차적으로 하드 수정
-       let service_group_name =  item.service_group_name === '의료·여행편의 지원' ? '이후송 서비스' : item.service_group_name
+    //    let service_group_name =  item.service_group_name === '의료·여행편의 지원' ? '이후송 서비스' : item.service_group_name
+        let temp_title =  item.service_group_name === '의료·여행편의 지원' ? '이후송 서비스' :  item.service_group_name;
+        let service_group_name =  item.service_group_name;
        html.push(`<div class="white-box middle mt24">`);
         html.push(`<div class="white-box middle mt24">`);
         html.push(`  <div class="title-state-box">`);
-        html.push(`    <strong>${service_group_name}</strong>`);
+        html.push(`    <strong>${temp_title}</strong>`);
         html.push(`    <div class="check-box">`);
         
         //20240618 이벤트 기간중 보장내역 선택 불가능 처리
@@ -729,9 +746,10 @@ include '../_include/_header_partner.html';
       const list = dataList.filter((item) => item.guarantee_seq === k);
 
       list.forEach((item, idx) => {
+  
         if (idx === 0) {
           buff.push(`<div class="white-box middle mt24">`);
-          buff.push(`  <div class="title-state-box mt12">`);
+          buff.push(`  <div class="title-state-box mt12">`); 
           buff.push(`    <strong>${item.guarantee_name}</strong>`);
           buff.push(`    <div class="check-box">`);
           //20240618 이벤트 기간중 보장내역 선택 불가능 처리
@@ -777,12 +795,13 @@ include '../_include/_header_partner.html';
             const el = a.find((b, i) => i === idx && b.service_name === item.service_name);
             if (el) anotherGuarantees.push(el);
           });
-
+          // console.log(item)
+          // console.log(anotherGuarantees)
           buff.push(`            <div class="select-box flex-1">`);
           buff.push(`            <div class="select-box-inner">`);
           buff.push(`            <select class="tc">`);
           buff.push(`              <option value="${item.plan_cd}" selected>${item.g_amount}</option>`);
-          anotherGuarantees.forEach((g) => buff.push(`<option value="${g.plan_cd}">${g.g_amount}</option>`));
+          // anotherGuarantees.forEach((g) => buff.push(`<option value="${g.plan_cd}">${g.g_amount}</option>`));
           buff.push(`            </select>`);
           buff.push(`            </div>`);
         } else {
@@ -1479,8 +1498,8 @@ include '../_include/_header_partner.html';
     const postFix = option.postFix || '';
     const type = option.type;
     const padLength = option.padLength || 2;
-    console.log('selector',selector);
-    console.log('option.defaultValue',option.defaultValue);
+    ////console.log('selector',selector);
+    ////console.log('option.defaultValue',option.defaultValue);
     for (let i = start; i <= end; i = i + interval) {
       const val = type === 'number' ? i : String(i).padStart(padLength, '0');
       html.push(

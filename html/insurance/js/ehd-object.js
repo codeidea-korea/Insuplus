@@ -4,11 +4,11 @@
     const emptyObject = '{}';
     const jsonVal = window.sessionStorage.getItem(identifier) || emptyObject;
     const joiner = JSON.parse(jsonVal);
-
+    //console.log("7 joiner ::" ,joiner);
     Object.defineProperties(joiner, {
       GET_AGE: { value: 'getAge', enumerable: false },
       GET_PLAN: { value: 'getPlans', enumerable: false },
-      GET_SERVICE: { value: 'getService', enumerable: false },
+      GET_SERVICE: { value: 'getService', enumerable: false }, 
       GET_GUARANTEE: { value: 'getGuarantee', enumerable: false },
       GET_PLAN_PRICE: { value: 'getPlanPrice', enumerable: false },
       GET_ANOTHER_GUARANTEES: { value: 'getAnotherGuarantees', enumerable: false },
@@ -16,6 +16,7 @@
       GET_PARTNERSHIP: { value: 'getPartnership', enumerable: false },
       GET_NOTICE: { value: 'getNotice', enumerable: false },
       SERVICE_GROUP_NAME: { value: ['의료·여행편의 지원', '건강검진', '긴급이후송'], enumerable: false },
+    //   SERVICE_GROUP_NAME: { value: ['이후송 서비스', '건강검진', '긴급이후송'], enumerable: false },
       PLAN_CD_NAME: { value: [, 'Lv1', 'Lv2', 'Lv3', 'Lv4', 'Lv5'], enumerable: false },
       NOT_AVAILABLE: { value: 'NOT-AVAILABLE', enumerable: false },
     });
@@ -217,8 +218,10 @@
         gPrice,
         sPrice,
       };
-      console.log(this);
+      //console.log('220 price :: ',price);
       if (!this.selectedPlan) {
+       
+        //console.log('222 price :: ',price);
         return price;
       } else if (!monthPeriod || !dayPeriod || !age || !gender) {
         return price;

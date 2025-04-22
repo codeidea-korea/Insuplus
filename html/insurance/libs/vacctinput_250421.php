@@ -35,8 +35,7 @@ $TEMP_IP = getenv("REMOTE_ADDR");
 $PG_IP = $TEMP_IP;
 
 $log->log_write("**************log_write vacct start***********");
-$log->log_write(print_r($_POST));
-$log->log_write("2222222222222");
+
 
 // if ($PG_IP == "203.238.37.15" || $PG_IP == "39.115.212.9" || $PG_IP == "183.109.71.153" || 
 //  	$PG_IP == "118.129.210.25" || $PG_IP == "183.109.71.153" || $PG_IP == "203.238.37.15") {  //PG에서 보냈는지 IP로 체크
@@ -161,7 +160,6 @@ $log->log_write("2222222222222");
 		
 		$result = $dbcon->query($sql);
 		
-		$log->log_write($sql);
 		
 		if($result) {
 			$sql  = " SELECT count(*) FROM tbl_board_coupon_history ";

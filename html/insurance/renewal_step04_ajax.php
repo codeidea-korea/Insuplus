@@ -277,7 +277,7 @@ $siteDomain = $domain.$add_port."/html/insurance/libs"; //로컬 테스트  가�
 // 페이지 URL에서 고정된 부분을 적는다.
 // Ex) returnURL이 http://localhost:8082/demo/INIpayStdSample/INIStdPayReturn.jsp 라면
 //                 http://localhost:8082/demo/INIpayStdSample 까지만 기입한다.
-
+$log->log_write("siteDomain=".$siteDomain);
 //======================================================================================================
 // 이니시스 기본세팅 종료
 //======================================================================================================

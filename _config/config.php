@@ -219,6 +219,7 @@ $url_Now = getURL();            // 다른 곳에 중복해 쓸 경우에는 getU
 	$url_client_login_out				= $url_client."logout.php";
 
 	// 이니시스경로
+    // echo $path_root;
 	$path_inicis	 = $path_root."INIpay41/";
 	$url_inicis	 = $url_root."INIpay41/";
 
