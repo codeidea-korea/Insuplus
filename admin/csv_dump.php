@@ -36,7 +36,7 @@ if(isset($_GET['download']) && $_GET['download'] == 'true') {
     }
 
     // 필드 정의 - 원본 코드의 필드 유지
-    $field = " A.*, B.*, C.partnership_name as partnership_name, D.guarantee1_ins_seq ";
+    $field = "B.seq as join_seq, A.*, B.*, C.partnership_name as partnership_name, D.guarantee1_ins_seq ";
     $table = " tbl_order_list A inner join tbl_order_list_join B on A.orderno=B.orderno left join tbl_board_partner C ON A.join_ch = C.seq left join tbl_board_plan D on A.plan_cd = D.seq ";
     $orderby = " A.writedate DESC ";
     
@@ -66,6 +66,7 @@ if(isset($_GET['download']) && $_GET['download'] == 'true') {
     
     // 열 헤더 작성
     $headers = [
+        'ENC',
         '상품명', '보험사', '플랜명', '게시일', '종료일', '보험기간', 
         '이름', '연락처', '가입채널', '사입상태', '상품가', '가입일'
     ];
@@ -103,6 +104,7 @@ if(isset($_GET['download']) && $_GET['download'] == 'true') {
                 }
                 
                 // 각 필드의 존재 여부를 확인하고 안전하게 접근
+                $seq = isset($data['join_seq']) ? $data['join_seq'] : '';
                 $pr_name = isset($data['pr_name']) ? $data['pr_name'] : '';
                 $ins_seq = isset($data['guarantee1_ins_seq']) ? $data['guarantee1_ins_seq'] : '';
                 $plan_name = isset($data['plan_name']) ? $data['plan_name'] : '';
@@ -138,6 +140,7 @@ if(isset($_GET['download']) && $_GET['download'] == 'true') {
                 
                 // 데이터 행 생성
                 $row = [
+                    function_exists('all_seed_enc') ? urlencode(all_seed_enc($seq)) : $seq,
                     $pr_name,
                     $insurance_company,
                     $plan_name,

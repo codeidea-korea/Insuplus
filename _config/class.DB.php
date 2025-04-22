@@ -228,9 +228,9 @@ class dbcon {
 			if ( getLen($limit) > 0 ) {
 				$SQL .= " limit ".$limit;
 			}
-        
+        // var_dump($SQL); 
 			$ListResult = $this -> query($SQL);
-            // var_dump($ListResult); 
+            
 		}
 		else {
 			$ListResult = 0;
