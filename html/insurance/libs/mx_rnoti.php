@@ -22,8 +22,8 @@ include_once $_SERVER["DOCUMENT_ROOT"]."/_config/class.log.php";
   $PGIP = $_SERVER['REMOTE_ADDR'];
   writeLog("**** mobile noti start ****");
   //if(true)	//테스트 PG에서 보냈는지 IP로 체크
-  if($PGIP == "211.219.96.165" || $PGIP == "118.129.210.25" || $PGIP == "183.109.71.153" || $PGIP == "39.115.212.9")	//PG에서 보냈는지 IP로 체크
-  {
+//   if($PGIP == "211.219.96.165" || $PGIP == "118.129.210.25" || $PGIP == "183.109.71.153" || $PGIP == "39.115.212.9")	//PG에서 보냈는지 IP로 체크
+//   {
 	// 이니시스 NOTI 서버에서 받은 Value
 	$P_TID;				// 거래번호
 	$P_MID;				// 상점아이디
@@ -501,9 +501,9 @@ include_once $_SERVER["DOCUMENT_ROOT"]."/_config/class.log.php";
 // 결제 결과 정보입력
 
 
-  }else{
-	echo "FAIL";
-  }
+//   }else{
+// 	echo "FAIL";
+//   }
 
 function writeLog($msg)
 {
