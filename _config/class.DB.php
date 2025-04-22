@@ -212,12 +212,13 @@ class dbcon {
 		}		
 		// 총 카운트
 		$total_count = $this -> getCount($SQL);
-
-//		echo $SQL." 카운트SQL<BR>";
+      
+		// echo $SQL." 카운트SQL<BR>";
 		if ( $total_count > 0 ) {
 			$SQL = "";
 			$SQL .= " select ".$field;
 			$SQL .= " from ".$table;
+            
 			if ( getLen($where) > 0 ) {
 				$SQL .= " where 1=1 ".$where;
 			}
@@ -227,7 +228,9 @@ class dbcon {
 			if ( getLen($limit) > 0 ) {
 				$SQL .= " limit ".$limit;
 			}
+        
 			$ListResult = $this -> query($SQL);
+            // var_dump($ListResult); 
 		}
 		else {
 			$ListResult = 0;
