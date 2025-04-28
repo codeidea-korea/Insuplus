@@ -776,7 +776,7 @@ function selGroupPlanList($pr_cd, $compare_seq, $chk_p) {
 	global $dbcon;
 	$SQL = " SELECT seq, ins_cd , plan_cd, chk_service FROM tbl_board_plan WHERE seq in (".$compare_seq.") AND pr_cd = '".$pr_cd."' AND plan_status='Y' AND secret='Y'  ";
 	$SQL .= " ORDER BY field (seq, ".$compare_seq." ) ASC ";
-	
+    
 	$RS = $dbcon -> query($SQL);
 	$data = array();
 	while($row = $dbcon->fetch_array($RS)) {
