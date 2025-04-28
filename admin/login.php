@@ -11,7 +11,7 @@
 
 		LoginProcess($user, $pass, 2);
 
-		echo $_SESSION['ss_u_email'];
+		// echo $_SESSION['ss_u_email'];
         if($_SESSION['ss_u_email'] != '@' ){
             // 인증 성공
             $authCode = random_int(100000, 999999); // 6자리 난수 생성

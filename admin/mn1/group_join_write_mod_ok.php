@@ -1061,7 +1061,8 @@
 		if(count($orderno) > 0){
 			foreach($orderno as $num) {
 				$status = $group_join_status == "Y" ? "2" : "1";
-				$SQL_J = "UPDATE tbl_order_list SET order_step='".$status."', pg_pay_type='VBANK', pay_name='단체가입 계좌이체', pg_in_date=now(), pg_id='".MID."' WHERE orderno = '".$num["orderno"]."' ";
+                
+				$SQL_J = "UPDATE tbl_order_list SET order_step='".$status."', pg_pay_type='VBANK', pay_name='".all_seed_enc('단체가입 계좌이체')."', pg_in_date=now(), pg_id='".MID."' WHERE orderno = '".$num["orderno"]."' ";
 				$dbcon -> query($SQL_J);
 	
 				$SQL_U = "UPDATE tbl_order_list_join SET join_status='Y' where orderno='".$num["orderno"]."'";

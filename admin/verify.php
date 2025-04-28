@@ -19,6 +19,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['is_authenticated'] = true; // 2차 인증 완료
         unset($_SESSION['auth_code']); // 세션에서 인증 코드 제거
 
+
+      $session_token=  generateLoginTokenInfo();
+
+
+      $_SESSION['session_token'] = $session_token;
+   
+
         if($_SESSION["ss_u_level"] == "7") {
             alert_page($msg_login_ok,"/admin/mn1/join_partner_list.php");
         } else if($_SESSION["ss_u_level"] == "6") {

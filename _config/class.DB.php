@@ -228,13 +228,15 @@ class dbcon {
 			if ( getLen($limit) > 0 ) {
 				$SQL .= " limit ".$limit;
 			}
-        // var_dump($SQL); 
+       
 			$ListResult = $this -> query($SQL);
             
 		}
 		else {
 			$ListResult = 0;
 		}
+
+        
 
 		$result = array($total_count, $ListResult);
 		return $result;
@@ -493,7 +495,8 @@ class sms_dbcon {
 			if ( getLen($limit) > 0 ) {
 				$SQL .= " limit ".$limit;
 			}
-//			echo $SQL."<BR>";
+      
+   
 			$ListResult = $this -> query($SQL);
 		}
 		else {
