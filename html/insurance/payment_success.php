@@ -20,10 +20,13 @@ function my_print_r($thing,$description=false){
 $paymentKey = $_GET['paymentKey'];  // 결제 키
 $orderId = $_GET['orderId'];        // 주문 번호
 $amount = $_GET['amount'];          // 결제 금액
-$secretKey  ='test_sk_KNbdOvk5rkWJoAOj5jJorn07xlzm';
+$secretKey  ='test_sk_DnyRpQWGrNwMx0NRge7L8Kwv1M9E';
 
 
+$sql = "SELECT * FROM tbl_toss_temp_orders WHERE order_id = '$orderId'";
 
+$result = $dbcon->query($sql);
+$row = $dbcon -> fetch_array($result);
 
 $curl = curl_init();
 
@@ -42,13 +45,17 @@ curl_setopt_array($curl, [
 
 $response = curl_exec($curl);
 $err = curl_error($curl);
+$responseJson = json_decode($response, true);
 
 curl_close($curl);
 
 if ($err) {
   echo "cURL Error #:" . $err;
 } else {
-  echo $response;
+    echo "<h4>TOSS Response Data</h4>";
+    my_print_r($responseJson);
+    echo "<h4>가입자 임시데이터</h4>";
+    my_print_r($row);
 }
 ?>
 
