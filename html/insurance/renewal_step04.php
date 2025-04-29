@@ -371,7 +371,7 @@ $detect = new Mobile_Detect;
       return;
     }
 
-    if(EHDObject.customer.cellphone === '01049775976'){
+    if(EHDObject.customer.cellphone === '01049775976' || EHDObject.customer.cellphone === '01038585916'){
       
 
     const PAY_TYPE_MAP = {
