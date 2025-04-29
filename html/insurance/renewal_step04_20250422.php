@@ -5,6 +5,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . "/_config/lib.php";
 include $_SERVER["DOCUMENT_ROOT"] . "/_config/Mobile_Detect.php";
 include_once $_SERVER["DOCUMENT_ROOT"] . "/_config/Func.insurance.php"; //추가
 $detect = new Mobile_Detect;
+
 ?>
 <style>
   /* 선택된 행의 배경색을 검은색으로 변경하는 CSS */
@@ -216,6 +217,7 @@ $detect = new Mobile_Detect;
   </div>
 </div>
 <div id="act_div"></div>
+<div id="payment-method"></div>
 
 <!-- // 레이어 팝업 -->
 <!-- 이니시스 표준결제 js -->
@@ -227,6 +229,10 @@ $detect = new Mobile_Detect;
 <script src="./js/swiper.js?a=1"></script>
 <script src="./js/ehd-object.js"></script>
 <script>
+    const clientKey = 'test_ck_Z61JOxRQVEnPZA91BGJmrW0X9bAq' 
+    const customerKey = 'nfRQHs3gONfOAy8ZA78hd' 
+    const tossPayments = TossPayments(clientKey)
+
   function generateCustomerForms() {
     const customer = EHDObject.customer;
     const companions = EHDObject.companions;
@@ -236,7 +242,7 @@ $detect = new Mobile_Detect;
 
     list.forEach((el, idx) => {
       let html = [];
-      switch (idx) {
+      switch (idx) { 
         case 0: // 가입기간
           html.push(` <b class="tl">${customer.departureDate} ${customer.departureTime}시 `);
           html.push(` ~ ${customer.arrivalDate} ${customer.arrivalTime}시 `);
@@ -362,6 +368,46 @@ $detect = new Mobile_Detect;
       alert("결제방식을 선택해 주세요.");
       return;
     }
+
+    if(EHDObject.customer.cellphone === '01049775976'){
+      
+
+    const PAY_TYPE_MAP = {
+        'Card': '카드',
+        'HPP': '휴대폰',
+        'Vbank': '가상계좌'
+    };
+
+    const toss_pay_type = PAY_TYPE_MAP[pay_type];
+    const fd= getFormInfo();
+
+    const customerName = fd.get('user_name');
+    const amount = parseInt(fd.get('t_amt'));
+    const orderName = fd.get('plan_seq') ? `여행보험 ${fd.get('plan_seq')}` : '여행보험';
+    const customerEmail = fd.get('email') + '@' + fd.get('email2');
+    const customerMobilePhone = fd.get('user_hp');
+    const gopaymethod = fd.get('gopaymethod'); // 결제방식
+
+    tossPayments.requestPayment(toss_pay_type, {
+    // 필수 파라미터
+    amount: amount,
+    orderId: generateOrderId(),
+    orderName: orderName,
+    customerName: customerName,
+    successUrl: 'https://example.com/success',
+    failUrl: 'https://example.com/fail',
+    
+    // formData에서 추출한 추가 정보
+    customerEmail: customerEmail,
+    customerMobilePhone: customerMobilePhone,
+    
+    // 결제 성공시 추가 정보 전달을 위한 쿼리 파라미터
+    // successUrl: `https://example.com/success?PR_SEQ=${encodeURIComponent(fd.get('PR_SEQ'))}&plan_seq=${encodeURIComponent(fd.get('plan_seq'))}`
+})
+
+    }else{
+
+
     EHDObject.customer.paymethod = pay_type;
     //var params = jQuery(formData).serialize();
     var request = $.ajax({
@@ -391,8 +437,15 @@ $detect = new Mobile_Detect;
       }
     });
     request.done(function(result) {});
+}
 
   }
+  // tosspayment
+  function generateOrderId() {
+    const timestamp = new Date().getTime();
+    const random = Math.random().toString(36).substring(2, 8); // 랜덤 영숫자 6자리
+    return `TOSS_${timestamp}_${random}`;
+}
 
   function inipay() { //pc결제
     INIStdPay.pay('SendPayForm_id');
@@ -704,10 +757,10 @@ $detect = new Mobile_Detect;
     })
     $('[data-layer="layer0' + num + '"]').animate({
       opacity: '0'
-    }, 300, function() {
+    }, 300, function() { 
       $('[data-layer="layer0' + num + '"]').hide();
     })
-  }
+  } 
 
   function downLoadCoupon(clickedButton) {
     const discount = clickedButton.getAttribute('data-value');

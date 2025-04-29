@@ -85,10 +85,14 @@ body {
     <?php endif; ?>
 <form action="verify.php" method="post">
 <input type="hidden" name="act" value="ok">
-	<p><input type="text" name="auth_code" value="" autocomplete="off" maxlength="6" placeholder="6자리 인증 코드" required></p>
+	<p><input type="text" name="auth_code" value="<?=($_SERVER['REMOTE_ADDR'] == '59.15.184.2' ? $_SESSION['auth_code'] : '')?>" autocomplete="off" maxlength="6" placeholder="6자리 인증 코드" required></p>
 	<p><input type="submit" value="입력" /></p>
-
 	<p class="copyright">Copyrights © KoreaAssistance, All rights reserved.</p>
+
+    <?php if($_SERVER['REMOTE_ADDR'] == '59.15.184.2') { ?>
+    	<p class="copyright">이 메시지는 인슈플러스 개발 서버에 코드아이디어 사무실에서 접속했을 때만 보이며, 2차 인증번호가 자동으로 입력되어 바로 로그인할 수 있습니다. 운영 서버에는 적용되지 않습니다. 작업자 - 이인한</p>
+    <?php } ?>
+        
 </form>
 </div>
 

@@ -59,7 +59,14 @@ $url_Now = getURL();            // 다른 곳에 중복해 쓸 경우에는 getU
 	// $mysql_password				= "!insplus#";
 	$mysql_password				= "!insplus#"; //DEV
 	$mysql_database_name		= "insplus";
-	
+
+    // 토스개발중에 테이블 추가하게되어 잠시 주석처리합니다. 사용하실 때 주석 푸시고 사용하시면 될듯합니다.
+    // $mysql_host ="peer2-nas.synology.me"; //DEV 
+	// $mysql_user					= "user";
+	// $mysql_password				= "!insplus#";
+	// $mysql_password				= "Vldjxnelql!2"; // 외부 물리 DB 테스트 서버
+
+    
 	//결제정보
 	// define("MID","INIpayTest"); //가맹점 테스트 ID
 	// define("SIGNKEY","SU5JTElURV9UUklQTEVERVNfS0VZU1RS"); //가맹점 테스트 사인키 
