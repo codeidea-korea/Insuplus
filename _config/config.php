@@ -1,6 +1,16 @@
 <?
 date_default_timezone_set('Asia/Seoul');
 
+// RUN_MODE는 APACHE 환경 변수에 세팅함 (/etc/httpd/conf/httpd.conf) by ein1
+if(isset($_SERVER['RUN_MODE']) && $_SERVER['RUN_MODE'] == 'DEVELOPMENT') {
+    define("DEVELOPMENT_MODE", true);
+    
+    // 개발계 사무실인 경우
+    if($_SERVER['REMOTE_ADDR'] == '59.15.184.2') {
+        define("DEVELOPMENT_OFFICE", true);
+    }
+}
+
 // 현재 URL 가져오기
 function getURL(){              // 다른 곳에 중복해 쓸 경우에는 getURL1, getURL2 이런 식으로 바꿔줘야
 	$server		= getenv("HTTP_HOST");			// 현재 자신의 URL 을 가져온다.
@@ -49,23 +59,30 @@ $url_Now = getURL();            // 다른 곳에 중복해 쓸 경우에는 getU
 //	echo "</xmp>";
 //	exit;
 
-	########################################################
+    ########################################################
 	// MySQL DB 접속정보
 	// $mysql_host = "211.43.14.191:3306"; //DEV
 	// $mysql_host = "insu-db.cdaumq0ugull.ap-northeast-2.rds.amazonaws.com:3306"; //NEWLIVE
-	
-	$mysql_host ="dev-db-my57.cdaumq0ugull.ap-northeast-2.rds.amazonaws.com"; //DEV 
-	$mysql_user					= "insplus";
-	// $mysql_password				= "!insplus#";
-	$mysql_password				= "!insplus#"; //DEV
+
+
+	$mysql_host                 = "dev-db-my57.cdaumq0ugull.ap-northeast-2.rds.amazonaws.com";
+    //$mysql_host                 = "dev-db-80.cdaumq0ugull.ap-northeast-2.rds.amazonaws.com"; // mySQL 8.4 신규 개발 DB 서버, 암호화방식 차이로 서버 설정 변경 이후부터 커넥션 가능. 250502 18:00 by ein1
+    $mysql_user					= "insplus";
+	$mysql_password				= "!insplus#";
 	$mysql_database_name		= "insplus";
-
-    // 토스개발중에 테이블 추가하게되어 잠시 주석처리합니다. 사용하실 때 주석 푸시고 사용하시면 될듯합니다.
-    // $mysql_host ="peer2-nas.synology.me"; //DEV 
-	// $mysql_user					= "user";
-	// $mysql_password				= "!insplus#";
-	// $mysql_password				= "Vldjxnelql!2"; // 외부 물리 DB 테스트 서버
-
+    
+    // 문지환
+    // MLNaSlSWKkFcHPROrHh8qQ== << 개발DB admin 관리자 아이디 비밀번호
+    // jHW8OMx1m0A0wVor44DPKw== << 개발DB codeidea 관리자 아이디 비밀번호
+    
+    /*
+    if(defined("DEVELOPMENT_OFFICE")) {
+        $mysql_host                 = "peer2-nas.synology.me";
+	    $mysql_user					= "devidea";
+	    $mysql_password				= "!Codeidea1";
+	    $mysql_database_name		= "insplus";
+    }
+    */
     
 	//결제정보
 	// define("MID","INIpayTest"); //가맹점 테스트 ID
@@ -82,6 +99,12 @@ $url_Now = getURL();            // 다른 곳에 중복해 쓸 경우에는 getU
 	//운영,개발여부
 	// define("SERVER_CHECK","DEV"); //개발
 	 define("SERVER_CHECK","REAL"); //운영
+
+     
+	 //TOSS 개발
+	define("TOSS_SECRET_KEY","test_sk_DnyRpQWGrNwMx0NRge7L8Kwv1M9E"); //시크릿키
+	define("TOSS_CLIENT_KEY","test_ck_Z61JOxRQVEnPZA91BGJmrW0X9bAq"); //클라이언트키
+	define("TOSS_MID","insupl5wq8"); //가맹점 ID
 
 
 	// MySQL DB SMS 접속정보

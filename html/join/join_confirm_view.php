@@ -225,12 +225,22 @@ if (!$RS_V){
 
 function ord_Cancle(val){
 	<? if($row_r["pg_pay_type"] != 'VBank') {?>
-	if (confirm("취소하시겠습니까? 신중히 고려 부탁드립니다.")){ 
-	var ff = document.frm_cancle;
-	ff.orderno.value=val;
-	ff.action = "join_confirm_view_cancle_all.php";
-	ff.target="ifrm_act";
-	ff.submit();
+	if (confirm("취소하시겠습니까? 신중히 고려 부탁드립니다.\n" )){ 
+		
+		if(val.startsWith("TOSS") > -1) {
+			var ff = document.frm_cancle;
+			ff.orderno.value=val;
+			ff.action = "toss_join_confirm_view_cancle_all.php";
+			ff.target="ifrm_act";
+			ff.submit();
+		}else{
+
+			var ff = document.frm_cancle;
+			ff.orderno.value=val;
+			ff.action = "join_confirm_view_cancle_all.php";
+			ff.target="ifrm_act";
+			ff.submit();
+		}
 	}
 	<?} else {?>
 		let text = '가상계좌 환불은 인슈플러스 고객센터로 문의해 주세요. \n카카오톡 "인슈플러스", 전화 02-360-2545';
@@ -239,13 +249,24 @@ function ord_Cancle(val){
 }
 function ord_PCancle(seq,val){
 	if (confirm("취소하시겠습니까? 신중히 고려 부탁드립니다.")){
-	var ff = document.frm_cancle;
-	ff.mode.value="repay";
-	ff.orderno.value=val;
-	ff.seq.value=seq;
-	ff.action = "join_confirm_view_cancle_part.php";
-	ff.target="ifrm_act";
-	ff.submit();
+
+		if(val.startsWith("TOSS") > -1) {
+			var ff = document.frm_cancle;
+				ff.orderno.value=val;
+				ff.action = "toss_join_confirm_view_cancle_part.php";
+				ff.target="ifrm_act";
+				ff.submit();
+		}else{
+
+			var ff = document.frm_cancle;
+				ff.mode.value="repay";
+				ff.orderno.value=val;
+				ff.seq.value=seq;
+				ff.action = "join_confirm_view_cancle_part.php";
+				ff.target="ifrm_act";
+				ff.submit();
+		}
+
 	}
 }
 //보험약관

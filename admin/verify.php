@@ -67,7 +67,7 @@ body {
 .loginWrap h1{text-align:center;}
 .loginWrap .txt1{font-size:20px; color:#666; text-align:left;}
 .loginWrap input[type=text],.loginWrap input[type=password]{width:100%; height:40px; padding:10px; box-sizing:border-box;}
-.loginWrap input[type=submit]{width:100%;height:40px; color:#fff; background:#333; border:none;}
+.loginWrap input[type=submit]{width:100%;height:40px; color:#fff; background:#333; border:none;}document.getElementById('authCode').value=444230
 .loginWrap .copyright{text-align:center; font-size:11px; color:#666; margin:40px 0 0 0;}
 </style>
 
@@ -83,16 +83,17 @@ body {
     <?php if (isset($error)): ?>
         <p style="color: red;"><?php echo $error; ?></p>
     <?php endif; ?>
+
 <form action="verify.php" method="post">
 <input type="hidden" name="act" value="ok">
-	<p><input type="text" name="auth_code" value="<?=($_SERVER['REMOTE_ADDR'] == '59.15.184.2' ? $_SESSION['auth_code'] : '')?>" autocomplete="off" maxlength="6" placeholder="6자리 인증 코드" required></p>
+	<p><input type="text" name="auth_code" value="" id="authCode" autocomplete="off" maxlength="6" placeholder="6자리 인증 코드" required></p>
 	<p><input type="submit" value="입력" /></p>
-	<p class="copyright">Copyrights © KoreaAssistance, All rights reserved.</p>
 
-    <?php if($_SERVER['REMOTE_ADDR'] == '59.15.184.2') { ?>
-    	<p class="copyright">이 메시지는 인슈플러스 개발 서버에 코드아이디어 사무실에서 접속했을 때만 보이며, 2차 인증번호가 자동으로 입력되어 바로 로그인할 수 있습니다. 운영 서버에는 적용되지 않습니다. 작업자 - 이인한</p>
-    <?php } ?>
-        
+<?php if(defined("DEVELOPMENT_OFFICE")) { ?>
+    <p class="copyright">Copyrights © <span onclick="javascript: document.getElementById('authCode').value=<?=$_SESSION['auth_code']?>;">KoreaAssisftance<span>, All rights reserved.</p>
+<?php } else { ?>
+    <p class="copyright">Copyrights © KoreaAssisftance, All rights reserved.</p>
+<?php } ?>
 </form>
 </div>
 

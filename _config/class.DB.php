@@ -45,7 +45,7 @@ class dbcon {
 		$dbid = $this -> dbid;
 		$dbpw = $this -> dbpw;
 
-		$dbcon = @mysqli_connect($dbhost, $dbid, $dbpw,$dbname) or die("데이터베이스 연결에 실패하였습니다.");
+		$dbcon = mysqli_connect($dbhost, $dbid, $dbpw,$dbname) or die("데이터베이스 연결에 실패하였습니다.");
 
 		if(!$dbcon) {
 			if($this->debug > 0) {

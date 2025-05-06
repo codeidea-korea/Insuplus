@@ -135,8 +135,9 @@ var clareCalendar = {<?= $calendar_opt ?>});
   }
 
   function excelReason(name){
-  var reason = $('#reason').val().trim();
-  var excel_enc = $('#excel_enc').val();
+      
+      var reason = $('#reason').val().trim();
+      var excel_enc = $('#excel_enc').val();
 
       if (!reason) {
           alert('사유를 입력해 주세요.');
@@ -149,18 +150,18 @@ var clareCalendar = {<?= $calendar_opt ?>});
       $.ajax({
           type: 'POST',
           url: '../ajax_excel_reason.php',
-          data: { program: nameList[name], reason: reason,  },
+          data: { program: nameList[name], reason: reason, excel_enc: excel_enc },
           dataType: 'json',
           success: function (response) {
               if (response.success) {
                   if (name == 'all') {
-                    location.href = 'excel_join.php?mode=excel&excel_enc='+excel_enc+'&<?= $GLOBALS["parameter"] ?>';
+                    location.href = 'excel_join.php?mode=excel&<?= $GLOBALS["parameter"] ?>';
                   } else if (name == 'hanwha') {
-                    location.href = 'excel_hanwha.php?mode=excel&excel_enc='+excel_enc+'&<?= $GLOBALS["parameter"] ?>';
+                    location.href = 'excel_hanwha.php?mode=excel&<?= $GLOBALS["parameter"] ?>';
                   } else if (name == 'hyundai') {
-                    location.href = 'excel_hyundai.php?mode=excel&excel_enc='+excel_enc+'&<?= $GLOBALS["parameter"] ?>';
+                    location.href = 'excel_hyundai.php?mode=excel&<?= $GLOBALS["parameter"] ?>';
                   } else if (name == 'meritz') {
-                    location.href = 'excel_meritz.php?mode=excel&excel_enc='+excel_enc+'&<?= $GLOBALS["parameter"] ?>';
+                    location.href = 'excel_meritz.php?mode=excel&<?= $GLOBALS["parameter"] ?>';
                   }
                   $('#popupOverlay').fadeOut();
                   $('#popup').fadeOut();

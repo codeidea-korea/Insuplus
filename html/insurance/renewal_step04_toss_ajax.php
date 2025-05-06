@@ -6,176 +6,378 @@ include_once $_SERVER["DOCUMENT_ROOT"]."/_config/Func.insurance.php"; //추가
 include_once $_SERVER["DOCUMENT_ROOT"]."/_config/class.log.php"; //추가
 include_once $_SERVER["DOCUMENT_ROOT"]."/_config/Func.coupon.php";
 
+$log = new log(); 
+
 function generateOrderId() {
     $timestamp = time() * 1000; // 밀리초 단위 타임스탬프 (자바스크립트의 getTime()과 유사)
     $random = substr(str_shuffle('abcdefghijklmnopqrstuvwxyz0123456789'), 0, 6); // 랜덤 영숫자 6자리
     return "TOSS_{$timestamp}_{$random}";
 }
 
-// 주문 ID 생성
-$order_id = generateOrderId();
 
-// POST 데이터
-$data = $_POST;
+$PR_INFO = getInsuProductInfo($PR_SEQ); //상품정보
+$chk_p = $PR_INFO["ext1"];
 
-// 배열 데이터를 JSON으로 변환
-$companions = [];
-if (isset($data['add_gender']) && is_array($data['add_gender'])) {
-    for ($i = 0; $i < count($data['add_gender']); $i++) {
-        $companions[] = [
-            'gender' => $data['add_gender'][$i],
-            'birth' => $data['add_birth'][$i],
-            'user_name' => $data['add_user_name'][$i],
-            'rnumber' => $data['add_rnumber'][$i],
-            'en_secur' => $data['add_en_secur'][$i],
-            'en_name' => $data['add_en_name'][$i]
-        ];
-    }
-}
-$companions_json = addslashes(json_encode($companions));
-$pr_notice_json = isset($_POST['pr_notice']) ? addslashes(json_encode($_POST['pr_notice'])) : '[]';
-$pr_notice_a_json = isset($_POST['pr_notice_a']) ? addslashes(json_encode($_POST['pr_notice_a'])) : '[]';
-if ($_POST['gopaymethod'] == 'undefined' || empty($_POST['gopaymethod'])) {
-    $_POST['gopaymethod'] = 'Card'; // 기본값으로 'Card' 설정
-}
-// 데이터 이스케이프
-$PR_SEQ = addslashes($_POST['PR_SEQ']);
-$plan_seq = addslashes($_POST['plan_seq']);
-$s_date = addslashes($_POST['s_date']);
-$s_date_time = addslashes($_POST['s_date_time']);
-$e_date = addslashes($_POST['e_date']);
-$e_date_time = addslashes($_POST['e_date_time']);
-$gender = addslashes($_POST['gender']);
-$birth = addslashes($_POST['birth']);
-$user_name = addslashes($_POST['user_name']);
-$en_name = addslashes($_POST['en_name']);
-$user_rnumber = addslashes($_POST['user_rnumber']);
-$user_hp = addslashes($_POST['user_hp']);
-$email = addslashes($_POST['email']);
-$email2 = addslashes($_POST['email2']);
-$c_name = addslashes($_POST['c_name']);
-$c_code = addslashes($_POST['c_code']);
-$en_secur = addslashes($_POST['en_secur']);
-$purpose = addslashes($_POST['purpose']);
-$t_amt = intval($_POST['t_amt']);
-$service_amt = intval($_POST['service_amt']);
-$select_add_people = intval($_POST['select_add_people']);
-$recommend_cd = addslashes($_POST['recommend_cd']);
-$cp_cd = addslashes($_POST['cp_cd']);
-$is_abroad_resident = addslashes($_POST['is_abroad_resident']);
-$join_ch = addslashes($_POST['join_ch']);
-$depth0 = addslashes($_POST['depth0']);
-$depth1 = addslashes($_POST['depth1']);
-$depth2 = addslashes($_POST['depth2']);
-$depth3 = addslashes($_POST['depth3']);
-$gopaymethod = addslashes($_POST['gopaymethod']);
-// SQL 쿼리 작성
-$SQL= "INSERT INTO tbl_toss_temp_orders (
-            order_id,
-            PR_SEQ,
-            plan_seq,
-            s_date,
-            s_date_time,
-            e_date,
-            e_date_time,
-            gender,
-            birth,
-            user_name,
-            en_name,
-            user_rnumber,
-            user_hp,
-            email,
-            email2,
-            c_name,
-            c_code,
-            en_secur,
-            purpose,
-            t_amt,
-            service_amt,
-            select_add_people,
-            recommend_cd,
-            cp_cd,
-            is_abroad_resident,
-            join_ch,
-            depth0,
-            depth1,
-            depth2,
-            depth3,
-            companions,
-            pr_notice,
-            pr_notice_a,
-            gopaymethod
-        ) VALUES (
-            '$order_id',
-            '$PR_SEQ',
-            '$plan_seq',
-            '$s_date',
-            '$s_date_time',
-            '$e_date',
-            '$e_date_time',
-            '$gender',
-            '$birth',
-            '$user_name',
-            '$en_name',
-            '$user_rnumber',
-            '$user_hp',
-            '$email',
-            '$email2',
-            '$c_name',
-            '$c_code',
-            '$en_secur',
-            '$purpose',
-            $t_amt,
-            $service_amt,
-            $select_add_people,
-            '$recommend_cd',
-            '$cp_cd',
-            '$is_abroad_resident',
-            '$join_ch',
-            '$depth0',
-            '$depth1',
-            '$depth2',
-            '$depth3',
-            '$companions_json',
-            '$pr_notice_json',
-            '$pr_notice_a_json',
-            '$gopaymethod'
-        )";
+//현시점 약관 번호 검색
+$rule_site_cd = selRuleSeq("사이트 이용약관");
+$rule_group_cd = selRuleSeq("단체보험 규약");
+$rule_privacy_cd = selRuleSeq("개인정보 수집 및 이용 동의");
 
-$result = mysql_query_exe($SQL, $dbcon->dbcon);
+//변수 처리
+if ($_POST["s_date"] && $_POST["e_date"]){
+	$s_date = $_POST["s_date"];					// 기간 시작
+	$e_date = $_POST["e_date"];					// 기간 종료
+	$s_date_time = $_POST["s_date_time"];		// 기간 시작 시간
+	$e_date_time = $_POST["e_date_time"];		// 기간 종료 시간
 
+	if($chk_p == "Y") { //단기
+		$t_s_date = $s_date." ".$s_date_time;
+		$t_e_date = $e_date." ".$e_date_time;
 
+		$s_date_text = $t_s_date.":00";
+		$e_date_text = $t_e_date.":00";
 
-if ($result) {
-    // 성공 응답
+		$arr_period = getArrPeriod($t_s_date,$t_e_date,$chk_p); //기간구하기
+		$period_day = $arr_period["day"];
+		$period = $arr_period["day"];
+		$period_month = $arr_period["month"];
 
-	$SQL_PLAN = "select * from tbl_board_plan where seq=".$plan_seq." and s_date<='".$s_date."' and e_date>='".$s_date."' and plan_status='Y' AND secret='Y' ";
-	//echo $SQL_PLAN;
-	$result_plan = $dbcon -> query($SQL_PLAN);
-	$row_plan = $dbcon -> fetch_array($result_plan);
-	
-	$product_name = $row_plan["ins_plan_name"];
-	if($row_plan["chk_service"] == "A" || $row_plan["chk_service"] == "B") {
-		$product_name .= " ".$Arr_txt_plus[$row_plan["chk_service"]];
+	} else if($chk_p == "N") { //장기
+		$t_s_date = $s_date;
+		$t_e_date = $e_date;
+
+		$s_date_text = $t_s_date;
+		$e_date_text = $t_e_date;
+
+		$arr_period = getArrPeriod($t_s_date,$t_e_date,$chk_p); //기간구하기
+		$period_day = $arr_period["day"];
+		$period = $arr_period["month"];
+		$period_month = $arr_period["month"];
 	}
 
-	$response = [
-        'success' => true,
-        'order_id' => $order_id,
-        'amount' => $t_amt,
-		'order_name'=>$product_name,
-        'message' => '데이터가 성공적으로 저장되었습니다.'
-    ];
-} else {
-    // 실패 응답 - 상세 에러 정보 추가
-    $db_error = mysqli_error($dbcon->dbcon);
-    $response = [
-        'success' => false,
-        'error' => $db_error ? $db_error : '알 수 없는 오류',
-        'sql' => $SQL, // 디버깅 목적으로 SQL 쿼리 포함 (보안상 주의)
-        'message' => '데이터 저장 중 오류가 발생했습니다.'
-    ];
+	$gender			= $_POST["gender"];								// 가입자 성별
+	$birth			= $_POST["birth"];								// 가입자 생일
+	$user_name		= all_seed_enc(trim($_POST["user_name"]));		// 가입자 이름
+	$user_rnumber	= all_seed_enc(trim($_POST["user_rnumber"]));	// 가입자 주민등록번호
+	$user_hp		= all_seed_enc(trim($_POST["user_hp"]));		// 가입자 연락처
+	$email			= all_seed_enc(trim($_POST["email"]));			// 가입자 이메일 앞
+	$email2			= all_seed_enc(trim($_POST["email2"]));			// 가입자 이메일 뒤
+	$purpose		= $_POST["purpose"];							// 여행타입
+	$c_name			= $_POST["c_name"];								// 여행국 이름
+	$c_code			= $_POST["c_code"];								// 여행국 코드
+	$en_secur		= $_POST["en_secur"];							// 영문여권 여부
+	$en_name		= all_seed_enc(trim($_POST["en_name"]));		// 영문여권 이름
+	$cp_cd			= $_POST["cp_cd"];								// 쿠폰코드
+	$chk_p 			= print_pr_info($PR_SEQ,"ext1");							// 여행타입코드
+	$is_abroad_resident = $_POST["is_abroad_resident"];	//해외거주 여부
+	$join_ch 		= $_POST["join_ch"];	//제휴사 코드
+
+	if ($chk_p=="Y"){$period_gubun = "일";}else{$period_gubun = "달";}
+
+	// 플랜검색
+	$plan_view  = selPlanView($plan_seq, $t_s_date, $t_e_date, $chk_p);
+	$ins_file_cd = $plan_view["ins_term1_seq"];
+	$service_file_cd = is_null($plan_view["service_cd"]) ? 0 : $plan_view["service_cd"];
+
+	$select_add_people = $_POST["select_add_people"];		// 동반인명수
+	if (!$select_add_people){$select_add_people = 0;}
+	$t_select_add_people = $select_add_people + 1;
+	if ($select_add_people >0){
+		$arr_add_gender = array();
+		$arr_add_birth = array();
+		$arr_add_name = array();
+		for($k=0;$k<5;$k++){
+			if ($_POST["add_gender"][$k] && $_POST["add_birth"][$k]){
+			$arr_add_gender[] = $_POST["add_gender"][$k];									// 동반인 성별
+			$arr_add_birth[] = $_POST["add_birth"][$k];											// 동반인 생일
+			$arr_add_name[] = all_seed_enc(trim($_POST["add_user_name"][$k]));			// 동반인 이름
+			$arr_add_rnumber[] = all_seed_enc(trim($_POST["add_rnumber"][$k]));			// 동반인 주민등록번호
+			$arr_add_en_secur[] = $_POST["add_en_secur"][$k];							// 영문여권 여부
+			$arr_add_en_name[] = all_seed_enc(trim($_POST["add_en_name"][$k]));		// 영문여권 이름
+			}
+		}
+	}
+}else{
+//	echo "<script>alert('일정이 없습니다.');</script>";
+	exit;
 }
+//상품검색
+$SQL_ins = "select seq,ext4,ext5 from tbl_board_product where seq='".$PR_SEQ."' ";
+$RS_ins = $dbcon -> query($SQL_ins);
+$PR_row = $dbcon -> fetch_array($RS_ins);
+
+// 플랜검색
+$SQL_PLAN = "select * from tbl_board_plan where seq=".$plan_seq." and s_date<='".$s_date."' and e_date>='".$s_date."' and plan_status='Y' AND secret='Y' ";
+//echo $SQL_PLAN;
+$result_plan = $dbcon -> query($SQL_PLAN);
+$row_plan = $dbcon -> fetch_array($result_plan);
+
+// 여행비용 검색
+$user_age = fn_ins_age($birth);																		// 가입자 나이
+$user_amt = fn_sel_ins_amt($period,$chk_p,$plan_seq,$user_age,$gender);		// 가입자 여행비용
+$user_ins_plan_cd = fn_sel_ins_plan_cd($period,$chk_p,$plan_seq,$user_age,$gender);		// 가입자 실제 보험사 플랜코드
+$t_amt = 0;
+$t_add_user_amt = 0;
+$t_add_user_service_amt = 0;
+for($k=0;$k<5;$k++){
+	if ($arr_add_birth[$k]!=""){
+	$add_user_age = fn_ins_age($arr_add_birth[$k]);
+	$add_user_amt[$k] = fn_sel_ins_amt($period,$chk_p,$plan_seq,$add_user_age,$arr_add_gender[$k]);		// 동행자 여행비용
+	$add_user_ins_plan_cd[$k] = fn_sel_ins_plan_cd($period,$chk_p,$plan_seq,$add_user_age,$arr_add_gender[$k]);		// 동행자 실제 보험사 플랜코드
+	$add_user_service_amt[$k] = fn_ins_service_amt($plan_seq, $plan_view["ext3"], $period_month, $period_day, $period, $chk_p, $add_user_age, $arr_add_gender[$k]);
+	$t_add_user_service_amt = $t_add_user_service_amt + $add_user_service_amt[$k];
+	$t_amt = $t_amt + $add_user_amt[$k];		// 동반자 여행보험비용
+	$t_add_user_amt = $t_add_user_amt + $add_user_amt[$k];
+	}
+}
+$t_amt = $t_amt + $user_amt;							// 가입자 여행보험비용
+
+// 여행 서비스 비용
+//$service_amt = fn_ins_service_amt($plan_seq, $row_plan["chk_service"], $period_month, $period_day);
+$service_amt = fn_ins_service_amt($plan_seq, $row_plan["ext3"], $period_month, $period_day, $period, $chk_p, $user_age, $gender);
+$service_amt = $service_amt > 0 ? $service_amt : 0;
+//echo $service_amt." 서비스금액<br>";
+// $t_service_amt = ($service_amt * (1+count($add_user_amt)));
+$t_service_amt = $t_add_user_service_amt + $service_amt;
+//echo $t_service_amt." 서비스비용 총액<br>";
+// 보험비용
+$t_ins_amt = $user_amt + $t_add_user_amt;
+
+//총 상품가에서 할인을 적용한다.
+$total_amount = $t_amt+$t_service_amt;
+
+//쿠폰 검색
+$sale_gubun = ""; //할인방법
+$s_amt_per = 0;
+$s_amount = 0;
+$usr_s_amount = 0;
+if ($cp_cd){ //쿠폰
+	$sale_gubun = "C";
+	// $SQL_CP = " SELECT A.subject,B.temp_discount FROM tbl_board_event A INNER JOIN tbl_board_coupon_history B ";
+	// $SQL_CP .= " ON A.seq=B.event_seq where B.seq='".$cp_cd."' ";
+	// $result_cp = $dbcon -> query($SQL_CP);
+	// $row_cp = $dbcon -> fetch_array($result_cp);
+
+	$discount = $row_cp["temp_discount"];
+
+	$cp_discount_info = fn_calculate_coupon_discount($cp_cd, $t_ins_amt, $t_service_amt, $total_amount);
+
+	$s_amount = $cp_discount_info["totalDiscount"];				// 총 할인금액
+	$s_amt_per = $cp_discount_info["s_amt_per"];								// 총 할인율
+	$insurance_discount_rate = $cp_discount_info["insurance_discount_rate"];	// 보험료 할인율
+	$service_discount_rate = $cp_discount_info["service_discount_rate"];		// 서비스료 할인율
+
+	$usr_ins_dis_amount = floor($user_amt/100*$insurance_discount_rate);	// 가입자 보험료 할인금액
+	$usr_service_dis_amount = floor($service_amt/100*$service_discount_rate);	// 가입자 서비스료 할인금액
+	$usr_s_amount = $usr_ins_dis_amount + $usr_service_dis_amount;	// 가입자 총 할인금액
+
+}else if($recommend_cd) { //추천코드
+	$sale_gubun = "R";
+	$SQL_RECOMMEND  = " SELECT seq, discount FROM tbl_board_recommend_code WHERE seq = '".$recommend_cd."' ";
+	$result_recommend = $dbcon -> query($SQL_RECOMMEND);
+	$row_recommend = $dbcon -> fetch_array($result_recommend);
+
+	$discount = $row_recommend["discount"];
+	$s_amt_temp = $total_amount/100*$discount;
+	$s_amt_temp = floor($s_amt_temp);
+
+	if ($s_amt_temp<=30000){ 	//할인폭이 3만원 이상인경우 3만원까지만 할인되도록
+		$s_amount = $s_amt_temp;
+		$s_amt_per = $discount;
+	}else{
+		$s_amount = 30000;
+		$s_amt_per = (float)30000*100/$total_amount; //재계산 들어감
+	}
+	$usr_s_amount = floor(($user_amt+$service_amt)/100*$s_amt_per);			// 가입자 할인금액
+}
+
+
+// 할인금액 처리
+//echo $s_amt_temp." 임시할인금액<br>";
+//echo $s_amount." 할인금액<br>";
+//echo $t_select_add_people." 사람수<br>";
+$cp_amt = $s_amount;	// 총 할인금액
+$t_service_temp_amt = $t_service_amt - $s_amount;		// 과세대상 결제총액 = 서비스료 - 할인금액
+$value_of_supply = round($t_service_temp_amt / 1.1);	//공급가액 (서비스 과세금액)  과세대상 결제총액 / 1.1
+//VAT
+$amt_vat = $t_service_temp_amt - $value_of_supply; 		//부가세 = 과세대상 결제총액 - 공급가액
+
+if($t_service_temp_amt < 0) { //서비스 금액보다 할인금액이 큰 경우
+	$amt_vat = 0;
+}
+
+//$usr_s_amount = floor($s_amount/($t_select_add_people));			// 가입자 할인금액
+// $usr_s_amount = floor(($user_amt+$service_amt)/100*$s_amt_per);			// 가입자 할인금액
+$usr_vat_amount = floor($amt_vat/($t_select_add_people));			// 개별 VAT, 소수점 버림
+$usr_t_amount =	$user_amt + $service_amt - $usr_s_amount;	// 가입자 결제금액
+
+//총괄 서비스 비용
+// $t_amt = $t_amt + ($service_amt * (1+count($add_user_amt))) - $s_amount;
+$t_amt = $t_amt + $t_service_amt - $s_amount;
+
+
+// 주문 ID 생성
+$orderNumber = generateOrderId();
+$amount = $t_amt;  // 상품가격(특수기호 제외, 가맹점에서 직접 설정)
+
+//데이터 입력 - 주문
+$select_add_people = $select_add_people +1;		//가입자 본인 추가
+$SQL1 = "insert into tbl_order_listTemp set";
+$SQL1 .= " orderno = '".$orderNumber."' ";
+$SQL1 .= " , pr_name = '".print_pr_name($PR_SEQ)."' ";
+$SQL1 .= " , pr_cd = '".$PR_SEQ."' ";
+//$SQL1 .= " , ins_name = '".print_ins($row_plan["ins_cd"])."' ";
+//$SQL1 .= " , ins_cd = '".$row_plan["ins_cd"]."' ";
+$SQL1 .= " , ins_name = '신규가입' ";
+$SQL1 .= " , ins_cd = 0 "; //개편이후 신규 가입자 구분용으로 0을 입력 20230926
+//$SQL1 .= " , plan_name = '".$Arr_plan_cd[$row_plan["plan_cd"]]."' ";
+$SQL1 .= " , plan_name = '".$row_plan["ins_plan_name"]." - ".$Arr_plan_cd[$row_plan["plan_cd"]]."' ";
+$SQL1 .= " , plan_cd = '".($plan_seq > 0 ? $plan_seq : 0)."' ";
+$SQL1 .= " , agree_cd = '".($PR_row["ext4"] > 0 ? $PR_row["ext4"] : 0)."' ";
+$SQL1 .= " , service_name = '".print_insu_service($PR_row["ext5"])."' ";
+$SQL1 .= " , service_cd = '".($PR_row["ext5"] > 0 ? $PR_row["ext5"] : 0)."' ";
+$SQL1 .= " , rule_site_cd = '".$rule_site_cd."' ";
+$SQL1 .= " , rule_group_cd = '".$rule_group_cd."' ";
+$SQL1 .= " , rule_privacy_cd = '".$rule_privacy_cd."' ";
+$SQL1 .= " , ins_file_cd = '".$ins_file_cd."' ";
+$SQL1 .= " , service_file_cd = '".$service_file_cd."' ";
+$SQL1 .= " , s_date = '".$s_date."' ";
+$SQL1 .= " , s_date_time = '".$s_date_time."' ";
+$SQL1 .= " , e_date = '".$e_date."' ";
+$SQL1 .= " , e_date_time = '".$e_date_time."' ";
+$SQL1 .= " , ins_period = '".$period."' ";
+$SQL1 .= " , chk_p = '".$chk_p."' ";
+$SQL1 .= " , chk_service = '".$row_plan["chk_service"]."' ";
+$SQL1 .= " , o_name = '".$user_name."' ";
+$SQL1 .= " , o_email1 = '".$email."' ";
+$SQL1 .= " , o_email2 = '".$email2."' ";
+$SQL1 .= " , join_cnt = '".$select_add_people."' ";
+$join_ch_val = strlen($_SESSION["ss_partner_seq"]) > 0 ? $_SESSION["ss_partner_seq"] : $join_ch;
+$SQL1 .= " , join_ch = '".$join_ch_val."' ";
+$SQL1 .= " , purpose = '".$purpose."' ";
+$SQL1 .= " , join_nation_cd = '".$c_code."' ";
+$SQL1 .= " , join_nation_name = '".$c_name."' ";
+$SQL1 .= " , sale_gubun = '".$sale_gubun."' ";
+$SQL1 .= " , sale_discount = '".$s_amt_per."' ";
+$SQL1 .= " , new_cp_cd = '".$cp_cd."' ";
+$SQL1 .= " , recommend_cd = '".($recommend_cd > 0 ? $recommend_cd : 0)."' ";
+$SQL1 .= " , ins_amount = '".($t_ins_amt > 0 ? $t_ins_amt : 0)."' ";
+$SQL1 .= " , service_amount = '".($t_service_amt> 0 ? $t_service_amt : 0)."' ";
+$SQL1 .= " , s_amount = '".($s_amount > 0 ? $s_amount : 0)."' ";
+$SQL1 .= " , vat_amount = '".($amt_vat > 0 ? $amt_vat : 0)."' ";
+$SQL1 .= " , t_amount = '".($t_amt > 0 ? $t_amt : 0)."' ";
+$SQL1 .= " , cancle_amount = '0' ";
+$SQL1 .= " , writedate = now() ";
+// echo $SQL1."<br>";
+$RS1 = $dbcon -> query($SQL1);
+
+// echo $amount." 상품가격<br>";
+//데이터 입력 - 가입자
+$SQL2 = "insert into tbl_order_list_joinTemp set";
+$SQL2 .= " orderno = '".$orderNumber."' ";
+$SQL2 .= " , gender = '".$gender."' ";
+$SQL2 .= " , chk_join = 'N' ";
+$SQL2 .= " , chk_eng_passport = '".$en_secur."' ";
+$SQL2 .= " , o_name = '".$user_name."' ";
+$SQL2 .= " , o_phone = '".$user_hp."' ";
+$SQL2 .= " , o_isdn1 = '".all_seed_enc($birth)."' ";
+$SQL2 .= " , o_isdn2 = '".$user_rnumber."' ";
+$SQL2 .= " , o_name_en = '".$en_name."' "; 
+$SQL2 .= " , ins_plan_cd = '".$user_ins_plan_cd."' ";
+$SQL2 .= " , join_amount = '".$user_amt."' ";
+$SQL2 .= " , join_service = '".$service_amt."' ";
+$SQL2 .= " , vat_amount = '".$usr_vat_amount."' ";
+$SQL2 .= " , s_amount = '".$usr_s_amount."' ";
+$SQL2 .= " , t_amount = '".$usr_t_amount."' ";
+$SQL2 .= " , is_abroad_resident = '".$is_abroad_resident."' "; //해외거주 여부 동반인은 사용안함
+$SQL2 .= " , regdate = now() ";
+//echo $SQL2."<br>";
+$RS2 = $dbcon -> query($SQL2);
+
+//데이터 입력 - 동반자
+if ($select_add_people >0){
+	for($k=0;$k<5;$k++){
+		if ($_POST["add_gender"][$k] && $_POST["add_birth"][$k]){
+			$add_usr_s_amount = 0;
+			if ($cp_cd){
+				$add_user_ins_dis_amount = floor($add_user_amt[$k]/100*$insurance_discount_rate);	// 가입자 보험료 할인금액
+				$add_user_service_dis_amount = floor($add_user_service_amt[$k]/100*$service_discount_rate);	// 가입자 서비스료 할인금액
+				$add_usr_s_amount = $add_user_ins_dis_amount + $add_user_service_dis_amount;	// 가입자 총 할인금액
+			} else if($recommend_cd) {
+				$add_usr_s_amount = ($add_user_amt[$k] + $add_user_service_amt[$k])/100*$s_amt_per;	// 가입자 총 할인금액
+			}
+
+			// $usr_s_amount = ($add_user_amt[$k] + $add_user_service_amt[$k])/100*$s_amt_per;
+			$add_usr_t_amount =	$add_user_amt[$k] + $add_user_service_amt[$k] - $add_usr_s_amount;	// 가입자 결제금액
+			$SQL2 = "insert into tbl_order_list_joinTemp set";
+			$SQL2 .= " orderno = '".$orderNumber."' ";
+			$SQL2 .= " , gender = '".$arr_add_gender[$k]."' ";
+			$SQL2 .= " , chk_join = 'Y' ";
+			$SQL2 .= " , chk_eng_passport = '".$arr_add_en_secur[$k]."' ";
+			$SQL2 .= " , o_name = '".$arr_add_name[$k]."' ";
+			$SQL2 .= " , o_phone = '' ";
+			$SQL2 .= " , o_isdn1 = '".all_seed_enc($arr_add_birth[$k])."' ";
+			$SQL2 .= " , o_isdn2 = '".$arr_add_rnumber[$k]."' ";
+			$SQL2 .= " , o_name_en = '".$arr_add_en_name[$k]."' ";
+			$SQL2 .= " , ins_plan_cd = '".$add_user_ins_plan_cd[$k]."' ";
+			$SQL2 .= " , join_amount = '".$add_user_amt[$k]."' ";
+			$SQL2 .= " , join_service = '".$add_user_service_amt[$k]."' ";
+			$SQL2 .= " , vat_amount = '".$usr_vat_amount."' ";
+			$SQL2 .= " , s_amount = '".$add_usr_s_amount."' ";
+			$SQL2 .= " , t_amount = '".$add_usr_t_amount."' ";
+			$SQL2 .= " , regdate = now() ";
+//			echo $SQL2."<br>";
+			$RS2 = $dbcon -> query($SQL2);
+
+		}
+	}
+}
+
+// 동의사항에서 정보 입력
+for ($k=0;$k<count($_POST["pr_notice"]);$k++){
+	$SQL_N = "insert into tbl_order_list_noticeTemp set ";
+	$SQL_N .= " orderno = '".$orderNumber."' ";
+	$SQL_N .= " ,pr_notice = '".$_POST["pr_notice"][$k]."' ";
+	$SQL_N .= " ,pr_notice_a = '' ";
+//	echo $SQL_N."<br>";
+	$RS_N = $dbcon -> query($SQL_N);
+}
+
+
+//쿠폰등록
+// tbl_order_list_coupon 테이블 결제 구간 말고 사용하는 곳이 없음
+if ($cp_cd){
+	$SQL_cp = "insert into tbl_order_list_couponTemp set ";
+	$SQL_cp .= " orderno = '".$orderNumber."' ";
+	$SQL_cp .= " ,coupon_name = '신규쿠폰' ";
+	// $SQL_cp .= " ,coupon_seq = '0' ";
+	$SQL_cp .= " ,new_cp_cd = '".$cp_cd."' ";
+	$SQL_cp .= " ,cp_sale_per = '".$s_amt_per."' ";
+	$SQL_cp .= " ,coupon_amount = '".$s_amount."' ";
+	$SQL_cp .= " ,writedate = now() ";
+//	echo $SQL_cp."<br>";
+	$RS_N = $dbcon -> query($SQL_cp);
+}
+
+$product_name = $row_plan["ins_plan_name"];
+if($row_plan["chk_service"] == "A" || $row_plan["chk_service"] == "B") {
+	$product_name .= " ".$Arr_txt_plus[$row_plan["chk_service"]];
+}
+
+
+$response = [
+    'success' => true,
+    'order_id' => $orderNumber,
+    'amount' => $amount,
+    'order_name'=>$product_name,
+    'customer_name' => trim($_POST["user_name"]) ?? '',
+    'customer_email' => trim($_POST["email"]) ? trim($_POST["email"])."@".$_POST["email2"] : '',
+    'user_hp' =>trim($_POST["user_hp"]) ?? '',
+    'message' => '데이터가 성공적으로 저장되었습니다.'
+];
+
+
+
 
 echo json_encode($response); ?>
 
