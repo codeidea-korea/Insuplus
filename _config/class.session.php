@@ -91,7 +91,7 @@
 	// 관리자 권한 체크
 	function admin_chk($level, $url = "")
 	{
-		global $ss_u_idx, $ss_u_level;
+		global $ss_u_idx, $ss_u_level, $dbcon;
 
 		if ( getLen($url) == 0 ) {
 			$url = $url_admin;
@@ -105,8 +105,8 @@
 //		echo "ss_u_level : ".$ss_u_level."<BR>";
 //
 //		exit;
-
-		if ( getLen($ss_u_idx) == 0 ) {
+        // 반드시 인증해야되도록 변경경
+		if ( getLen($ss_u_idx) == 0 || $_SESSION['is_authenticated'] == false) {
 			alert_page("로그인 후 이용해 주십시오.",$url);
 			exit;
 		}
@@ -116,7 +116,28 @@
 			$flag = true;
 		}
 
+        $session_token = $_SESSION['session_token'];
+        $token_expire_time = $_SESSION['token_expire_time'];
 
+
+        $SQL = "SELECT count(*) as cnt from tbl_user_session where session_token = '".$session_token."' and expire_time > now()";
+   
+        $result = $dbcon->query($SQL); 
+        
+        if($result) {
+            $row = $result->fetch_assoc();
+            $count = $row['cnt'];
+            
+            if($count == 0 || !$session_token) {
+                $url ='/admin/logout.php';
+                alert_page("다른 PC에서 로그인했습니다.",$url);
+            }
+        } else {
+            // 쿼리 실행 실패 처리
+            $url ='/admin/logout.php';
+            alert_page("세션 확인 중 오류가 발생했습니다.",$url);
+        }
+        // echo $result;
 		//echo $flag."<BR>";
 //		for ( $i=0; $i<sizeof($arr_level); $i++ ) {
 //			//echo $arr_level[$i]."<BR>";
@@ -163,6 +184,8 @@
 		}
 
 
+
+        
 		//echo $flag."<BR>";
 //		for ( $i=0; $i<sizeof($arr_level); $i++ ) {
 //			//echo $arr_level[$i]."<BR>";
@@ -382,4 +405,46 @@
 		";
 		$dbcon -> query($SQL);
 	}
+
+    function generateLoginTokenInfo(){
+        global $dbcon;
+        
+        
+            $session_token = bin2hex(random_bytes(16));
+            $last_login_time = date("Y-m-d H:i:s");
+            $last_login_ip = $_SERVER['REMOTE_ADDR'];
+            $user_fk = $_SESSION['ss_u_idx'];
+            $use_id = $_SESSION['ss_u_id'];
+            $expire_time = date("Y-m-d H:i:s", strtotime("+2 hour"));
+    
+            $SQL = "INSERT INTO tbl_user_session (
+            user_id, 
+            user_fk, 
+            session_token, 
+            last_login_time, 
+            last_login_ip, 
+            expire_time
+            ) VALUES (
+                '$use_id',
+                '$user_fk',
+                '$session_token',
+                '$last_login_time',
+                '$last_login_ip',
+                '$expire_time'
+            ) ON DUPLICATE KEY UPDATE 
+                session_token = VALUES(session_token),
+                last_login_time = VALUES(last_login_time),
+                last_login_ip = VALUES(last_login_ip),
+                expire_time = VALUES(expire_time)";
+
+            // echo $SQL;
+
+            // 쿼리 실행
+            $result = $dbcon->query($SQL);
+         
+    
+            return $session_token;
+            
+ 
+    }
 ?>

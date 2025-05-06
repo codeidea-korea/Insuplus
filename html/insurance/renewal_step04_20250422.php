@@ -226,8 +226,6 @@ $detect = new Mobile_Detect;
 <? } else if (SERVER_CHECK == "REAL") { ?>
   <script language="javascript" type="text/javascript" src="https://stdpay.inicis.com/stdjs/INIStdPay.js" charset="UTF-8"></script>
 <? } ?>
-
-
 <script src="./js/swiper.js?a=1"></script>
 <script src="./js/ehd-object.js"></script>
 <script>
@@ -371,7 +369,7 @@ $detect = new Mobile_Detect;
       return;
     }
 
-    if(EHDObject.customer.cellphone === '01049775976' || EHDObject.customer.cellphone === '01038585916'){
+    if(EHDObject.customer.cellphone === '01049775976'){
       
 
     const PAY_TYPE_MAP = {
@@ -383,35 +381,29 @@ $detect = new Mobile_Detect;
     const toss_pay_type = PAY_TYPE_MAP[pay_type];
     const fd= getFormInfo();
 
-    const protocol = window.location.protocol;
-    const domain = window.location.hostname;   
+    const customerName = fd.get('user_name');
+    const amount = parseInt(fd.get('t_amt'));
+    const orderName = fd.get('plan_seq') ? `여행보험 ${fd.get('plan_seq')}` : '여행보험';
+    const customerEmail = fd.get('email') + '@' + fd.get('email2');
+    const customerMobilePhone = fd.get('user_hp');
+    const gopaymethod = fd.get('gopaymethod'); // 결제방식
+
+    tossPayments.requestPayment(toss_pay_type, {
+    // 필수 파라미터
+    amount: amount,
+    orderId: generateOrderId(),
+    orderName: orderName,
+    customerName: customerName,
+    successUrl: 'https://example.com/success',
+    failUrl: 'https://example.com/fail',
     
-
-    let port = window.location.port;
-    port ? port=":"+port : ''; 
-
-    $.ajax({
-        url: './renewal_step04_toss_ajax.php',
-        method: 'POST',
-        data: fd,
-        cache: false,
-        contentType: false,
-        processData: false,
-        success: function(data) {
-           let jsonRes =  JSON.parse(data);
-            console.log(`${protocol}//${domain}/html/insurance/payment_success.php`);
-            // DB 저장 성공 후 결제 요청
-            tossPayments.requestPayment(toss_pay_type, {
-            amount: jsonRes.amount,
-            orderId: jsonRes.order_id,
-            orderName: jsonRes.order_name,
-            successUrl: `${protocol}//${domain}${port}/html/insurance/payment_success.php`,
-            failUrl: `${protocol}//${domain}${port}/html/insurance/payment_fail.php`
-        });
-    }
-});
-
-  
+    // formData에서 추출한 추가 정보
+    customerEmail: customerEmail,
+    customerMobilePhone: customerMobilePhone,
+    
+    // 결제 성공시 추가 정보 전달을 위한 쿼리 파라미터
+    // successUrl: `https://example.com/success?PR_SEQ=${encodeURIComponent(fd.get('PR_SEQ'))}&plan_seq=${encodeURIComponent(fd.get('plan_seq'))}`
+})
 
     }else{
 
@@ -448,7 +440,12 @@ $detect = new Mobile_Detect;
 }
 
   }
-
+  // tosspayment
+  function generateOrderId() {
+    const timestamp = new Date().getTime();
+    const random = Math.random().toString(36).substring(2, 8); // 랜덤 영숫자 6자리
+    return `TOSS_${timestamp}_${random}`;
+}
 
   function inipay() { //pc결제
     INIStdPay.pay('SendPayForm_id');
@@ -760,10 +757,10 @@ $detect = new Mobile_Detect;
     })
     $('[data-layer="layer0' + num + '"]').animate({
       opacity: '0'
-    }, 300, function() {
+    }, 300, function() { 
       $('[data-layer="layer0' + num + '"]').hide();
     })
-  }
+  } 
 
   function downLoadCoupon(clickedButton) {
     const discount = clickedButton.getAttribute('data-value');

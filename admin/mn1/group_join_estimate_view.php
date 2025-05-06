@@ -9,10 +9,13 @@
 
 	$parameter = "&pr_cd=".$pr_cd."&group_join_status=".$group_join_status."&search_text=".$search_text."&num_per_page=".$num_per_page."&search_date_s=".$search_date_s."&search_date_e=".$search_date_e;
 	
+
 	if ($group_join_id){
 		//단체가입 내역 조회
 		$SQL = "select * from tbl_order_group_join_list where group_join_id = '".$group_join_id."'";
+    
 		$RS = $dbcon -> query($SQL);
+ 
 		if (!$RS){
 			echo "<script>alert('해당 단체 가입내역이 없습니다.');</script>";
 			exit;
@@ -24,7 +27,7 @@
 
 		$PR_INFO = getInsuProductInfo($PR_SEQ); //상품정보
 		$chk_p = $PR_INFO["ext1"];
-
+     
 		$str = ["ins_plan_cd1", "ins_plan_cd2", "ins_plan_cd3"];
 		$arr_compare = array();
 		$compare_seq = "";
