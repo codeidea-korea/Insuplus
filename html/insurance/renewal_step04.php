@@ -231,8 +231,7 @@ $detect = new Mobile_Detect;
 <script src="./js/swiper.js?a=1"></script>
 <script src="./js/ehd-object.js"></script>
 <script>
-    const clientKey = 'test_ck_Z61JOxRQVEnPZA91BGJmrW0X9bAq' 
-    const customerKey = 'nfRQHs3gONfOAy8ZA78hd' 
+    const clientKey = '<?=TOSS_CLIENT_KEY?>'; // 클라이언트 키
     const tossPayments = TossPayments(clientKey)
 
   function generateCustomerForms() {
@@ -357,6 +356,9 @@ $detect = new Mobile_Detect;
   }
 
   function chk_submit4(pay_type) {
+
+    const isMobile = <?= $detect->isMobile() ? 'true' : 'false' ?>;
+
     <? if ($detect->isMobile()) { ?>
       if (pay_type == "Card") {
         pay_type = "wcard";
@@ -371,13 +373,16 @@ $detect = new Mobile_Detect;
       return;
     }
 
-    if(EHDObject.customer.cellphone === '01049775976' || EHDObject.customer.cellphone === '01038585916'){
+    if(EHDObject.customer.cellphone === '01049775976' || EHDObject.customer.cellphone === '01038585916' || EHDObject.customer.cellphone === '01054405414' || EHDObject.customer.cellphone === '01020493619'){
       
 
     const PAY_TYPE_MAP = {
         'Card': '카드',
         'HPP': '휴대폰',
-        'Vbank': '가상계좌'
+        'Vbank': '가상계좌',
+        'wcard' : '카드',
+        'mobile' : '휴대폰',
+        'vbank' : '가상계좌'
     };
 
     const toss_pay_type = PAY_TYPE_MAP[pay_type];
@@ -389,29 +394,51 @@ $detect = new Mobile_Detect;
 
     let port = window.location.port;
     port ? port=":"+port : ''; 
-
+  console.log(toss_pay_type)    
     $.ajax({
-        url: './renewal_step04_toss_ajax.php',
-        method: 'POST',
-        data: fd,
-        cache: false,
-        contentType: false,
-        processData: false,
-        success: function(data) {
-           let jsonRes =  JSON.parse(data);
-            console.log(`${protocol}//${domain}/html/insurance/payment_success.php`);
-            // DB 저장 성공 후 결제 요청
-            tossPayments.requestPayment(toss_pay_type, {
-            amount: jsonRes.amount,
-            orderId: jsonRes.order_id,
-            orderName: jsonRes.order_name,
-            successUrl: `${protocol}//${domain}${port}/html/insurance/payment_success.php`,
-            failUrl: `${protocol}//${domain}${port}/html/insurance/payment_fail.php`
-        });
-    }
-});
+      url: './renewal_step04_toss_ajax.php',
+      method: 'POST',
+      data: fd,
+      cache: false,
+      contentType: false,
+      processData: false,
+      success: function(data) {
+        let jsonRes = JSON.parse(data);
+        const tossPayments = TossPayments(clientKey);
 
-  
+        // 토스페이먼츠 콘솔에 디버깅용 로그 추가
+        // console.log("isMobile:", isMobile);
+        // console.log("결제 요청 파라미터:", {
+        //   amount: jsonRes.amount,
+        //   orderId: jsonRes.order_id,
+        //   orderName: jsonRes.order_name,
+        //   customerName: jsonRes.customer_name,
+        //   customerEmail: jsonRes.customer_email,
+        //   customerMobilePhone: jsonRes.user_hp,
+        //   successUrl: `${protocol}//${domain}${port}/html/insurance/payment_success.php`,
+        //   failUrl: `${protocol}//${domain}${port}/html/insurance/payment_fail.php`
+        // });
+
+        try {
+     
+            // PC에서는 Promise 방식 사용 가능
+            tossPayments.requestPayment(toss_pay_type, {
+              amount: jsonRes.amount,
+              orderId: jsonRes.order_id,
+              orderName: jsonRes.order_name,
+              customerName: jsonRes.customer_name,
+              customerEmail: jsonRes.customer_email,
+              customerMobilePhone: jsonRes.user_hp,
+              successUrl: `${protocol}//${domain}${port}/html/insurance/payment_success.php`,
+              failUrl: `${protocol}//${domain}${port}/html/insurance/payment_fail.php`
+          })
+          
+        } catch (e) {
+          console.error("토스페이먼츠 초기화 오류:", e);
+          alert("결제 초기화 중 오류가 발생했습니다");
+        }
+      }
+    });
 
     }else{
 
@@ -448,6 +475,9 @@ $detect = new Mobile_Detect;
 }
 
   }
+
+
+
 
 
   function inipay() { //pc결제

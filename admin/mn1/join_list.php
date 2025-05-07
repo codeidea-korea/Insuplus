@@ -135,8 +135,9 @@ var clareCalendar = {<?= $calendar_opt ?>});
   }
 
   function excelReason(name){
-  var reason = $('#reason').val().trim();
-  var excel_enc = $('#excel_enc').val();
+      
+      var reason = $('#reason').val().trim();
+      var excel_enc = $('#excel_enc').val();
 
       if (!reason) {
           alert('사유를 입력해 주세요.');
@@ -149,7 +150,7 @@ var clareCalendar = {<?= $calendar_opt ?>});
       $.ajax({
           type: 'POST',
           url: '../ajax_excel_reason.php',
-          data: { program: nameList[name], reason: reason,  },
+          data: { program: nameList[name], reason: reason, excel_enc: excel_enc },
           dataType: 'json',
           success: function (response) {
               if (response.success) {
