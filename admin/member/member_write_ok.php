@@ -47,6 +47,7 @@
 	$u_partner_seq				= REQSTR($_POST[u_partner_seq], "0");
 	$u_state					= REQSTR($_POST[u_state], "");
 	$u_regdate				= REQSTR($_POST[u_regdate], "");
+	$u_accessible_ip				= REQSTR($_POST[u_accessible_ip], "*");
 
 	isnull($u_id);
 	isnull($u_name);
@@ -110,7 +111,9 @@
 				, u_level = '".$u_level."'
 				, u_partner_seq = '".$u_partner_seq."'
 				, u_state = '".$u_state."'
-				".$SQL_pw_set."
+				, u_accessible_ip = '".$u_accessible_ip."'
+                ".$SQL_pw_set."
+
 			where
 				u_id = '".$u_id."'
 		";
@@ -143,11 +146,13 @@
 						, u_email1, u_email2, u_hp1, u_hp2, u_hp3, u_tel1, u_tel2, u_tel3
 						, u_sex
 						, u_birth, u_level,u_partner_seq,  u_state
+                       , u_accessible_ip
 					) VALUES (
 						'".$u_id."', '".$u_pw."', '".$u_name."'
 						, '".$u_email1."', '".$u_email2."', '".$u_hp1."', '".$u_hp2."', '".$u_hp3."', '".$u_tel1."', '".$u_tel2."', '".$u_tel3."'
 						, '".$u_sex."'
 						, '".$u_birth."', '".$u_level."', '".$u_partner_seq."', '".$u_state."'
+                        , '".$u_accessible_ip."'
 					)
 				";
 		echo "SQL : ".$SQL."<BR>";
