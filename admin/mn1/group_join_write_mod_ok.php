@@ -13,6 +13,12 @@
     mysqli_report(MYSQLI_REPORT_ALL ^ MYSQLI_REPORT_INDEX);
     $mysqli_db = $dbcon->dbcon;
     $mysqli_db->begin_transaction(); //트랜잭션 시작
+
+    function generateOrderId() {
+        $timestamp = time() * 1000; // 밀리초 단위 타임스탬프 (자바스크립트의 getTime()과 유사)
+        $random = substr(str_shuffle('abcdefghijklmnopqrstuvwxyz0123456789'), 0, 6); // 랜덤 영숫자 6자리
+        return "TOSS_{$timestamp}_{$random}";
+    }
 	if ($_POST["mode"] == "write"){
 		$parameter = "&pr_cd=".$pr_cd."&ins_cd=".$ins_cd."&plan_cd=".$plan_cd."&chk_service=".$chk_service."&search_text=".$search_text."&num_per_page=".$num_per_page."&search_date_s=".$search_date_s."&search_date_e=".$search_date_e;
 
@@ -260,11 +266,18 @@
                             $usr_vat_amount = 0;			// 개별 VAT, 소수점 버림
                             $usr_t_amount =	$ins_amount + $service_amount - $usr_s_amount;	// 가입자 결제금액
                             $GROUP_INFO_TABLE["total_amount"] = $GROUP_INFO_TABLE["total_amount"]+$usr_t_amount;
-        
-                            require_once('../../html/insurance/libs/INIStdPayUtil.php');
-                            $SignatureUtil = new INIStdPayUtil();
-                            $orderNumber = "P_" .date("YmdHis").$SignatureUtil->getTimestamp(); // 가맹점 주문번호(가맹점에서 직접 설정)
-        
+                            
+
+
+
+
+                            //20250507 pg사 변경
+                            // require_once('../../html/insurance/libs/INIStdPayUtil.php');
+                            // $SignatureUtil = new INIStdPayUtil();
+                            // $orderNumber = "P_" .date("YmdHis").$SignatureUtil->getTimestamp(); // 가맹점 주문번호(가맹점에서 직접 설정)
+                            
+                            $orderNumber = generateOrderId(); // 가맹점 주문번호(가맹점에서 직접 설정)
+
                             $rule_site_cd = selRuleSeq("사이트 이용약관");
                             $rule_group_cd = selRuleSeq("단체보험 규약");
                             $rule_privacy_cd = selRuleSeq("개인정보 수집 및 이용 동의");
@@ -640,9 +653,12 @@
 
                                 // require_once('../../html/insurance/libs/INIStdPayUtil.php');
                                 // require_once('../../html/insurance/libs/HttpClient.php');
-                                require_once('../../html/insurance/libs/INIStdPayUtil.php');
-                                $SignatureUtil = new INIStdPayUtil();
-                                $orderNumber = "P_" .date("YmdHis").$SignatureUtil->getTimestamp(); // 가맹점 주문번호(가맹점에서 직접 설정)
+
+                                // 20250507 pg사 변경
+                                // require_once('../../html/insurance/libs/INIStdPayUtil.php');
+                                // $SignatureUtil = new INIStdPayUtil();
+                                // $orderNumber = "P_" .date("YmdHis").$SignatureUtil->getTimestamp(); // 가맹점 주문번호(가맹점에서 직접 설정)
+                                $orderNumber = generateOrderId(); // 가맹점 주문번호(가맹점에서 직접 설정)
 
                                 $rule_site_cd = selRuleSeq("사이트 이용약관");
                                 $rule_group_cd = selRuleSeq("단체보험 규약");
@@ -940,9 +956,11 @@
 
                                 // require_once('../../html/insurance/libs/INIStdPayUtil.php');
                                 // require_once('../../html/insurance/libs/HttpClient.php');
-                                require_once('../../html/insurance/libs/INIStdPayUtil.php');
-                                $SignatureUtil = new INIStdPayUtil();
-                                $orderNumber = "P_" .date("YmdHis").$SignatureUtil->getTimestamp(); // 가맹점 주문번호(가맹점에서 직접 설정)
+                                // 20250507 pg사 변경
+                                // require_once('../../html/insurance/libs/INIStdPayUtil.php');
+                                // $SignatureUtil = new INIStdPayUtil();
+                                // $orderNumber = "P_" .date("YmdHis").$SignatureUtil->getTimestamp(); // 가맹점 주문번호(가맹점에서 직접 설정)
+                                $orderNumber = generateOrderId(); // 가맹점 주문번호(가맹점에서 직접 설정)
 
                                 $rule_site_cd = selRuleSeq("사이트 이용약관");
                                 $rule_group_cd = selRuleSeq("단체보험 규약");
@@ -1062,7 +1080,7 @@
 			foreach($orderno as $num) {
 				$status = $group_join_status == "Y" ? "2" : "1";
                 
-				$SQL_J = "UPDATE tbl_order_list SET order_step='".$status."', pg_pay_type='VBANK', pay_name='".all_seed_enc('단체가입 계좌이체')."', pg_in_date=now(), pg_id='".MID."' WHERE orderno = '".$num["orderno"]."' ";
+				$SQL_J = "UPDATE tbl_order_list SET order_step='".$status."', pg_pay_type='VBANK', pay_name='".all_seed_enc('단체가입 계좌이체')."', pg_in_date=now(), pg_id='".TOSS_MID."' WHERE orderno = '".$num["orderno"]."' ";
 				$dbcon -> query($SQL_J);
 	
 				$SQL_U = "UPDATE tbl_order_list_join SET join_status='Y' where orderno='".$num["orderno"]."'";
