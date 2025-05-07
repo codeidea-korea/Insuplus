@@ -114,7 +114,7 @@ $param["ins_amount"] = $row_order["ins_amount"];
 $param["amount"] = $row_order["ins_amount"] + $row_order["service_amount"];
 $param["t_amount"] = $row_order["t_amount"];
 $param["payMethod"] = $row_order["pg_pay_type"];
-$param["pay_name"] = $row_order["pay_name"];
+$param["pay_name"] = all_seed_dec($row_order["pay_name"]);
 $param["domain"] = getDomain();
 $param["chk_service"] = $row_order["chk_service"];
 
@@ -152,6 +152,8 @@ $param["coupon_period"] = $s_coupon_date . " ~ " . $e_coupon_date;
 kakaoInsuplusJoin($param, $mobile);
 kakaoJoinCoupon($param, $mobile);
 $email = all_seed_dec($row_order["o_email1"]) . "@" . all_seed_dec($row_order["o_email2"]);
+
+$log->log_write("Payment Data: " . print_r($param, true));
 mailJoinSend($param, $email);
 
 $log->log_write("입금 완료 처리 완료: " . $orderId);
