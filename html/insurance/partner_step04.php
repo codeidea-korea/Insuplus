@@ -141,6 +141,8 @@ $detect = new Mobile_Detect;
 <script src="./js/swiper.js?a=1"></script>
 <script src="./js/ehd-object.js"></script>
 <script>
+  const clientKey = '<?=TOSS_CLIENT_KEY?>'; // 클라이언트 키
+  const tossPayments = TossPayments(clientKey)
   function generateCustomerForms() {
     const customer = EHDObject.customer;
     const companions = EHDObject.companions;

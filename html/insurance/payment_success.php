@@ -45,7 +45,8 @@ $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 curl_close($ch);
 
 
-
+// my_print_r($response);
+// exit;
 
 // 결과 처리
 if ($httpCode === 200) {
@@ -55,6 +56,9 @@ if ($httpCode === 200) {
     $payMethod ='';
     switch ( $resultMap["method"]) {
         case '카드':
+            $payMethod = 'Card';
+            break;
+        case '간편결제':
             $payMethod = 'Card';
             break;
         case '가상계좌':
@@ -100,6 +104,8 @@ if ($httpCode === 200) {
       if ($payMethod=="HPP" || $payMethod=="MOBILE"){$pay_name = "HPP";$order_step = "2";$join_status="Y";}
       if ($payMethod=="VBank"){$pay_name = "가상계좌 / ".$bankName." / ".$accountNumber."";$order_step = "1"; $join_status="W";}
 
+      $log->log_write("=== pay_name === ");
+      $log->log_write($pay_name); 
 
 //                        echo "<tr><th class='td01'><p>거래 성공 여부</p></th>";
 //                        echo "<td class='td02'><p>성공</p></td></tr>";

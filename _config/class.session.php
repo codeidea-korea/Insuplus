@@ -252,15 +252,18 @@
 //		exit;
 
 		if ( $u_pw !== sql_password($pass) ) {
-			alert_back("비밀번호가 다릅니다.");
+			alert_back("아이디 또는 비밀번호가 잘못되었습니다. 아이디와 비밀번호를 정확히 입력해주세요.");
 		}
 
 		if ($u_state == 0) {
-			alert_back("미승인 회원입니다.");
+			// alert_back("미승인인 회원입니다.");
+			alert_back("아이디 또는 비밀번호가 잘못되었습니다. 아이디와 비밀번호를 정확히 입력해주세요.");
 		}
 		elseif ($u_state == 2) {
-			alert_back("탈퇴 회원입니다.");
+			// alert_back("탈퇴 회원입니다.");
+			alert_back("아이디 또는 비밀번호가 잘못되었습니다. 아이디와 비밀번호를 정확히 입력해주세요.");
 		}
+
 
 		LoginHistory($u_id, $_SERVER["REMOTE_ADDR"], "login");
 

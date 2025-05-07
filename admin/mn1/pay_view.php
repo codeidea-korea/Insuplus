@@ -207,7 +207,8 @@ var clareCalendar = {<?=$calendar_opt?>});
 						<td>
                         <? 
                             $pay_name =  all_seed_dec($row["pay_name"]);
-
+                            // echo $row["pay_name"];
+                            // echo $pay_name;
                             if( explode(" / ",$pay_name)[0] === 'CARD' ){
                                 echo implode(" / ", array_slice(explode(" / ", $pay_name), 0, 2));
 
