@@ -403,7 +403,7 @@ if ($httpCode === 200) {
      $email = all_seed_dec($row_order["o_email1"])."@".all_seed_dec($row_order["o_email2"]);
 
      mailJoinSend($param, $email); // 서비스 상관없이 인슈플러스 양식으로 발송 20230303
- 
+    //  my_print_r($param,"이메일 발송 파라미터"); 
      $_SESSION["orderno"] = $orderno;		// 주문번호 세션처리
      header("location: ../insurance/renewal_step05.php");
      exit;

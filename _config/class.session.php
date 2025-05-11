@@ -131,6 +131,21 @@
             if($count == 0 || !$session_token) {
                 $url ='/admin/logout.php';
                 alert_page("다른 PC에서 로그인했습니다.",$url);
+            }else {
+               $SQL = "SELECT * from tbl_user where u_idx = '".$ss_u_idx."'";
+               $result = $dbcon->query($SQL); 
+
+               $row = $result->fetch_assoc();
+                $u_accessible_ip = $row['u_accessible_ip'];
+                if( $u_accessible_ip !== '*'){
+                    $ip = $_SERVER['REMOTE_ADDR'];
+                    $ip_array = explode(',', $u_accessible_ip);
+                    if(!in_array($ip, $ip_array)){
+                        $url ='/admin/logout.php';
+                        alert_page("접속할 수 없는 IP입니다.",$url);
+                    }
+                }
+                
             }
         } else {
             // 쿼리 실행 실패 처리
@@ -213,7 +228,7 @@
 		global $dbcon;
 		$field				= "
 			u_idx, u_id, u_name, u_level, u_state, u_pw, concat(u_hp1,u_hp2,u_hp3) as u_hp, concat(u_email1,'@',u_email2) as u_email
-			, u_partner_seq
+			, u_partner_seq ,u_accessible_ip
 		";
 		$table			= " tbl_user ";
 		$where			= "
@@ -242,14 +257,24 @@
 		$u_hp			= $rows[6];
 		$u_email			= $rows[7];
 		$u_partner_seq			= $rows[8];
-		$Client_seq		= $rows[9];
-
+        $u_accessible_ip	= $rows[9];
+		$Client_seq		= $rows[10];
 //		echo $rows[5]."<BR>";
 //		echo $pass."<BR>";
 //		echo base64_encode($pass) ."<BR>";
 //		echo base64_decode(base64_encode($pass)) ."<BR>";
 //		echo base64_decode($rows[5]) ."<BR>";
 //		exit;
+
+
+        if($u_accessible_ip !== '*'){
+            $ip = $_SERVER['REMOTE_ADDR'];
+            $ip_array = explode(',', $u_accessible_ip);
+            if(!in_array($ip, $ip_array)){
+                alert_back("접속할 수 없는 IP입니다.");
+            }
+        }
+
 
 		if ( $u_pw !== sql_password($pass) ) {
 			alert_back("아이디 또는 비밀번호가 잘못되었습니다. 아이디와 비밀번호를 정확히 입력해주세요.");

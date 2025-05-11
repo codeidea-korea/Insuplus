@@ -7,7 +7,7 @@ $lm = "";
 include $path_admin . "inc/header.php";
 
 $parameter = "&pr_cd=" . $pr_cd . "&ins_cd=" . $ins_cd . "&plan_cd=" . $plan_cd . "&chk_service=" . $chk_service . "&search_text=" . $search_text . "&num_per_page=" . $num_per_page . "&search_date_s=" . $search_date_s . "&search_date_e=" . $search_date_e;
-
+// echo $parameter;
 ?>
 <script>
 	function list_go() {
