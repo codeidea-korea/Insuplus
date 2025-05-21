@@ -420,3 +420,12 @@ table.fileTb td input[type='file']{width:100px; height:25px;}
 .f_center {text-align:center !important;}
 .f_left {text-align:left !important;}
 .f_right {text-align:right !important;}
+
+
+/*드래그 방지*/
+.no-drag {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }

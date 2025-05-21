@@ -13,7 +13,7 @@ function generateOrderId() {
     $random = substr(str_shuffle('abcdefghijklmnopqrstuvwxyz0123456789'), 0, 6); // 랜덤 영숫자 6자리
     return "TOSS_{$timestamp}_{$random}";
 }
-
+ 
 
 $PR_INFO = getInsuProductInfo($PR_SEQ); //상품정보
 $chk_p = $PR_INFO["ext1"];

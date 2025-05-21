@@ -357,7 +357,6 @@ $detect = new Mobile_Detect;
 
   function chk_submit4(pay_type) {
 
-    const isMobile = <?= $detect->isMobile() ? 'true' : 'false' ?>;
 
     <? if ($detect->isMobile()) { ?>
       if (pay_type == "Card") {
@@ -373,7 +372,7 @@ $detect = new Mobile_Detect;
       return;
     }
 
-    if(EHDObject.customer.cellphone === '01049775976' || EHDObject.customer.cellphone === '01038585916' || EHDObject.customer.cellphone === '01054405414' || EHDObject.customer.cellphone === '01020493619'){
+    if(EHDObject.customer.cellphone === '01085634063' ||EHDObject.customer.cellphone === '01042241027' ||EHDObject.customer.cellphone === '01049775976' || EHDObject.customer.cellphone === '01038585916' || EHDObject.customer.cellphone === '01054405414' || EHDObject.customer.cellphone === '01020493619'){
       
 
     const PAY_TYPE_MAP = {
@@ -394,7 +393,7 @@ $detect = new Mobile_Detect;
 
     let port = window.location.port;
     port ? port=":"+port : ''; 
-  console.log(toss_pay_type)    
+//   console.log(toss_pay_type)    
     $.ajax({
       url: './renewal_step04_toss_ajax.php',
       method: 'POST',
