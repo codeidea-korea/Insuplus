@@ -604,7 +604,12 @@ if ($row_r["o_name_en"] && $row_r["chk_eng_passport"] == "Y") $o_name_en = all_s
 				window.open("", pop_title, "width=100,height=100");
 				ff.target = pop_title;
 			<? } ?>
-			ff.action = "//<?= $_SERVER["HTTP_HOST"] ?>/admin/mn1/popup_certificate_pdf.php";
+
+
+        
+
+
+			 ff.action = "//<?= $_SERVER["HTTP_HOST"] ?>/admin/mn1/popup_certificate_pdf_renewal.php";
 			ff.submit();
 
 		}
