@@ -262,7 +262,7 @@ window.addEventListener('load', ()=>{
   </tr>
 </table>
 
-<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<table width="100%" cellpadding="0" cellspacing="0" border="0" class="no-drag">
   <tr>
     <td>
       <!-- (s) 검색영역  -->
@@ -430,7 +430,7 @@ window.addEventListener('load', ()=>{
       <!--  (s) 리스트 영역  -->
       <form method="post" name="frmCheckDel" action="<?= $PHP_SELF ?>">
 
-        <table class="adm-list-tb">
+        <table class="adm-list-tb" >
           <colgroup>
             <col width="5%" />
             <col width="*" />
@@ -505,8 +505,8 @@ window.addEventListener('load', ()=>{
                 <td><?= $s_date ?></td>
                 <td><?= $e_date ?></td>
                 <td><?= $ins_period ?> <?= $arr_chk_p_gubun[$chk_p] ?></td>
-                <td><?= all_seed_dec($o_name) ?></td>
-                <td><?= all_seed_dec($o_phone) ?></td>
+                <td><?= maskingKoName(all_seed_dec($o_name)) ?></td>
+                <td><?= maskingPhone(all_seed_dec($o_phone)) ?></td>
                 <td><?= $partnership_name ?></td>
                 <td><?= $arr_join_step[$join_status] ?></td>
                 <td class="r"><?= number_format($join_amount + $join_service) ?>원</td>
@@ -538,6 +538,10 @@ window.addEventListener('load', ()=>{
     </td>
   </tr>
 </table>
+
+<script type="text/javascript" src="<?= $url_admin ?>js/block.js"></script>
+
+
 
 
 <? include_once $path_admin . "inc/reason_popup.php"; ?>

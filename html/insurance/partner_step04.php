@@ -284,7 +284,7 @@ if (!pay_type) {
   return;
 }
 
-if(EHDObject.customer.cellphone === '01049775976' || EHDObject.customer.cellphone === '01038585916' || EHDObject.customer.cellphone === '01054405414' || EHDObject.customer.cellphone === '01020493619'){
+if(EHDObject.customer.cellphone === '01085634063' ||EHDObject.customer.cellphone === '01042241027' ||EHDObject.customer.cellphone === '01049775976' || EHDObject.customer.cellphone === '01038585916' || EHDObject.customer.cellphone === '01054405414' || EHDObject.customer.cellphone === '01020493619'){
   
 
 const PAY_TYPE_MAP = {

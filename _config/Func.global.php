@@ -1355,6 +1355,35 @@ function all_seed_dec($str){
 	$strToDec = hexToStr( $strToDec);
 	return $strToDec;
 }
+/**
+ * 한글 이름 마스킹 처리
+ * date : 20250517
+ * author : 윤정현
+ * 이름이 3글자 이상일 경우 첫 번째 글자 , 마지막 글자 제외 모두 *로 변환
+ * 이름이 2글자 미만일 경우 첫 번째 글자만 *로 변환
+ */
+function maskingKoName($org){
+
+    $masking = '';
+    if(mb_strlen($org, 'UTF-8') >= 3){
+        $masking = mb_substr($org, 0, 1, 'UTF-8') . str_repeat("*", mb_strlen($org, 'UTF-8') -2 ) . mb_substr($org, -1, 1, 'UTF-8');
+    }else{
+        $masking = mb_substr($org, 0, 1, 'UTF-8') . "*";
+    } 
+
+    return $masking;
+}
+/**
+ * 전화번호 마스킹 처리
+ * date : 20250519
+ * author : 윤정현
+ * 전화번호 앞자리 3자리와 뒷자리 4자리를 제외한 나머지 모두 *로 변환
+ */
+function maskingPhone($org){
+	$masking = substr($org, 0, 3) . "****" . substr($org, -4);
+	return $masking;
+}
+
 //=================================================================================
 // SEED 암호문 CBC방식 암호문처리 종료
 //=================================================================================
