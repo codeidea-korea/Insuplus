@@ -19,6 +19,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['is_authenticated'] = true; // 2차 인증 완료
         unset($_SESSION['auth_code']); // 세션에서 인증 코드 제거
 
+
+      $session_token=  generateLoginTokenInfo();
+
+
+      $_SESSION['session_token'] = $session_token;
+   
+
         if($_SESSION["ss_u_level"] == "7") {
             alert_page($msg_login_ok,"/admin/mn1/join_partner_list.php");
         } else if($_SESSION["ss_u_level"] == "6") {
@@ -60,7 +67,7 @@ body {
 .loginWrap h1{text-align:center;}
 .loginWrap .txt1{font-size:20px; color:#666; text-align:left;}
 .loginWrap input[type=text],.loginWrap input[type=password]{width:100%; height:40px; padding:10px; box-sizing:border-box;}
-.loginWrap input[type=submit]{width:100%;height:40px; color:#fff; background:#333; border:none;}
+.loginWrap input[type=submit]{width:100%;height:40px; color:#fff; background:#333; border:none;}document.getElementById('authCode').value=444230
 .loginWrap .copyright{text-align:center; font-size:11px; color:#666; margin:40px 0 0 0;}
 </style>
 
@@ -76,12 +83,17 @@ body {
     <?php if (isset($error)): ?>
         <p style="color: red;"><?php echo $error; ?></p>
     <?php endif; ?>
+
 <form action="verify.php" method="post">
 <input type="hidden" name="act" value="ok">
-	<p><input type="text" name="auth_code" value="" autocomplete="off" maxlength="6" placeholder="6자리 인증 코드" required></p>
+	<p><input type="text" name="auth_code" value="" id="authCode" autocomplete="off" maxlength="6" placeholder="6자리 인증 코드" required></p>
 	<p><input type="submit" value="입력" /></p>
 
-	<p class="copyright">Copyrights © KoreaAssistance, All rights reserved.</p>
+<?php if(defined("DEVELOPMENT_OFFICE")) { ?>
+    <p class="copyright">Copyrights © <span onclick="javascript: document.getElementById('authCode').value=<?=$_SESSION['auth_code']?>;">KoreaAssisftance<span>, All rights reserved.</p>
+<?php } else { ?>
+    <p class="copyright">Copyrights © KoreaAssisftance, All rights reserved.</p>
+<?php } ?>
 </form>
 </div>
 

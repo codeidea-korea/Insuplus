@@ -587,7 +587,34 @@ $pg_bank_gubun  = Array(
 	,"DP" => "LIG증권"
 	);
 
-
+	$toss_pg_card_gubun = Array(
+		"3K" => "기업BC",
+		"46" => "광주은행",
+		"71" => "롯데카드",
+		"30" => "한국산업은행",
+		"31" => "BC카드",
+		"51" => "삼성카드",
+		"38" => "새마을금고",
+		"41" => "신한카드",
+		"62" => "신협",
+		"36" => "씨티카드",
+		"33" => "우리BC카드",
+		"W1" => "우리카드",
+		"37" => "우체국예금보험",
+		"39" => "저축은행중앙회",
+		"35" => "전북은행",
+		"42" => "제주은행",
+		"15" => "카카오뱅크",
+		"3A" => "케이뱅크",
+		"24" => "토스뱅크",
+		"21" => "하나카드",
+		"61" => "현대카드",
+		"11" => "KB국민카드",
+		"91" => "NH농협카드",
+		"34" => "수협은행",
+		"PCP" => "페이코",
+		"KBS" => "KB증권"
+	);
 	$pg_card_gubun = Array(
 		"01" => "하나(외환)"
 		,"03" => "롯데"
@@ -776,7 +803,7 @@ function selGroupPlanList($pr_cd, $compare_seq, $chk_p) {
 	global $dbcon;
 	$SQL = " SELECT seq, ins_cd , plan_cd, chk_service FROM tbl_board_plan WHERE seq in (".$compare_seq.") AND pr_cd = '".$pr_cd."' AND plan_status='Y' AND secret='Y'  ";
 	$SQL .= " ORDER BY field (seq, ".$compare_seq." ) ASC ";
-	
+    
 	$RS = $dbcon -> query($SQL);
 	$data = array();
 	while($row = $dbcon->fetch_array($RS)) {

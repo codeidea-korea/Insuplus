@@ -6,6 +6,7 @@
 	header('P3P: CP="ALL CURa ADMa DEVa TAIa OUR BUS IND PHY ONL UNI PUR FIN COM NAV INT DEM CNT STA POL HEA PRE LOC OTC"');
 	if (!isset($set_time_limit)) $set_time_limit = 0;
 	@set_time_limit($set_time_limit);
+    
 	include_once $_SERVER["DOCUMENT_ROOT"]."/_config/config.php";
 	include_once $_SERVER["DOCUMENT_ROOT"]."/_config/KISA_SEED_CBC.php";
 	include_once $_SERVER["DOCUMENT_ROOT"]."/_config/config.Array.php";
@@ -215,7 +216,7 @@ function getLib() {
 <script type="text/javascript" src="<?=$url_root?>_script/public.js"></script>
 
 <script type="text/javascript">
-	document.title = "<?=$sc_site_title?>";
+	document.title = "<?=(defined('DEVELOPMENT_MODE') ? '[DEV] ' : '')?><?=$sc_site_title?>";
 	var GlobalLoginURL = "<?=$url_login?>";
 	var GlobalLogoutURL = "<?=$url_logout?>";
 	var GlobalJoinURL = "<?=$url_member_join?>";

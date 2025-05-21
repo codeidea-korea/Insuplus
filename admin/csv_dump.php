@@ -14,6 +14,10 @@ if(isset($_GET['download']) && $_GET['download'] == 'true') {
     
     // 기간에 따른 WHERE 조건 설정
     switch($period) {
+        case '1week':
+            $where = " AND A.writedate >= DATE_SUB(CURDATE(), INTERVAL 1 WEEK) ";
+            $title = "최근 1주일 주문 내역";
+            break;
         case '1month':
             $where = " AND A.writedate >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH) ";
             $title = "최근 1개월 주문 내역";
@@ -62,14 +66,20 @@ if(isset($_GET['download']) && $_GET['download'] == 'true') {
     fprintf($output, chr(0xEF).chr(0xBB).chr(0xBF));
     
     // 파일 제목 첫 줄
-    fputcsv($output, [$title]);
+    // fputcsv($output, [$title]);
     
-    // 열 헤더 작성
+    // 열 헤더 작성 
+    // $headers = [
+    //     'ENC',
+    //     '상품명', '보험사', '플랜명', '게시일', '종료일', '보험기간', 
+    //     '이름', '연락처', '가입채널', '가입상태', '상품가', '가입일'
+    // ];
     $headers = [
-        'ENC',
-        '상품명', '보험사', '플랜명', '게시일', '종료일', '보험기간', 
-        '이름', '연락처', '가입채널', '사입상태', '상품가', '가입일'
+        'ENC', '이름','주민번호', '연락처','여행국가','이메일', '가입채널', '가입상태', '상품가', '가입일', '상품명', '보험사', '플랜명', '게시일', '종료일', '보험기간' 
     ];
+
+    // 'ENC, 이름, 주민등록번호, 연락처, 여행국가, 이메일, 가입채널, 가입상태, 상품가, 가입일, 상품명, 보험사, 플랜명, 게시일, 종료일, 보험기간' 순서로 출력
+   
     fputcsv($output, $headers);
     
     // 청크 처리 설정
@@ -83,6 +93,7 @@ if(isset($_GET['download']) && $_GET['download'] == 'true') {
         
         // 현재 청크의 데이터 가져오기
         $query = "SELECT $field FROM $table WHERE 1=1 $where ORDER BY $orderby $limit";
+      
         $result = $dbcon->query($query);
         
         // 가져온 레코드가 없으면 종료
@@ -112,6 +123,7 @@ if(isset($_GET['download']) && $_GET['download'] == 'true') {
                 $e_date = isset($data['e_date']) ? $data['e_date'] : '';
                 $ins_period = isset($data['ins_period']) ? $data['ins_period'] : '';
                 $chk_p = isset($data['chk_p']) ? $data['chk_p'] : '';
+
                 $o_name = isset($data['o_name']) ? $data['o_name'] : '';
                 $o_phone = isset($data['o_phone']) ? $data['o_phone'] : '';
                 $partnership_name = isset($data['partnership_name']) ? $data['partnership_name'] : '';
@@ -119,6 +131,13 @@ if(isset($_GET['download']) && $_GET['download'] == 'true') {
                 $join_amount = isset($data['join_amount']) ? $data['join_amount'] : 0;
                 $join_service = isset($data['join_service']) ? $data['join_service'] : 0;
                 $regdate = isset($data['regdate']) ? $data['regdate'] : '';
+
+                //이메일 여행국가 주민번호 추가
+                $email1 = isset($data['o_email1']) ? $data['o_email1'] : '';
+                $email2 = isset($data['o_email2']) ? $data['o_email2'] : '';
+                $join_nation_name = isset($data['join_nation_name']) ? $data['join_nation_name'] : '';
+                $isdn1 = isset($data['o_isdn1']) ? $data['o_isdn1'] : '';               
+                $isdn2 = isset($data['o_isdn2']) ? $data['o_isdn2'] : '';
                 
                 // 보험기간 형식 조합
                 $insurance_period = '';
@@ -141,18 +160,25 @@ if(isset($_GET['download']) && $_GET['download'] == 'true') {
                 // 데이터 행 생성
                 $row = [
                     function_exists('all_seed_enc') ? urlencode(all_seed_enc($seq)) : $seq,
-                    $pr_name,
-                    $insurance_company,
-                    $plan_name,
-                    $s_date,
-                    $e_date,
-                    $insurance_period,
-                    function_exists('all_seed_dec') ? all_seed_dec($o_name) : $o_name,
-                    function_exists('all_seed_dec') ? all_seed_dec($o_phone) : $o_phone,
-                    $partnership_name,
-                    $join_status_text,
-                    number_format($join_amount + $join_service),
-                    substr($regdate, 0, 10)
+                    function_exists('all_seed_dec') ? all_seed_dec($o_name) : $o_name, // 이름
+                    function_exists('all_seed_dec') ? all_seed_dec($isdn1) . '-' . all_seed_dec($isdn2) :'',//주민번호
+                    function_exists('all_seed_dec') ? all_seed_dec($o_phone) : $o_phone,//연락처
+                    $join_nation_name,//여행국가
+                    function_exists('all_seed_dec') ? all_seed_dec($email1) . '@' . all_seed_dec($email2) : '',//이메일
+                    $partnership_name,//가입채널
+                    $join_status_text,//가입상태
+                    number_format($join_amount + $join_service),//상품가
+                    substr($regdate, 0, 10),//가입얼
+                    $pr_name, //상품명
+                    $insurance_company, //보험사
+                    $plan_name,//플랜명
+                    $s_date,//게시일
+                    $e_date,//종료일
+                    $insurance_period,//보험기간
+                  
+           
+                
+                                  
                 ];
                 
                 // CSV 행 작성
@@ -204,8 +230,9 @@ if(isset($_GET['download']) && $_GET['download'] == 'true') {
         <div class="form-container">
             <label for="period">기간 선택:</label> 
             <select id="period" name="period">
+                <option value="1week">최근 1주일</option>
                 <option value="1month">최근 1개월</option>
-                <option value="3months">최근 3개월</option>
+                <option value="3months">최근 3개월</option> 
                 <option value="6months">최근6개월</option>
                 <option value="1year">1년</option>
             </select>

@@ -5,6 +5,7 @@ include_once $_SERVER["DOCUMENT_ROOT"]."/_config/lib.php";
 <html lang="ko">
     <head>
         <meta charset="utf-8">
+  
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
 		<title>인슈플러스 - 24시간 해외여행자보험 안심서비스 </title>
@@ -74,7 +75,6 @@ include_once $_SERVER["DOCUMENT_ROOT"]."/_config/lib.php";
 		<script src="../_js/jquery-ui.min-1.12.1.js"></script> 
 		<script src="../_js/swiper.min.js?a=2"></script>	
 		<script src="../_js/common_main.js?a=3"></script>
-
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -108,7 +108,7 @@ include_once $_SERVER["DOCUMENT_ROOT"]."/_config/lib.php";
 		<!-- End Google Tag Manager -->
 
 		<!-- Google tag (gtag.js) -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=AW-715461441"></script>
+		<script async src="https://www.googletagmanager.com/gtag/js?id=AW-715461441"></script> 
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
@@ -116,5 +116,8 @@ include_once $_SERVER["DOCUMENT_ROOT"]."/_config/lib.php";
 
 			gtag('config', 'AW-715461441');
 		</script>
+
+      
+        <script src="https://js.tosspayments.com/v1/payment"></script>
 	</head>
   <body class='<?php if(strpos($_SERVER['PHP_SELF'], "/main/index")){echo 'index';}?> font-wb'>

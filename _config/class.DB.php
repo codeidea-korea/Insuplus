@@ -45,7 +45,7 @@ class dbcon {
 		$dbid = $this -> dbid;
 		$dbpw = $this -> dbpw;
 
-		$dbcon = @mysqli_connect($dbhost, $dbid, $dbpw,$dbname) or die("데이터베이스 연결에 실패하였습니다.");
+		$dbcon = mysqli_connect($dbhost, $dbid, $dbpw,$dbname) or die("데이터베이스 연결에 실패하였습니다.");
 
 		if(!$dbcon) {
 			if($this->debug > 0) {
@@ -228,13 +228,15 @@ class dbcon {
 			if ( getLen($limit) > 0 ) {
 				$SQL .= " limit ".$limit;
 			}
-        // var_dump($SQL); 
+       
 			$ListResult = $this -> query($SQL);
             
 		}
 		else {
 			$ListResult = 0;
 		}
+
+        
 
 		$result = array($total_count, $ListResult);
 		return $result;
@@ -493,7 +495,8 @@ class sms_dbcon {
 			if ( getLen($limit) > 0 ) {
 				$SQL .= " limit ".$limit;
 			}
-//			echo $SQL."<BR>";
+      
+   
 			$ListResult = $this -> query($SQL);
 		}
 		else {

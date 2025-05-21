@@ -211,6 +211,7 @@ function view_go(n) {
 
 	function excelReason(name){
       var reason = $('#reason').val().trim();
+      var excel_enc = $('#excel_enc').val();
 
           if (!reason) {
               alert('사유를 입력해 주세요.');
@@ -221,11 +222,11 @@ function view_go(n) {
           $.ajax({
               type: 'POST',
               url: '../ajax_excel_reason.php',
-              data: { program: "결제내역엑셀", reason: reason },
+              data: { program: "결제내역엑셀", reason: reason, excel_enc: excel_enc },
               dataType: 'json',
               success: function (response) {
                   if (response.success) {
-                      location.href = "excel_payhistory.php?mode=excel&<?= $GLOBALS["parameter"] ?>";
+                      location.href = "excel_payhistory.php?mode=excel&excel_enc="+excel_enc+"&<?= $GLOBALS["parameter"] ?>";
                       $('#popupOverlay').fadeOut();
                       $('#popup').fadeOut();
                   } else {
@@ -316,7 +317,7 @@ window.addEventListener('load', ()=>{
 
 ///////////////////////////////////////////////////////////////////////////////
 </script>
-<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<table border="0" cellpadding="0" cellspacing="0" width="100%" >
 	<tr>
 		<td width="16" height="22" valign="top" align="center" style="padding-top:6px"><img src="<?= $url_admin ?>images/admin_st_ball.gif"></td>
 		<td valign="top" class="a_st">결제내역</td>
@@ -326,7 +327,7 @@ window.addEventListener('load', ()=>{
 	</tr>
 </table>
 
-<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<table width="100%" cellpadding="0" cellspacing="0" border="0" class="no-drag">
 	<tr>
 		<td>
 			<!-- (s) 검색영역  -->
@@ -524,7 +525,7 @@ window.addEventListener('load', ()=>{
 								<td><?= $s_date ?> <?= $s_date_time ?>시</td>
 								<td><?= $e_date ?> <?= $e_date_time ?>시</td>
 								<td><?= $ins_period ?> <?= $arr_chk_p_gubun[$chk_p] ?></td>
-								<td><?= all_seed_dec($o_name) ?></td>
+								<td><?= maskingKoName(all_seed_dec($o_name)) ?></td>
 								<td><?= $join_cnt ?>명</td>
 								<td><?= $partnership_name ?></td>
 								<td><?= $arr_ord_step[$order_step] ?></td>
@@ -564,6 +565,8 @@ window.addEventListener('load', ()=>{
 	</tr>
 </table>
 
+
+<script type="text/javascript" src="<?= $url_admin ?>js/block.js"></script>
 
 
 <? include_once $path_admin . "inc/reason_popup.php"; ?>
