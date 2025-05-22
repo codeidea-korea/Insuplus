@@ -284,13 +284,13 @@ if (!pay_type) {
   return;
 }
 
-if(pay_type == 'HPP' || pay_type == 'mobile'){
+
+if(EHDObject.customer.cellphone === '01085634063' ||EHDObject.customer.cellphone === '01042241027' ||EHDObject.customer.cellphone === '01049775976' || EHDObject.customer.cellphone === '01038585916' || EHDObject.customer.cellphone === '01054405414' || EHDObject.customer.cellphone === '01020493619'){
+    if(pay_type == 'HPP' || pay_type == 'mobile'){
       alert('휴대폰 결제는 현재 서비스 점검으로 이용이 어렵습니다.');
       return;
     } 
 
-if(EHDObject.customer.cellphone === '01085634063' ||EHDObject.customer.cellphone === '01042241027' ||EHDObject.customer.cellphone === '01049775976' || EHDObject.customer.cellphone === '01038585916' || EHDObject.customer.cellphone === '01054405414' || EHDObject.customer.cellphone === '01020493619'){
-  
 
 const PAY_TYPE_MAP = {
     'Card': '카드',
