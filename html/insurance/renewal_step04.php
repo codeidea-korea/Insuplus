@@ -358,6 +358,8 @@ $detect = new Mobile_Detect;
   function chk_submit4(pay_type) {
 
 
+
+
     <? if ($detect->isMobile()) { ?>
       if (pay_type == "Card") {
         pay_type = "wcard";
@@ -369,6 +371,11 @@ $detect = new Mobile_Detect;
     <? } ?>
     if (!pay_type) {
       alert("결제방식을 선택해 주세요.");
+      return;
+    }
+
+    if(pay_type == 'HPP' || pay_type == 'mobile'){
+      alert('휴대폰 결제는 현재 서비스 점검으로 이용이 어렵습니다.');
       return;
     }
 
