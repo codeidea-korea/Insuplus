@@ -1148,8 +1148,8 @@
                              <!--프로모션 혜택 타이틀02-->
                             <div class="benefit_p">
                                 <p class="benefit_p_title fc_dark">인슈플러스 </p>
-												<p class="benefit_p_title fc_blue">2024년 프로모션 혜택 </p>
-												<p class="benefit_p_date">프로모션 기간 : 2024.01.01 ~ 12.31</p>
+												<p class="benefit_p_title fc_blue">2025년 프로모션 혜택 </p>
+												<p class="benefit_p_date">프로모션 기간 : 2025.01.01 ~ 12.31</p>
                             </div>
 						</div>
                        <div class="service_con">
