@@ -245,6 +245,14 @@
 			.benefit02img {height: 570px;}
 			.button_join {padding: 20px;font-size: 20px;}
         }
+
+        footer {padding:40px 0 100px; background:rgb(56, 56, 56); }
+        footer .footer_inner {width:1230px; padding:0 15px; margin:0 auto; }
+        footer b {display:block; font-size:16px; font-weight:700; color:#fff; margin:4px 0 12px; }
+        footer p {margin:0; font-size:14px; color:#eee; line-height:1.4; }
+        footer p span {display:inline-flex; align-items:center; }
+        footer p span:after {content:''; display:inline-block; width:1px; height:10px; background:#868686; margin:0 12px; }
+        footer p span:last-of-type:after {display:none; }
 </style>
 <script>
     function go_event() {
@@ -304,7 +312,23 @@
 			</div>
 			<!--서비스 FAQ-->	
 		<!--footer_white-->
-		<div class="footer_w">
+        <footer>
+            <div class="footer_inner">
+                <b>(주)비즈인사이트</b>
+                <p>
+                    <span>사업자등록번호 : 107-86-90485</span>
+                    <span>대표이사 : 김상수</span>
+                </p>
+                <p>
+                    <span>서울특별시 서대문구 충정로7, 구세군빌딩 8층</span>
+                </p>
+                <p>
+                    <span>통신판매업신고 : 제2016-서울서대문-0064호</span>
+                    <span>보험대리점등록 : 제2010111034호</span>
+                </p>
+            </div>
+        </footer>
+		<!-- <div class="footer_w">
 			 <div class="footerlogo">				
 			 </div>
 			 <div class="footerheader">
@@ -326,7 +350,7 @@
 					통신판매업신고 : 제2019-서울서대문-0682호
 				 </p>
 			 </div>
-		</div>  
+		</div>   -->
 	</div>
 </body>
 </html>

@@ -834,6 +834,13 @@
         }
 		
             
+		footer {padding:40px 0 100px; background:rgb(56, 56, 56); }
+        footer .footer_inner {width:1230px; max-width:100%; padding:0 15px; margin:0 auto; }
+        footer b {display:block; font-size:16px; font-weight:700; color:#fff; margin:4px 0 12px; }
+        footer p {margin:0; font-size:14px; color:#eee; line-height:1.4; }
+        footer p span {display:inline-flex; align-items:center; }
+        footer p span:after {content:''; display:inline-block; width:1px; height:10px; background:#868686; margin:0 12px; }
+        footer p span:last-of-type:after {display:none; }
 
 </style>
 </head>
@@ -857,7 +864,7 @@
 				</div>
 				<div class="title_banner">
 					<!-- <div class="tbbox tb_blue">롯데면세점 등업<br>(최대 20% 할인)</div> -->
-					<div class="tbbox tb_blue">페이코 포인트<br>최대 10,000 포인트 증정</div>
+					<!-- <div class="tbbox tb_blue">페이코 포인트<br>최대 10,000 포인트 증정</div> -->
 					<div class="tbbox tb_blue">라운지, 공항 리무진 <br> 최대 33% 할인 혜택 </div>
 					<!-- <div class="tbbox tb_blue">이벤트 추가 예정</div> -->
 				</div>
@@ -1079,7 +1086,23 @@
                             </div>
                         </div>
                         <!--footer_white-->
-                        <div class="footer_w">
+						<footer>
+							<div class="footer_inner">
+								<b>(주)비즈인사이트</b>
+								<p>
+									<span>사업자등록번호 : 107-86-90485</span>
+									<span>대표이사 : 김상수</span>
+								</p>
+								<p>
+									<span>서울특별시 서대문구 충정로7, 구세군빌딩 8층</span>
+								</p>
+								<p>
+									<span>통신판매업신고 : 제2016-서울서대문-0064호</span>
+									<span>보험대리점등록 : 제2010111034호</span>
+								</p>
+							</div>
+						</footer>
+                        <!-- <div class="footer_w">
                              <div class="footerlogo">
                                  <img src="images/footer_logo.png" >
                              </div>
@@ -1102,7 +1125,7 @@
                                     통신판매업신고 : 제2019-서울서대문-0682호
                                  </p>
                              </div>
-                        </div>  
+                        </div>   -->
                     </div>
                 </li>  
 				
@@ -1183,7 +1206,7 @@
 								
 								<!--혜택3-->
 								<div>
-									<div class="bftitle">
+									<!-- <div class="bftitle">
 										<div class="benefit_titlebox_b"> 혜택1 </div>
 										<div class="subtitle02">PAYCO 포인트 적립</div>
 									</div>
@@ -1226,11 +1249,11 @@
 												  </tbody>
 											</table>
 										</div>
-									</div>
+									</div> -->
 								<!--혜택4-->
 								<div>
 									<div class="bftitle">
-										<div class="benefit_titlebox_b"> 혜택2 </div>
+										<div class="benefit_titlebox_b"> 혜택 </div>
 										<div class="subtitle02">더라운지 제휴 혜택</div>
 									</div>
 									<div class="bfbox">
@@ -1282,7 +1305,7 @@
 								<div class="contentbox03">
 									<!-- <div class="subtitle03">프로모션 기간 중 가입혜택</div> -->
 									<dl>
-										<dt>
+										<!-- <dt>
 											<div class="qa_q">Q</div>
 											<div class="qa_title">PAYCO 포인트는 어떻게 적립되나요?</div>
 										</dt>
@@ -1291,7 +1314,7 @@
 											<div class="qa_title">
 												PAYCO 포인트는 PAYCO로 여행 상품을 결제하신 경우에만 적립되며 가입하신 상품 개시일의 익월 말일에 가입하신 핸드폰 번호로 PAYCO 포인트 쿠폰을 발송해 드립니다.
 											</div>
-										</dd>
+										</dd> -->
                     <dt>
                     	<div class="qa_q">Q</div>
                     	<div class="qa_title">더라운지 제휴 혜택은 어떻게 받을 수 있나요?</div>
@@ -1316,8 +1339,25 @@
 								</div>
 							</div>
 						</div>
+
+						<footer>
+							<div class="footer_inner">
+								<b>(주)비즈인사이트</b>
+								<p>
+									<span>사업자등록번호 : 107-86-90485</span>
+									<span>대표이사 : 김상수</span>
+								</p>
+								<p>
+									<span>서울특별시 서대문구 충정로7, 구세군빌딩 8층</span>
+								</p>
+								<p>
+									<span>통신판매업신고 : 제2016-서울서대문-0064호</span>
+									<span>보험대리점등록 : 제2010111034호</span>
+								</p>
+							</div>
+						</footer>
 						<!--footer_white-->
-						<div class="footer_w">
+						<!-- <div class="footer_w">
 							 <div class="footerlogo">
 								 <img src="images/footer_logo.png" >
 							 </div>
@@ -1340,7 +1380,7 @@
 									통신판매업신고 : 제2019-서울서대문-0682호
 								 </p>
 							 </div>
-						</div>  
+						</div>   -->
 					</div>
                 </li>
             </ul>
