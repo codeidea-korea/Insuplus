@@ -454,7 +454,24 @@ function get_url( $url ) {
 	</div>
 </div>
 
-<footer id="footer">
+<footer>
+	<div class="footer_inner">
+		<b>(주)비즈인사이트</b>
+		<p>
+			<span>사업자등록번호 : 107-86-90485</span>
+			<span>대표이사 : 김상수</span>
+		</p>
+		<p>
+			<span>서울특별시 서대문구 충정로7, 구세군빌딩 8층</span>
+		</p>
+		<p>
+			<span>통신판매업신고 : 제2016-서울서대문-0064호</span>
+			<span>보험대리점등록 : 제2010111034호</span>
+		</p>
+	</div>
+</footer>
+
+<!-- <footer id="footer">
 	<div id="footerContainer">
 		<div class="flex lg:flex-middle lg:gap60 sm:column sm:gap25 sm:p25">
 			<div class="ftCon f1">
@@ -494,7 +511,7 @@ function get_url( $url ) {
 			Copyright 2019 인슈플러스 CO.LTD All Rights Reserved.
 		</div>
 	</div>
-</footer>
+</footer> -->
 
 </div>
 <!-- //#root -->
