@@ -2437,13 +2437,15 @@ section.no-bg::before {
 .method-box ul {display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between;}
 .method-box ul li a {display:flex;flex-wrap:wrap;align-items:center;justify-content:center;height: 50px;border:1px solid #8c8c8c;border-radius:8px;font-size:18px;font-weight:600;color:#0d0d0d;}
 .method-box ul li a:before {display:inline-block; content:""; width:24px; height:24px; background-size:cover; background-position:center; margin:0 10px 0 0;}
-.method-box ul li:nth-of-type(1) {width:100%; margin:0 0 10px;}
-.method-box ul li:nth-of-type(2) {width:calc(50% - 5px); margin:0 5px 0 0;}
-.method-box ul li:nth-of-type(3) {width:calc(50% - 5px); margin:0 0 0 0 5px;}
+.method-box ul li:nth-of-type(1){width:calc(50% - 5px); margin:0 0 0  5px;}
+.method-box ul li:nth-of-type(2) {width:calc(50% - 5px); margin:0 0 0  5px;}
+.method-box ul li:nth-of-type(3) {width:calc(50% - 5px); margin:5px 0 0  5px;} 
+.method-box ul li:nth-of-type(4) {width:calc(50% - 5px); margin:5px 0 0  5px;}
 .method-box ul li a {background: #DC3347;border-color: #DC3347;color: #fff;}
 .method-box ul li:nth-of-type(1) a:before {background-image:url('../images/icon_method_01_on.png');} 
 .method-box ul li:nth-of-type(2) a:before {background-image:url('../images/icon_method_02_on.png');} 
 .method-box ul li:nth-of-type(3) a:before {background-image:url('../images/icon_method_03_on.png');} 
+.method-box ul li:nth-of-type(4) a:before {background-image:url('../images/icon_method_03_on.png');} 
 
 
 @media (max-width:767px){

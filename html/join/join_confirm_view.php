@@ -252,7 +252,9 @@ function ord_PCancle(seq,val){
 
 		if(val.startsWith("TOSS") > -1) {
 			var ff = document.frm_cancle;
+				ff.mode.value="repay";
 				ff.orderno.value=val;
+				ff.seq.value=seq;
 				ff.action = "toss_join_confirm_view_cancle_part.php";
 				ff.target="ifrm_act";
 				ff.submit();
