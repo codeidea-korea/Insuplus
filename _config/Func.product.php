@@ -849,67 +849,77 @@
   }
 
   //인슈플러스 가입자정보 테이블 출력    
-    function makeInsJoinInfo($info, $chk_lang) {
-        $join_table = "";
-    if($chk_lang === "K") {    //국문
-      $join_table .= '<tr>
-          <th width="60" style="background-color: #f2f7ff;font-weight: 400;text-align: center;border-bottom: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">계약자명</th>
-          <td style="background-color: #ffffff;font-weight: 400;text-align: left;border-bottom: 1px solid #d6d6d6;border-left: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">'.$info["CONTRACTOR_KR"].'</td>
-          <th width="60" style="background-color: #f2f7ff;font-weight: 400;text-align: center;border-bottom: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">가입기간</th>
-          <td style="background-color: #ffffff;font-weight: 400;text-align: left;border-bottom: 1px solid #d6d6d6;border-left: 1px solid #d6d6d6;padding: 5px;font-size:14px;">'.$info["INS_PERIOD"].'</td>
+  function makeInsJoinInfo($info, $chk_lang) {
+    $join_table = "";
+if($chk_lang === "K") {    //국문
+  $join_table .= '<tr>
+      <th width="60" style="background-color: #f2f7ff;font-weight: 400;text-align: center;border-bottom: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">계약자명</th>
+      <td style="background-color: #ffffff;font-weight: 400;text-align: left;border-bottom: 1px solid #d6d6d6;border-left: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">'.$info["CONTRACTOR_KR"].'</td>
+      <th width="60" style="background-color: #f2f7ff;font-weight: 400;text-align: center;border-bottom: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">가입기간</th>
+      <td style="background-color: #ffffff;font-weight: 400;text-align: left;border-bottom: 1px solid #d6d6d6;border-left: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">'.$info["INS_PERIOD"].'</td>
+    </tr>
+    <tr>
+      <th width="60" style="background-color: #f2f7ff;font-weight: 400;text-align: center;border-bottom: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">가입자</th>
+      <td style="background-color: #ffffff;font-weight: 400;text-align: left;border-bottom: 1px solid #d6d6d6;border-left: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">'.$info["USER_NAME"].'</td>
+      <th width="60" style="background-color: #f2f7ff;font-weight: 400;text-align: center;border-bottom: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">생년월일</th>
+      <td style="background-color: #ffffff;font-weight: 400;text-align: left;border-bottom: 1px solid #d6d6d6;border-left: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">'.$info["USER_BIRTH"].'</td>
+    </tr>
+    <tr>
+      <th width="60" style="background-color: #f2f7ff;font-weight: 400;text-align: center;border-bottom: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">연락처</th>
+      <td style="background-color: #ffffff;font-weight: 400;text-align: left;border-bottom: 1px solid #d6d6d6;border-left: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">'.$info["USER_PHONE"].'</td>
+      <th width="60" style="background-color: #f2f7ff;font-weight: 400;text-align: center;border-bottom: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">이메일</th>
+      <td style="background-color: #ffffff;font-weight: 400;text-align: left;border-left: 1px solid #d6d6d6;border-bottom: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">'.$info["USER_EMAIL"].'</td>
+    </tr>
+    <tr>
+      <th width="60" style="background-color: #f2f7ff;font-weight: 400;text-align: center;border-bottom: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">상품플랜</th>
+  <td colspan="1" style="background-color: #ffffff;font-weight: 400;text-align: left;border-bottom: 1px solid #d6d6d6;border-left: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">'.$info["PLAN_NAME"].'</td>
+      <th width="60" style="background-color: #f2f7ff;font-weight: 400;text-align: center;border-bottom: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">결제금액</th>
+      <td colspan="1" style="background-color: #ffffff;font-weight: 400;text-align: left;border-bottom: 1px solid #d6d6d6;border-left: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">'.number_format($info["AMOUNT"]).'원</td>
         </tr>
-        <tr>
-          <th width="60" style="background-color: #f2f7ff;font-weight: 400;text-align: center;border-bottom: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">가입자</th>
-          <td style="background-color: #ffffff;font-weight: 400;text-align: left;border-bottom: 1px solid #d6d6d6;border-left: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">'.$info["USER_NAME"].'</td>
-          <th width="60" style="background-color: #f2f7ff;font-weight: 400;text-align: center;border-bottom: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">생년월일</th>
-          <td style="background-color: #ffffff;font-weight: 400;text-align: left;border-bottom: 1px solid #d6d6d6;border-left: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">'.$info["USER_BIRTH"].'</td>
-        </tr>
-        <tr>
-          <th width="60" style="background-color: #f2f7ff;font-weight: 400;text-align: center;border-bottom: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">연락처</th>
-          <td style="background-color: #ffffff;font-weight: 400;text-align: left;border-bottom: 1px solid #d6d6d6;border-left: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">'.$info["USER_PHONE"].'</td>
-          <th width="60" style="background-color: #f2f7ff;font-weight: 400;text-align: center;border-bottom: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">이메일</th>
-          <td style="background-color: #ffffff;font-weight: 400;text-align: left;border-left: 1px solid #d6d6d6;border-bottom: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">'.$info["USER_EMAIL"].'</td>
-        </tr>
-        <tr>
-          <th width="60" style="background-color: #f2f7ff;font-weight: 400;text-align: center;border-bottom: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">상품플랜</th>
-          <td colspan="3" style="background-color: #ffffff;font-weight: 400;text-align: left;border-bottom: 1px solid #d6d6d6;border-left: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">'.$info["PLAN_NAME"].'</td>
-        </tr>
-        <tr>
-          <th width="60" style="background-color: #f2f7ff;font-weight: 400;text-align: center;border-bottom: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">가입번호</th>
-          <td colspan="3" style="background-color: #ffffff;font-weight: 400;text-align: left;border-bottom: 1px solid #d6d6d6;border-left: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">'.$info["ORDERNO"].'</td>
-        </tr>';
-    } else if($chk_lang === "E") {    //영문
-      $join_table .='<tr>
-            <th width="145px" style="background-color: #f2f7ff;font-weight: 400;text-align: center;border-bottom: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">Name</th>
-            <td style="background-color: #ffffff;font-weight: 400;text-align: left;border-bottom: 1px solid #d6d6d6;border-left: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">'.$info["USER_ENAME"].'</td>
-            <th width="115px" style="background-color: #f2f7ff;font-weight: 400;text-align: center;border-bottom: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">Registration No.</th>
-            <td style="background-color: #ffffff;font-weight: 400;text-align: left;border-bottom: 1px solid #d6d6d6;border-left: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">'.$info["USER_BIRTH"].'</td>
-          </tr>
-          <tr>
-            <th width="145px" style="background-color: #f2f7ff;font-weight: 400;text-align: center;border-bottom: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">Phone</th>
-            <td style="background-color: #ffffff;font-weight: 400;text-align: left;border-bottom: 1px solid #d6d6d6;border-left: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">'.$info["USER_PHONE"].'</td>
-            <th width="115px" style="background-color: #f2f7ff;font-weight: 400;text-align: center;border-bottom: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">Email</th>
-            <td style="background-color: #ffffff;font-weight: 400;text-align: left;border-bottom: 1px solid #d6d6d6;border-left: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">'.$info["USER_EMAIL"].'</td>
-          </tr>
-          <tr>
-            <th width="145px" style="background-color: #f2f7ff;font-weight: 400;text-align: center;border-bottom: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">Policy Number</th>
-            <td style="background-color: #ffffff;font-weight: 400;text-align: left;border-bottom: 1px solid #d6d6d6;border-left: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">'.$info["STOCK_NO"].'</td>
-            <th width="115px" style="background-color: #f2f7ff;font-weight: 400;text-align: center;border-bottom: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">PolicyPeriod</th>
-            <td style="background-color: #ffffff;font-weight: 400;text-align: left;border-bottom: 1px solid #d6d6d6;border-left: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">'.$info["INS_PERIOD"].'</td>
-          </tr>
-                    <tr>
-            <th width="145px" style="background-color: #f2f7ff;font-weight: 400;text-align: center;border-bottom: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">Plan</th>
-            <td style="background-color: #ffffff;font-weight: 400;text-align: left;border-bottom: 1px solid #d6d6d6;border-left: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">'.$info["ENG_PLAN_NAME"].'</td>
+    <tr>
+      <th width="60" style="background-color: #f2f7ff;font-weight: 400;text-align: center;border-bottom: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">가입번호</th>
+      <td colspan="3" style="background-color: #ffffff;font-weight: 400;text-align: left;border-bottom: 1px solid #d6d6d6;border-left: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">'.$info["ORDERNO"].'</td>
+    </tr>';
+} else if($chk_lang === "E") {    //영문
+  $join_table .='<tr>
+        <th width="145px" style="background-color: #f2f7ff;font-weight: 400;text-align: center;border-bottom: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">Name</th>
+        <td style="background-color: #ffffff;font-weight: 400;text-align: left;border-bottom: 1px solid #d6d6d6;border-left: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">'.$info["USER_ENAME"].'</td>
+        <th width="115px" style="background-color: #f2f7ff;font-weight: 400;text-align: center;border-bottom: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">Registration No.</th>
+        <td style="background-color: #ffffff;font-weight: 400;text-align: left;border-bottom: 1px solid #d6d6d6;border-left: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">'.$info["USER_BIRTH"].'</td>
+      </tr>
+      <tr>
+        <th width="145px" style="background-color: #f2f7ff;font-weight: 400;text-align: center;border-bottom: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">Phone</th>
+        <td style="background-color: #ffffff;font-weight: 400;text-align: left;border-bottom: 1px solid #d6d6d6;border-left: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">'.$info["USER_PHONE"].'</td>
+        <th width="115px" style="background-color: #f2f7ff;font-weight: 400;text-align: center;border-bottom: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">Email</th>
+        <td style="background-color: #ffffff;font-weight: 400;text-align: left;border-bottom: 1px solid #d6d6d6;border-left: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">'.$info["USER_EMAIL"].'</td>
+      </tr>
+      <tr>
+        <th width="145px" style="background-color: #f2f7ff;font-weight: 400;text-align: center;border-bottom: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">Policy Number</th>
+        <td style="background-color: #ffffff;font-weight: 400;text-align: left;border-bottom: 1px solid #d6d6d6;border-left: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">'.$info["STOCK_NO"].'</td>
             <th width="115px" style="background-color: #f2f7ff;font-weight: 400;text-align: center;border-bottom: 1px solid #d6d6d6;padding: 5px 15px;font-size:11px;">Country of Departure</th>
-            <td style="background-color: #ffffff;font-weight: 400;text-align: left;border-bottom: 1px solid #d6d6d6;border-left: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">Worldwide</td>
-          </tr>
-          <tr>
-            <th width="145px" style="background-color: #f2f7ff;font-weight: 400;text-align: center;border-bottom: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">Membership No.</th>
-            <td colspan="3" style="background-color: #ffffff;font-weight: 400;text-align: left;border-bottom: 1px solid #d6d6d6;border-left: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">'.$info["ORDERNO"].'</td>
-          </tr>';
-    }    
-        return $join_table;
-    }
+        <td style="background-color: #ffffff;font-weight: 400;text-align: left;border-bottom: 1px solid #d6d6d6;border-left: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">Worldwide</td>
+
+      </tr>
+                <tr>
+        <th width="145px" style="background-color: #f2f7ff;font-weight: 400;text-align: center;border-bottom: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">Plan</th>
+        <td style="background-color: #ffffff;font-weight: 400;text-align: left;border-bottom: 1px solid #d6d6d6;border-left: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">'.$info["ENG_PLAN_NAME"].'</td>
+        <th width="115px" style="background-color: #f2f7ff;font-weight: 400;text-align: center;border-bottom: 1px solid #d6d6d6;padding: 5px 15px;font-size:11px;">Premium</th>
+        <td style="background-color: #ffffff;font-weight: 400;text-align: left;border-bottom: 1px solid #d6d6d6;border-left: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">(KRW) '.number_format($info["AMOUNT"]).'</td>
+     
+        </tr>
+<tr>
+    <th width="115px" style="background-color: #f2f7ff;font-weight: 400;text-align: center;border-bottom: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">PolicyPeriod</th>
+        <td colspan="3" style="background-color: #ffffff;font-weight: 400;text-align: left;border-bottom: 1px solid #d6d6d6;border-left: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">'.$info["INS_PERIOD"].'</td>
+  
+</tr>
+
+      <tr>
+        <th width="145px" style="background-color: #f2f7ff;font-weight: 400;text-align: center;border-bottom: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">Membership No.</th>
+        <td colspan="3" style="background-color: #ffffff;font-weight: 400;text-align: left;border-bottom: 1px solid #d6d6d6;border-left: 1px solid #d6d6d6;padding: 5px 15px;font-size:14px;">'.$info["ORDERNO"].'</td>
+      </tr>';
+}    
+    return $join_table;
+}
 
   //플라잉닥터스 가입자정보 테이블 출력
     function makeFlyingJoinInfo($info, $chk_lang) {

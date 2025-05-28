@@ -302,6 +302,8 @@ if ($row_r["o_name_en"] && $row_r["chk_eng_passport"] == "Y") $o_name_en = all_s
 												$type = "신용카드";
 											} else if (strtolower($row_r["pg_pay_type"]) == "hpp") {
 												$type = "휴대폰 결제";
+											} else if (strtolower($row_r["pg_pay_type"]) == "transfer") {
+												$type = "실시간계좌이체";
 											}
 
 											?>

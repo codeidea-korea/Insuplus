@@ -451,7 +451,10 @@ if ($_GET["mode"] == "excel" && getLen($ss_u_idx) > 0) {
     
     // 암호화 (통합 문서 보호) 시작
     ob_start();
-    system("/app/jdk1.8.0_202/bin/java -cp /app/projects/excelProtection/excelProtection.jar org.example.Main '".$originalExcelFile."' '".$protectionExcelFile."' '".$protectionPassword."'");
+    
+    // 7z a 
+    system("7z -tzip -p'".$protectionPassword."' -mem=AES256 '".$protectionExcelFile."' '".$originalExcelFile."'  '".$protectionExcelFile."'");
+    // system("/app/jdk1.8.0_202/bin/java -cp /app/projects/excelProtection/excelProtection.jar org.example.Main '".$originalExcelFile."' '".$protectionExcelFile."' '".$protectionPassword."'");
     $result = trim(ob_get_contents());
     ob_end_clean();
 

@@ -107,9 +107,10 @@ $detect = new Mobile_Detect;
               <h3>결제방법</h3>
             </div>
             <div class="method-box mt15">
-              <ul>
+              <ul >
                 <li class="card"><a href="javascript:void(0)">신용카드</a></li>
                 <li class="phone"><a href="javascript:void(0)">휴대폰 결제</a></li>
+                <li class="transfer"><a href="javascript:void(0)">실시간계좌이체</a></li>
                 <li class="account"><a href="javascript:void(0)">가상계좌</a></li>
               </ul>
             </div>
@@ -303,6 +304,7 @@ $detect = new Mobile_Detect;
     document.querySelector('#payment-info li.card').addEventListener('click', (e) => chk_submit4('Card'));
     document.querySelector('#payment-info li.phone').addEventListener('click', (e) => chk_submit4('HPP'));
     document.querySelector('#payment-info li.account').addEventListener('click', (e) => chk_submit4('Vbank'));
+    document.querySelector('#payment-info li.transfer').addEventListener('click', (e) => chk_submit4('transfer'));
   });
 
   function getFormInfo() {
@@ -367,6 +369,8 @@ $detect = new Mobile_Detect;
         pay_type = "mobile";
       } else if (pay_type == "Vbank") {
         pay_type = "vbank";
+      } else if (pay_type == "Transfer") {
+        pay_type = "transfer";
       }
     <? } ?>
     if (!pay_type) {
@@ -388,7 +392,8 @@ $detect = new Mobile_Detect;
         'Vbank': '가상계좌',
         'wcard' : '카드',
         'mobile' : '휴대폰',
-        'vbank' : '가상계좌'
+        'vbank' : '가상계좌',
+        'transfer' : '계좌이체'
     };
 
     const toss_pay_type = PAY_TYPE_MAP[pay_type];

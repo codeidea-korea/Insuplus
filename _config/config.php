@@ -52,9 +52,9 @@ $url_Now = getURL();            // 다른 곳에 중복해 쓸 경우에는 getU
 	########################################################
 	// MySQL DB 접속정보
 	// $mysql_host = "211.43.14.191:3306"; //DEV
-	$mysql_host = "insu-db.cdaumq0ugull.ap-northeast-2.rds.amazonaws.com:3306"; //NEWLIVE
+	// $mysql_host = "insu-db.cdaumq0ugull.ap-northeast-2.rds.amazonaws.com:3306"; //NEWLIVE
 	
-//	$mysql_host ="dev-db-my57.cdaumq0ugull.ap-northeast-2.rds.amazonaws.com"; //DEV 
+	$mysql_host ="dev-db-my57.cdaumq0ugull.ap-northeast-2.rds.amazonaws.com:3306"; //DEV 
 	$mysql_user					= "insplus";
 	$mysql_password				= "!insplus#"; //DEV
 	$mysql_database_name		= "insplus";
@@ -76,6 +76,10 @@ $url_Now = getURL();            // 다른 곳에 중복해 쓸 경우에는 getU
 	 define("SERVER_CHECK","REAL"); //운영
 
 
+     define("TOSS_CLIENT_KEY", "test_ck_Z61JOxRQVEnPZA91BGJmrW0X9bAq");
+     define("TOSS_SECRET_KEY", "test_sk_DnyRpQWGrNwMx0NRge7L8Kwv1M9E");
+     define("TOSS_MID","insupl5wq8"); //가맹점 ID
+
 	// MySQL DB SMS 접속정보
 	$mysql_sms_host						= "172.30.1.19";
 	$mysql_sms_database_name		= "";
@@ -87,6 +91,7 @@ $url_Now = getURL();            // 다른 곳에 중복해 쓸 경우에는 getU
 	#### email 관련
 //	$email_from_name		= "관리자";
 //	$email_from_email			= "admin@email.com";
+
 
 
 

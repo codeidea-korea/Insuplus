@@ -14,7 +14,7 @@ include '../_include/_header_partner.html';
           <div class="white-box middle mt24" id="form_abroad_resident">
             <form>
               <div class="form-box">
-                <div class="form-title">
+                <div class="form-title"> 
                   <div class="flex flex-vc flex-tj">
                     <strong>해외거주</strong>
                   </div>

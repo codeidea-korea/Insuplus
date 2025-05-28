@@ -67,6 +67,9 @@ if ($httpCode === 200) {
         case '휴대폰':
             $payMethod = 'HPP';
             break;
+        case '계좌이체':
+            $payMethod = 'transfer';
+            break;
     }
    
     $accountNumber= '';
@@ -81,6 +84,12 @@ if ($httpCode === 200) {
     $bankName = $virtualAccount['bankName'] ?? $pg_bank_gubun[$bankCode];          // 은행 이름
 
    }
+   if($payMethod == "transfer"){
+    // $accountNumber = $resultMap['transfer']['accountNumber']; // 계좌 번호
+    $bankCode = $resultMap['transfer']['bankCode'];          // 은행 코드
+    $bankName = $pg_bank_gubun[$bankCode];          // 은행 이름
+   }
+
 
     //결제카드
     $cardNumber = $resultMap["card"]["number"] ?? '';
@@ -103,7 +112,7 @@ if ($httpCode === 200) {
 
       if ($payMethod=="HPP" || $payMethod=="MOBILE"){$pay_name = "HPP";$order_step = "2";$join_status="Y";}
       if ($payMethod=="VBank"){$pay_name = "가상계좌 / ".$bankName." / ".$accountNumber."";$order_step = "1"; $join_status="W";}
-
+      if ($payMethod=="transfer"){$pay_name = "실시간계좌이체 / ".$bankName;$order_step = "2"; $join_status="Y";}
       $log->log_write("=== pay_name === ");
       $log->log_write($pay_name); 
 
