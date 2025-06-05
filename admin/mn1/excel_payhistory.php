@@ -305,9 +305,12 @@ if ($_GET["mode"] == "excel" && getLen($ss_u_idx) > 0) {
   
   //$objPHPExcel->getActiveSheet()->setTitle('Simple');
   $objPHPExcel->setActiveSheetIndex(0);
-  $file = "insuplus_결제내역_" . date("Ymd") . ".xlsx";
-  header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-  header('Content-Disposition: attachment;filename=' . $file . '');
+  $file = "insuplus_결제내역_" . date("Ymd");
+  // header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+  // header('Content-Disposition: attachment;filename=' . $file . '.xlsx');
+  header('Content-Type: application/zip');    
+  header('Content-Disposition: attachment;filename=' . $file . '.zip');
+    
   header('Cache-Control: max-age=0');
   // If you're serving to IE 9, then the following may be needed
   header('Cache-Control: max-age=1');
@@ -319,9 +322,45 @@ if ($_GET["mode"] == "excel" && getLen($ss_u_idx) > 0) {
   $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 //  $objWriter->save('php://output');
 
+    putenv("LANG=ko_KR.UTF-8");
+    putenv("LC_ALL=ko_KR.UTF-8");
+    setlocale(LC_ALL, 'ko_KR.UTF-8');
+
+    // 엑셀 파일 임시 디렉터리로 저장
     $uniqId = uniqid();
+    $excelFile = "/tmp/".$file.".xlsx";
+    $zipFile = "/tmp/".$file.".zip";    
+    $objWriter->save($excelFile);
+
+    // 7z 으로 압축하고 암호 걸기
+    ob_start();
+    $cmd = "7za a -tzip -p'".$excelEnc."' -mcu -mem=AES256 '".$zipFile."' '".$excelFile."'";
+    system($cmd);
+    ob_end_clean();
+   
+    // 암호걸린 zip 파일 읽기
+    // readfile($zipFile); // 대용량 처리 시 위험 memleak
     
+    if ($file = fopen($zipFile, 'rb')) {
+        while(!feof($file)) {
+            set_time_limit(0);
+            print(fread($file, 2048));
+            @ob_flush();
+            @flush();
+        }
+        fclose($file);
+    }
+    
+    // 임시 디렉터리에 저장했떤 zip 파일 제거, 엑셀 파일 제거
+    unlink($zipFile);
+    unlink($excelFile);
+    
+
+    /*
+    // 아래 방식이 아닌 zip 파일 암호화 방식으로 변경 - 250526
     // 엑셀 프로텍션 java 프로그램 실행 - develop by CODEIDEA ein1
+    $uniqId = uniqid();
+
     $originalExcelFile = "/tmp/excelProtection_".$uniqId.".xlsx"; // 암호화 되지 않은 엑셀 파일
     $protectionExcelFile = "/tmp/excelProtection_".$uniqId."_protected.xlsx"; // 암호회 된 엑셀 파일
     $protectionPassword = $excelEnc; // 엑셀 파일을 열 때 입력해야 할 암호
@@ -356,6 +395,7 @@ if ($_GET["mode"] == "excel" && getLen($ss_u_idx) > 0) {
     // 엑셀 프로텍션에 사용된 파일 제거
     unlink($originalExcelFile);
     unlink($protectionExcelFile);
+    */
 
 }
 exit;

@@ -67,6 +67,7 @@ $cancelReason = "고객주문 취소".date("His"); // 취소 사유
 
 $data = [
 	'cancelReason' => $cancelReason,
+    'cancelAmount'=>$cancle_amount
 ];
 
 

@@ -146,7 +146,7 @@ if (!$RS_V){
 								<? } ?>	
 							</td>
 							<td class='p-a-05'>
-								<?if ($row_L["join_status"]=="Y" && $row_r["join_cnt"]>1 && $s_date > $today && $row_r["pg_pay_type"] != 'VBank' && $row_r["pg_pay_type"] != 'VBANK'){?>
+								<?if ($row_L["join_status"]=="Y" && $row_r["join_cnt"]>1 && $s_date > $today && $row_r["pg_pay_type"] != 'VBank' && $row_r["pg_pay_type"] != 'VBANK' && $row_r["pg_pay_type"] != 'transfer'){?>
 								<a class='btn btn-block btn-notice' onclick="ord_PCancle('<?=$row_L["seq"]?>','<?=$row_L["orderno"]?>')">부분취소</a>
 								<?}?>
 							</td>
@@ -227,7 +227,7 @@ function ord_Cancle(val){
 	<? if($row_r["pg_pay_type"] != 'VBank') {?>
 	if (confirm("취소하시겠습니까? 신중히 고려 부탁드립니다.\n" )){ 
 		
-		if(val.startsWith("TOSS") > -1) {
+		if(val.startsWith("TOSS")) {
 			var ff = document.frm_cancle;
 			ff.orderno.value=val;
 			ff.action = "toss_join_confirm_view_cancle_all.php";
@@ -242,7 +242,7 @@ function ord_Cancle(val){
 			ff.submit();
 		}
 	}
-	<?} else {?>
+	<?} else {?> 
 		let text = '가상계좌 환불은 인슈플러스 고객센터로 문의해 주세요. \n카카오톡 "인슈플러스", 전화 02-360-2545';
 		alert(text);
 	<? } ?>
@@ -250,7 +250,7 @@ function ord_Cancle(val){
 function ord_PCancle(seq,val){
 	if (confirm("취소하시겠습니까? 신중히 고려 부탁드립니다.")){
 
-		if(val.startsWith("TOSS") > -1) {
+		if(val.startsWith("TOSS")) {
 			var ff = document.frm_cancle;
 				ff.mode.value="repay";
 				ff.orderno.value=val;

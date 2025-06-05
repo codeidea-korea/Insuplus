@@ -107,7 +107,7 @@ foreach($arr_join_seq as $join_row){
 
   //========================================
   //회원정보 처리
-  //========================================
+  //======================================== 
   #가입자 정보
   /*
   'USER_NAME'     : 가입자명
@@ -141,6 +141,7 @@ foreach($arr_join_seq as $join_row){
     , 'PLAN_NAME'     => $row_r["plan_name"]
     , 'NATION_NAME'   => $row_r["join_nation_name"]
     , 'PURPOSE'       => $row_r["purpose"]
+    , 'AMOUNT'        =>   $row_cont_info["t_amount"] 
   );
 
   if (is_null($row["group_join_type"]) || $row["group_join_type"] === "B2C") {

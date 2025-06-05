@@ -426,9 +426,11 @@ if ($_GET["mode"] == "excel" && getLen($ss_u_idx) > 0) {
     
 	//$objPHPExcel->getActiveSheet()->setTitle('Simple');
 	$objPHPExcel->setActiveSheetIndex(0);
-	$file = "insuplus_가입자_" . date("Ymd") . ".xlsx";
-	header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-	header('Content-Disposition: attachment;filename=' . $file . '');
+    $file = "insuplus_가입자_" . date("Ymd");
+	// header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+	// header('Content-Disposition: attachment;filename=' . $file . '.xlsx');
+    header('Content-Type: application/zip');    
+	header('Content-Disposition: attachment;filename=' . $file . '.zip');
 	header('Cache-Control: max-age=0');
 	// If you're serving to IE 9, then the following may be needed
 	header('Cache-Control: max-age=1');
@@ -441,34 +443,29 @@ if ($_GET["mode"] == "excel" && getLen($ss_u_idx) > 0) {
     //$objWriter->save('php://output');
 
 
-    $uniqId = uniqid();
-    
-    // 엑셀 프로텍션 java 프로그램 실행 - develop by CODEIDEA ein1
-    $originalExcelFile = "/tmp/excelProtection_".$uniqId.".xlsx"; // 암호화 되지 않은 엑셀 파일
-    $protectionExcelFile = "/tmp/excelProtection_".$uniqId."_protected.xlsx"; // 암호회 된 엑셀 파일
-    $protectionPassword = $excelEnc; // 엑셀 파일을 열 때 입력해야 할 암호
-	$objWriter->save($originalExcelFile);
-    
-    // 암호화 (통합 문서 보호) 시작
-    ob_start();
-    
-    // 7z a 
-    system("7z -tzip -p'".$protectionPassword."' -mem=AES256 '".$protectionExcelFile."' '".$originalExcelFile."'  '".$protectionExcelFile."'");
-    // system("/app/jdk1.8.0_202/bin/java -cp /app/projects/excelProtection/excelProtection.jar org.example.Main '".$originalExcelFile."' '".$protectionExcelFile."' '".$protectionPassword."'");
-    $result = trim(ob_get_contents());
-    ob_end_clean();
+    putenv("LANG=ko_KR.UTF-8");
+    putenv("LC_ALL=ko_KR.UTF-8");
+    setlocale(LC_ALL, 'ko_KR.UTF-8');
 
-    $downloadFile = $originalExcelFile;
+
+    // 엑셀 파일 임시 디렉터리로 저장
+    $uniqId = uniqid();
+    $excelFile = "/tmp/".$file.".xlsx";
+    $zipFile = "/tmp/".$file.".zip";    
+    $objWriter->save($excelFile);
+
+
     
-    // (통합 문서 보호) 적용 성공 시
-    if($result == "SUCCESS") {
-        $downloadFile = $protectionExcelFile;
-    }
+    // 7z 으로 압축하고 암호 걸기
+    ob_start();
+    $cmd = "7za a -tzip -p'".$excelEnc."' -mcu -mem=AES256 '".$zipFile."' '".$excelFile."'";
+    system($cmd);
+    ob_end_clean();
+   
+    // 암호걸린 zip 파일 읽기
+    // readfile($zipFile); // 대용량 처리 시 위험 memleak
     
-    // system에 의해 쌓인 표준 출력 버퍼 비우기
-    ob_clean();
-    
-    if ($file = fopen($downloadFile, 'rb')) {
+    if ($file = fopen($zipFile, 'rb')) {
         while(!feof($file)) {
             set_time_limit(0);
             print(fread($file, 2048));
@@ -478,8 +475,10 @@ if ($_GET["mode"] == "excel" && getLen($ss_u_idx) > 0) {
         fclose($file);
     }
     
-    // 엑셀 프로텍션에 사용된 파일 제거
-    unlink($originalExcelFile);
-    unlink($protectionExcelFile);
+    // 임시 디렉터리에 저장했떤 zip 파일 제거, 엑셀 파일 제거
+    unlink($zipFile);
+    unlink($excelFile);
+
+
 }
 exit;

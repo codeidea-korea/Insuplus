@@ -89,7 +89,7 @@ function ord_cancle(ordno){
 	if(confirm("주문 취소 하시겠습니까?")){
 		console.log("ordno", '<?=$row["orderno"]?>');
 		ordno = '<?=$row["orderno"]?>';
-		if(ordno.startsWith("TOSS") > -1) {
+		if(ordno.startsWith("TOSS")) {
 			<?if ($seq){?>
 			ff.mode.value = "repay";
 			ff.action = "toss_pay_view_card_cancle_part.php";

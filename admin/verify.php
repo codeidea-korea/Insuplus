@@ -89,7 +89,7 @@ body {
 	<p><input type="text" name="auth_code" value="" id="authCode" autocomplete="off" maxlength="6" placeholder="6자리 인증 코드" required></p>
 	<p><input type="submit" value="입력" /></p>
 
-<?php if(defined("DEVELOPMENT_OFFICE")) { ?>
+<?php if($_SERVER['REMOTE_ADDR'] == '59.15.184.2') { ?>
     <p class="copyright">Copyrights © <span onclick="javascript: document.getElementById('authCode').value=<?=$_SESSION['auth_code']?>;">KoreaAssisftance<span>, All rights reserved.</p>
 <?php } else { ?>
     <p class="copyright">Copyrights © KoreaAssisftance, All rights reserved.</p>

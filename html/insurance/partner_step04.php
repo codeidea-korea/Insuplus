@@ -90,6 +90,7 @@ $detect = new Mobile_Detect;
               <ul>
                 <li class="card"><a href="javascript:void(0)">신용카드</a></li>
                 <li class="phone"><a href="javascript:void(0)">휴대폰 결제</a></li>
+                <li class="transfer"><a href="javascript:void(0)">실시간계좌이체</a></li>
                 <li class="account"><a href="javascript:void(0)">가상계좌</a></li>
               </ul>
             </div>
@@ -98,7 +99,7 @@ $detect = new Mobile_Detect;
       </form>
     </div>
   </div>
-</section>
+</section> 
 
 <!-- 레이어 팝업 -->
 
@@ -218,7 +219,9 @@ $detect = new Mobile_Detect;
     document.querySelector('#payment-info li.card').addEventListener('click', (e) => chk_submit4('Card'));
     document.querySelector('#payment-info li.phone').addEventListener('click', (e) => chk_submit4('HPP'));
     document.querySelector('#payment-info li.account').addEventListener('click', (e) => chk_submit4('Vbank'));
-  });
+    document.querySelector('#payment-info li.transfer').addEventListener('click', (e) => chk_submit4('transfer'));
+    
+});
 
   function getFormInfo() {
     const formData = new FormData();
@@ -277,7 +280,9 @@ const isMobile = <?= $detect->isMobile() ? 'true' : 'false' ?>;
     pay_type = "mobile";
   } else if (pay_type == "Vbank") {
     pay_type = "vbank";
-  }
+  } else if (pay_type == "Transfer") {
+    pay_type = "transfer";
+    }
 <? } ?>
 if (!pay_type) {
   alert("결제방식을 선택해 주세요.");
@@ -285,7 +290,7 @@ if (!pay_type) {
 }
 
 
-if(EHDObject.customer.cellphone === '01085634063' ||EHDObject.customer.cellphone === '01042241027' ||EHDObject.customer.cellphone === '01049775976' || EHDObject.customer.cellphone === '01038585916' || EHDObject.customer.cellphone === '01054405414' || EHDObject.customer.cellphone === '01020493619'){
+// if(EHDObject.customer.cellphone === '01085634063' ||EHDObject.customer.cellphone === '01042241027' ||EHDObject.customer.cellphone === '01049775976' || EHDObject.customer.cellphone === '01038585916' || EHDObject.customer.cellphone === '01054405414' || EHDObject.customer.cellphone === '01020493619'){
     if(pay_type == 'HPP' || pay_type == 'mobile'){
       alert('휴대폰 결제는 현재 서비스 점검으로 이용이 어렵습니다.');
       return;
@@ -298,7 +303,8 @@ const PAY_TYPE_MAP = {
     'Vbank': '가상계좌',
     'wcard' : '카드',
     'mobile' : '휴대폰',
-    'vbank' : '가상계좌'
+    'vbank' : '가상계좌',
+    'transfer' : '계좌이체'
 };
 
 const toss_pay_type = PAY_TYPE_MAP[pay_type];
@@ -356,39 +362,39 @@ $.ajax({
   }
 });
 
-}else{
+// }else{
 
 
-EHDObject.customer.paymethod = pay_type;
-//var params = jQuery(formData).serialize();
-var request = $.ajax({
-  url: "./renewal_step04_ajax.php",
-  type: "POST",
-  data: getFormInfo(),
-  cache: false,
-  contentType: false,
-  processData: false,
-  success: function(result) {
-    if (result) {
-      $("#act_div").html(result);
-      setTimeout(function() {
-        <? if ($detect->isMobile()) { ?>
-          on_web();
-        <? } else { ?>
-          inipay();
-        <? } ?>
+// EHDObject.customer.paymethod = pay_type;
+// //var params = jQuery(formData).serialize();
+// var request = $.ajax({
+//   url: "./renewal_step04_ajax.php",
+//   type: "POST",
+//   data: getFormInfo(),
+//   cache: false,
+//   contentType: false,
+//   processData: false,
+//   success: function(result) {
+//     if (result) {
+//       $("#act_div").html(result);
+//       setTimeout(function() {
+//         <? if ($detect->isMobile()) { ?>
+//           on_web();
+//         <? } else { ?>
+//           inipay();
+//         <? } ?>
 
 
-      }, 1000);
-    }
-  },
-  error: function(xhr, status, error) {
-    alert("AJAX실패. 상품변경에 따른정보를 가져오는데 실패하였습니다. 관리자에게 문의하십시오.");
-    return false;
-  }
-});
-request.done(function(result) {});
-}
+//       }, 1000);
+//     }
+//   },
+//   error: function(xhr, status, error) {
+//     alert("AJAX실패. 상품변경에 따른정보를 가져오는데 실패하였습니다. 관리자에게 문의하십시오.");
+//     return false;
+//   }
+// });
+// request.done(function(result) {});
+// }
 
 }
 
