@@ -67,8 +67,7 @@ $detect = new Mobile_Detect;
                 <div class="name">결제금액</div>
                 <div class="amount">0원</div>
               </div>
-              <!-- yjhdev -->
-              <!-- <div class="multi-row">
+              <div class="multi-row">
                 <div class="row">
                   <div class="name">여행자보험</div>
                   <div class="amount">0원</div>
@@ -81,7 +80,7 @@ $detect = new Mobile_Detect;
                   <div class="name">긴급이후송</div>
                   <div class="amount">0원(서비스 이용권 혜택가)</div>
                 </div>
-              </div> -->
+              </div>
             </div>
             <div class="title-box mt24">
               <h3>결제방법</h3>
@@ -213,6 +212,12 @@ $detect = new Mobile_Detect;
     }
 
     generateCustomerForms();
+    // yjhdev
+    if(EHDObject.depth0.name === '농촌진흥청'){
+
+        $("#payment-info .multi-row").hide();
+
+    }
 
     // event handlers
     //document.querySelector('div.coupon-box a:nth-child(2)').addEventListener('click', (e)=>alert('코드적용'));

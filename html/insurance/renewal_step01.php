@@ -731,6 +731,7 @@ include '../_include/_top.html';
         if (k_idx === 0 && idx === 0) {
           // 보장내역 중 첫번째 보장내역을 select-box 로 변환하기위한 로직
           // 변환은 보장내역1 만 적용 한다
+        //   console.log(EHDObject.anotherGuarantees);
           const anotherGuarantees = [];
           EHDObject.anotherGuarantees.forEach((a) => {
             const el = a.find((b, i) => i === idx && b.service_name === item.service_name);
@@ -909,9 +910,12 @@ include '../_include/_top.html';
     EHDObject.getPlanInfo({ api: EHDObject.GET_PLAN, pr_cd: EHDObject.pr_cd }, () => {
       // 플랜정보를 가져온 후 수행되어야 할 로직이기 때문에 콜백에 구현
       let plan;
-
+//   console.log(EHDObject.plans)
+//         console.log(EHDObject.plan_cd);
       // 플랜정보 중 서비스가 있는 플랜으로 서비스 내역 가져와 출력
       plan = EHDObject.plans.find((item) => item.ext3 === 'Y' && EHDObject.plan_cd === item.plan_cd);
+    
+  
       EHDObject.getPlanInfo(
         { api: EHDObject.GET_SERVICE, pr_cd: plan?.pr_cd, plan_cd: plan?.plan_cd },
         // 서비스내역 출력
@@ -923,23 +927,30 @@ include '../_include/_top.html';
         (item) => item.ext1 === 'Y' && item.ext2 === 'Y' && item.plan_cd === EHDObject.plan_cd
       );
       plan = plan || EHDObject.plans.find((item) => item.ext1 === 'Y' && item.plan_cd === EHDObject.plan_cd);
+    
+    
+    
       EHDObject.getPlanInfo({ api: EHDObject.GET_GUARANTEE, pr_cd: plan?.pr_cd, plan_seq: plan?.plan_seq }, () => {
         // 보장내역정보를 가져온 후 수행되어야 할 로직이기 때문에 콜백에 구현
         // 보장내역1 의 첫번째, 두번째 항목을 select-box 로 만들기 위한 로직
         let anotherPlan;
         const temp = [];
         // 현재 선택된 plan_cd 이외의  group by plan_cd
-        //
+        
         anotherPlan = EHDObject.plans.filter((item) => {
           if (!temp.includes(item.plan_cd) && item.plan_cd !== plan.plan_cd && item.ext1 === 'Y') {
             temp.push(item.plan_cd);
+            console.log(item.plan_cd +"/"+ plan.plan_cd +"/"+ item.ext1); 
             return true;
           } else {
+                //  console.log("x");
             return false;
-          }
+          } 
         });
+        console.log("anotherPlan",anotherPlan);
         // group by plan_cd 에서 plan_seq 만 취합 구분자 "|" 로 연결
         const planSeqs = anotherPlan?.reduce((prev, curr) => `${prev}|${curr.plan_seq}`, '');
+     console.log("planSeqs",planSeqs)
         EHDObject.getPlanInfo(
           {
             api: EHDObject.GET_ANOTHER_GUARANTEES,

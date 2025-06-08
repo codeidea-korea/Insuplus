@@ -734,12 +734,13 @@ include '../_include/_header_partner.html';
    * 보장내역 폼 생성
    */
   function generateGuaranteeList() {
+    // console.log('generateGuaranteeList :: ',EHDObject);
     const html = [];
     const dataList = EHDObject.guarantees;
     const kinds = [];
-    
+    // console.log('dataList :: ',dataList);
     dataList.forEach((item) => kinds.includes(item.guarantee_seq) || kinds.push(item.guarantee_seq));
-
+    // console.log('kinds :: ',kinds);
     kinds.forEach((k, k_idx) => {
       const buff = [];
       let groupName = undefined;
@@ -788,6 +789,7 @@ include '../_include/_header_partner.html';
         buff.push(`          </div>`);
         buff.push(`          <div class="table-body flex-tr">`);
         if (k_idx === 0 && idx === 0) {
+            // console.log( EHDObject.anotherGuarantees)
           // 보장내역 중 첫번째 보장내역을 select-box 로 변환하기위한 로직
           // 변환은 보장내역1 만 적용 한다
           const anotherGuarantees = [];
@@ -795,13 +797,13 @@ include '../_include/_header_partner.html';
             const el = a.find((b, i) => i === idx && b.service_name === item.service_name);
             if (el) anotherGuarantees.push(el);
           });
-          // console.log(item)
-          // console.log(anotherGuarantees)
+        //   console.log(item)
+        //   console.log(anotherGuarantees)
           buff.push(`            <div class="select-box flex-1">`);
           buff.push(`            <div class="select-box-inner">`);
           buff.push(`            <select class="tc">`);
           buff.push(`              <option value="${item.plan_cd}" selected>${item.g_amount}</option>`);
-          // anotherGuarantees.forEach((g) => buff.push(`<option value="${g.plan_cd}">${g.g_amount}</option>`));
+          anotherGuarantees.forEach((g) => buff.push(`<option value="${g.plan_cd}">${g.g_amount}</option>`));
           buff.push(`            </select>`);
           buff.push(`            </div>`);
         } else {
@@ -965,9 +967,12 @@ include '../_include/_header_partner.html';
     EHDObject.getPlanInfo({ api: EHDObject.GET_PLAN, pr_cd: EHDObject.pr_cd }, () => {
       // 플랜정보를 가져온 후 수행되어야 할 로직이기 때문에 콜백에 구현
       let plan;
-
+        console.log(EHDObject.plans)
+        console.log(EHDObject.plan_cd);
       // 플랜정보 중 서비스가 있는 플랜으로 서비스 내역 가져와 출력
       plan = EHDObject.plans.find((item) => item.ext3 === 'Y' && EHDObject.plan_cd === item.plan_cd);
+
+    //   console.log("plan",plan)
       EHDObject.getPlanInfo(
         { api: EHDObject.GET_SERVICE, pr_cd: plan?.pr_cd, plan_cd: plan?.plan_cd },
         // 서비스내역 출력
@@ -987,20 +992,22 @@ include '../_include/_header_partner.html';
         let anotherPlan;
         const temp = [];
         // 현재 선택된 plan_cd 이외의  group by plan_cd
-
+        // console.log("EHDObject.plans",EHDObject.plans);
         anotherPlan = EHDObject.plans.filter((item) => {
-         
-          if (!temp.includes(item.plan_cd) && item.plan_cd === plan.plan_cd && item.ext1 === 'Y') {
+            //yjhdev 조건문수정
+          if (!temp.includes(item.plan_cd) && item.plan_cd !== plan.plan_cd && item.ext1 === 'Y') {
+            
             temp.push(item.plan_cd);
-          
             return true;
           } else {
+            // console.log("x");
             return false;
           }
         });
+        console.log("anotherPlan",anotherPlan);
         // group by plan_cd 에서 plan_seq 만 취합 구분자 "|" 로 연결
         const planSeqs = anotherPlan?.reduce((prev, curr) => `${prev}|${curr.plan_seq}`, '');
-    
+        console.log("planSeqs",planSeqs)
         EHDObject.getPlanInfo(
           {
             api: EHDObject.GET_ANOTHER_GUARANTEES,
@@ -1123,6 +1130,9 @@ include '../_include/_header_partner.html';
 
     EHDObject.customer = customer;
     EHDObject.companions = companions;
+
+    // console.log(EHDObject.customer);
+    // console.log(EHDObject.companions);
     EHDObject.save();
 
     return true;

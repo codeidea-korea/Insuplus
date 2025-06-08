@@ -116,13 +116,13 @@ foreach($arr_join_seq as $join_row){
   'USER_PHONE'    : 연락처 01011112222
   'USER_EMAIL'    : 이메일 mail1@mail.com
   'INS_PERIOD'    : 보험기간 단기 일단위, 장기 월단위로 구분
-  'STOCK_NO'      : 증권번호
+  'STOCK_NO'      : 증권번호  
   'ENG_PLAN_NAME' : 영문 플랜명(국문하고 다름)
   'ORDERNO'       : 주문번호
   'CONTRACTOR_KR' : 계약자명
   'CONTRACTOR_EN' : 계약자 영문명
   'PLAN_NAME'     : 플랜명
-  'NATION_NAME'   : 국가명
+  'NATION_NAME'   : 국가명 
   'PURPOSE'       : 출국목적
   */
   $JOIN_INFO = array(
@@ -141,7 +141,7 @@ foreach($arr_join_seq as $join_row){
     , 'PLAN_NAME'     => $row_r["plan_name"]
     , 'NATION_NAME'   => $row_r["join_nation_name"]
     , 'PURPOSE'       => $row_r["purpose"]
-    , 'AMOUNT'        =>   $row_cont_info["service_amount"] 
+  , 'AMOUNT'        =>   $row["t_amount"] 
   );
 
   if (is_null($row["group_join_type"]) || $row["group_join_type"] === "B2C") {

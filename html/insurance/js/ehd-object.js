@@ -4,11 +4,11 @@
     const emptyObject = '{}';
     const jsonVal = window.sessionStorage.getItem(identifier) || emptyObject;
     const joiner = JSON.parse(jsonVal);
-    //console.log("7 joiner ::" ,joiner);
+    // console.log("7 joiner ::" ,joiner);
     Object.defineProperties(joiner, {
       GET_AGE: { value: 'getAge', enumerable: false },
       GET_PLAN: { value: 'getPlans', enumerable: false },
-      GET_SERVICE: { value: 'getService', enumerable: false }, 
+      GET_SERVICE: { value: 'getService', enumerable: false },  
       GET_GUARANTEE: { value: 'getGuarantee', enumerable: false },
       GET_PLAN_PRICE: { value: 'getPlanPrice', enumerable: false },
       GET_ANOTHER_GUARANTEES: { value: 'getAnotherGuarantees', enumerable: false },
@@ -99,6 +99,7 @@
     };
 
     joiner.getPlanInfo = function (args, callback) {
+  
       let apiName;
       const params = [];
 
@@ -107,15 +108,21 @@
         params.push(`${key}=${args[key]}`);
       }
 
+    //   console.log("params",params);
+
       fetch(`/html/insurance/ajax_planInfo.php?${params.join('&')}`)
         .then((result) => result.json())
         .then((result) => {
+            // console.log(apiName);
           if (apiName === this.GET_PLAN) {
+            // console.log("GET_PLAN");
+            // console.log(result);
             if (this.customer.departureDate && this.customer.arrivalDate && Array.isArray(result)) {
               const dptDate = this.customer.departureDate;
               this.plans = result.filter(
                 (plan) => plan.s_date <= dptDate && dptDate <= plan.e_date && plan.plan_status == 'Y'
               );
+              console.log(this.plans);
             } else {
               this.plans = result;
             }
@@ -126,11 +133,14 @@
           else if (apiName === this.GET_PARTNERSHIP) this.selectedPartnership = result[0];
           else if (apiName === this.GET_NOTICE) this.productNotice = result;
           else if (apiName === this.GET_SERVICE) {
+            // console.log("GET_SERVICE");
+            // console.log(result)
             this.services = result;
             // 서비스 분류
             this.classifyServices();
           }
-
+        //   console.log("===== "+this.GET_PLAN_PRICE+"====")
+        //   console.log(result) 
           return result;
         })
         .then(callback)
@@ -175,14 +185,15 @@
     };
 
     joiner.classifyServices = function () {
+        // console.log(this.services)
       const planSeq = [];
       const container = [];
       const NOT_AVAILABLE = this.NOT_AVAILABLE;
       const dataList = this.services?.filter((s) => s.e_amount !== NOT_AVAILABLE || s.k_amount !== NOT_AVAILABLE) || [];
-
+        // console.log(dataList);
       // 서비스 목록 중 중복되지 않은 plan_seq 값 수집
       dataList.forEach((item) => planSeq.includes(item.plan_seq) || planSeq.push(item.plan_seq));
-
+        // console.log("planSeq ::" , planSeq);
       // 서비스 목록에서 공통서비스와 옵션 서비스 분류
       // 서비스이름, 서비스값 을 키로 임의 배열에 등록하고, 이미 등록된 서비스인 경우 group_count 를 증가시킴
       // 서비스별 group_count 값이 planSeq.length 와 같으면 공통서비스, 다르면 옵션서비스로 판단
@@ -287,5 +298,9 @@
         EHDObject.save();
       });
     });
+ 
+
+    // console.log('EHDObject :: ',EHDObject);
+
   }
 })();
