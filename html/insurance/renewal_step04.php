@@ -440,6 +440,7 @@ $detect = new Mobile_Detect;
               customerName: jsonRes.customer_name,
               customerEmail: jsonRes.customer_email,
               customerMobilePhone: jsonRes.user_hp,
+              validHours: 24,
               successUrl: `${protocol}//${domain}${port}/html/insurance/payment_success.php`,
               failUrl: `${protocol}//${domain}${port}/html/insurance/payment_fail.php`
           })
