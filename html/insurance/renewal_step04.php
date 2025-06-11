@@ -1,9 +1,9 @@
 <?php
 include '../_include/_header_new.html';
 include '../_include/_top.html';
-include_once $_SERVER["DOCUMENT_ROOT"] . "/_config/lib.php";
-include $_SERVER["DOCUMENT_ROOT"] . "/_config/Mobile_Detect.php";
-include_once $_SERVER["DOCUMENT_ROOT"] . "/_config/Func.insurance.php"; //추가
+include_once $_SERVER['DOCUMENT_ROOT'] . '/_config/lib.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/_config/Mobile_Detect.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/_config/Func.insurance.php';  // 추가
 $detect = new Mobile_Detect;
 
 ?>
@@ -222,9 +222,9 @@ $detect = new Mobile_Detect;
 
 <!-- // 레이어 팝업 -->
 <!-- 이니시스 표준결제 js -->
-<? if (SERVER_CHECK == "DEV") { ?>
+<? if (SERVER_CHECK == 'DEV') { ?>
   <script language="javascript" type="text/javascript" src="https://stgstdpay.inicis.com/stdjs/INIStdPay.js" charset="UTF-8"></script>
-<? } else if (SERVER_CHECK == "REAL") { ?>
+<? } else if (SERVER_CHECK == 'REAL') { ?>
   <script language="javascript" type="text/javascript" src="https://stdpay.inicis.com/stdjs/INIStdPay.js" charset="UTF-8"></script>
 <? } ?>
 
@@ -232,7 +232,7 @@ $detect = new Mobile_Detect;
 <script src="./js/swiper.js?a=1"></script>
 <script src="./js/ehd-object.js"></script>
 <script>
-    const clientKey = '<?=TOSS_CLIENT_KEY?>'; // 클라이언트 키
+    const clientKey = '<?= TOSS_CLIENT_KEY ?>'; // 클라이언트 키
     const tossPayments = TossPayments(clientKey)
 
   function generateCustomerForms() {
@@ -379,7 +379,7 @@ $detect = new Mobile_Detect;
     }
 
   
-    if(EHDObject.customer.cellphone === '01085634063' ||EHDObject.customer.cellphone === '01042241027' ||EHDObject.customer.cellphone === '01049775976' || EHDObject.customer.cellphone === '01038585916' || EHDObject.customer.cellphone === '01054405414' || EHDObject.customer.cellphone === '01020493619'){
+    // if(EHDObject.customer.cellphone === '01085634063' ||EHDObject.customer.cellphone === '01042241027' ||EHDObject.customer.cellphone === '01049775976' || EHDObject.customer.cellphone === '01038585916' || EHDObject.customer.cellphone === '01054405414' || EHDObject.customer.cellphone === '01020493619'){
         if(pay_type == 'HPP' || pay_type == 'mobile'){
       alert('휴대폰 결제는 현재 서비스 점검으로 이용이 어렵습니다.');
       return;
@@ -452,7 +452,7 @@ $detect = new Mobile_Detect;
       }
     });
 
-    }else{
+    /*}else{
 
 
     EHDObject.customer.paymethod = pay_type;
@@ -484,9 +484,9 @@ $detect = new Mobile_Detect;
       }
     });
     request.done(function(result) {});
-}
+}*/ 
 
-  }
+ }
 
 
 
