@@ -5,6 +5,8 @@
 	$tm = "MN4";
 	$lm = "";
 	include $path_admin."inc/header.php";
+
+  
 	
 ?>
 <script>
@@ -27,6 +29,7 @@ function popup_main_roll() {
 	<tr>
 		<td>
 		<?php
+        // echo $path_board;
 			$bc_id = "main_banner";
 			include_once $path_board."board.php";
 			$dbcon -> dbcon_close();

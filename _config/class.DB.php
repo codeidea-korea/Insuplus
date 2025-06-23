@@ -228,8 +228,10 @@ class dbcon {
 			if ( getLen($limit) > 0 ) {
 				$SQL .= " limit ".$limit;
 			}
+
+            // echo $SQL."<br>";
        
-			$ListResult = $this -> query($SQL);
+			$ListResult = $this->query($SQL);
             
 		}
 		else {
@@ -378,7 +380,9 @@ class sms_dbcon {
 
 
 	function query($SQL) {
+        echo $SQL."<br>";
 		$result_ = @mysql_query_exe($SQL, $this->dbcon);
+        echo $SQL."<br>";
 		if(!$result_) {
 			if($this->debug > 0) {
 				MSG_ERROR( "error(query) : <BR>".$SQL."<BR>mysqli_error : ".mysqli_error()."<BR>" );

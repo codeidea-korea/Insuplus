@@ -13,8 +13,57 @@ $today = date("Y-m-d");
 $_SESSION["orderno"] = "";
 
 ?>
+<link href="../_css/main.css?v=230601" rel="stylesheet" type="text/css">
 <section class="no-bg">
-			<div class="main-box-01">
+<div class="fullwidthbanner">
+	<div class="tp-banner owl-carousel owl-theme">
+		<!-- SLIDE -->
+		<? 
+		foreach ($rs_banner as $row) {
+			$arr_img_info = setFileName($row["imgfile"])[0];
+		?>
+        <div class='item' style='background-image:url(/_data/board/main_banner/<?= $arr_img_info[1]; ?>);'>
+             <img src="/_data/board/main_banner/<?= $arr_img_info[1]; ?>">
+        </div>
+        
+		<? } ?>
+
+        
+			<!-- <div class='item' style='background-image:url(/_data/board/main_banner/<?= $arr_img_info[1]; ?>);'>
+                 <img src="/_data/board/main_banner/<?= $arr_img_info[1]; ?>">
+			</div> -->
+            
+			<!-- <div class='item' style='background-image:url(/_data/board/main_banner/20250619_main_banner_2.png);'>
+            <img src="/_data/board/main_banner/20250619_main_banner_2.png">
+			</div>
+            
+			<div class='item' style='background-image:url(/_data/board/main_banner/20250619_main_banner_3.png);'>
+            <img src="/_data/board/main_banner/20250619_main_banner_3.png">
+			</div> -->
+
+        
+		<!-- SLIDE --> 
+	</div>
+	<div class="tp-banner-mobile owl-carousel owl-theme" >
+		<!-- SLIDE -->
+		<?
+		foreach ($rs_banner as $row) {
+			$arr_m_img_info = setFileName($row["imgfile2"])[0];
+		?>
+
+			<div class='item' style='background-image:url(/_data/board/main_banner/<?= $arr_m_img_info[1]; ?>);'>
+				<? if ($row["pc_url"]) { ?>
+					<a href="<?= $row["pc_url"] ?>"><img src="/_data/board/main_banner/<?= $arr_m_img_info[1]; ?>"></a>
+				<? } else { ?>
+					<img src="/_data/board/main_banner/<?= $arr_m_img_info[1]; ?>">
+				<? } ?>
+			</div>
+		<? } ?>
+		<!-- SLIDE --> 
+		</ul>
+	</div>
+</div>
+<!-- <div class="main-box-01">
 				<div class="container">
 					<h2>해외여행자보험에<br>안심플러스</h2>
 					<p class="is-pc">여행의 처음부터 끝까지<br><strong class="ft-yellow2">인슈플러스</strong>가 24시간 동행합니다</p>
@@ -22,13 +71,13 @@ $_SESSION["orderno"] = "";
 					<div class="is-pc">
 						<ul class="btn-list-wrap">
 							<li>
-								<a href="https://pf.kakao.com/_JClxfT/chat" target="_blank" class="kakao">카카오 문의하기</a> <!--20231013 링크 새창 적용-->
 							</li>
 							<li><a href="/html/insurance/renewal_step00.php<?=isset($alliance_code) ? "?alliance_code=".$alliance_code : ""?>" class="price">간편 가격 조회하기</a></li>
 						</ul>
 					</div>
 				</div>
-			</div>
+			</div> -->
+			
 			<div class="tab-fixed-box">
 				<div class="tab-box-inner">
 					 <div class="tab-head">
@@ -480,4 +529,7 @@ $_SESSION["orderno"] = "";
 <?php
 include '../_include/_tail.html';
 include '../_include/_footer.html';
+
 ?> 
+<script src="../_js/jquery.marquee.js?" type="text/javascript"></script>
+<script src="../_js/custom_main.js?ver=230530" type="text/javascript"></script>

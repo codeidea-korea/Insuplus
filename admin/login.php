@@ -95,6 +95,14 @@ body {
 
 <body style="background-color:#FFFFFF;">
 
+<?php
+echo '<pre>';
+echo "REMOTE_ADDR : ".$_SERVER['REMOTE_ADDR']."\n";
+echo "HTTP_CLIENT_IP : ".$_SERVER['HTTP_CLIENT_IP']."\n";
+echo "HTTP_X_FORWARDED_FOR : ".$_SERVER['HTTP_X_FORWARDED_FOR']."\n";
+echo '</pre>';
+?>
+
 <div class="loginWrap">
 <h1><img src="<?=$url_admin?>/images/logo_login.png" alt="insuplus" /></h1>
 <p class="txt1">Administrator</p>

@@ -1,4 +1,5 @@
 <?
+
 	$act = REQSTR($_POST[act], "");
 	$nick_name = REQSTR($nick_name, "");
 	$passwd = REQSTR($passwd, "");
@@ -224,7 +225,7 @@
 		}
 		$SQL .="	, imgfile = '".$imgfile."'
 
-			, regdate = NULL
+			, regdate = NOW()
 			, secret = '".$secret."'
 			, hidden = '".$hidden."'
 			, ext1 = '".$ext1."'
@@ -240,17 +241,20 @@
 
 			".$add_field."
 	";
+   
+//  echo "쿼리확인1<br>".$SQL;
+  
 	$result = $dbcon -> query($SQL);
 	if (!$result) {
 		$dbcon -> dbcon_close();
 		alert_back("등록 오류입니다. 관리자에게 문의하여 주십시오.");
 		exit;
 	}
-//	echo "<xmp>".$SQL."</xmp><BR>";exit;
+	// echo "<xmp>".$SQL."</xmp><BR>";exit;
 //	exit;
 	$seq = mysqli_insert_id($dbcon->dbcon);
 	//echo "seq : ".$seq."<BR>";
-
+   
 
 	#############################
 	#### 파일 업로드 시작
@@ -268,7 +272,7 @@
 	#############################
 
 	@include_once($path_skin_board.$bc_skin."/write_update.php");
-
+    // echo "쿼리확인2<br>".$SQL;
 	#############################
 	#### 메일 처리
 	if ( $bc_email_use == "A" || $bc_email_use == "Y" ) {

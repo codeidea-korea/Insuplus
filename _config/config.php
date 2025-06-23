@@ -54,9 +54,11 @@ $url_Now = getURL();            // 다른 곳에 중복해 쓸 경우에는 getU
 	// $mysql_host = "211.43.14.191:3306"; //DEV
 	// $mysql_host = "insu-db.cdaumq0ugull.ap-northeast-2.rds.amazonaws.com:3306"; //NEWLIVE
 	
-	$mysql_host ="dev-db-my57.cdaumq0ugull.ap-northeast-2.rds.amazonaws.com:3306"; //DEV 
-	$mysql_user					= "insplus";
-	$mysql_password				= "!insplus#"; //DEV
+	//$mysql_host ="dev-db-my57.cdaumq0ugull.ap-northeast-2.rds.amazonaws.com:3306"; //DEV 
+	//$mysql_host ="dev-db-80.cdaumq0ugull.ap-northeast-2.rds.amazonaws.com:3306"; //DEV 
+	$mysql_host ="insu80.cdaumq0ugull.ap-northeast-2.rds.amazonaws.com";
+	$mysql_user					= "bizinsight";
+	$mysql_password				= "bizflying!";
 	$mysql_database_name		= "insplus";
 	
 	//결제정보

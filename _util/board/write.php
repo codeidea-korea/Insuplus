@@ -245,8 +245,16 @@ include $path_skin_board.$bc_skin."/write.php";?>
 			ff.mode.value = "reply_ok";
 			//ff.action = "notice_write_ok.php";
 		<? } ?>
+     
+       
+        // alert("<?=$PHP_SELF?>");
 		ff.action = "<?=$PHP_SELF?>";
 		ff.target = "board_iframe";
+
+        // console.log(document.WriteForm.action);
+        // console.log(document.WriteForm.target);
+        // console.log(document.WriteForm.mode.value);
+        // return  true;
 	}
 
 

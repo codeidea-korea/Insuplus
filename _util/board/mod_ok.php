@@ -1,4 +1,5 @@
 <?
+
 	$seq = REQSTR($seq, "");
 	$act = REQSTR($_POST[act], "");
 	$nick_name = REQSTR($nick_name, "");

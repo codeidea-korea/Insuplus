@@ -1,13 +1,14 @@
 .fullwidthbanner {
-	left:0;
-/*	top:0;*/ /*20230502 주석처리*/
-	position:relative;
+    width: 100%;
+    height: 100vh; /* 또는 고정 높이 */
+    position: relative;
+    overflow: hidden;
 }
 .fullwidthbanner * {margin:0;padding:0;list-style:none;}
 .fullwidthbanner .item {
-	background-repeat:no-repeat;
-/*	background-position:50% 50%;*/
-	background-size:cover;
+    background: center center / cover no-repeat;
+    /* 또는 더 명확하게 */
+    background: 50% 50% / cover no-repeat;
 }
 .fullwidthbanner .item img {opacity:0;}
 .fullwidthbanner .owl-theme .owl-dots .owl-dot span {width:12px;height:12px;}
@@ -33,7 +34,7 @@
 	padding:8px 0px;
 	background-color:rgba(255,255,255,0.9);
 	border-radius:24px;
-}
+} 
 #main_cscenter .kakaoplus{
 	display:block;
 	font-size:16px;
@@ -465,7 +466,7 @@
 /*		position:fixed !important;*/
 		position:absolute; /*20230502 수정*/
 	}
-	.fullwidthbanner .tp-banner {max-width:1920px;height:736px !important;}
+	.fullwidthbanner .tp-banner {width:100%;height:736px !important;}
 	.fullwidthbanner .tp-banner{
 		display:block; 
 		/*z-index:-1*/
@@ -473,8 +474,8 @@
 	.fullwidthbanner{
 		min-width:1920px;
 		margin:0 auto;
-		left:50%;
-		margin-left:-960px;
+		/* left:50%; */
+		/* margin-left:-960px; */
 	}
 	.fullwidthbanner + div {
 		margin-top:710px ! important /*20230502 높이값수정*/
