@@ -379,13 +379,13 @@ $detect = new Mobile_Detect;
     }
 
   
-    // if(EHDObject.customer.cellphone === '01085634063' ||EHDObject.customer.cellphone === '01042241027' ||EHDObject.customer.cellphone === '01049775976' || EHDObject.customer.cellphone === '01038585916' || EHDObject.customer.cellphone === '01054405414' || EHDObject.customer.cellphone === '01020493619'){
-    //     if(pay_type == 'HPP' || pay_type == 'mobile'){
-    //   alert('휴대폰 결제는 현재 서비스 점검으로 이용이 어렵습니다.');
-    //   return;
-    // }
+    if(EHDObject.customer.cellphone !== '01049775976' || EHDObject.customer.cellphone !== '01038585916'){
+        if(pay_type == 'HPP' || pay_type == 'mobile'){
+        alert('휴대폰 결제는 현재 서비스 점검으로 이용이 어렵습니다.');
+        return;
+        } 
+    }
  
-
     const PAY_TYPE_MAP = {
         'Card': '카드',
         'HPP': '휴대폰',
@@ -440,6 +440,12 @@ $detect = new Mobile_Detect;
               customerName: jsonRes.customer_name,
               customerEmail: jsonRes.customer_email,
               customerMobilePhone: jsonRes.user_hp,
+              mobilePhone: {
+        // 휴대폰 번호 (하이픈 없이)
+        customerMobilePhone: jsonRes.user_hp.replace(/-/g, ''),
+        // 통신사 선택 (선택사항)
+        // carrier: 'SKT' | 'KT' | 'LGU+' | 'HELLO' | 'KCT' | 'SK7'
+    },
               validHours: 24,
               successUrl: `${protocol}//${domain}${port}/html/insurance/payment_success.php`,
               failUrl: `${protocol}//${domain}${port}/html/insurance/payment_fail.php`
