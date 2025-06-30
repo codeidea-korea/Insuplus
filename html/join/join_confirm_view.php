@@ -227,7 +227,7 @@ function ord_Cancle(val){
 	<? if($row_r["pg_pay_type"] != 'VBank') {?>
 	if (confirm("취소하시겠습니까? 신중히 고려 부탁드립니다.\n" )){ 
 		
-		if(val.startsWith("TOSS") > -1) {
+		if(val.startsWith("TOSS")) {
 			var ff = document.frm_cancle;
 			ff.orderno.value=val;
 			ff.action = "toss_join_confirm_view_cancle_all.php";
@@ -250,7 +250,7 @@ function ord_Cancle(val){
 function ord_PCancle(seq,val){
 	if (confirm("취소하시겠습니까? 신중히 고려 부탁드립니다.")){
 
-		if(val.startsWith("TOSS") > -1) {
+		if(val.startsWith("TOSS")) {
 			var ff = document.frm_cancle;
 				ff.mode.value="repay";
 				ff.orderno.value=val;

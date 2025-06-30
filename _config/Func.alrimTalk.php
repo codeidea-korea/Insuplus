@@ -330,7 +330,8 @@ function kakaoSend($message, $templet_code, $mobile) {
 				'',
 				''
 		)";
-	
+	// echo $sql;
+	// exit;
 	$dbcon->query($sql);
 }
 

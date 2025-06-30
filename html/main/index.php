@@ -14,7 +14,7 @@ $_SESSION["orderno"] = "";
 
 ?>
 <link href="../_css/main.css?v=230601" rel="stylesheet" type="text/css">
-<section class="no-bg">
+<section class="no-bg" style="padding-top:1px;">
 <div class="fullwidthbanner">
 	<div class="tp-banner owl-carousel owl-theme">
 		<!-- SLIDE -->

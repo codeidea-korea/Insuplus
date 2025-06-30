@@ -163,7 +163,7 @@ include '../_include/_sidebar.html';
                 alert('인증번호가 발송되었습니다.');
                 $("#hp").attr('readonly', true);
                 certiNum = data.trim();
-                
+                // alert(certiNum);
             },
             error: function (request, status, error) {
                 alert('인증번호 발송에 실패하였습니다.');
