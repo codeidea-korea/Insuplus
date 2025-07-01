@@ -17,6 +17,9 @@ if(!empty($moveEvent)) {
     case "rda":
         header( "Location: /html/insurance/partner_step01.php?alliance_code=emZabnplanNGTThLRHdScWc5eVZkZz09" );
         break;
+    case "surecare":
+        header( "Location: /html/insurance/partner_step01.php?alliance_code=RGI4MTh4TTR3SlkrRVBpYlVId0JjQT09" );
+        break;
     default:
     header( "Location: /html/main/" );
       break;

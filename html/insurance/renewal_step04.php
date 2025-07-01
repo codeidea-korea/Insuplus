@@ -379,12 +379,12 @@ $detect = new Mobile_Detect;
     }
 
   
-    if(EHDObject.customer.cellphone !== '01049775976' || EHDObject.customer.cellphone !== '01038585916'){
-        if(pay_type == 'HPP' || pay_type == 'mobile'){
-        alert('휴대폰 결제는 현재 서비스 점검으로 이용이 어렵습니다.');
-        return;
-        } 
-    }
+    // if(EHDObject.customer.cellphone !== '01049775976' && EHDObject.customer.cellphone !== '01038585916'){
+    //     if(pay_type == 'HPP' || pay_type == 'mobile'){
+    //     alert('휴대폰 결제는 현재 서비스 점검으로 이용이 어렵습니다.');
+    //     return;
+    //     } 
+    // }
  
     const PAY_TYPE_MAP = {
         'Card': '카드',
