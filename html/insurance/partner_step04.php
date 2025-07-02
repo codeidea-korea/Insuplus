@@ -307,17 +307,17 @@ $detect = new Mobile_Detect;
 
     generateCustomerForms();
     // yjhdev
-    console.log(EHDObject)
-    if(EHDObject.depth0.code === 'H001' || EHDObject.depth0.name === "[B2B]농촌진흥청"){
+
+    if(EHDObject.selectedPartnership[3] === 'rda' || EHDObject.depth0.name === "[B2B]농촌진흥청"){
         $("#payment-info .multi-row").hide();
         $("#multi-row-1").hide();
         $("#multi-row-2").hide();
-    }else if(EHDObject.depth0.name==='C001' || EHDObject.depth0.name==='[제휴] 슈어케어VIP'){
+    }else if(EHDObject.selectedPartnership[3] ==='surecare' || EHDObject.depth0.name==='[제휴] 슈어케어VIP'){
         $("#coupon_ui").css('display','block');
         $("#coupon_title").css('display','block');
         $("#multi-row-1").hide();
         $("#multi-row-2").show();
-    }else if(EHDObject.depth0.code === 'F001' || EHDObject.depth0.name === "[제휴] 마이쇼퍼케어"){
+    }else if(EHDObject.selectedPartnership[3]  === 'myshop' || EHDObject.depth0.name === "[제휴] 마이쇼퍼케어"){
         $("#multi-row-1").show();
         $("#multi-row-2").hide();
     }
