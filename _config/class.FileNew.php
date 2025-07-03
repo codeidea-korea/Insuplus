@@ -801,7 +801,7 @@ function FileDBInsert($category, $seq) {
 						, file_realname = '$realfileName'
 						, file_size = '$fileSize'
 						, down_cnt = '0'
-						, regdate = null
+						, regdate = NOW()
 						, topdata = ''
 				";
 				$dbcon -> query($SQL);

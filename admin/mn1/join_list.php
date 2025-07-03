@@ -94,7 +94,8 @@ $field         = " A.*, B.*, C.partnership_name as partnership_name, D.guarantee
 
 $table      = " tbl_order_list A inner join tbl_order_list_join B on A.orderno=B.orderno left join tbl_board_partner C ON A.join_ch = C.seq left join tbl_board_plan D on A.plan_cd = D.seq ";
 $where      = $query_where;
-$orderby      = $search_orderby . " " . $search_sort;
+//$orderby      = $search_orderby . " " . $search_sort;
+$orderby      = $search_orderby . " " . $search_sort.", B.seq ASC";
 $limit        = $first . ", " . $num_per_page;
 // 20250316 yjhzzzzdev - 조건문 없으면 검색 X
 $ArrRS =[];

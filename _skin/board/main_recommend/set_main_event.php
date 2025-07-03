@@ -252,7 +252,7 @@
 			}
 			$SQL .="	, imgfile = '".$imgfile."'
 
-				, regdate = NULL
+				, regdate = NOW()
 				, secret = '".$secret."'
 				, hidden = '".$hidden."'
 				, ext1 = '".$ext1."'
