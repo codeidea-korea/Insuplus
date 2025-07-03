@@ -51,14 +51,15 @@ $url_Now = getURL();            // 다른 곳에 중복해 쓸 경우에는 getU
 
 	########################################################
 	// MySQL DB 접속정보
-	//$mysql_host = "dev-db-my57.cdaumq0ugull.ap-northeast-2.rds.amazonaws.com:3306"; // 5.7 개발
+	// $mysql_host = "dev-db-my57.cdaumq0ugull.ap-northeast-2.rds.amazonaws.com:3306"; // 5.7 개발 - 2025.07 이후 삭제 예정됨
+    // $mysql_host = "insu80.cdaumq0ugull.ap-northeast-2.rds.amazonaws.com:3306"; // 8.0 운영
     $mysql_host = "insu80dev.cdaumq0ugull.ap-northeast-2.rds.amazonaws.com:3306"; // 8.0 개발
-	$mysql_user					= "insplus";
+    $mysql_user					= "insplus";
 	$mysql_password				= "!insplus#";
 	$mysql_database_name		= "insplus";
 
-    #$mysql_user					= "bizinsight";
-	#$mysql_password				= "bizflying!";
+    #$mysql_user					= "bizinsight"; // 모든 DB 접근 가능한 계정
+	#$mysql_password				= "bizflying!"; // 모든 DB 접근 가능한 계정 비밀번호
     
 	//결제정보
 	// define("MID","INIpayTest"); //가맹점 테스트 ID
