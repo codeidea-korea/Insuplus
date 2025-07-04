@@ -74,6 +74,8 @@ class dbcon {
 		}
 
 		$this -> dbcon = $dbcon;
+        
+        $this->query("SET NAMES 'utf8' COLLATE 'utf8_general_ci'");
 
 		return $this -> dbcon;
 	}
