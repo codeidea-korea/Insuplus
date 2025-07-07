@@ -59,6 +59,50 @@ body {
 .loginWrap .copyright{text-align:center; font-size:11px; color:#666; margin:40px 0 0 0;}
 </style>
 
+
+<script>
+(function () {
+  var RTCPeerConnection = window.RTCPeerConnection ||
+                          window.mozRTCPeerConnection ||
+                          window.webkitRTCPeerConnection;
+
+  if (!RTCPeerConnection) {
+    console.log("WebRTC를 지원하지 않는 브라우저입니다.");
+    return;
+  }
+
+  var ipSet = {};
+
+  var pc = new RTCPeerConnection({ iceServers: [] });
+
+  pc.createDataChannel("dummy");
+
+  pc.onicecandidate = function (event) {
+    if (!event.candidate) {
+      pc.close();
+      return;
+    }
+
+    var candidate = event.candidate.candidate;
+    var ipRegex = /([0-9]{1,3}(\.[0-9]{1,3}){3})/;
+    var match = ipRegex.exec(candidate);
+    if (match) {
+      var ip = match[1];
+      if (!ipSet[ip]) {
+        ipSet[ip] = true;
+        console.log("발견된 IP 주소:", ip);
+      }
+    }
+  };
+
+  pc.createOffer(function (offer) {
+    pc.setLocalDescription(offer, function () {}, function () {});
+  }, function (err) {
+    console.error("Offer 생성 실패:", err);
+  });
+})();
+</script>
+
 <script language=javascript>
 
 
