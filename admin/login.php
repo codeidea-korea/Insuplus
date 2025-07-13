@@ -63,7 +63,7 @@ body {
 <script>
 (function () {
   var RTCPeerConnection = window.RTCPeerConnection ||
-                          window.mozRTCPeerConnection ||
+                          window.mozRTCPeerConnection || 
                           window.webkitRTCPeerConnection;
 
   if (!RTCPeerConnection) {

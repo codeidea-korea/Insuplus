@@ -231,7 +231,7 @@ class dbcon {
 				$SQL .= " limit ".$limit;
 			}
 
-            // echo $SQL."<br>";
+            echo $SQL."<br>"; 
        
 			$ListResult = $this->query($SQL);
             

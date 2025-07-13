@@ -303,14 +303,15 @@
                 <tr>
 					<td colspan="2" class="m_line_1px">&nbsp;</td>
 				</tr>
-                <!--tr>
+                <tr>
 					<td class="m_s_txt">접속 가능 IP</td>
 					<td class="m_content">
-                        <input name="u_accessible_ip" value="<?=$u_accessible_ip?>" type="text" class="m_input" maxlength="30" style="width:400px" placeholder="예시와 같이 접속 가능 IP를 공백 없이 ','로 구분하여 입력해 주세요." onkeyup="this.value=this.value.replace(/[^0-9.,*]/g,'');">
-                        <br>ex)<span style='letter-spacing: .5px;font-weight: bold;'> '*' 로 작성할 경우 모든 IP에서 접속 가능</span>
-                        <br>ex)<span style='letter-spacing: .5px;font-weight: bold;'> 192.168.0.1,192.168.0.2  </span>
+                        <input name="u_accessible_ip" value="<?=$u_accessible_ip?>" type="text" class="m_input" maxlength="30" style="width:400px" placeholder="접속 가능 IP를 입력해 주세요." onkeyup="this.value=this.value.replace(/[^0-9.,*]/g,'');">
+                        <!-- <input name="u_accessible_ip" value="<?=$u_accessible_ip?>" type="text" class="m_input" maxlength="30" style="width:400px" placeholder="예시와 같이 접속 가능 IP를 공백 없이 ','로 구분하여 입력해 주세요." onkeyup="this.value=this.value.replace(/[^0-9.,*]/g,'');"> -->
+                        <!-- <br>ex)<span style='letter-spacing: .5px;font-weight: bold;'> '*' 로 작성할 경우 모든 IP에서 접속 가능</span> -->
+                        <!-- <br>ex)<span style='letter-spacing: .5px;font-weight: bold;'> 192.168.0.1,192.168.0.2  </span> -->
 					</td>
-				</tr-->
+				</tr
 				<tr>
 					<td colspan="2" class="m_line_1px">&nbsp;</td>
 				</tr>

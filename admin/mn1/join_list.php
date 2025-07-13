@@ -100,6 +100,9 @@ $limit        = $first . ", " . $num_per_page;
 // 20250316 yjhzzzzdev - 조건문 없으면 검색 X
 $ArrRS =[];
 if(isset($where) && $where) {
+
+
+
     $ArrRS      = $dbcon->getList($field, $table, $where, $orderby, $limit);
 }
 $total_record  = $ArrRS[0];

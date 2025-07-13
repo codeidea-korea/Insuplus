@@ -24,6 +24,7 @@ $query_where      = "";
 $login_id        = REQSTR($login_id, "");
 $ip        = REQSTR($ip, "");
 $act        = REQSTR($act, "");
+$regist_ip        = REQSTR($regist_ip, "");
 
 $search          = REQSTR($search, "");
 $search_text      = REQSTR($search_text, "");
@@ -39,6 +40,8 @@ if (strlen($search_text) > 0) {
     $query_where .= " and ".$search." like '%" . $search_text . "%'  ";
   } else if($search == "ip") {
     $query_where .= " and ".$search." like '%" . $search_text . "%'  ";
+  } else if($search == "regist_ip") {
+    $query_where .= " and ".$search." like '%" . $search_text . "%'  or ip like '%" . $search_text . "%' ";
   } else {
     $query_where .= " and ".$search." = '" . $search_text . "'  ";
   }
@@ -120,7 +123,8 @@ var clareCalendar = {<?= $calendar_opt ?>});
             <td>
               <select name="search">
                 <option value="login_id" <? if ($search == "login_id") { ?>selected<? } ?>>ID</option>
-                <option value="ip" <? if ($search == "ip") { ?>selected<? } ?>>IP</option>
+                <!-- option value="ip" <? if ($search == "ip") { ?>selected<? } ?>>IP</option -->
+                <option value="regist_ip" <? if ($search == "regist_ip") { ?>selected<? } ?>>IP</option>
                 <option value="act" <? if ($search == "act") { ?>selected<? } ?>>사용자액션</option>
               </select>
               <input type="text" name="search_text" class="w400" value="<?= $search_text ?>" style="margin-left: 10px;" />
@@ -173,7 +177,8 @@ var clareCalendar = {<?= $calendar_opt ?>});
               <tr style="background:<?= $bg ?>;">
                 <td><?= $no ?></td>
                 <td><?= $login_id ?></td>
-                <td><?= $ip ?></td>
+                <!--td><?= $ip ?></td-->
+                <td><?= $regist_ip ? $regist_ip : $ip ?></td>
                 <td><?= $act ?></td>
                 <td><?= substr($reg_dt, 0, 20) ?></td>
               </tr>
