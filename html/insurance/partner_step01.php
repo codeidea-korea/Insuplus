@@ -570,8 +570,125 @@ include '../_include/_header_partner.html';
     const html = [];
     const { commonServices, optionServices } = EHDObject;
     
+
+// 20250717 surecare 서비스 항목 일반가입과 형식 같게 조건문 추가가
+if(EHDObject.selectedPartnership[3] ==='surecare'){
+      // 의료지원 서비스 항목
+      commonServices.forEach((item, idx) => {
+      if (idx === 0) {
+        html.push(`<div class="white-box middle mt24">`);
+        html.push(`  <div class="title-state-box">`);
+        html.push(`    <strong>${item.service_group_name}</strong>`);
+        html.push(`    <div class="check-box">`);
+        
+        //20240618 이벤트 기간중 보장내역 선택 불가능 처리
+        if (checkEventDate()) {
+        html.push(`      <div class="check-box-inner type01 unclickable">`);
+        html.push(`  <style>.unclickable {pointer-events: none;}</style>`);
+        } else {
+        html.push(`      <div class="check-box-inner type01">`);
+        }
+        html.push(
+          `        <input type="checkbox" value="${item.service_group_name}" id="service-0${orderNumber}" checked />`
+        );
+        // html.push(`        <label for="service-0${orderNumber++}">선택</label>`);
+        html.push(`      </div>`);
+        html.push(`    </div>`);
+        html.push(`  </div>`);
+        html.push(`  <div class="title-box mt12">`);
+        html.push(`    <h3>의료상담 및 병원예약, 여행편의 지원</h3>`);
+        html.push(`  </div>`);
+        html.push(`  <p class="common-txt01">여행 중 도움이 필요하시면 언제 어디서든 연락해 주세요.</p>`);
+        // html.push(
+        //   `  <p class="common-txt01">보험을 가입하지 않으시면 해외병원비 대신지불, 원격화상진료 서비스는 제공되지 않습니다.</p>`
+        // );
+        html.push(`  <div class="table-form-box">`);
+        html.push(`    <ul>`);
+      }
+      html.push(`        <li>`);
+      html.push(`          <div class="table-head w300">`);
+      html.push(`            <strong>${item.service_name}</strong>`);
+      html.push(`          </div>`);
+      html.push(`          <div class="table-body flex-tr" style="justify-content: center;">`);
+      if (item.chk_service === 'Y') {
+        html.push(`            <b class="point">${item.k_amount}</b>`);
+      } else {
+        html.push(`            <b>${item.k_amount}</b>`);
+      }
+      html.push(`          </div>`);
+      html.push(`        </li>`);
+    });
+
+    html.push(`    </ul>`);
+    html.push(`  </div>`);
+    html.push(`</div>`);
+
+    if (Array.isArray(optionServices) && optionServices.length > 0) {
+      // 건강검진, 긴급이후송 서비스 항목
+      const arrLength = optionServices.length;
+      let groupName = undefined;
+      let message = undefined;
+
+      optionServices.forEach((item, idx) => {
+        if (idx === 0) {
+          html.push(`<div class="white-box middle mt24">`);
+          html.push(`  <div class="title-state-box">`);
+          html.push(`    <strong class="memo">필요한 서비스를 추가하세요</strong>`);
+          html.push(`  </div>`);
+        }
+
+        if (groupName !== item.service_group_name) {
+          groupName = item.service_group_name;
+
+          if (groupName === EHDObject.SERVICE_GROUP_NAME[1]) {
+            message = '한국 건강검진 센터에서 1회 무료 검사를 제공해 드립니다.';
+          } else if (groupName === EHDObject.SERVICE_GROUP_NAME[2]) {
+            message = '긴급한 경우 에어앰뷸런스로 이송해 드리며 이송비용 2억까지 보장해 드립니다.';
+          }
+
+          if (idx !== 0) {
+            html.push(`    </ul>`);
+            html.push(`  </div>`);
+          }
+
+          html.push(`  <div class="title-box flex flex-tj mt12">`);
+          html.push(`    <h3>${groupName}</h3>`);
+          html.push(`    <div class="check-box">`);
+          html.push(`      <div class="check-box-inner type02">`);
+          html.push(`        <input type="checkbox" value="${groupName}" id="service-0${orderNumber}" checked>`);
+        //   html.push(`        <label for="service-0${orderNumber++}">추가</label>`);
+          html.push(`      </div>`);
+          html.push(`    </div>`);
+          html.push(`  </div>`);
+          html.push(`  <p class="common-txt01">${message}</p>`);
+          html.push(`  <button type="button" class="btn-more off">자세히 보기</button>`);
+          html.push(`  <div class="table-form-box mt12" style="display: none;">`);
+          html.push(`    <ul>`);
+        }
+        html.push(`        <li>`);
+        html.push(`          <div class="table-head w-65">`);
+        html.push(`            <strong>${item.service_name}</strong>`);
+        html.push(`          </div>`);
+        html.push(`          <div class="table-body" style="justify-content: center;">`);
+        if (item.chk_service === 'Y') {
+          html.push(`            <b class="point">${item.k_amount}</b>`);
+        } else {
+          html.push(`            <b>${item.k_amount}</b>`);
+        }
+        html.push(`          </div>`);
+        html.push(`        </li>`);
+      });
+
+      html.push(`    </ul>`);
+      html.push(`  </div>`);
+      html.push(`</div>`);
+    }
+
+}else{
+
     // 의료지원 서비스 항목
     commonServices.forEach((item, idx) => {
+        
       if (idx === 0) {
         //yjhdev 데이터로 관리되고있어 1차적으로 하드 수정
     //    let service_group_name =  item.service_group_name === '의료·여행편의 지원' ? '이후송 서비스' : item.service_group_name
@@ -646,6 +763,8 @@ include '../_include/_header_partner.html';
       let groupName = undefined;
       let message = undefined;
 
+        
+
       optionServices.forEach((item, idx) => {
         if (idx === 0) {
           html.push(`<div class="white-box middle mt24">`);
@@ -714,6 +833,10 @@ include '../_include/_header_partner.html';
       html.push(`  </div>`);
       html.push(`</div>`);
     }
+
+
+
+}
 
     document.getElementById('option-list').insertAdjacentHTML('beforeend', html.join(''));
 
