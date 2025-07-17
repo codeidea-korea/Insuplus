@@ -681,12 +681,12 @@ include '../_include/_top.html';
     const kinds = [];
     
     dataList.forEach((item) => kinds.includes(item.guarantee_seq) || kinds.push(item.guarantee_seq));
-
+    // console.log(kinds);
     kinds.forEach((k, k_idx) => {
       const buff = [];
       let groupName = undefined;
       const list = dataList.filter((item) => item.guarantee_seq === k);
-
+        // console.log(list);
       list.forEach((item, idx) => {
         if (idx === 0) {
           buff.push(`<div class="white-box middle mt24">`);
@@ -940,7 +940,7 @@ include '../_include/_top.html';
         anotherPlan = EHDObject.plans.filter((item) => {
           if (!temp.includes(item.plan_cd) && item.plan_cd !== plan.plan_cd && item.ext1 === 'Y') {
             temp.push(item.plan_cd);
-            console.log(item.plan_cd +"/"+ plan.plan_cd +"/"+ item.ext1); 
+            console.log(item.plan_seq+"/"+item.plan_cd +"/"+ plan.plan_cd +"/"+ item.ext1); 
             return true;
           } else {
                 //  console.log("x");

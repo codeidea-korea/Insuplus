@@ -24,6 +24,8 @@
 <script src="/admin/js/admin.js"></script>
 <script src="/admin/js/jquery-ui.js"></script>
 <link href="/_css/jquery-ui.css" rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="<?= $url_admin ?>js/block.js"></script>
 </head>
 <body style="background-color:#FFFFFF;">
 <!-- Header Start --> 

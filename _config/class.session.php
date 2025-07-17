@@ -121,7 +121,7 @@
 
 
         $SQL = "SELECT count(*) as cnt from tbl_user_session where session_token = '".$session_token."' and expire_time > now()";
-   
+        // echo $SQL;
         $result = $dbcon->query($SQL); 
         
         if($result) {
@@ -132,19 +132,19 @@
                 $url ='/admin/logout.php';
                 alert_page("다른 PC에서 로그인했습니다.",$url);
             }else {
-            //    $SQL = "SELECT * from tbl_user where u_idx = '".$ss_u_idx."'";
-            //    $result = $dbcon->query($SQL); 
+               $SQL = "SELECT * from tbl_user where u_idx = '".$ss_u_idx."'";
+               $result = $dbcon->query($SQL); 
 
-            //    $row = $result->fetch_assoc();
-            //     $u_accessible_ip = $row['u_accessible_ip'];
-            //     if( $u_accessible_ip !== '*'){
-            //         $ip = $_SERVER['REMOTE_ADDR'];
-            //         $ip_array = explode(',', $u_accessible_ip);
-            //         if(!in_array($ip, $ip_array)){
-            //             $url ='/admin/logout.php';
-            //             alert_page("접속할 수 없는 IP입니다.",$url);
-            //         }
-            //     }
+               $row = $result->fetch_assoc();
+                $u_accessible_ip = $row['u_accessible_ip'];
+                // if( $u_accessible_ip !== '*'){
+                //     $ip = $_SERVER['REMOTE_ADDR'];
+                //     $ip_array = explode(',', $u_accessible_ip);
+                //     if(!in_array($ip, $ip_array)){
+                //         $url ='/admin/logout.php';
+                //         alert_page("접속할 수 없는 IP입니다.",$url);
+                //     }
+                // }
                 
             }
         } else {
@@ -277,7 +277,7 @@
 
 
 		if ( $u_pw !== sql_password($pass) ) {
-			alert_back("아이디 또는 비밀번호가 잘못되었습니다. 아이디와 비밀번호를 정확히 입력해주세요.");
+			alert_back("아이디 또는 비밀번호가 잘못되었습니다.\n 아이디와 비밀번호를 정확히 입력해주세요.");
 		}
 
 		if ($u_state == 0) {

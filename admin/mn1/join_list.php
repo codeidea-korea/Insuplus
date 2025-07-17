@@ -543,8 +543,6 @@ window.addEventListener('load', ()=>{
   </tr>
 </table>
 
-<script type="text/javascript" src="<?= $url_admin ?>js/block.js"></script>
-
 
 
 

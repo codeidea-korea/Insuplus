@@ -566,7 +566,6 @@ window.addEventListener('load', ()=>{
 </table>
 
 
-<script type="text/javascript" src="<?= $url_admin ?>js/block.js"></script>
 
 
 <? include_once $path_admin . "inc/reason_popup.php"; ?>

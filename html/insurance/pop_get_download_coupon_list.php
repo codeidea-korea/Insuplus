@@ -104,6 +104,7 @@ AND (aa.subscription_start_day IS NULL OR aa.subscription_start_day <= ".$period
 	AND (C.depth2 IS NULL OR C.depth2 = '".$depth2."')
 	AND (C.depth3 IS NULL OR C.depth3 = '".$depth3."')
 ";
+// echo $SQL_CP.$SQL_WHERE;
 $result_cp = $dbcon -> query($SQL_CP.$SQL_WHERE);
 if($result_cp) {
 	$list = array();

@@ -79,7 +79,7 @@ $detect = new Mobile_Detect;
                 <div class="coupon-inner mt10">
                     <a href="javascript:void(0)" onClick="openCoupon(1)" class="wfull ml0">할인 쿠폰 선택</a>
                 </div>
-                <p>※ 쿠폰과 추천코드는 중복사용되지 않습니다. 다인가입시 합산한 금액에서 할인이 적용됩니다.</p>
+                <p>※ 쿠폰은 중복사용되지 않습니다. 다인가입 시 합산한 금액에서 할인이 적용됩니다.</p>
             </div>
           </div>
         </div>
@@ -357,6 +357,14 @@ $detect = new Mobile_Detect;
     formData.append('cp_cd', EHDObject.customer.couponCode ? EHDObject.customer.couponCode : 0); //쿠폰 코드
     formData.append('is_abroad_resident', EHDObject.customer.is_abroad_resident); // 해외거주 여부
     formData.append('join_ch', EHDObject.selectedPartnership ? EHDObject.selectedPartnership.partnership_seq : null); // 제휴사 코드
+
+    if(EHDObject.selectedPartnership[3] ==='surecare' ){
+        formData.append('depth0', EHDObject.depth0 ? EHDObject.depth0.code : ''); // 카테고리 코드
+        formData.append('depth1', EHDObject.depth1 ? EHDObject.depth1.code : ''); // 카테고리 코드
+        formData.append('depth2', EHDObject.depth2 ? EHDObject.depth2.code : ''); // 카테고리 코드
+        formData.append('depth3', EHDObject.depth3 ? EHDObject.depth3.code : ''); // 카테고리 코드
+    }
+
 
     EHDObject.companions.forEach((item, idx) => {
       formData.append('add_gender[]', item.gender);

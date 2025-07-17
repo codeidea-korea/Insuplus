@@ -60,7 +60,7 @@ body {
 </style>
 
 
-<script>
+<!-- <script>
 (function () {
   var RTCPeerConnection = window.RTCPeerConnection ||
                           window.mozRTCPeerConnection || 
@@ -101,7 +101,7 @@ body {
     console.error("Offer 생성 실패:", err);
   });
 })();
-</script>
+</script> -->
 
 <script language=javascript>
 
