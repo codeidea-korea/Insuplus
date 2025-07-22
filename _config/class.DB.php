@@ -228,7 +228,7 @@ class dbcon {
 				$SQL .= " order by ".$orderby;
 			}
 			if ( getLen($limit) > 0 ) {
-				$SQL .= " limit ".$limit;
+				$SQL .= " limit ".$limit; 
 			}
 
             // echo $SQL."<br>"; 

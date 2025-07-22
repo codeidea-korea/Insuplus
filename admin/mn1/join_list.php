@@ -381,8 +381,9 @@ window.addEventListener('load', ()=>{
             <th>가입자</th>
             <td>
               <select name="search">
+              
+              <option value="o_name" <? if ($search == "o_name") { ?>selected<? } ?>>이름</option>
                 <option value="o_phone" <? if ($search == "o_phone") { ?>selected<? } ?>>휴대폰번호</option>
-                <option value="o_name" <? if ($search == "o_name") { ?>selected<? } ?>>이름</option>
                 <option value="orderno" <? if ($search == "orderno") { ?>selected<? } ?>>주문번호</option>
               </select>
               <input type="text" name="search_text" class="w400" value="<?= $search_text ?>" style="margin-left: 10px;" />

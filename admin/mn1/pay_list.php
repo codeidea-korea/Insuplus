@@ -24,7 +24,7 @@ $sub_query_where		= "";
 
 #### 검색 설정 Start
 $pr_name				= REQSTR($pr_name, "");
-$ins_name				= REQSTR($ins_name, "");
+$ins_name				= REQSTR($ins_name, ""); 
 $plan_name				= REQSTR($plan_name, "");
 $chk_service			= REQSTR($chk_service, "");
 $join_ch				= REQSTR($join_ch, "");
