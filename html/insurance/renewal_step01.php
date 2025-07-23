@@ -181,6 +181,29 @@ include '../_include/_top.html';
             </div>
           </div>
         </div>
+
+
+        <!-- 20250722 추가 -->
+        <div class="form-box">
+          <div class="form-content">
+           <div class="check-box">
+                <div class="check-box-inner">
+                  <input
+                    type="checkbox"
+                    name="A-over14"
+                    id="A-over14"
+                    placeholder="연령 확인을 위해 동의 항목을 체크해주세요."
+                    required
+                  />
+                  <label for="A-over14">본인은 만 14세 이상입니다.(14세 미만의 경우 법정 대리인만 조회 가능합니다)</label>
+                </div>
+                <!-- <a href="javascript:;" onclick="popupOpen('more');" class="more">자세히 보기</a> -->
+              </div>
+          </div>
+        </div>
+
+
+
         <div class="form-box">
           <div class="form-content">
             <div class="button-box">
@@ -943,7 +966,7 @@ include '../_include/_top.html';
             console.log(item.plan_seq+"/"+item.plan_cd +"/"+ plan.plan_cd +"/"+ item.ext1); 
             return true;
           } else {
-                //  console.log("x");
+                //  console.log("x"); 
             return false;
           } 
         });
@@ -1227,6 +1250,15 @@ include '../_include/_top.html';
 
   // 가격조회 버튼 클릭 이벤트 핸들러
   function onClickEventListenerForCalculateButton(event) {
+
+    // 20250722 추가
+    const over14Element = document.querySelector('#A-over14');
+    if (document.querySelector('#A-over14').value && !over14Element.checked) {
+      alert(over14Element.getAttribute('placeholder'));
+      return false;
+    }
+
+
     toogleProductBoard(false);
 
     if (!checkValidation()) {

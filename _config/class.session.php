@@ -244,6 +244,7 @@
 		$result			= $ArrRS[1];
 //echo $total_record." total<br>";
 		if ($total_record == 0) {
+            // echo $GLOBALS[msg_login_error];
 			alert_back($GLOBALS[msg_login_error]);
 			exit;
 		}
@@ -277,16 +278,18 @@
 
 
 		if ( $u_pw !== sql_password($pass) ) {
-			alert_back("아이디 또는 비밀번호가 잘못되었습니다.\n 아이디와 비밀번호를 정확히 입력해주세요.");
+			alert_back($GLOBALS[msg_login_error]);
 		}
 
 		if ($u_state == 0) {
-			alert_back("미승인인 회원입니다.");
+			// alert_back("미승인인 회원입니다.");
 			///alert_back("아이디 또는 비밀번호가 잘못되었습니다. 아이디와 비밀번호를 정확히 입력해주세요.");
+            alert_back($GLOBALS[msg_login_error]);
 		}
 		elseif ($u_state == 2) {
-			alert_back("탈퇴 회원입니다.");
+			// alert_back("탈퇴 회원입니다.");
 			//alert_back("아이디 또는 비밀번호가 잘못되었습니다. 아이디와 비밀번호를 정확히 입력해주세요.");
+            alert_back($GLOBALS[msg_login_error]);
 		}
 
 

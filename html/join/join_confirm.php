@@ -72,6 +72,15 @@ include '../_include/_sidebar.html';
                             </div>
 						</div>
                         <p class="m-t-2">※ 5회 연속 실패 시,  인증번호를 재발급 받아야 하니 유의해 주세요.</p>
+                        <div class='m-t-1'>
+                            <span class='text-danger'>*</span>
+                            개인정보 수집 및 이용 동의
+                            <a class='btn btn-sm btn-default' data-toggle='pop-modal' data-size='sm' data-href='./join_confirm_policy.php' data-title='개인정보 이용 및 수집 동의' target='modal_iframe'>자세히 보기</a>
+                            <div class='checkbox checkbox-inline m-l-1'>
+                                <input type="checkbox" name="agree_privacy" id="agree_privacy">
+                                <label for="agree_privacy">동의</label>
+                            </div>
+                        </div>
 						<div class='row m-t-2'> 
 							<div class='col-md-4 col-md-offset-4 col-sm-6 col-xs-6 col-sm-offset-3 col-xs-offset-3'>
                             <a href='javascript:chk_submit();' class='btn btn-lg btn-block btn-theme-bg'>조회하기</a>
@@ -124,6 +133,7 @@ include '../_include/_sidebar.html';
     }
 
     function chk_submit() {
+        
 		var ff = document.frm_join_chk;
 		if (ff.hp.value == "") {
 			alert("휴대폰번호를 입력해주세요.");
@@ -137,6 +147,12 @@ include '../_include/_sidebar.html';
             alert("휴대폰 인증을 진행해주세요.");
             return;
         }
+
+        if(!$("#agree_privacy").is(":checked")){
+            alert("개인정보 수집 및 이용 동의에 동의해주세요.");
+            return;
+        }
+
 		ff.action = "./join_confirm_result.php";
 		ff.submit();
 	}

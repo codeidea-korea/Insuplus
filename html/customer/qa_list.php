@@ -29,7 +29,7 @@
 						?>
 					</div>
 					<?
-						
+					
 						$bc_id = "qna";									// 생성된 게시판 ID 실제로 테이블은 tbl_board_notice
 						$client_mode = "Y";								// 게시판스킨에서 Client_mode = Y 에 해당되는 스킨을 가져다 쓰게 된다.
 						include_once $path_board."board.php";	// 게시판사용

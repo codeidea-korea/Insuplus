@@ -105,6 +105,7 @@ if ($client_mode=="Y"){
 		<col width="5%" />
 		<col width="5%" />
 		<col width="5%" />
+		<col width="5%" />
 	</colgroup>
 	<tr>
 	<!-- 카테고리 검색 Start -->

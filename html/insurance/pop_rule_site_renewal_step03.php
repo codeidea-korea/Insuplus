@@ -5,11 +5,12 @@
 	$today = date("Y-m-d");
 	
 	$SQL  = " SELECT content FROM tbl_board_policy where secret = 'N' ";
-	$SQL .=	" AND category = (SELECT idx FROM tbl_category WHERE bc_id = '".$bc_id."' AND cate_name = '".$policy_name."') ";
+	$SQL .=	" AND category = (SELECT idx FROM tbl_category WHERE bc_id = '".$bc_id."' AND cate_name = 'STEP3_이용약관') ";
 	$SQL .= " AND start_date <= '".$today."' AND end_date >= '".$today."' ";
+	$SQL .= " AND subject = '".$policy_name."' ";
 	$SQL .=	" ORDER BY seq DESC limit 0,1 ";
 
-    echo $SQL;
+    // echo $SQL;
 	$RS = $dbcon -> query($SQL);
 	$ROW = $dbcon -> fetch_array($RS);
 
@@ -25,7 +26,7 @@
 		<div class="popup-body-button">
 			<a href="javascript:;" onclick="popupClose();">확인</a>
 		</div>
-	</div>';
+	</div>';  
 
 ?>
 <?= $result;?>

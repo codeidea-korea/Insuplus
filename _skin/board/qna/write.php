@@ -56,7 +56,7 @@
 		<? if($mode == "write") {?>
 		<div class='m-t-1'>
 			<span class='text-danger'>*</span>
-			개인정보 이용 및 수집에 동의합니다.
+			개인정보 수집 및 이용 동의
 			<a class='btn btn-sm btn-default' data-toggle='pop-modal' data-size='sm' data-href='./pop_privacy.php' data-title='개인정보 이용 및 수집 동의' target='modal_iframe'>자세히 보기</a>
 			<div class='checkbox checkbox-inline m-l-1'>
 				<input type="checkbox" name="agree_privacy" id="agree_privacy">
