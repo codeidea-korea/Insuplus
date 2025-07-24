@@ -19,6 +19,53 @@
         $random = substr(str_shuffle('abcdefghijklmnopqrstuvwxyz0123456789'), 0, 6); // 랜덤 영숫자 6자리
         return "TOSS_{$timestamp}_{$random}";
     }
+    function parseExcelDatetime($cell) {
+        $value = str_replace('"', '', trim($cell->getValue()));
+    
+        // 날짜 형식인 경우 (숫자) → DateTime 변환
+        if (is_numeric($value) && PHPExcel_Shared_Date::isDateTime($cell)) {
+            $dt = PHPExcel_Shared_Date::ExcelToPHPObject($value);
+            return [
+                'date' => $dt->format('Y-m-d'),
+                'time' => $dt->format('H') // 시간만 필요하므로 분/초는 00 고정
+            ];
+        }
+    
+        // 문자열인 경우: 무조건 "YYYY-MM-DD" or "YYYY-MM-DD HH" 형식
+        $parts = explode(' ', $value);
+        $date = isset($parts[0]) ? $parts[0] : null;
+        $hour = isset($parts[1]) ? $parts[1] : '00';
+    
+        // 2자리로 패딩
+        $hour = str_pad($hour, 2, '0', STR_PAD_LEFT);
+        $time = "$hour";
+    
+        return [
+            'date' => $date,
+            'time' => $time
+        ];
+    }
+    
+    //테스트용
+    function parseExcelDatetimeFromString($value) {
+        $value = str_replace('"', '', trim($value));
+    
+        $parts = explode(' ', $value);
+        $date = isset($parts[0]) ? $parts[0] : null;
+        $hour = isset($parts[1]) ? $parts[1] : '00';
+    
+        // 시간 앞자리 0 패딩 + 고정 포맷
+        $hour = str_pad($hour, 2, '0', STR_PAD_LEFT);
+        $time = "$hour";
+    
+        return [
+            'date' => $date,
+            'time' => $time
+        ];
+    }
+    
+
+
 	if ($_POST["mode"] == "write"){
 		$parameter = "&pr_cd=".$pr_cd."&ins_cd=".$ins_cd."&plan_cd=".$plan_cd."&chk_service=".$chk_service."&search_text=".$search_text."&num_per_page=".$num_per_page."&search_date_s=".$search_date_s."&search_date_e=".$search_date_e;
 
@@ -167,16 +214,47 @@
                             }
                             $GROUP_INFO_TABLE["o_isdn1"] = $o_isdn[0];
                             $GROUP_INFO_TABLE["o_isdn2"] = $o_isdn[1];
+                            // 20250723 추가
+                            // $start = explode(' ', str_replace("\"","",$objWorksheet->getCell('E' . $i)->getValue()));
+                            // $s_date = $start[0];
+                            // $s_date_time = $start[1];
+                          
+                            // $end = explode(' ', str_replace("\"","",$objWorksheet->getCell('F' . $i)->getValue()));
+                            // $e_date = $end[0];
+                            // $e_date_time = $end[1];
+
+                                                    
+                            // 시작일
+                            $startParsed = parseExcelDatetime($objWorksheet->getCell('E' . $i));
+                            $s_date = $startParsed['date'];
+                            $s_date_time = $startParsed['time'];
+
+                            // 종료일
+                            $endParsed = parseExcelDatetime($objWorksheet->getCell('F' . $i));
+                            $e_date = $endParsed['date'];
+                            $e_date_time = $endParsed['time'] == '00' ? '23' : $endParsed['time'];
+
+                            $GROUP_INFO_TABLE["s_date"] = $s_date.' '.$s_date_time;
+                            $GROUP_INFO_TABLE["e_date"] = $e_date.' '.$e_date_time;
+
+
                             
-                            $start = explode(' ', str_replace("\"","",$objWorksheet->getCell('E' . $i)->getValue()));
-                            $s_date = $start[0];
-                            $s_date_time = $start[1];
-                            $end = explode(' ', str_replace("\"","",$objWorksheet->getCell('F' . $i)->getValue()));
-                            $e_date = $end[0];
-                            $e_date_time = $end[1];
-                            $GROUP_INFO_TABLE["s_date"] = str_replace("\"","",$objWorksheet->getCell('E' . $i)->getValue());
-                            $GROUP_INFO_TABLE["e_date"] = str_replace("\"","",$objWorksheet->getCell('F' . $i)->getValue());
-                            
+                            // print_r(parseExcelDatetimeFromString('2025-07-23 12'));
+                            // print_r(parseExcelDatetimeFromString('2025-07-23 12'));
+                            // print_r(parseExcelDatetimeFromString('2025-07-23 6'));
+                            // print_r(parseExcelDatetimeFromString('2025-07-23'));
+                            // echo $s_date.'<br/>';
+                            // echo $s_date_time;
+                            // echo '<br/>';
+                            // echo $e_date .'<br/>';
+                            // echo $e_date_time;
+                            // echo '<br/>';
+
+                            // $GROUP_INFO_TABLE["s_date"] = str_replace("\"","",$objWorksheet->getCell('E' . $i)->getValue());
+                            // $GROUP_INFO_TABLE["e_date"] = str_replace("\"","",$objWorksheet->getCell('F' . $i)->getValue());
+
+
+
                             //방문국가 정보 조회
                             $GROUP_INFO_TABLE["join_nation_name"] = str_replace("\"","",$objWorksheet->getCell('G' . $i)->getValue());
                             $SQL_N = "select c_code, c_name from tbl_board_product_country where pr_seq='".$PR_SEQ."' and c_name='".$GROUP_INFO_TABLE["join_nation_name"][$i-2]."'";
@@ -549,16 +627,33 @@
                                 }
                                 $GROUP_INFO_TABLE["o_isdn1"] = $o_isdn[0];
                                 $GROUP_INFO_TABLE["o_isdn2"] = $o_isdn[1];
+                                // 20250723 추가
+                                // $start = explode(' ', str_replace("\"","",$objWorksheet->getCell('E' . $i)->getValue()));
+                                // $s_date = $start[0];
+                                // $s_date_time = $start[1];
+                                // $end = explode(' ', str_replace("\"","",$objWorksheet->getCell('F' . $i)->getValue()));
+                                // $e_date = $end[0];
+                                // $e_date_time = $end[1];
+                                // $GROUP_INFO_TABLE["s_date"] = str_replace("\"","",$objWorksheet->getCell('E' . $i)->getValue());
+                                // $GROUP_INFO_TABLE["e_date"] = str_replace("\"","",$objWorksheet->getCell('F' . $i)->getValue());
                                 
-                                $start = explode(' ', str_replace("\"","",$objWorksheet->getCell('E' . $i)->getValue()));
-                                $s_date = $start[0];
-                                $s_date_time = $start[1];
-                                $end = explode(' ', str_replace("\"","",$objWorksheet->getCell('F' . $i)->getValue()));
-                                $e_date = $end[0];
-                                $e_date_time = $end[1];
-                                $GROUP_INFO_TABLE["s_date"] = str_replace("\"","",$objWorksheet->getCell('E' . $i)->getValue());
-                                $GROUP_INFO_TABLE["e_date"] = str_replace("\"","",$objWorksheet->getCell('F' . $i)->getValue());
-                                
+
+                                  // 시작일
+                                $startParsed = parseExcelDatetime($objWorksheet->getCell('E' . $i));
+                                $s_date = $startParsed['date'];
+                                $s_date_time = $startParsed['time'];
+
+                                // 종료일
+                                $endParsed = parseExcelDatetime($objWorksheet->getCell('F' . $i));
+                                $e_date = $endParsed['date'];
+                                $e_date_time = $endParsed['time'];
+
+                                $GROUP_INFO_TABLE["s_date"] = $s_date.' '.$s_date_time;
+                                $GROUP_INFO_TABLE["e_date"] = $e_date.' '.$e_date_time;
+
+
+
+
                                 //방문국가 정보 조회
                                 $GROUP_INFO_TABLE["join_nation_name"] = str_replace("\"","",$objWorksheet->getCell('G' . $i)->getValue());
                                 $SQL_N = "select c_code, c_name from tbl_board_product_country where pr_seq='".$PR_SEQ."' and c_name='".$GROUP_INFO_TABLE["join_nation_name"][$i-2]."'";
@@ -853,16 +948,32 @@
                                 }
                                 $GROUP_INFO_TABLE["o_isdn1"] = $o_isdn[0];
                                 $GROUP_INFO_TABLE["o_isdn2"] = $o_isdn[1];
+
+                                // 20250723 추가가
+                                // $start = explode(' ', str_replace("\"","",$objWorksheet->getCell('E' . $i)->getValue()));
+                                // $s_date = $start[0];
+                                // $s_date_time = $start[1];
+                                // $end = explode(' ', str_replace("\"","",$objWorksheet->getCell('F' . $i)->getValue()));
+                                // $e_date = $end[0];
+                                // $e_date_time = $end[1];
+                                // $GROUP_INFO_TABLE["s_date"] = str_replace("\"","",$objWorksheet->getCell('E' . $i)->getValue());
+                                // $GROUP_INFO_TABLE["e_date"] = str_replace("\"","",$objWorksheet->getCell('F' . $i)->getValue());
                                 
-                                $start = explode(' ', str_replace("\"","",$objWorksheet->getCell('E' . $i)->getValue()));
-                                $s_date = $start[0];
-                                $s_date_time = $start[1];
-                                $end = explode(' ', str_replace("\"","",$objWorksheet->getCell('F' . $i)->getValue()));
-                                $e_date = $end[0];
-                                $e_date_time = $end[1];
-                                $GROUP_INFO_TABLE["s_date"] = str_replace("\"","",$objWorksheet->getCell('E' . $i)->getValue());
-                                $GROUP_INFO_TABLE["e_date"] = str_replace("\"","",$objWorksheet->getCell('F' . $i)->getValue());
-                                
+
+                                // 시작일
+                                $startParsed = parseExcelDatetime($objWorksheet->getCell('E' . $i));
+                                $s_date = $startParsed['date'];
+                                $s_date_time = $startParsed['time'];
+
+                                // 종료일
+                                $endParsed = parseExcelDatetime($objWorksheet->getCell('F' . $i));
+                                $e_date = $endParsed['date'];
+                                $e_date_time = $endParsed['time'];
+
+                                $GROUP_INFO_TABLE["s_date"] = $s_date.' '.$s_date_time;
+                                $GROUP_INFO_TABLE["e_date"] = $e_date.' '.$e_date_time;
+  
+
                                 //방문국가 정보 조회
                                 $GROUP_INFO_TABLE["join_nation_name"] = str_replace("\"","",$objWorksheet->getCell('G' . $i)->getValue());
                                 $SQL_N = "select c_code, c_name from tbl_board_product_country where pr_seq='".$PR_SEQ."' and c_name='".$GROUP_INFO_TABLE["join_nation_name"][$i-2]."'";
