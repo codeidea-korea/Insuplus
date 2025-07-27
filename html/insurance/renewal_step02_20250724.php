@@ -182,13 +182,13 @@ include '../_include/_top.html';
 
           <div class="white-box middle mt24">
             <form>
-              <div class="form-box" id="agree_box" tabindex="-1">
+              <div class="form-box" id="agree_box">
                 <div class="form-title">
                   <div class="flex flex-vc flex-tj">
                     <strong>약관 확인 후 동의해 주세요.<b>(필수)</b></strong>
                     <div class="check-box all-check-box col-lg-12 mt-lg-10">
                       <div class="check-box-inner flex-tr">
-                        <input type="radio" name="allcheck02" id="allcheck02" data-group="requiredcheck02" data-text="Y" />
+                        <input type="radio" name="allcheck02" id="allcheck02" data-group="check02" data-text="Y" />
                         <label for="allcheck02" class="fw4">전체 약관 동의</label>
                       </div>
                     </div>
@@ -203,13 +203,13 @@ include '../_include/_top.html';
                       </div>
                     </div>
                     <div class="flex flex-vc px24 px-lg-20">
-                      <div class="check-box mr50 mr-lg-25" data-group="requiredcheck02">
+                      <div class="check-box mr50 mr-lg-25" data-group="check02">
                         <div class="check-box-inner">
                           <input type="radio" name="radio06" id="radio06_y" value="Y" />
                           <label for="radio06_y" class="fw4">약관동의</label>
                         </div>
                       </div>
-                      <div class="check-box" data-group="requiredcheck02">
+                      <div class="check-box" data-group="check02">
                         <div class="check-box-inner">
                           <input type="radio" name="radio06" id="radio06_n" value="N" checked/>
                           <label for="radio06_n" class="fw4">약관 미동의</label>
@@ -225,13 +225,13 @@ include '../_include/_top.html';
                       </div>
                     </div>
                     <div class="flex flex-vc px24 px-lg-20">
-                      <div class="check-box mr50 mr-lg-25" data-group="requiredcheck02">
+                      <div class="check-box mr50 mr-lg-25" data-group="check02">
                         <div class="check-box-inner">
                           <input type="radio" name="radio08" id="radio08_y" value="Y" />
                           <label for="radio08_y" class="fw4">약관동의</label>
                         </div>
                       </div>
-                      <div class="check-box" data-group="requiredcheck02">
+                      <div class="check-box" data-group="check02">
                         <div class="check-box-inner">
                           <input type="radio" name="radio08" id="radio08_n" value="N" checked/>
                           <label for="radio08_n" class="fw4">약관 미동의</label>
@@ -239,7 +239,7 @@ include '../_include/_top.html';
                       </div>
                     </div>
                   </div>
-                  <!-- <div class="form-border">
+                  <div class="form-border">
                     <div class="form-question">
                       <div class="flex flex-vc flex-tj">
                         <p>개인정보수집 및 이용 동의</p>
@@ -260,106 +260,15 @@ include '../_include/_top.html';
                         </div>
                       </div>
                     </div>
-                  </div> -->
-                </div>
-              </div>
-             
-            </form>
-          </div>
-
-
-          <div class="white-box middle mt24">
-            <form>
-              <div class="form-box" id="select_agree_box"> 
-                <div class="form-title">
-                  <div class="flex flex-vc flex-tj">
-                    <strong>약관 확인 후 동의해 주세요.<b>(선택)</b></strong>
-                    <div class="check-box all-check-box col-lg-12 mt-lg-10">
-                      <div class="check-box-inner flex-tr">
-                        <input type="radio" name="allcheck03" id="allcheck03" data-group="selectcheck02" data-text="Y" />
-                        <label for="allcheck03" class="fw4">선택 약관 동의</label>
-                      </div>
-                    </div>
                   </div>
-                </div>
-                <div class="form-content">
-                <div class="form-border">
-                    <div class="form-question">
-                      <div class="flex flex-vc flex-tj">
-                        <p>개인정보 수집·이용 동의서 (선택)</p>
-                        <a href="javascript:;" onclick="popupOpenRule('개인정보 수집·이용 동의서 (선택)', 'step03');">자세히 보기</a>
-                      </div>
-                    </div>
-                    <div class="flex flex-vc px24 px-lg-20">
-                      <div class="check-box mr50 mr-lg-25" data-group="selectcheck02">
-                        <div class="check-box-inner">
-                          <input type="radio" name="radio06" id="radio06_y" value="Y" />
-                          <label for="radio06_y" class="fw4">약관동의</label>
-                        </div>
-                      </div>
-                      <div class="check-box" data-group="selectcheck02">
-                        <div class="check-box-inner">
-                          <input type="radio" name="radio06" id="radio06_n" value="N" checked/>
-                          <label for="radio06_n" class="fw4">약관 미동의</label>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-	<div class="form-border">
-                    <div class="form-question">
-                      <div class="flex flex-vc flex-tj">
-                        <p>민감정보 처리 동의서 (선택)</p>
-                        <a href="javascript:;" onclick="popupOpenRule('민감정보 처리 동의서 (선택)', 'step03');">자세히 보기</a>
-                      </div>
-                    </div>
-                    <div class="flex flex-vc px24 px-lg-20">
-                      <div class="check-box mr50 mr-lg-25" data-group="selectcheck02">
-                        <div class="check-box-inner">
-                          <input type="radio" name="radio03" id="radio03_y" value="Y" />
-                          <label for="radio03_y" class="fw4">약관동의</label>
-                        </div>
-                      </div>
-                      <div class="check-box" data-group="selectcheck02">
-                        <div class="check-box-inner">
-                          <input type="radio" name="radio03" id="radio03_n" value="N" checked/>
-                          <label for="radio03_n" class="fw4">약관 미동의</label>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-
-                  <div class="form-border">
-                    <div class="form-question">
-                      <div class="flex flex-vc flex-tj">
-                        <p>마케팅 활용 동의서 (선택)</p>
-                        <a href="javascript:;" onclick="popupOpenRule('마케팅 활용 동의서 (선택)', 'step03');">자세히 보기</a>
-                      </div>
-                    </div>
-                    <div class="flex flex-vc px24 px-lg-20">
-                      <div class="check-box mr50 mr-lg-25" data-group="selectcheck02">
-                        <div class="check-box-inner">
-                          <input type="radio" name="radio07" id="radio07_y" value="Y" />
-                          <label for="radio07_y" class="fw4">약관동의</label>
-                        </div>
-                      </div>
-                      <div class="check-box" data-group="selectcheck02">
-                        <div class="check-box-inner">
-                          <input type="radio" name="radio07" id="radio07_n" value="N" checked/>
-                          <label for="radio07_n" class="fw4">약관 미동의</label>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
                 </div>
               </div>
               <div class="button-box mt42 mt-lg-24">
-                <button type="button" class="btn btn-active write">가입하기</button>
+                <button type="button" class="btn btn-active write">다음</button>
               </div>
             </form>
           </div>
+
 
 
 
@@ -571,7 +480,6 @@ include '../_include/_top.html';
             if($(this).is(":checked")) {
                 if($(this).val() == "N") {
                 alert("약관에 동의 해주셔야 합니다.");
-                $("#agree_box").focus();
                 bool = false;
                 return false;
                 }
@@ -588,13 +496,9 @@ include '../_include/_top.html';
         }    
       }
   // 20250722 추가
-      function popupOpenRule(type, policy = '') {
-
-        let url = "pop_rule_site_renewal.php";
-        policy === 'step03' ? url = "pop_rule_site_renewal_step03.php" : '';
-
+      function popupOpenRule(type) {
         $.get(
-          url,{"policy_name": type},
+          "pop_rule_site_renewal.php",{"policy_name": type},
           function(data) {
             console.log(data);
             document.getElementById('popup').innerHTML = data;
@@ -631,13 +535,13 @@ include '../_include/_top.html';
                   </div> \
                 </div> \
                 <div class="flex flex-vc px24 px-lg-20"> \
-                  <div class="check-box mr50 mr-lg-25" data-group="requiredcheck02"> \
+                  <div class="check-box mr50 mr-lg-25" data-group="check02"> \
                     <div class="check-box-inner"> \
                       <input type="radio" name="radio'+idx+'" id="radio'+idx+'_y" value="Y" /> \
                       <label for="radio'+idx+'_y" class="fw4">약관동의</label> \
                     </div> \
                   </div> \
-                  <div class="check-box" data-group="requiredcheck02"> \
+                  <div class="check-box" data-group="check02"> \
                     <div class="check-box-inner"> \
                       <input type="radio" name="radio'+idx+'" id="radio'+idx+'_n" value="N" checked/> \
                       <label for="radio'+idx+'_n" class="fw4">약관 미동의</label> \
@@ -658,13 +562,13 @@ include '../_include/_top.html';
                   </div> \
                 </div> \
                 <div class="flex flex-vc px24 px-lg-20"> \
-                  <div class="check-box mr50 mr-lg-25" data-group="requiredcheck02"> \
+                  <div class="check-box mr50 mr-lg-25" data-group="check02"> \
                     <div class="check-box-inner"> \
                       <input type="radio" name="s_radio" id="s_radio_y" value="Y" /> \
                       <label for="s_radio07_y" class="fw4">약관동의</label> \
                     </div> \
                   </div> \
-                  <div class="check-box" data-group="requiredcheck02"> \
+                  <div class="check-box" data-group="check02"> \
                     <div class="check-box-inner"> \
                       <input type="radio" name="s_radio" id="s_radio_n" value="N" checked/> \
                       <label for="s_radio07_n" class="fw4">약관 미동의</label> \
@@ -674,102 +578,6 @@ include '../_include/_top.html';
               </div>';
               agreeBox.innerHTML = agreeBox.innerHTML + sAgreeBody;
             }
-
-            let agreeHtml =`  <div class="form-border">
-                    <div class="form-question">
-                      <div class="flex flex-vc flex-tj">
-                        <p>개인정보 수집·이용 동의서 (필수)</p>
-                        <a href="javascript:;" onclick="popupOpenRule('개인정보 수집·이용 동의서 (필수)' , 'step03');">자세히 보기</a>
-                      </div>
-                    </div>
-                    <div class="flex flex-vc px24 px-lg-20">
-                      <div class="check-box mr50 mr-lg-25" data-group="requiredcheck02">
-                        <div class="check-box-inner">
-                          <input type="radio" name="radio01" id="radio01_y" value="Y" />
-                          <label for="radio01_y" class="fw4">약관동의</label>
-                        </div>
-                      </div>
-                      <div class="check-box" data-group="requiredcheck02">
-                        <div class="check-box-inner">
-                          <input type="radio" name="radio01" id="radio01_n" value="N" checked/>
-                          <label for="radio01_n" class="fw4">약관 미동의</label>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="form-border">
-                    <div class="form-question">
-                      <div class="flex flex-vc flex-tj">
-                        <p>고유식별정보 처리 동의서 (필수)</p>
-                        <a href="javascript:;" onclick="popupOpenRule('고유식별정보 처리 동의서 (필수)', 'step03');">자세히 보기</a>
-                      </div>
-                    </div>
-                    <div class="flex flex-vc px24 px-lg-20">
-                      <div class="check-box mr50 mr-lg-25" data-group="requiredcheck02">
-                        <div class="check-box-inner">
-                          <input type="radio" name="radio02" id="radio02_y" value="Y" />
-                          <label for="radio02_y" class="fw4">약관동의</label>
-                        </div>
-                      </div>
-                      <div class="check-box" data-group="requiredcheck02">
-                        <div class="check-box-inner">
-                          <input type="radio" name="radio02" id="radio02_n" value="N" checked/>
-                          <label for="radio02_n" class="fw4">약관 미동의</label>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  
-
-                  <div class="form-border">
-                    <div class="form-question">
-                      <div class="flex flex-vc flex-tj">
-                        <p>개인(신용)정보 제공 동의서 (필수)</p>
-                        <a href="javascript:;" onclick="popupOpenRule('개인(신용)정보 제공 동의서 (필수)', 'step03');">자세히 보기</a>
-                      </div>
-                    </div>
-                    <div class="flex flex-vc px24 px-lg-20">
-                      <div class="check-box mr50 mr-lg-25" data-group="requiredcheck02">
-                        <div class="check-box-inner">
-                          <input type="radio" name="radio04" id="radio04_y" value="Y" />
-                          <label for="radio04_y" class="fw4">약관동의</label>
-                        </div>
-                      </div>
-                      <div class="check-box" data-group="requiredcheck02">
-                        <div class="check-box-inner">
-                          <input type="radio" name="radio04" id="radio04_n" value="N" checked/>
-                          <label for="radio04_n" class="fw4">약관 미동의</label>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="form-border">
-                    <div class="form-question">
-                      <div class="flex flex-vc flex-tj">
-                        <p>개인(신용)정보 조회 동의서 (필수)</p>
-                        <a href="javascript:;" onclick="popupOpenRule('개인(신용)정보 조회 동의서 (필수)', 'step03');">자세히 보기</a>
-                      </div>
-                    </div>
-                    <div class="flex flex-vc px24 px-lg-20">
-                      <div class="check-box mr50 mr-lg-25" data-group="requiredcheck02">
-                        <div class="check-box-inner">
-                          <input type="radio" name="radio05" id="radio05_y" value="Y" />
-                          <label for="radio05_y" class="fw4">약관동의</label>
-                        </div>
-                      </div>
-                      <div class="check-box" data-group="requiredcheck02">
-                        <div class="check-box-inner">
-                          <input type="radio" name="radio05" id="radio05_n" value="N" checked/>
-                          <label for="radio05_n" class="fw4">약관 미동의</label>
-                        </div>
-                      </div>
-                    </div>
-                  </div>`;
-
-                  agreeBox.innerHTML = agreeBox.innerHTML + agreeHtml;
         });
 
 
@@ -884,7 +692,7 @@ include '../_include/_top.html';
                 if (result.success == '1' && result.cnt == 0) {
                   EHDObject.cleaning();
                   EHDObject.save();
-                  location.href = './renewal_step04.php';
+                  location.href = './renewal_step03.php';
                 } else {
                   alert('고객님, 보험사 인수거절로\n 가입하실 수 없습니다.\n\n 자세한 내용은 고객센터로 문의해주세요.');
                   return false;

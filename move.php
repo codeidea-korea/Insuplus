@@ -20,6 +20,9 @@ if(!empty($moveEvent)) {
     case "surecare":
         header( "Location: /html/insurance/partner_step01.php?alliance_code=RGI4MTh4TTR3SlkrRVBpYlVId0JjQT09" );
         break;
+    case "eyagi":
+        header( "Location: /html/insurance/partner_step01.php?alliance_code=T2d6WjE2OG94QnhUQXRkYnRRRlpuUT09" );
+        break;
     default:
     header( "Location: /html/main/" );
       break;

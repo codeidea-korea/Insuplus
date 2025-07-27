@@ -9,7 +9,7 @@
 	$SQL .= " AND start_date <= '".$today."' AND end_date >= '".$today."' ";
 	$SQL .=	" ORDER BY seq DESC limit 0,1 ";
 
-    echo $SQL;
+    // echo $SQL;
 	$RS = $dbcon -> query($SQL);
 	$ROW = $dbcon -> fetch_array($RS);
 

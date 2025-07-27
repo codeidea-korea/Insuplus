@@ -208,7 +208,7 @@
                                 $birth = $u_birth_year.$u_birth_month.$u_birth_day;
         
                                 // 성별은 F, M 으로 나눈다.
-                                // 주민등록번호의 7번째 자리가 홀수이면 남자(Male), 짝수이면 여자(Female)
+                                // 주민등록번호의 7번째 자리가 홀수이면 남자(Male), 짝수이면 여자(Female) 
                                 $gender = $TempBirthGubun % 2 == 0 ? "F" : "M";
         
                             }

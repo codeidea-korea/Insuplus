@@ -323,6 +323,9 @@ include '../_include/_top.html';
   }
 
   function processSelectedProduct(dataList) {
+    // console.log(processSelectedProduct);
+    // console.log(dataList);
+
     if (Array.isArray(dataList) && dataList.length > 0) {
       let content;
       let selectedPlanCd = dataList.find((item) => item.plan_cd === EHDObject.plan_cd);
