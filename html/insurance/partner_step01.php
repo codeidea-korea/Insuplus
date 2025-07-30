@@ -572,7 +572,7 @@ include '../_include/_header_partner.html';
     
 
 // 20250717 surecare 서비스 항목 일반가입과 형식 같게 조건문 추가가
-if(EHDObject.selectedPartnership[3] ==='surecare'){
+if(EHDObject.selectedPartnership[3] ==='surecare' || EHDObject.selectedPartnership[3] ==='eyagi'){
       // 의료지원 서비스 항목
       commonServices.forEach((item, idx) => {
       if (idx === 0) {

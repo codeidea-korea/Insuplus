@@ -130,7 +130,7 @@ for($k=0;$k<5;$k++){
 	$t_add_user_amt = $t_add_user_amt + $add_user_amt[$k];
 	}
 }
-$t_amt = $t_amt + $user_amt;							// 가입자 여행보험비용
+$t_amt = $t_amt + $user_amt;							// 가입자 여행보험비용 
 
 // 여행 서비스 비용
 //$service_amt = fn_ins_service_amt($plan_seq, $row_plan["chk_service"], $period_month, $period_day);

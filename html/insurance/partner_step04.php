@@ -317,6 +317,11 @@ $detect = new Mobile_Detect;
         $("#coupon_title").css('display','block');
         $("#multi-row-1").hide();
         $("#multi-row-2").show();
+    }else if(EHDObject.selectedPartnership[3] ==='eyagi' || EHDObject.depth0.name==='[제휴] 슈어케어VIP'){
+        $("#coupon_ui").css('display','block');
+        $("#coupon_title").css('display','block');
+        $("#multi-row-1").hide();
+        $("#multi-row-2").show();
     }else if(EHDObject.selectedPartnership[3]  === 'myshop' || EHDObject.depth0.name === "[제휴] 마이쇼퍼케어"){
         $("#multi-row-1").show();
         $("#multi-row-2").hide();
@@ -358,7 +363,7 @@ $detect = new Mobile_Detect;
     formData.append('is_abroad_resident', EHDObject.customer.is_abroad_resident); // 해외거주 여부
     formData.append('join_ch', EHDObject.selectedPartnership ? EHDObject.selectedPartnership.partnership_seq : null); // 제휴사 코드
 
-    if(EHDObject.selectedPartnership[3] ==='surecare' ){
+    if(EHDObject.selectedPartnership[3] ==='surecare' || EHDObject.selectedPartnership[3] ==='eyagi'){
         formData.append('depth0', EHDObject.depth0 ? EHDObject.depth0.code : ''); // 카테고리 코드
         formData.append('depth1', EHDObject.depth1 ? EHDObject.depth1.code : ''); // 카테고리 코드
         formData.append('depth2', EHDObject.depth2 ? EHDObject.depth2.code : ''); // 카테고리 코드

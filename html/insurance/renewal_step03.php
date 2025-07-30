@@ -32,6 +32,24 @@ include '../_include/_top.html';
                 </div>
               </div>
               <div class="form-box">
+                <div class="form-title">
+                  <strong>영문이름</strong>
+                </div>
+                <div class="form-content">
+                  <div class="input-box flex-1">
+                    <div class="input-box-inner">
+                      <input
+                        type="text"
+                        name="A-nameen"
+                        id="A-nameen"
+                        maxlength="100"
+                        placeholder="여권 영문이름과 동일하게 입력해주세요."
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-box">
                 <div class="form-title"> 
                   <strong>주민등록번호(또는 외국인등록번호)</strong>
                 </div>
@@ -146,24 +164,7 @@ include '../_include/_top.html';
                   </div>
                 </div>
               </div>
-              <div class="form-box">
-                <div class="form-title">
-                  <strong>영문이름</strong>
-                </div>
-                <div class="form-content">
-                  <div class="input-box flex-1">
-                    <div class="input-box-inner">
-                      <input
-                        type="text"
-                        name="A-nameen"
-                        id="A-nameen"
-                        maxlength="100"
-                        placeholder="여권 영문이름과 동일하게 입력해주세요."
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
+              
               <div class="title-box gr" id="companion-list" style="display: none">
                 <p>
                   <b><em>동반인 정보</em></b> 를 입력해 주세요.
@@ -293,14 +294,14 @@ include '../_include/_top.html';
                     <div class="flex flex-vc px24 px-lg-20">
                       <div class="check-box mr50 mr-lg-25" data-group="selectcheck02">
                         <div class="check-box-inner">
-                          <input type="radio" name="radio06" id="radio06_y" value="Y" />
-                          <label for="radio06_y" class="fw4">약관동의</label>
+                          <input type="radio" name="radio09" id="radio09_y" value="Y" />
+                          <label for="radio09_y" class="fw4">약관동의</label>
                         </div>
                       </div>
                       <div class="check-box" data-group="selectcheck02">
                         <div class="check-box-inner">
-                          <input type="radio" name="radio06" id="radio06_n" value="N" checked/>
-                          <label for="radio06_n" class="fw4">약관 미동의</label>
+                          <input type="radio" name="radio09" id="radio09_n" value="N" checked/>
+                          <label for="radio09_n" class="fw4">약관 미동의</label>
                         </div>
                       </div>
                     </div>
@@ -577,6 +578,13 @@ include '../_include/_top.html';
                 }
             }
         });
+if(bool) {
+        if($("#A-nameen").val()?.trim() != "" && $("[name='radio09']:checked").val() == "N") {
+          alert("영문이름 입력 시 개인정보 수집·이용 동의서(선택) 항목의 약관동의가 필요합니다.");
+          $("[name='radio09']").focus();
+          bool = false;
+          return false;
+        }
 
 
         return bool;
