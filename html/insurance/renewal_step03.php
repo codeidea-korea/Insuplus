@@ -218,7 +218,7 @@ include '../_include/_top.html';
                       </div>
                     </div>
                   </div>
-                  <div class="form-border">
+                  <div class="form-border" style='border-bottom:1px dashed #d9d9d9;'>
                     <div class="form-question">
                       <div class="flex flex-vc flex-tj">
                         <p>단체 보험규약 동의</p>

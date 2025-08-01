@@ -649,9 +649,9 @@ if(EHDObject.selectedPartnership[3] ==='surecare' || EHDObject.selectedPartnersh
       optionServices.forEach((item, idx) => {
         if (idx === 0) {
           html.push(`<div class="white-box middle mt24">`);
-          html.push(`  <div class="title-state-box">`);
-          html.push(`    <strong class="memo">필요한 서비스를 추가하세요</strong>`);
-          html.push(`  </div>`);
+        //   html.push(`  <div class="title-state-box">`);
+        //   html.push(`    <strong class="memo">필요한 서비스를 추가하세요</strong>`);
+        //   html.push(`  </div>`);
         }
 
         if (groupName !== item.service_group_name) {
