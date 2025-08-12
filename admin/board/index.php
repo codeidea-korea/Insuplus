@@ -1,6 +1,6 @@
 <?
 	include_once $_SERVER["DOCUMENT_ROOT"]."/_config/lib.php";
-	admin_chk($auth_admin, $url_admin_login_out);// °ü¸®ÀÚ Ã¼Å©
+	admin_chk($auth_admin, $url_admin_login_out);// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
 ?>
 <?
 	$tm = "board";
@@ -56,6 +56,16 @@
 
 	//exit;
 ?>
+<?php
+// bc_id ê°€ ins_list ì¼ë•Œë§Œ
+if($bc_id == 'ins_list'){
+
+?>
+<script type="text/javascript" src="<?= $url_admin ?>js/block.js"></script>
+<?php
+}
+?>
+
 <table border="0" cellpadding="0" cellspacing="0" width="1200" >
 	<tr>
 		<td>

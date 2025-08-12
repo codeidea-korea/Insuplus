@@ -199,6 +199,7 @@ $no				= $total_record - $first;
 		}
 	}
 </script>
+<script type="text/javascript" src="<?= $url_admin ?>js/block.js"></script>
 
 <table border="0" cellpadding="0" cellspacing="0" width="100%">
 	<tr>

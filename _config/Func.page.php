@@ -429,6 +429,11 @@
 
 	###############################################################
 
-
-
+function confirm_page(string $msg, string $on_true_js = '', string $on_false_js = ''): void {
+    $msgJs = json_encode($msg, JSON_UNESCAPED_UNICODE);
+    $t = rtrim($on_true_js);   if ($t !== '' && substr($t, -1) !== ';') $t .= ';';
+    $f = rtrim($on_false_js);  if ($f !== '' && substr($f, -1) !== ';') $f .= ';';
+    echo "<script> if (confirm($msgJs)) { $t } else { $f } </script>";
+    exit;
+}
 ?>

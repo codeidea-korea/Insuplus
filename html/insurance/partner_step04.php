@@ -438,7 +438,7 @@ const domain = window.location.hostname;
 
 let port = window.location.port;
 port ? port=":"+port : ''; 
-console.log(toss_pay_type)    
+// console.log(toss_pay_type)    
 $.ajax({
   url: './renewal_step04_toss_ajax.php',
   method: 'POST',
@@ -807,9 +807,13 @@ $.ajax({
     const discount = clickedButton.getAttribute('data-value');
     const seq = clickedButton.getAttribute('data-seq');
     const unit = clickedButton.getAttribute('data-unit');
+    
+    let alarm = EHDObject.selectedPartnership[3] === 'eyagi' ? 0 : 1;
+
+
     $.ajax({
       type: "POST",
-      url: "./pop_coupon_download_ajax.php?seq=" + seq + "&discount=" + discount + "&unit=" + unit,
+      url: "./pop_coupon_download_ajax.php?seq=" + seq + "&discount=" + discount + "&unit=" + unit+"&alarm="+alarm,
       data: getFormInfo(),
       cache: false,
       contentType: false,

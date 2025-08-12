@@ -9,32 +9,21 @@
 		$user				= REQSTR($_POST[user],"");
 		$pass			= REQSTR($_POST[pass],"");
         LoginProcess($user, $pass, 2);
-		// if(!LoginProcess($user, $pass, 2)){
-        //    $con = "<script>";
-        //    $con .= "let confirm = confirm('중복 로그인이 발생하였습니다.\n[계속 로그인]선택 시, 이전에 로그인한 세션이 종료됩니다.')";
-        //    $con .= "if(confirm){";
-        //        $authCode = random_int(100000, 999999); // 6자리 난수 생성
-        //      $_SESSION['auth_code'] = $authCode; // 세션에 저장 
-        //      $_SESSION['is_authenticated'] = false; // 2차 인증 완료 전 상태
-        //      $emailAddr = $_SESSION['ss_u_email'];
-        //      //$emailAddr = "rbswsky@naver.com";
-        //      include_once $_SERVER["DOCUMENT_ROOT"]."/admin/mailer.php";
-        //      header('Location: verify.php');
-        //      $con .=  "}";
-        //    $con .=  "</script>";
-        //    echo $con;
-        // }
-
+	
 		// echo $_SESSION['ss_u_email'];
         if($_SESSION['ss_u_email'] != '@' ){
-            // 인증 성공
-            $authCode = random_int(100000, 999999); // 6자리 난수 생성
-            $_SESSION['auth_code'] = $authCode; // 세션에 저장 
-            $_SESSION['is_authenticated'] = false; // 2차 인증 완료 전 상태
-			$emailAddr = $_SESSION['ss_u_email'];
-            //$emailAddr = "rbswsky@naver.com";
-        	include_once $_SERVER["DOCUMENT_ROOT"]."/admin/mailer.php";
-        	header('Location: verify.php');
+
+
+            if($_SESSION['already_login']){
+                
+                confirm_page("중복 로그인이 발생하였습니다.\n[계속 로그인]선택 시, 이전에 로그인한 세션이 종료됩니다.", 
+               "location.href='?confirm=1';",
+                "history.back();"  
+            );
+               
+            }else{
+                callAuth();
+            }
         } else {
             if($_SESSION["ss_u_level"] == "7") {
                 alert_page($msg_login_ok,"/admin/mn1/join_partner_list.php");
@@ -47,8 +36,36 @@
 		} 
 	} 
 
+
+    if (isset($_GET['confirm']) && $_GET['confirm'] === '1') {
+        $_SESSION['already_login'] = false;
+
+        $SQL = "UPDATE tbl_user_session SET expire_time = now() WHERE user_id = '".$_SESSION['ss_u_id']."'";
+        $dbcon->query($SQL);
+        $dbcon -> dbcon_close();
+
+
+
+        callAuth();
+        
+        exit;
+    }
+
+    function callAuth(){
+    // 인증 성공
+    $authCode = random_int(100000, 999999); // 6자리 난수 생성
+    $_SESSION['auth_code'] = $authCode; // 세션에 저장 
+    $_SESSION['is_authenticated'] = false; // 2차 인증 완료 전 상태
+    $emailAddr = $_SESSION['ss_u_email'];
+    //$emailAddr = "rbswsky@naver.com";
+    include_once $_SERVER["DOCUMENT_ROOT"]."/admin/mailer.php";
+    header('Location: verify.php');
+    }
+
+
 	$dbcon -> dbcon_close();
 
+    
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">

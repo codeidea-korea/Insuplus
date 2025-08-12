@@ -21,6 +21,8 @@ $toDay = date_create(date('Ymd')); //오늘
 $startDate = date_create(substr($row_event["start_date"], 0, 10));
 $endDate = date_create(substr($row_event["end_date"], 0, 10));
 
+$alarm = isset($_GET["alarm"]) ? $_GET["alarm"] : 1;
+
 if ($coupon_size <= $used_coupon_size) {
 	$result = '3'; //쿠폰이 모두 소진되었습니다.
 } else if ($toDay >= $startDate && $toDay <= $endDate) {
@@ -46,7 +48,9 @@ if ($coupon_size <= $used_coupon_size) {
 		$param["discount_txt"] = number_format($_GET["discount"]) . $_GET["unit"];
 		$param["period"] = $expire_date_s . " ~ " . $expire_date_e;
 		$param["coupon_name"] = $row["coupon_name"];
-		kakaoCouponDown($param, $_POST["user_hp"]); //알림톡 쿠폰등록완료
+		if($alarm ==1){
+            kakaoCouponDown($param, $_POST["user_hp"]); //알림톡 쿠폰등록완료
+        }
 		$result = '1';
 	} else {
 		//$result = '4';//이벤트기간이 아닙니다.

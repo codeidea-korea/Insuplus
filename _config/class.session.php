@@ -315,18 +315,16 @@
         $_SESSION['ss_u_accessible_ip']		= $u_accessible_ip;
 
 
-        // $SQL = "SELECT count(*) as cnt from tbl_user_session where user_id = '".$u_id."' and expire_time > now()";
-        // // echo $SQL;
-        // $result = $dbcon->query($SQL); 
-        
-        // if($result) {
-        //     $row = $result->fetch_assoc();
-        //     $count = $row['cnt'];
-            
-        //     return false;
-        // }else{
-        //     return true;
-        // }
+        $SQL = "SELECT count(*) as cnt from tbl_user_session where user_id = '".$u_id."' and expire_time > now()";
+        // echo $SQL;
+        $result = $dbcon->query($SQL); 
+        $row = $result->fetch_assoc();
+        $count = $row['cnt'];
+        if($count >0) {
+            $_SESSION['already_login'] = true;
+        }else{
+            $_SESSION['already_login'] = false;
+        }
 	}
 
 	#######################################################

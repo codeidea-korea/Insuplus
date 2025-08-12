@@ -393,3 +393,118 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
     document.head.appendChild(style);
 });
+
+// === 붙여넣기 완전 차단(허용: data-allow-paste 있는 요소만) ===
+(function () {
+    const SEL = 'input:not([data-allow-paste]), textarea:not([data-allow-paste]), [contenteditable]:not([data-allow-paste])';
+  
+    function isField(el) {
+      return el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement || (el && el.isContentEditable);
+    }
+  
+    function attach(el) {
+      if (!isField(el) || el.__noPasteBound) return;
+      el.__noPasteBound = true;
+  
+      const block = (e) => {
+        // 붙여넣기/드롭/단축키/컨텍스트메뉴 전부 차단
+        if (e.cancelable) e.preventDefault();
+        e.stopPropagation();
+        if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+        return false;
+      };
+  
+      // 1) 기본 paste
+      el.addEventListener('paste', block, { capture: true });
+  
+      // 2) 최신 브라우저: beforeinput에서 paste/drop 유형 차단
+      el.addEventListener('beforeinput', (e) => {
+        const t = e.inputType;
+        if (t === 'insertFromPaste' || t === 'insertFromPasteAsQuotation' || t === 'insertFromDrop') {
+          if (e.cancelable) e.preventDefault();
+          e.stopPropagation();
+          if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+        }
+      }, { capture: true });
+  
+      // 3) 드래그 드롭 차단
+      el.addEventListener('drop', block, { capture: true });
+      el.addEventListener('dragover', block, { capture: true });
+  
+      // 4) 단축키(Ctrl/Cmd+V, Shift+Insert) 차단
+      el.addEventListener('keydown', (e) => {
+        const k = (e.key || '').toLowerCase();
+        if ((e.ctrlKey || e.metaKey) && k === 'v') return block(e);
+        if (e.shiftKey && k === 'insert') return block(e);
+      }, { capture: true });
+  
+      // 5) 컨텍스트 메뉴로 붙여넣기 유도 차단(선택)
+      el.addEventListener('contextmenu', block, { capture: true });
+  
+      // 6) 일부 브라우저/구형 대응: 인라인 핸들러도 강제
+      el.onpaste = block;
+  
+      // 7) 혹시 통과되면 즉시 원복 (한 프레임 뒤 확인)
+      el.addEventListener('input', (e) => {
+        // 붙여넣기 뒤에 값이 한번에 많이 늘어나는 경우만 롤백 (간단 휴리스틱)
+        const val = (el.value ?? el.textContent ?? '') + '';
+        if (val.length > (el.__prevLen || 0) + 1) {
+          if ('value' in el) el.value = el.__prevVal || '';
+          else el.textContent = el.__prevVal || '';
+          try {
+            const pos = ('value' in el ? el.value.length : (el.textContent || '').length);
+            el.setSelectionRange && el.setSelectionRange(pos, pos);
+          } catch (_) {}
+        }
+        el.__prevVal = ('value' in el) ? el.value : (el.textContent || '');
+        el.__prevLen = (el.__prevVal || '').length;
+      }, { capture: true });
+  
+      // 초기 값 저장
+      el.__prevVal = ('value' in el) ? el.value : (el.textContent || '');
+      el.__prevLen = (el.__prevVal || '').length;
+    }
+  
+    // 초기 바인딩
+    document.querySelectorAll(SEL).forEach(attach);
+  
+    // 동적 추가/ShadowRoot 내부까지 추적
+    const mo = new MutationObserver((muts) => {
+      for (const m of muts) {
+        m.addedNodes.forEach((n) => {
+          if (n.nodeType !== 1) return;
+          if (n.matches && n.matches(SEL)) attach(n);
+          n.querySelectorAll && n.querySelectorAll(SEL).forEach(attach);
+          // Shadow DOM 내부
+          if (n.shadowRoot) {
+            n.shadowRoot.querySelectorAll(SEL).forEach(attach);
+          }
+        });
+      }
+    });
+    mo.observe(document.documentElement, { subtree: true, childList: true });
+  
+    // iframe(동일 출처) 내부 처리
+    function bindInIframes() {
+      document.querySelectorAll('iframe').forEach((f) => {
+        try {
+          const d = f.contentDocument;
+          if (!d || d.__noPasteIframeBound) return;
+          d.__noPasteIframeBound = true;
+          d.querySelectorAll(SEL).forEach(attach);
+          new MutationObserver((muts) => {
+            for (const m of muts) {
+              m.addedNodes.forEach((n) => {
+                if (n.nodeType !== 1) return;
+                if (n.matches && n.matches(SEL)) attach(n);
+                n.querySelectorAll && n.querySelectorAll(SEL).forEach(attach);
+              });
+            }
+          }).observe(d.documentElement, { subtree: true, childList: true });
+        } catch (_) { /* cross-origin이면 접근 불가 */ }
+      });
+    }
+    bindInIframes();
+    window.addEventListener('load', bindInIframes, { once: true });
+  })();
+  
