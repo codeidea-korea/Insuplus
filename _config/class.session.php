@@ -130,7 +130,7 @@
             
             if($count == 0 || !$session_token) {
                 $url ='/admin/logout.php';
-                alert_page("다른 PC에서 로그인했습니다.",$url);
+                alert_page("보안 정책에 따라 다른 위치에서 로그인되어\n 해당 세션이 종료되었습니다.",$url);
             }else {
                $SQL = "SELECT * from tbl_user where u_idx = '".$ss_u_idx."'";
                $result = $dbcon->query($SQL); 

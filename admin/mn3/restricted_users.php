@@ -150,15 +150,17 @@ $no				= $total_record - $first;
 		let ff = document.WriteForm;
 		let action_type = document.querySelector('input[name="action_type"]');
 		let seq = document.querySelector('input[name="seq"]');
-    let user_name = document.querySelector(`input[name="user_name[${row_seq}]"]`).value.trim();
-    let o_isdn1 = document.querySelector(`input[name="o_isdn1[${row_seq}]"]`).value.trim();
-    let o_isdn2 = document.querySelector(`input[name="o_isdn2[${row_seq}]"]`).value.trim();
-    let note = document.querySelector(`input[name="note[${row_seq}]"]`).value.trim();
-    if (!user_name) {
+        let user_name = document.querySelector(`input[name="user_name[${row_seq}]"]`).value.trim();
+        let o_isdn1 = document.querySelector(`input[name="o_isdn1[${row_seq}]"]`).value.trim();
+        let o_isdn2 = document.querySelector(`input[name="o_isdn2[${row_seq}]"]`).value.trim();
+        let note = document.querySelector(`input[name="note[${row_seq}]"]`).value.trim();
+
+
+        if (!user_name) {
 			alert("이름을 입력하여 주십시오.");
 			return false;
 		}
-         //이름에 * 이 있는지 체크
+        
          if (user_name.includes('*')) {
             alert("이름을 정확히 입력하여 주십시오.");
             return false;
@@ -171,7 +173,7 @@ $no				= $total_record - $first;
 			alert("주민번호 뒷자리를 입력하여 주십시오.");
 			return false;
 		}
-        //숫자만 입력 됐는지 체크
+  
         if (!/^\d+$/.test(o_isdn2)) {
             alert("주민번호 뒷자리는 숫자만 입력하여 주십시오.");
             return false;
@@ -198,6 +200,20 @@ $no				= $total_record - $first;
 			document.WriteForm.submit();
 		}
 	}
+
+    function changeInput(seq){
+        let input_tr = document.querySelector(`tr[name="input_${seq}"]`);
+        let view_tr = document.querySelector(`tr[id="${seq}"]`);
+        input_tr.style.display = 'table-row';
+        view_tr.style.display = 'none';
+    }
+    function changeInputCancel(seq){
+
+        let input_tr = document.querySelector(`tr[name="input_${seq}"]`);
+        let view_tr = document.querySelector(`tr[id="${seq}"]`);
+        input_tr.style.display = 'none';
+        view_tr.style.display = 'table-row';
+    }
 </script>
 <script type="text/javascript" src="<?= $url_admin ?>js/block.js"></script>
 
@@ -278,7 +294,7 @@ $no				= $total_record - $first;
 							extract($rows);
 							unset($rows);
 					?>
-					<tr>
+					<tr style="display:none;" name="input_<?= $seq ?>">
 							<td><?= $seq ?></td>
 							<td>
 									<select name="is_restricted[<?= $seq ?>]">
@@ -286,17 +302,34 @@ $no				= $total_record - $first;
 											<option value="N" <?= $is_restricted == 'N' ? 'selected' : '' ?>>제한 해제</option>
 									</select>
 							</td>
-							<td><input type="text" name="user_name[<?= $seq ?>]" value="<?= maskingKoName(all_seed_dec($user_name)) ?>"></td>
+							<td><input type="text" name="user_name[<?= $seq ?>]" value="<?= all_seed_dec($user_name)?>"></td>
 							<td class="inline-inputs">
 									<input type="text" name="o_isdn1[<?= $seq ?>]" value="<?= all_seed_dec($o_isdn1) ?>" maxlength="6">
 									<span>-</span>
-									<input type="text" name="o_isdn2[<?= $seq ?>]" value="<?= maskingIsdn2(all_seed_dec($o_isdn2)) ?>" maxlength="7">
+									<input type="text" name="o_isdn2[<?= $seq ?>]" value="<?= all_seed_dec($o_isdn2)?>" maxlength="7" >
 							</td>
 							<td><input type="text" name="note[<?= $seq ?>]" value="<?= $note ?>"></td>
 							<td><?= substr($regdate, 0, 16) ?></td>
 							<td><?= substr($edited_date, 0, 16) ?></td>
 							<td>
 									<button type="button" name="save" onclick="confirmSave(<?= $seq ?>)">저장</button>
+									<button type="button" name="delete" onclick="changeInputCancel(<?= $seq ?>)">취소</button>
+							</td>
+					</tr>
+                    <tr id="<?= $seq ?>">
+							<td><?= $seq ?></td>
+							<td>
+                                <?= $is_restricted == 'Y' ? '제한' : '제한 해제' ?>
+							</td>
+							<td><?= maskingKoName(all_seed_dec($user_name)) ?></td>
+							<td class="inline-inputs" style="text-align: center;">
+								<?= all_seed_dec($o_isdn1) ?>-<?= maskingIsdn2(all_seed_dec($o_isdn2)) ?>
+							</td>
+							<td><?= $note ?></td>
+							<td><?= substr($regdate, 0, 16) ?></td>
+							<td><?= substr($edited_date, 0, 16) ?></td>
+							<td>
+									<button type="button" name="save" onclick="changeInput(<?= $seq ?>)">수정</button>
 									<button type="button" name="delete" onclick="confirmDelete(<?= $seq ?>)">삭제</button>
 							</td>
 					</tr>

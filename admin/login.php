@@ -16,7 +16,7 @@
 
             if($_SESSION['already_login']){
                 
-                confirm_page("중복 로그인이 발생하였습니다.\n[계속 로그인]선택 시, 이전에 로그인한 세션이 종료됩니다.", 
+                confirm_page("중복 로그인이 발생하였습니다.\n계속 로그인 하실 경우 [확인]을 선택해주세요.\n이전에 로그인한 세션은 종료됩니다.", 
                "location.href='?confirm=1';",
                 "history.back();"  
             );
