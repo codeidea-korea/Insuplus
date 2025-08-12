@@ -617,6 +617,27 @@ if(bool) {
         box.siblings().hide();
       }
 
+//20250806 임시추가
+// function fileNameMatch(fileName ,oldFileName){
+
+//     switch(fileName){
+//         case '[인슈플러스] 신한EZ손보_해외여행보험_약관_250630개정.pdf':
+//             return fileName;
+//         case '[인슈플러스] 메리츠화재_해외여행실손의료보험_약관_250630개정.pdf':
+//             return fileName;
+//         case '[인슈플러스] 메리츠화재_플랫폼회원해외장기체류보험_약관_250414개정.pdf':
+//             return fileName;
+//         case '[인슈플러스] 단기상품_서비스약관_2504개정.pdf':
+//             return fileName;
+//         case '[인슈플러스] 한화손보_해외여행자보험_약관_250401개정.pdf':
+//             return fileName;
+//         case '[인슈플러스] 장기상품_서비스약관_2504개정.pdf':
+//             return fileName;
+//         default: 
+//             return oldFileName;
+//     }
+// }
+
 
       window.addEventListener('load', () => {
 
@@ -624,19 +645,24 @@ if(bool) {
 
         // 20250722 추가
         EHDObject.getPlanInfo({ api: EHDObject.GET_NOTICE, pr_cd: EHDObject.selectedPlan.pr_cd }, () => {
-
-          const inAgreeFile = [EHDObject.selectedPlan.ins_term1_realname, EHDObject.selectedPlan.ins_term2_realname];
-          const serviceAgreeFile = EHDObject.selectedPlan.service_term_realname;
-
-
+            // console.log(EHDObject.selectedPlan)
+        const inAgreeFileOld= [EHDObject.selectedPlan.ins_term1_realname, EHDObject.selectedPlan.ins_term2_realname];
+        const inAgreeFile = [EHDObject.selectedPlan.ins_term1_name, EHDObject.selectedPlan.ins_term2_name];
+          const serviceAgreeFileOld = EHDObject.selectedPlan.service_term_realname;
+        let serviceAgreeFile = EHDObject.selectedPlan.service_term_name;
+        
+            // console.log(inAgreeFile);
           let agreeBox = document.getElementById('agree_box');
-          inAgreeFile.forEach((item, idx) => {
+          
+          inAgreeFileOld.forEach((item, idx) => {
             if(item) {
+                // let fileName = fileNameMatch(item ,inAgreeFileOld[idx]);
+                // item = encodeURIComponent(fileName);
               let agreeBody = '<div class="form-border"> \
                 <div class="form-question"> \
                   <div class="flex flex-vc flex-tj"> \
                     <p>보험 가입약관 동의</p> \
-                    <a href="/_data/board/ins_agree/'+item+'" target="_blank">자세히 보기</a> \
+                    <a href="/_data/board/ins_agree/'+item+'" download="'+inAgreeFile[idx]+'">자세히 보기</a> \
                   </div> \
                 </div> \
                 <div class="flex flex-vc px24 px-lg-20"> \
@@ -658,12 +684,13 @@ if(bool) {
             }
           });
 
-          if(serviceAgreeFile) {
+          if(serviceAgreeFileOld) {
+            // serviceAgreeFile = encodeURIComponent(serviceAgreeFile);
               let sAgreeBody = '<div class="form-border"> \
                 <div class="form-question"> \
                   <div class="flex flex-vc flex-tj"> \
                     <p>서비스 약관 동의</p> \
-                    <a href="/_data/board/service_agree/'+serviceAgreeFile+'" target="_blank">자세히 보기</a> \
+                    <a href="/_data/board/service_agree/'+serviceAgreeFileOld+'" download="'+serviceAgreeFile+'" >자세히 보기</a> \
                   </div> \
                 </div> \
                 <div class="flex flex-vc px24 px-lg-20"> \

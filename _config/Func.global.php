@@ -1383,6 +1383,20 @@ function maskingPhone($org){
 	$masking = substr($org, 0, 3) . "****" . substr($org, -4);
 	return $masking;
 }
+/**
+ * 전화번호 마스킹 처리
+ * date : 20250810
+ * author : 윤정현
+ * 주민번호 뒷자리 1자리를 제외한 나머지 모두 *로 변환
+ */
+function maskingIsdn2($org){
+	$masking = substr($org, 0, 1) . str_repeat("*", mb_strlen($org, 'UTF-8') -1 );
+	return $masking;
+}
+
+
+
+
 
 //=================================================================================
 // SEED 암호문 CBC방식 암호문처리 종료

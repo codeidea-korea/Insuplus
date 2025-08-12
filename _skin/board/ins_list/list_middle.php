@@ -34,8 +34,8 @@
 		<td><?=$print_cate_name?></td>
 		<? } ?>
 		<td class="l"><a href="javascript: mod_go('<?=$seq?>')"><?=$re?><?=$subject?> <?=$print_cmt_cnt?> <?=$print_secret?> <?=$sNew?> <?=$print_hidden?></a></td>
-		<td><?=$ext1?><br/><?=$ext2?></td>
-		<td><?=$ext3?><br/><?=$ext4?></td>
+		<td><?=$ext1 ? maskingKoName($ext1) : ''?><br/><?=$ext2 ? maskingPhone($ext2) : ''?></td>
+		<td><?=$ext3 ? maskingKoName($ext3) : ''?><br/><?=$ext4 ? maskingPhone($ext4) : ''?></td>
 		<? if ( $bc_upfile_cnt > 0 ) { ?>
 		<td><?=$print_file?></td>
 		<? } ?>

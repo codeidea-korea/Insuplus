@@ -1,6 +1,7 @@
 <?php
 include '../_include/_header_partner.html';
 ?>
+<div id="loading-indicator" style="width:100vw; height:100vh; background-color: #fff; position: fixed; top: 0; left: 0; z-index: 1000; background-image: url('/html/images/loading_indicator.svg'); background-size: 100px; background-position: center; background-repeat: no-repeat;"></div>
 <section>
   <div class="container">
     <div class="title-box">
@@ -1757,6 +1758,9 @@ let temp_title = '';
         }
       });
     }
+    setTimeout(() => {
+      document.getElementById('loading-indicator').style.display = 'none';
+    }, 1000);
   });
 
   (      

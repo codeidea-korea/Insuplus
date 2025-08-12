@@ -293,6 +293,10 @@
 		}
 
 
+       
+      
+
+
 		LoginHistory($u_id, $_SERVER["REMOTE_ADDR"], "login", $u_accessible_ip);
 
 //		echo "ss_u_idx : ".$u_idx."<BR>";
@@ -309,6 +313,20 @@
 		$_SESSION['ss_Client_seq']		= $Client_seq;
 		$_SESSION['ss_partner_seq_admin']		= $u_partner_seq;
         $_SESSION['ss_u_accessible_ip']		= $u_accessible_ip;
+
+
+        // $SQL = "SELECT count(*) as cnt from tbl_user_session where user_id = '".$u_id."' and expire_time > now()";
+        // // echo $SQL;
+        // $result = $dbcon->query($SQL); 
+        
+        // if($result) {
+        //     $row = $result->fetch_assoc();
+        //     $count = $row['cnt'];
+            
+        //     return false;
+        // }else{
+        //     return true;
+        // }
 	}
 
 	#######################################################

@@ -199,6 +199,7 @@ $RS_Ins = $dbcon->query($SQL_Ins);
 					<?= $calendar_opt ?>
 				});
 </script>
+<script type="text/javascript" src="<?= $url_admin ?>js/block.js"></script>
 <script>
 function view_go(n) {
 		location.href = "pay_view.php?orderno=" + n + "<?= $parameter ?>";

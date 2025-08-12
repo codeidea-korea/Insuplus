@@ -417,6 +417,7 @@
 		exit;
 	}
 
+   
 
 	function redirect($url, $time = 0) {
 		global $dbcon;

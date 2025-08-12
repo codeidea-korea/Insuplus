@@ -115,6 +115,7 @@ if ($_GET["mode"] == "excel" && getLen($ss_u_idx) > 0) {
 
   $field = " A.*, tbe.coupon_name AS tbe_coupon_name, tbrc.recommendation_code AS tbrc_recom_name, tbp.partnership_name AS join_ch_name, tolj.group_join_type AS tolj_group_join_type, ";
   $field .= "togjl.o_name AS togjl_client_name ";
+  $field .= ",(select subject from tbl_board_ins_list where seq = b.guarantee1_ins_seq) as insurance_company";
 
   $table  = " vt_tbl_order_list A
   LEFT OUTER JOIN tbl_board_coupon_history tbch ON (A.ifcp_cd=tbch.seq)
@@ -123,12 +124,18 @@ if ($_GET["mode"] == "excel" && getLen($ss_u_idx) > 0) {
   LEFT OUTER JOIN tbl_board_partner tbp ON (A.join_ch= tbp.seq) 
   LEFT OUTER JOIN tbl_order_group_join_list togjl ON (A.group_join_id=togjl.group_join_id)
   LEFT JOIN tbl_order_list_join tolj ON (A.orderno=tolj.orderno and A.o_name = tolj.o_name)";
-
+$table .=" left join tbl_board_plan as b  on A.plan_cd = b.seq";
   $where .= $query_where;
   $orderby = " seq  DESC  ";
   $limit = "";
 
   $ArrListRs = $dbcon->getList($field, $table, $where, $orderby, $limit);
+
+
+
+
+//   print_r($ArrListRs);
+//   exit;
 
   $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('A1', '결제일')
@@ -253,7 +260,8 @@ if ($_GET["mode"] == "excel" && getLen($ss_u_idx) > 0) {
       $objPHPExcel->setActiveSheetIndex(0)
         ->setCellValueExplicit("A{$p}", $writedate,                    PHPExcel_Cell_DataType::TYPE_STRING)
         ->setCellValueExplicit("B{$p}", $join_ch_name,                 PHPExcel_Cell_DataType::TYPE_STRING)
-        ->setCellValueExplicit("C{$p}", $ins_name,                     PHPExcel_Cell_DataType::TYPE_STRING)
+        // ->setCellValueExplicit("C{$p}", $ins_name,                     PHPExcel_Cell_DataType::TYPE_STRING)
+        ->setCellValueExplicit("C{$p}", $insurance_company,                     PHPExcel_Cell_DataType::TYPE_STRING)
         ->setCellValueExplicit("D{$p}", $category_name,                PHPExcel_Cell_DataType::TYPE_STRING)
         ->setCellValueExplicit("E{$p}", $pr_name,                      PHPExcel_Cell_DataType::TYPE_STRING)
         ->setCellValueExplicit("F{$p}", $plan_name,                    PHPExcel_Cell_DataType::TYPE_STRING)

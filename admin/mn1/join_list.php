@@ -127,6 +127,7 @@ $RS_Ins = $dbcon->query($SQL_Ins);
 $(document).ready(function() {
 var clareCalendar = {<?= $calendar_opt ?>});
 </script>
+<script type="text/javascript" src="<?= $url_admin ?>js/block.js"></script>
 <script>
   function view_go(n) {
     location.href = "join_view.php?seq=" + n + "<?= $parameter ?>";
@@ -391,7 +392,7 @@ window.addEventListener('load', ()=>{
             </td>
             <th>주민번호체크</th>
             <td>
-              <input type="text" jumin placeholder="880105-1234567"/>
+              <input type="text" jumin placeholder=""/>
               <button type="button" jumin>check</button>
               <script>
                 function checkPrivateNumber(pNum){

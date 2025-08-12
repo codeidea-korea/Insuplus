@@ -1,7 +1,7 @@
 <?
 	include_once $_SERVER["DOCUMENT_ROOT"]."/_config/lib.php";
 	admin_chk($auth_admin, $url_admin_login_out);// 관리자 체크
-	if($ss_u_level != 9) {
+	if($ss_u_level < 9) {
 		alert_back("종합관리자만 접근 가능합니다.");
 		exit;
 	}
@@ -45,7 +45,9 @@ $where 				= $query_where;
 $orderby			= $search_orderby;
 $limit				= $first . ", " . $num_per_page;
 
+if (strlen($search_text) > 0) {
 $ArrRS				= $dbcon->getList($field, $table, $where, $orderby, $limit);
+}
 $total_record	= $ArrRS[0];
 $result				= $ArrRS[1];
 unset($ArrRS);
@@ -156,6 +158,11 @@ $no				= $total_record - $first;
 			alert("이름을 입력하여 주십시오.");
 			return false;
 		}
+         //이름에 * 이 있는지 체크
+         if (user_name.includes('*')) {
+            alert("이름을 정확히 입력하여 주십시오.");
+            return false;
+        }
 		if (!o_isdn1) {
 			alert("주민번호 앞자리를 입력하여 주십시오.");
 			return false;
@@ -164,6 +171,14 @@ $no				= $total_record - $first;
 			alert("주민번호 뒷자리를 입력하여 주십시오.");
 			return false;
 		}
+        //숫자만 입력 됐는지 체크
+        if (!/^\d+$/.test(o_isdn2)) {
+            alert("주민번호 뒷자리는 숫자만 입력하여 주십시오.");
+            return false;
+        }
+
+
+
 		if (!note) {
 			alert("메모를 입력하여 주십시오.");
 			return false;
@@ -270,11 +285,11 @@ $no				= $total_record - $first;
 											<option value="N" <?= $is_restricted == 'N' ? 'selected' : '' ?>>제한 해제</option>
 									</select>
 							</td>
-							<td><input type="text" name="user_name[<?= $seq ?>]" value="<?= all_seed_dec($user_name) ?>"></td>
+							<td><input type="text" name="user_name[<?= $seq ?>]" value="<?= maskingKoName(all_seed_dec($user_name)) ?>"></td>
 							<td class="inline-inputs">
 									<input type="text" name="o_isdn1[<?= $seq ?>]" value="<?= all_seed_dec($o_isdn1) ?>" maxlength="6">
 									<span>-</span>
-									<input type="text" name="o_isdn2[<?= $seq ?>]" value="<?= all_seed_dec($o_isdn2) ?>" maxlength="7">
+									<input type="text" name="o_isdn2[<?= $seq ?>]" value="<?= maskingIsdn2(all_seed_dec($o_isdn2)) ?>" maxlength="7">
 							</td>
 							<td><input type="text" name="note[<?= $seq ?>]" value="<?= $note ?>"></td>
 							<td><?= substr($regdate, 0, 16) ?></td>

@@ -19,5 +19,6 @@ $functionParam = [
 // print_r($functionParam);
 //  echo 'categories(0) : '.var_dump($functionParam);
 $rows = getPlanInfo_new($functionParam);
+
 echo json_encode($rows);
 ?>

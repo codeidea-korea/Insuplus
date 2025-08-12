@@ -140,7 +140,7 @@
             this.classifyServices();
           }
         //   console.log("===== "+this.GET_PLAN_PRICE+"====")
-        //   console.log(result) 
+        // console.log(this.productNotice);
           return result;
         })
         .then(callback)

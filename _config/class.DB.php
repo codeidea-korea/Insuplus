@@ -226,7 +226,7 @@ class dbcon {
 			}
 			if ( getLen($orderby) > 0 ) {
 				$SQL .= " order by ".$orderby;
-			}
+			} 
 			if ( getLen($limit) > 0 ) {
 				$SQL .= " limit ".$limit; 
 			}
@@ -485,7 +485,8 @@ class sms_dbcon {
 			$SQL .= " where 1=1 ".$where;
 		}
 		// 총 카운트
-//			echo $SQL."<BR>";
+			// echo $SQL."<BR>"; 
+            // exit;
 		$total_count = $this -> getCount($SQL);
 
 		if ( $total_count > 0 ) {

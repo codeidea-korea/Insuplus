@@ -184,7 +184,7 @@ include '../_include/_top.html';
 
 
         <!-- 20250722 추가 -->
-        <div class="form-box">
+        <div class="form-box" id="ageBox2">
           <div class="form-content">
            <div class="check-box">
                 <div class="check-box-inner">
@@ -202,12 +202,33 @@ include '../_include/_top.html';
           </div>
         </div>
 
+        <!-- 20250807 추가 -->
+         <div class="form-box" id="ageBox" style="display:none">
+          <div class="form-title">
+            <strong>가입자 및 동반자 연령 확인<br/>(가입자 또는 동반자가 만 14세 미만인 경우 법정 대리인 동의 필수)</strong>
+          </div>
+          <div class="form-content">
+            <div class="flex flex-vc flex-tj">
+              <div class="col-6 pr8 pr-lg-4">
+                <div class="select-box">
+                  <div class="select-box-inner">
+                    <select name="agecheck" id="agecheck" onchange="ageCheck(this)">
+                      <option value="0">연령 확인</option>
+                      <option value="1">본인과 동반자 모두 만 14세 이상</option>
+                      <option value="2">본인 또는 동반자가 만 14세 미만</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
 
         <div class="form-box">
           <div class="form-content">
             <div class="button-box">
-              <button type="button" class="btn btn-active calculate">가격 조회</button>
+              <button type="button" class="btn btn-active calculate" id="priceBtn">가격 조회</button>
             </div>
           </div>
         </div>
@@ -283,6 +304,29 @@ include '../_include/_top.html';
 
 <script src="./js/swiper.js?a=1"></script>
 <script>
+  // 20250807 추가
+  const testCheck = ()=>{
+    let search = window.location.search;
+    if(search == "?test"){
+      $('#priceBtn').css('display','none')
+      $('#ageBox').css('display','block')
+      $('#ageBox2').css('display','none')
+    }
+  }
+  testCheck()
+
+  const ageCheck = (item)=>{
+    let value = $(item).val()
+
+    if(value == "1"){
+      $('#priceBtn').css('display','flex')
+    }else{
+      $('#priceBtn').css('display','none')
+    }
+  
+  }
+
+
   function toogleProductBoard(bool) {
     if (bool !== undefined && typeof bool === 'boolean') {
       EHDObject.isOpenProductBoard = bool;

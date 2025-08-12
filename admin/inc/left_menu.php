@@ -46,8 +46,8 @@ if ($tm == "MN2" ) {?>
 <div class="leftMenutt">상담 관리</div>
 <ul class="a_lm01">
 	<li><a href="<?=$url_admin?>mn2/qna_list.php">고객 문의</a></li>
-	<li><a href="<?=$url_admin?>mn2/charge_list.php">청구 관리</a></li>
-	<li><a href="<?=$url_admin?>mn2/gop_list.php">GOP 관리</a></li>
+	<!-- <li><a href="<?=$url_admin?>mn2/charge_list.php">청구 관리</a></li> -->
+	<!-- <li><a href="<?=$url_admin?>mn2/gop_list.php">GOP 관리</a></li> -->
 </ul>
 <?}?>
 
@@ -186,6 +186,7 @@ if ($tm == "counter" ) {
 	from
 	config_board_list
 	where bc_id not like 'intra%'
+    and bc_id <> 'gop' and bc_id <> 'charge'
 	order by
 	bc_name
 	";
