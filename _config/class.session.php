@@ -339,7 +339,14 @@ function LogoutProcess()
     $ss_u_name = '';
     $ss_u_level = '';
     if ($_SESSION['ss_u_id']) {
+ 
+ 
         global $dbcon;
+ 
+
+        $SQL = "UPDATE tbl_user_session SET expire_time = now() WHERE user_id = '".$_SESSION['ss_u_id']."'";
+        $dbcon->query($SQL);
+
         $field = "
 \t\t\tu_idx, u_id, u_name, u_level, u_state, u_pw, concat(u_hp1,u_hp2,u_hp3) as u_hp, concat(u_email1,'@',u_email2) as u_email
 \t\t\t, u_partner_seq ,u_accessible_ip
@@ -357,6 +364,10 @@ function LogoutProcess()
         $rows = $dbcon->fetch_row($result);
         $u_accessible_ip = $rows[9];
     }
+
+    $_SESSION['already_login'] = false;
+
+    // $dbcon -> dbcon_close();
 
     LoginHistory($_SESSION['ss_u_id'], $_SERVER['REMOTE_ADDR'], 'logout', $u_accessible_ip);
     session_unset();
