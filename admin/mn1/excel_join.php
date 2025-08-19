@@ -209,6 +209,7 @@ if ($_GET["mode"] == "excel" && getLen($ss_u_idx) > 0) {
 			tolj.o_name AS tolj_o_name,
 			tolj.o_isdn1 AS tolj_o_isdn1,
 			tolj.o_isdn2 AS tolj_o_isdn2, 
+            tolj.o_phone as tolj_o_phone,
 			tolj.cancle_amount AS tolj_cancle_amount, 
 			tol.s_date AS tol_s_date,
 			tol.s_date_time AS tol_s_date_time, 
@@ -281,28 +282,29 @@ if ($_GET["mode"] == "excel" && getLen($ss_u_idx) > 0) {
 		->setCellValue('P1', '보험기간')
 		->setCellValue('Q1', '보험료')
 		->setCellValue('R1', '출국 국가')
-		->setCellValue('S1', '이메일')
-		->setCellValue('T1', '주문번호')
-		->setCellValue('U1', 'TID')
-		->setCellValue('V1', '가입상태')
-		->setCellValue('W1', '결제상태')
-		->setCellValue('X1', '취소일')
-		->setCellValue('Y1', '상품가격')
-		->setCellValue('Z1', '할인금액')
-		->setCellValue('AA1', '결제금액')
-		->setCellValue('AB1', '추천인코드')
-		->setCellValue('AC1', '쿠폰코드')
-		->setCellValue('AD1', '환불보험료')
-		->setCellValue('AE1', '환불서비스료')
-		->setCellValue('AF1', '환불금액')
-		->setCellValue('AG1', 'B2B/B2C')
-		->setCellValue('AH1', '업체명')
-		->setCellValue('AI1', '해지일')
-		->setCellValue('AJ1', '서비스료')
-		->setCellValue('AF1', '메모');
+		->setCellValue('S1', '휴대전화')
+		->setCellValue('T1', '이메일')
+		->setCellValue('U1', '주문번호')
+		->setCellValue('V1', 'TID')
+		->setCellValue('W1', '가입상태')
+		->setCellValue('X1', '결제상태')
+		->setCellValue('Y1', '취소일')
+		->setCellValue('Z1', '상품가격')
+		->setCellValue('AA1', '할인금액')
+		->setCellValue('AB1', '결제금액')
+		->setCellValue('AC1', '추천인코드')
+		->setCellValue('AD1', '쿠폰코드')
+		->setCellValue('AE1', '환불보험료')
+		->setCellValue('AF1', '환불서비스료')
+		->setCellValue('AG1', '환불금액')
+		->setCellValue('AH1', 'B2B/B2C')
+		->setCellValue('AI1', '업체명')
+		->setCellValue('AJ1', '해지일')
+		->setCellValue('AK1', '서비스료')
+		->setCellValue('AL1', '메모');
 
 	//셀 항목 스타일
-	$objPHPExcel->getActiveSheet()->getStyle('A1:AK1')->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setARGB("F00000");;
+	$objPHPExcel->getActiveSheet()->getStyle('A1:AL1')->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setARGB("F00000");;
 
 	$p = 1;
 	if ($ArrListRs[0] > 0) {
@@ -311,6 +313,7 @@ if ($_GET["mode"] == "excel" && getLen($ss_u_idx) > 0) {
 			$ListRs["tolj_o_isdn1"] = all_seed_dec($ListRs["tolj_o_isdn1"]);
 			$ListRs["tolj_o_isdn2"] = all_seed_dec($ListRs["tolj_o_isdn2"]);
 			$ListRs["birth_date"] = substr($ListRs["tolj_o_isdn1"], 2, 6);
+            $ListRs["tolj_o_phone"] = all_seed_dec($ListRs["tolj_o_phone"]);
 			$ListRs["tol_o_email1"] = all_seed_dec($ListRs["tol_o_email1"]);
 			$ListRs["tol_o_email2"] = all_seed_dec($ListRs["tol_o_email2"]);
 
@@ -391,25 +394,26 @@ if ($_GET["mode"] == "excel" && getLen($ss_u_idx) > 0) {
 				->setCellValueExplicit("P{$p}", $tol_ins_period . $arr_chk_p_gubun[$tol_chk_p], 					PHPExcel_Cell_DataType::TYPE_STRING)
 				->setCellValueExplicit("Q{$p}", $tolj_join_amount, 																				PHPExcel_Cell_DataType::TYPE_NUMERIC)
 				->setCellValueExplicit("R{$p}", $tol_join_nation_name, 																		PHPExcel_Cell_DataType::TYPE_STRING)
-				->setCellValueExplicit("S{$p}", $tol_o_email1 . "@" . $tol_o_email2, 											PHPExcel_Cell_DataType::TYPE_STRING)
-				->setCellValueExplicit("T{$p}", $tolj_orderno, 																						PHPExcel_Cell_DataType::TYPE_STRING)
-				->setCellValueExplicit("U{$p}", $tol_pg_isdn, 																						PHPExcel_Cell_DataType::TYPE_STRING)
-				->setCellValueExplicit("V{$p}", $arr_join_step[$tolj_join_status], 												PHPExcel_Cell_DataType::TYPE_STRING)
-				->setCellValueExplicit("W{$p}", $arr_ord_step[$tol_order_step], 													PHPExcel_Cell_DataType::TYPE_STRING)
-				->setCellValueExplicit("X{$p}", $tolj_cancle_date, 																				PHPExcel_Cell_DataType::TYPE_STRING)
-				->setCellValueExplicit("Y{$p}", $tolj_join_amount + $tolj_join_service, 									PHPExcel_Cell_DataType::TYPE_NUMERIC)
-				->setCellValueExplicit("Z{$p}", $tolj_s_amount, 																					PHPExcel_Cell_DataType::TYPE_NUMERIC)
-				->setCellValueExplicit("AA{$p}", $tolj_t_amount, 																					PHPExcel_Cell_DataType::TYPE_NUMERIC)
-				->setCellValueExplicit("AB{$p}", $tbrc_recom_name, 																				PHPExcel_Cell_DataType::TYPE_STRING)
-				->setCellValueExplicit("AC{$p}", $tbe_coupon_name, 																				PHPExcel_Cell_DataType::TYPE_STRING)
-				->setCellValueExplicit("AD{$p}", $refund_ins_amount, 																			PHPExcel_Cell_DataType::TYPE_NUMERIC)
-				->setCellValueExplicit("AE{$p}", $refund_servie_amount,																		PHPExcel_Cell_DataType::TYPE_NUMERIC)
-				->setCellValueExplicit("AF{$p}", (int)$refund_amount,																			PHPExcel_Cell_DataType::TYPE_NUMERIC)
-				->setCellValueExplicit("AG{$p}", $group_join_type,																				PHPExcel_Cell_DataType::TYPE_STRING)
-				->setCellValueExplicit("AH{$p}", $client_name,																						PHPExcel_Cell_DataType::TYPE_STRING)
-				->setCellValueExplicit("AI{$p}", $tol_refund_date,																				PHPExcel_Cell_DataType::TYPE_STRING)
-				->setCellValueExplicit("AJ{$p}", $tolj_join_service,																			PHPExcel_Cell_DataType::TYPE_STRING)
-				->setCellValueExplicit("AF{$p}", $tol_o_memo,																							PHPExcel_Cell_DataType::TYPE_STRING);
+				->setCellValueExplicit("S{$p}", $tolj_o_phone, 																						PHPExcel_Cell_DataType::TYPE_STRING)
+                ->setCellValueExplicit("T{$p}", $tol_o_email1 . "@" . $tol_o_email2, 											PHPExcel_Cell_DataType::TYPE_STRING)
+				->setCellValueExplicit("U{$p}", $tolj_orderno, 																						PHPExcel_Cell_DataType::TYPE_STRING)
+				->setCellValueExplicit("V{$p}", $tol_pg_isdn, 																						PHPExcel_Cell_DataType::TYPE_STRING)
+				->setCellValueExplicit("W{$p}", $arr_join_step[$tolj_join_status], 												PHPExcel_Cell_DataType::TYPE_STRING)
+				->setCellValueExplicit("X{$p}", $arr_ord_step[$tol_order_step], 													PHPExcel_Cell_DataType::TYPE_STRING)
+				->setCellValueExplicit("Y{$p}", $tolj_cancle_date, 																				PHPExcel_Cell_DataType::TYPE_STRING)
+				->setCellValueExplicit("Z{$p}", $tolj_join_amount + $tolj_join_service, 									PHPExcel_Cell_DataType::TYPE_NUMERIC)
+				->setCellValueExplicit("AA{$p}", $tolj_s_amount, 																					PHPExcel_Cell_DataType::TYPE_NUMERIC)
+				->setCellValueExplicit("AB{$p}", $tolj_t_amount, 																					PHPExcel_Cell_DataType::TYPE_NUMERIC)
+				->setCellValueExplicit("AC{$p}", $tbrc_recom_name, 																				PHPExcel_Cell_DataType::TYPE_STRING)
+				->setCellValueExplicit("AD{$p}", $tbe_coupon_name, 																				PHPExcel_Cell_DataType::TYPE_STRING)
+				->setCellValueExplicit("AE{$p}", $refund_ins_amount, 																			PHPExcel_Cell_DataType::TYPE_NUMERIC)
+				->setCellValueExplicit("AF{$p}", $refund_servie_amount,																		PHPExcel_Cell_DataType::TYPE_NUMERIC)
+				->setCellValueExplicit("AG{$p}", (int)$refund_amount,																			PHPExcel_Cell_DataType::TYPE_NUMERIC)
+				->setCellValueExplicit("AH{$p}", $group_join_type,																				PHPExcel_Cell_DataType::TYPE_STRING)
+				->setCellValueExplicit("AI{$p}", $client_name,																						PHPExcel_Cell_DataType::TYPE_STRING)
+				->setCellValueExplicit("AJ{$p}", $tol_refund_date,																				PHPExcel_Cell_DataType::TYPE_STRING)
+				->setCellValueExplicit("AK{$p}", $tolj_join_service,																			PHPExcel_Cell_DataType::TYPE_STRING)
+				->setCellValueExplicit("AL{$p}", $tol_o_memo,																							PHPExcel_Cell_DataType::TYPE_STRING);
 			$objPHPExcel->setActiveSheetIndex(0)->getStyle("Q{$p}")->getNumberFormat()->setFormatCode('#,##0');
 			$objPHPExcel->setActiveSheetIndex(0)->getStyle("Y{$p}")->getNumberFormat()->setFormatCode('#,##0');
 			$objPHPExcel->setActiveSheetIndex(0)->getStyle("Z{$p}")->getNumberFormat()->setFormatCode('#,##0');

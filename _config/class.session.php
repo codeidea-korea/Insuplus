@@ -95,7 +95,7 @@ function login_chk($level, $url = '')
 // 관리자 권한 체크
 function admin_chk($level, $url = '')
 {
-    global $ss_u_idx, $ss_u_level, $dbcon;
+    global $ss_u_idx, $ss_u_level, $dbcon, $ss_u_id;
 
     if (getLen($url) == 0) {
         $url = $url_admin;
@@ -109,7 +109,7 @@ function admin_chk($level, $url = '')
     //		echo "ss_u_level : ".$ss_u_level."<BR>";
     //
     //		exit;
-    // 반드시 인증해야되도록 변경경
+    // 반드시 인증해야되도록 변경
     if (getLen($ss_u_idx) == 0 || $_SESSION['is_authenticated'] == false) {
         $url = '/admin/logout.php?ment=n';
         alert_page('장시간 미사용으로 세션이 만료되었습니다. 로그인 후 이용해 주십시오.', $url);
@@ -124,17 +124,16 @@ function admin_chk($level, $url = '')
     $session_token = $_SESSION['session_token'];
     $token_expire_time = $_SESSION['token_expire_time'];
 
-    $SQL = "SELECT * from tbl_user_session where session_token = '" . $session_token  ."'";
-    // echo $SQL;
-    $result = $dbcon->query($SQL);
+    $SQL = "SELECT * from tbl_user_session where user_id = '" . $ss_u_id  ."'";
 
+    $result = $dbcon->query($SQL);
+    // echo $session_token;
     if ($result) {
         $row = $result->fetch_assoc();
-        $count = count($result);
-        // echo $count;
-        if($count == 0){
+        // $count = $dbcon->getCount($SQL2);
+        if($row['session_token'] != $session_token){
             $url = '/admin/logout.php?ment=n';
-            alert_page('장시간 미사용으로 세션이 만료되었습니다. 로그인 후 이용해 주십시오.',$url);
+            alert_page('보안 정책에 따라 다른 위치에서 로그인되어 해당 세션이 종료되었습니다.',$url);
         }
         if( $row['expire_time'] < date('Y-m-d H:i:s') && $row['duplicate_yn'] == 'N'){
             $url = '/admin/logout.php?ment=n';
@@ -160,7 +159,7 @@ function admin_chk($level, $url = '')
     } else {
         // 쿼리 실행 실패 처리
         $url = '/admin/logout.php?ment=n';
-        alert_page('장시간 미사용으로 세션이 만료되었습니다. 로그인 후 이용해 주십시오.',$url);
+        alert_page('장시간 미사용으로 세션이 만료되었습니다. 로그인 후 이용해 주십시오.2',$url);
     }
     // echo $result;
     // echo $flag."<BR>";
@@ -348,7 +347,7 @@ function LogoutProcess()
         global $dbcon;
  
 
-        $SQL = "UPDATE tbl_user_session SET expire_time = now() WHERE user_id = '".$_SESSION['ss_u_id']."'";
+        $SQL = "UPDATE tbl_user_session SET expire_time = now() WHERE session_token = '".$_SESSION['session_token']."'";
         $dbcon->query($SQL);
 
         $field = "
