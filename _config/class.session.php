@@ -130,10 +130,13 @@ function admin_chk($level, $url = '')
 
     if ($result) {
         $row = $result->fetch_assoc();
-        $count = count($row);
+        $count = count($result);
         // echo $count;
-        
-        if( $row['expire_time'] < date('Y-m-d H:i:s')){
+        if($count == 0){
+            $url = '/admin/logout.php?ment=n';
+            alert_page('장시간 미사용으로 세션이 만료되었습니다. 로그인 후 이용해 주십시오.',$url);
+        }
+        if( $row['expire_time'] < date('Y-m-d H:i:s') && $row['duplicate_yn'] == 'N'){
             $url = '/admin/logout.php?ment=n';
             alert_page('장시간 미사용으로 세션이 만료되었습니다. 로그인 후 이용해 주십시오.',$url);
         }elseif ($row['duplicate_yn'] == 'Y') {
