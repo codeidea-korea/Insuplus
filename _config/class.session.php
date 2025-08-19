@@ -124,18 +124,19 @@ function admin_chk($level, $url = '')
     $session_token = $_SESSION['session_token'];
     $token_expire_time = $_SESSION['token_expire_time'];
 
-    $SQL = "SELECT count(*) as cnt from tbl_user_session where session_token = '" . $session_token . "' and expire_time > now()";
+    $SQL = "SELECT * from tbl_user_session where session_token = '" . $session_token  ."'";
     // echo $SQL;
     $result = $dbcon->query($SQL);
 
     if ($result) {
         $row = $result->fetch_assoc();
-        $count = $row['cnt'];
+        $count = count($row);
         // echo $count;
-        if(isset($token_expire_time) && $token_expire_time < date('Y-m-d H:i:s')){
+        
+        if( $row['expire_time'] < date('Y-m-d H:i:s')){
             $url = '/admin/logout.php?ment=n';
             alert_page('장시간 미사용으로 세션이 만료되었습니다. 로그인 후 이용해 주십시오.',$url);
-        }elseif ($count == 0) {
+        }elseif ($row['duplicate_yn'] == 'Y') {
             $url = '/admin/logout.php?ment=n';
             alert_page('보안 정책에 따라 다른 위치에서 로그인되어 해당 세션이 종료되었습니다.',$url);
         } else { 
@@ -507,6 +508,7 @@ function generateLoginTokenInfo()
             session_token, 
             last_login_time, 
             last_login_ip, 
+            duplicate_yn,
             expire_time
             ) VALUES (
                 '$use_id',
@@ -514,11 +516,13 @@ function generateLoginTokenInfo()
                 '$session_token',
                 '$last_login_time',
                 '$last_login_ip',
+                'N',
                 '$expire_time'
             ) ON DUPLICATE KEY UPDATE 
                 session_token = VALUES(session_token),
                 last_login_time = VALUES(last_login_time),
                 last_login_ip = VALUES(last_login_ip),
+                duplicate_yn ='N',
                 expire_time = VALUES(expire_time)";
 
     // echo $SQL;

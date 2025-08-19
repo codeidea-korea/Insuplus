@@ -40,7 +40,7 @@
     if (isset($_GET['confirm']) && $_GET['confirm'] === '1') {
         $_SESSION['already_login'] = false;
 
-        $SQL = "UPDATE tbl_user_session SET expire_time = now() WHERE user_id = '".$_SESSION['ss_u_id']."'";
+        $SQL = "UPDATE tbl_user_session SET expire_time = now(), duplicate_yn= 'Y' WHERE user_id = '".$_SESSION['ss_u_id']."'";
         $dbcon->query($SQL);
         $dbcon -> dbcon_close();
 
