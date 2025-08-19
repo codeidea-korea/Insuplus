@@ -123,8 +123,8 @@ function kakaoJoinCoupon($param, $mobile) {
 02-360-2545
 
 ※ 이 메시지는 고객님의 참여로 지급된 쿠폰 안내 메세지입니다.";
-
-	kakaoSend($message, $templet_code, $mobile);
+ //20250819 가입 감사 쿠폰 알림톡 비활성화
+	// kakaoSend($message, $templet_code, $mobile);
 
 }
 

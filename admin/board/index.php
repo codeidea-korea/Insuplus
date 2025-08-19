@@ -58,7 +58,7 @@
 ?>
 <?php
 // bc_id 가 ins_list 일때만
-if($bc_id == 'ins_list'){
+if($bc_id == 'ins_list' && !$_GET['mode']){
 
 ?>
 <script type="text/javascript" src="<?= $url_admin ?>js/block.js"></script>

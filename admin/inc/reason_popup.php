@@ -5,8 +5,8 @@
 <div id="popup">
     <h2>엑셀 다운로드</h2>
     <p>엑셀 다운로드 사유 입력</p>
-    <input type="text" id="reason" placeholder="다운로드 사유 입력">
-    <input type="password" id="excel_enc" placeholder="암호 입력">
+    <input type="text" id="reason" placeholder="다운로드 사유 입력" autocomplete="off">
+    <input type="password" id="excel_enc" placeholder="암호 입력" autocomplete="new-password">
     <input type="hidden" id="excel_type" />
     <button id="reasonBtn" class="submitBtn">사유등록 및 엑셀 다운로드</button>
     <button id="closePopup">닫기</button>

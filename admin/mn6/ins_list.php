@@ -6,8 +6,14 @@
 	$tm = "MN6";
 	$lm = "";
 	include $path_admin."inc/header.php";
+
+if(!$_GET['mode']){
 ?>
+
 <script type="text/javascript" src="<?= $url_admin ?>js/block.js"></script>
+<?
+}
+?>
 <table border="0" cellpadding="0" cellspacing="0" width="100%">
 	<tr>
 		<td width="16" height="22" valign="top" align="center" style="padding-top:6px"><img src="<?=$url_admin?>images/admin_st_ball.gif"></td>

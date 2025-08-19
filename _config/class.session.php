@@ -135,7 +135,7 @@ function admin_chk($level, $url = '')
         if(isset($token_expire_time) && $token_expire_time < date('Y-m-d H:i:s')){
             $url = '/admin/logout.php?ment=n';
             alert_page('장시간 미사용으로 세션이 만료되었습니다. 로그인 후 이용해 주십시오.',$url);
-        }elseif ($count == 0 || !$session_token) {
+        }elseif ($count == 0) {
             $url = '/admin/logout.php?ment=n';
             alert_page('보안 정책에 따라 다른 위치에서 로그인되어 해당 세션이 종료되었습니다.',$url);
         } else { 
