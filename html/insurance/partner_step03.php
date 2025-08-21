@@ -332,7 +332,7 @@ include '../_include/_header_partner.html';
             외교부 지정 적색/흑색경보(철수권고/여행금지) 국가로 여행하는 경우 보험가입과 보상이 불가합니다.<br />
           <div class="flex flex-tj mt24">
             <div class="button-box w150">
-              <a href="https://www.0404.go.kr/dev/main.mofa" class="btn btn-active btn-s" target="_blank">외교부 사이트</a>
+              <a href="https://www.0404.go.kr/main/mainPage" class="btn btn-active btn-s" target="_blank">외교부 사이트</a>
             </div>
             <div class="check-box">
               <div class="check-box-inner">
