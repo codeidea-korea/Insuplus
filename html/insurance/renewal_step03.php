@@ -620,6 +620,13 @@ if(bool) {
 
       window.addEventListener('load', () => {
 
+//EHDObject.mobileno 존재한다면
+        
+    if(EHDObject.mobileno ){
+        
+          document.getElementById('A-cellphone').value = EHDObject.mobileno;
+          document.getElementById('A-cellphone').readOnly = true;
+        }
 
 
         // 20250722 추가

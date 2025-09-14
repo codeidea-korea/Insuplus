@@ -219,6 +219,7 @@
      * @returns
      */
     joiner.calculatePriceByPerson = function ({ dayPeriod, monthPeriod, age, gender }) {
+    //   console.log("calculatePriceByPerson :: ",{ dayPeriod, monthPeriod, age, gender });
       let totalPrice = 0;
       let gPrice = 0;
       let sPrice = 0;
@@ -229,7 +230,7 @@
         gPrice,
         sPrice,
       };
-      //console.log('220 price :: ',price);
+    //   console.log(this.selectedPlan)
       if (!this.selectedPlan) {
        
         //console.log('222 price :: ',price);
@@ -249,7 +250,7 @@
           // 단기 플랜
           idx = shortTable.findIndex((t) => t[0] < dayPeriod && t[1] >= dayPeriod);
         } else return price;
-
+        
         // 선택된 플랜에 보험이 포함된경우 보험료 계산
         if (this.selectedPlan.ext1 === 'Y' || this.selectedPlan.ext2 === 'Y') {
           gPriceRow = this.selectedPlanPrice.find((p) => p.age == age && p.gender == gStr && p.plan_type == 'G');

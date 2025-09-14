@@ -1,6 +1,7 @@
 <?php
 include '../_include/_header_new.html';
 include '../_include/_top.html';
+require_once '../_nice/checkplus_main.php';
 ?>
 <section>
   <div class="container">
@@ -184,7 +185,7 @@ include '../_include/_top.html';
 
 
         <!-- 20250722 추가 -->
-        <div class="form-box" id="ageBox2">
+        <!-- <div class="form-box" id="ageBox2">
           <div class="form-content">
            <div class="check-box">
                 <div class="check-box-inner">
@@ -197,38 +198,47 @@ include '../_include/_top.html';
                   />
                   <label for="A-over14">본인은 만 14세 이상입니다.(14세 미만의 경우 법정 대리인만 조회 가능합니다)</label>
                 </div>
-                <!-- <a href="javascript:;" onclick="popupOpen('more');" class="more">자세히 보기</a> -->
+                <a href="javascript:;" onclick="popupOpen('more');" class="more">자세히 보기</a>
               </div>
           </div>
-        </div>
+        </div> -->
 
         <!-- 20250807 추가 -->
-         <div class="form-box" id="ageBox" style="display:none">
+         <div class="form-box" id="ageBox">
           <div class="form-title">
             <strong>가입자 및 동반자 연령 확인<br/>(가입자 또는 동반자가 만 14세 미만인 경우 법정 대리인 동의 필수)</strong>
           </div>
           <div class="form-content">
-            <div class="flex flex-vc flex-tj">
+            <div class="flex flex-vc " style="gap: 10px;">
               <div class="col-6 pr8 pr-lg-4">
                 <div class="select-box">
                   <div class="select-box-inner">
                     <select name="agecheck" id="agecheck" onchange="ageCheck(this)">
                       <option value="0">연령 확인</option>
-                      <option value="1">본인과 동반자 모두 만 14세 이상</option>
-                      <option value="2">본인 또는 동반자가 만 14세 미만</option>
+                      <option value="1">가입자와 동반자 모두 만 14세 이상</option>
+                      <option value="2">가입자 또는 동반자가 만 14세 미만</option>
                     </select>
                   </div>
                 </div>
               </div>
+             
             </div>
+        
           </div>
+         
         </div>
-
 
         <div class="form-box">
           <div class="form-content">
             <div class="button-box">
-              <button type="button" class="btn btn-active calculate" id="priceBtn">가격 조회</button>
+              <button type="button" class="btn" style="background-color: rgb(107 136 188); color: #fff; display: none;" id="global-agree">법정대리인 동의</button>
+            </div>
+          </div>
+        </div>
+        <div class="form-box">
+          <div class="form-content">
+            <div class="button-box">
+              <button type="button" class="btn btn-active calculate" id="priceBtn" style="display: none;">가격 조회</button>
             </div>
           </div>
         </div>
@@ -300,32 +310,84 @@ include '../_include/_top.html';
   <div class="dim-bg" style="display: none; opacity: 0"></div>
   <div class="layer-container" style="display: none; opacity: 0" data-layer="layer01"></div>
   <!-- // 0830 팝업 추가 -->
+  <form name="form_chk" method="post" style="display: none;">
+		<input type="hidden" name="m" value="checkplusService">				<!-- 필수 데이타로, 누락하시면 안됩니다. -->
+		<input type="hidden" name="EncodeData" value="<?= $enc_data ?>">		<!-- 위에서 업체정보를 암호화 한 데이타입니다. -->
+	    
+	
+	</form>
 </section>
 
 <script src="./js/swiper.js?a=1"></script>
 <script>
   // 20250807 추가
-  const testCheck = ()=>{
-    let search = window.location.search;
-    if(search == "?test"){
-      $('#priceBtn').css('display','none')
-      $('#ageBox').css('display','block')
-      $('#ageBox2').css('display','none')
-    }
-  }
-  testCheck()
+  // const testCheck = ()=>{
+  //   let search = window.location.search;
+  //   if(search == "?test"){
+  //     $('#priceBtn').css('display','none')
+  //     $('#ageBox').css('display','block')
+  //     $('#ageBox2').css('display','none')
+  //   }
+  // }
+  // testCheck()
+
+  let mobileno = '';
 
   const ageCheck = (item)=>{
     let value = $(item).val()
 
     if(value == "1"){
-      $('#priceBtn').css('display','flex')
+      $('#priceBtn').css('display','flex');
+      $('#global-agree').css('display','none');
     }else{
-      $('#priceBtn').css('display','none')
+      $('#priceBtn').css('display','none');
+      $('#global-agree').css('display','flex');
+      $("#option-list").css('display','none');
+
     }
   
   }
 
+    // 인증 결과를 받는 함수
+    function receiveAuthResult(result) {
+        // 여기서 인증 결과를 처리합니다
+        // console.log('인증 결과:', result);
+        if(result.success) {
+            // 성공 처리
+            alert('인증이 완료되었습니다.');
+            $('#priceBtn').css('display','flex');
+            $('#global-agree').css('display','none');
+            $("#agecheck").attr('disabled',true);
+            
+        mobileno = result.data.mobileno;
+       
+        } else {
+            // 실패 처리
+            alert('인증에 실패했습니다: ' + result.message);
+        }
+    }
+ 
+
+
+  $("#global-agree").on("click", function(){
+    fnPopup();
+  
+    window.name ="Parent_window";
+	
+	 
+    function fnPopup(){
+        window.open('', 'popupChk', 'width=500, height=550, top=100, left=100, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=yes, location=no, scrollbar=no');
+        document.form_chk.action = "https://nice.checkplus.co.kr/CheckPlusSafeModel/checkplus.cb";
+        document.form_chk.target = "popupChk";
+        document.form_chk.submit();
+    }
+    
+  
+  })
+  
+
+
+   
 
   function toogleProductBoard(bool) {
     if (bool !== undefined && typeof bool === 'boolean') {
@@ -440,6 +502,10 @@ include '../_include/_top.html';
     if (Array.isArray(companions) && companions.length > 0) {
       companions.forEach((c, i) => {
         const p = __.calculatePriceByPerson(c);
+        // console.log("---------------");
+        // console.log("p :: ",p);
+        // console.log("---------------");
+        
         setPriceIntoCompanionList(p.totalPrice, i);
         c.price = p.totalPrice;
         c.sPrice = p.sPrice;
@@ -447,6 +513,7 @@ include '../_include/_top.html';
         totalPrice += p.totalPrice;
       });
     }
+    // console.log("totalPrice :: ",totalPrice)
     if (__.customer) {
       __.customer.totalPrice = totalPrice;
       setPriceIntoTotal(totalPrice);
@@ -634,6 +701,8 @@ include '../_include/_top.html';
         html.push(
           `        <input type="checkbox" value="${item.service_group_name}" id="service-0${orderNumber}" checked />`
         );
+
+        //20250827 주석
         html.push(`        <label for="service-0${orderNumber++}">선택</label>`);
         html.push(`      </div>`);
         html.push(`    </div>`);
@@ -665,7 +734,7 @@ include '../_include/_top.html';
     html.push(`    </ul>`);
     html.push(`  </div>`);
     html.push(`</div>`);
-
+ 
     if (Array.isArray(optionServices) && optionServices.length > 0) {
       // 건강검진, 긴급이후송 서비스 항목
       const arrLength = optionServices.length;
@@ -699,6 +768,7 @@ include '../_include/_top.html';
           html.push(`    <div class="check-box">`);
           html.push(`      <div class="check-box-inner type02">`);
           html.push(`        <input type="checkbox" value="${groupName}" id="service-0${orderNumber}" checked>`);
+          //20250827 주석 
           html.push(`        <label for="service-0${orderNumber++}">추가</label>`);
           html.push(`      </div>`);
           html.push(`    </div>`);
@@ -765,7 +835,7 @@ include '../_include/_top.html';
           buff.push(`    <div class="check-box">`);
           //20240618 이벤트 기간중 보장내역 선택 불가능 처리
           // if (checkEventDate()) {
-          buff.push(`      <div class="check-box-inner type01 unclickable">`);
+          buff.push(`      <div class="check-box-inner type01 unclickable ">`);
           html.push(`  <style>.unclickable {pointer-events: none;}</style>`);
           // } else {
           // buff.push(`      <div class="check-box-inner type01">`);
@@ -1233,12 +1303,21 @@ include '../_include/_top.html';
   function serviceCheckBoxEventListener(event) {
     // 이벤트 객체를 new로 생성하여 호출한 경우 target 객체가 null 이기때문에 지정 함
     const element = event?.currentTarget ?? document.querySelector('input[type=checkbox][id^=service-0]');
-
+  
     if (element.checked && (element.id === 'service-02' || element.id === 'service-03')) {
       document.getElementById('service-01').checked = true;
-    } else if (!element.checked && element.id === 'service-01') {
+    }else if(element.checked && element.id === 'service-01'){
+      document.getElementById('service-02').checked = true;
+      document.getElementById('service-03') ? (document.getElementById('service-03').checked = true) : '';
+    }
+    
+    else if (!element.checked && element.id === 'service-01') {
+         
       document.getElementById('service-02').checked = false;
       document.getElementById('service-03') ? (document.getElementById('service-03').checked = false) : '';
+    }else if(!element.checked && element.id !== 'service-01'){
+      document.getElementById('service-01').checked = false;
+
     }
 
     checkOptionCheckbox();
@@ -1299,11 +1378,11 @@ include '../_include/_top.html';
   function onClickEventListenerForCalculateButton(event) {
 
     // 20250722 추가
-    const over14Element = document.querySelector('#A-over14');
-    if (document.querySelector('#A-over14').value && !over14Element.checked) {
-      alert(over14Element.getAttribute('placeholder'));
-      return false;
-    }
+    // const over14Element = document.querySelector('#A-over14');
+    // if (document.querySelector('#A-over14').value && !over14Element.checked) {
+    //   alert(over14Element.getAttribute('placeholder'));
+    //   return false;
+    // }
 
 
     toogleProductBoard(false);
@@ -1369,8 +1448,24 @@ include '../_include/_top.html';
       }
     }
 
+
+    
+
     __.cleaning();
+
+    if($("#agecheck").val()=="2"){
+      if(mobileno==""){
+        alert('연락처를 인증해주세요.');
+        return;
+      }
+      __.mobileno = mobileno;
+    }
+
+
+
     __.save();
+    
+    // console.log(__);
     location.href = nextPage;
   }
 

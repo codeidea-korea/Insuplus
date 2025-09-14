@@ -15,7 +15,10 @@ $functionParam = [
   "keyword"=>$keyword
 ];
  
-
+if($api == 'getAge'){
+//   print_r($functionParam);
+//  echo 'categories(0) : '.var_dump($functionParam);
+}
 // print_r($functionParam);
 //  echo 'categories(0) : '.var_dump($functionParam);
 $rows = getPlanInfo_new($functionParam);

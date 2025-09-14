@@ -155,7 +155,7 @@ body {
 		}
 
 		if (!ff.pass.value) {
-			alert("[비밀번호]를 입력해주세요.");
+			alert("[비밀번호]를 입력해주세요."); 
 			ff.pass.focus();
 			return false;
 		}
@@ -171,11 +171,11 @@ body {
 <body style="background-color:#FFFFFF;">
 
 <?php
-echo '<pre>';
-echo "REMOTE_ADDR : ".$_SERVER['REMOTE_ADDR']."\n";
-echo "HTTP_CLIENT_IP : ".$_SERVER['HTTP_CLIENT_IP']."\n";
-echo "HTTP_X_FORWARDED_FOR : ".$_SERVER['HTTP_X_FORWARDED_FOR']."\n";
-echo '</pre>';
+// echo '<pre>';
+// echo "REMOTE_ADDR : ".$_SERVER['REMOTE_ADDR']."\n";
+// echo "HTTP_CLIENT_IP : ".$_SERVER['HTTP_CLIENT_IP']."\n";
+// echo "HTTP_X_FORWARDED_FOR : ".$_SERVER['HTTP_X_FORWARDED_FOR']."\n";
+// echo '</pre>';
 ?>
 
 <div class="loginWrap">
