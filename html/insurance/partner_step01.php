@@ -1,5 +1,7 @@
 <?php
 include '../_include/_header_partner.html';
+
+require_once '../_nice/checkplus_main.php';
 ?>
 <div id="loading-indicator" style="width:100vw; height:100vh; background-color: #fff; position: fixed; top: 0; left: 0; z-index: 1000; background-image: url('/html/images/loading_indicator.svg'); background-size: 100px; background-position: center; background-repeat: no-repeat;"></div>
 <section>
@@ -181,7 +183,7 @@ include '../_include/_header_partner.html';
             </div>
           </div>
         </div>
-        <div class="form-box">
+        <!-- <div class="form-box">
           <div class="form-content">
            <div class="check-box">
                 <div class="check-box-inner">
@@ -194,14 +196,45 @@ include '../_include/_header_partner.html';
                   />
                   <label for="A-over14">본인은 만 14세 이상입니다.(14세 미만의 경우 법정 대리인만 조회 가능합니다)</label>
                 </div>
-                <!-- <a href="javascript:;" onclick="popupOpen('more');" class="more">자세히 보기</a> -->
+                <a href="javascript:;" onclick="popupOpen('more');" class="more">자세히 보기</a>
               </div>
+          </div>
+        </div> -->
+    <div class="form-box" id="ageBox">
+          <div class="form-title">
+            <strong>가입자 및 동반자 연령 확인<br/>(가입자 또는 동반자가 만 14세 미만인 경우 법정 대리인 동의 필수)</strong>
+          </div>
+          <div class="form-content">
+            <div class="flex flex-vc " style="gap: 10px;">
+              <div class="col-6 pr8 pr-lg-4">
+                <div class="select-box">
+                  <div class="select-box-inner">
+                    <select name="agecheck" id="agecheck" onchange="ageCheck(this)">
+                      <option value="0">연령 확인</option>
+                      <option value="1">가입자와 동반자 모두 만 14세 이상</option>
+                      <option value="2">가입자 또는 동반자가 만 14세 미만</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+             
+            </div>
+        
+          </div>
+         
+        </div>
+
+        <div class="form-box">
+          <div class="form-content">
+            <div class="button-box">
+              <button type="button" class="btn" style="background-color: rgb(107 136 188); color: #fff; display: none;" id="global-agree">법정대리인 동의</button>
+            </div>
           </div>
         </div>
         <div class="form-box">
           <div class="form-content">
             <div class="button-box">
-              <button type="button" class="btn btn-active calculate">가격 조회</button>
+              <button type="button" class="btn btn-active calculate" id="priceBtn" style="display: none;">가격 조회</button>
             </div>
           </div>
         </div>
@@ -274,10 +307,66 @@ include '../_include/_header_partner.html';
   <div class="dim-bg" style="display: none; opacity: 0"></div>
   <div class="layer-container" style="display: none; opacity: 0" data-layer="layer01"></div>
   <!-- // 0830 팝업 추가 -->
+     <form name="form_chk" method="post" style="display: none;">
+		<input type="hidden" name="m" value="checkplusService">				<!-- 필수 데이타로, 누락하시면 안됩니다. -->
+		<input type="hidden" name="EncodeData" value="<?= $enc_data ?>">		<!-- 위에서 업체정보를 암호화 한 데이타입니다. -->
+	</form>
 </section>
 
 <script src="./js/swiper.js?a=1"></script>
 <script>
+  let mobileno = '';
+
+  const ageCheck = (item)=>{
+    let value = $(item).val()
+
+    if(value == "1"){
+      $('#priceBtn').css('display','flex');
+      $('#global-agree').css('display','none');
+    }else{
+      $('#priceBtn').css('display','none');
+      $('#global-agree').css('display','flex');
+      $("#option-list").css('display','none');
+
+    }
+  }
+
+    function receiveAuthResult(result) {
+        // 여기서 인증 결과를 처리합니다
+        // console.log('인증 결과:', result);
+        if(result.success) {
+            // 성공 처리
+            alert('인증이 완료되었습니다.');
+            $('#priceBtn').css('display','flex');
+            $('#global-agree').css('display','none');
+            $("#agecheck").attr('disabled',true);
+            
+        mobileno = result.data.mobileno;
+       
+        } else {
+            // 실패 처리
+            alert('인증에 실패했습니다: ' + result.message);
+        }
+    }
+
+      $("#global-agree").on("click", function(){
+    fnPopup();
+  
+    window.name ="Parent_window";
+	
+	 
+    function fnPopup(){
+        window.open('', 'popupChk', 'width=500, height=550, top=100, left=100, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=yes, location=no, scrollbar=no');
+        document.form_chk.action = "https://nice.checkplus.co.kr/CheckPlusSafeModel/checkplus.cb";
+        document.form_chk.target = "popupChk";
+        document.form_chk.submit();
+    }
+    
+  
+  })
+  
+
+
   function toogleProductBoard(bool) {
     if (bool !== undefined && typeof bool === 'boolean') {
       EHDObject.isOpenProductBoard = bool;
@@ -1453,14 +1542,14 @@ let temp_title = '';
   // 가격조회 버튼 클릭 이벤트 핸들러
   function onClickEventListenerForCalculateButton(event) {
     // 20250722 추가
-    const over14Element = document.querySelector('#A-over14');
-    if (document.querySelector('#A-over14').value && !over14Element.checked) {
-      alert(over14Element.getAttribute('placeholder'));
-      return false;
-    }
+    // const over14Element = document.querySelector('#A-over14');
+    // if (document.querySelector('#A-over14').value && !over14Element.checked) {
+    //   alert(over14Element.getAttribute('placeholder'));
+    //   return false;
+    // }
 
     toogleProductBoard(false);
-
+ 
     if (!checkValidation()) {
       return false;
     }
@@ -1522,8 +1611,16 @@ let temp_title = '';
     //     return;
     //   }
     // }
-
+ 
     __.cleaning();
+
+     if($("#agecheck").val()=="2"){
+      if(mobileno==""){
+        alert('연락처를 인증해주세요.');
+        return;
+      }
+      __.mobileno = mobileno;
+    }
     __.save();
     location.href = nextPage;
   }
@@ -1765,7 +1862,7 @@ let temp_title = '';
 
   (      
     function checkPartnership() {
-      const partner_type = '<?= $PARTNER_TYPE?>';
+      const partner_type = '<?= $PARTNER_TYPE ?>';
       if(partner_type.length < 0 || partner_type === 'undefined') {
         alert('올바른 경로가 아닙니다.');
         location.href = './renewal_step00.php';

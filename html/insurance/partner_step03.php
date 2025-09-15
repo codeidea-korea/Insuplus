@@ -564,7 +564,11 @@ box.siblings().hide();
 }
 
       window.addEventListener('load', () => {
-
+        if(EHDObject.mobileno ){
+        
+        document.getElementById('A-cellphone').value = EHDObject.mobileno;
+        document.getElementById('A-cellphone').readOnly = true;
+      }
 
          // 20250722 추가
          EHDObject.getPlanInfo({ api: EHDObject.GET_NOTICE, pr_cd: EHDObject.selectedPlan.pr_cd }, () => {
