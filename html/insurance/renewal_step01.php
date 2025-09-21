@@ -24,7 +24,7 @@ require_once '../_nice/checkplus_main.php';
           </div>
         </div>
         <div class="form-box" id="whichStayIn" style="display: none">
-          <div class="form-title">
+          <div class="form-title"> 
             <strong>현재 체류중이신 국가를 선택해 주세요</strong>
           </div>
           <div class="form-content">
@@ -757,6 +757,8 @@ require_once '../_nice/checkplus_main.php';
           } else if (groupName === EHDObject.SERVICE_GROUP_NAME[2]) {
             message = '긴급한 경우 에어앰뷸런스로 이송해 드리며 이송비용 2억까지 보장해 드립니다.';
           }
+        //   console.log("groupName :: ",groupName);
+        //   console.log("EHDObject.SERVICE_GROUP_NAME[2] :: ",EHDObject.SERVICE_GROUP_NAME[2]);
 
           if (idx !== 0) {
             html.push(`    </ul>`);
@@ -764,7 +766,7 @@ require_once '../_nice/checkplus_main.php';
           }
 
           html.push(`  <div class="title-box flex flex-tj mt12">`);
-          html.push(`    <h3>${groupName}</h3>`);
+          html.push(`    <h3>${groupName === EHDObject.SERVICE_GROUP_NAME[2] ? '긴급이후송(자기부담금 20%)' : groupName}</h3>`);
           html.push(`    <div class="check-box">`);
           html.push(`      <div class="check-box-inner type02">`);
           html.push(`        <input type="checkbox" value="${groupName}" id="service-0${orderNumber}" checked>`);
@@ -797,13 +799,14 @@ require_once '../_nice/checkplus_main.php';
       //20250914 추가
       html.push(`<div class="title-box mt12">
 
-            <h4 class="mt5">• 본 서비스는 여행자보험의 중대사고 구조송환비용 담보와 연계되어 제공됩니다</h4>
+            <h4 class="mt5">• 본 서비스는 여행자보험의 중대사고 구조송환비용 담보와 연계되어 제공됩니다.</h4>
             <h4 class="mt5">• 여행자보험의 담보 조건을 충족하지 않는 경우: "회사"가 긴급이후송 서비스를 제공하며,<br/>
             &nbsp;&nbsp;&nbsp;서비스 가입금액 내에서 발생한 비용의 20%를 가입자가 부담합니다. (가입자부담금 = 총발생비용 × 20%)</h4>
             <h4 class="mt5">• 여행자보험의 담보 조건을 충족하는 경우: "회사"가 긴급이후송 서비스를 제공하고,<br/>
-            &nbsp;&nbsp;&nbsp;가입자는 해외여행 중 중대사고 구조송환비용 담보로 받은 보험금과 보험금을 초과하는 비용의 20%를 자기부담금으로 부담합니다.<br/>
+            &nbsp;&nbsp;&nbsp;가입자는 해외여행 중 중대사고 구조송환비용 담보로 받은 보험금과<br/>
+            &nbsp;&nbsp;&nbsp;보험금을 초과하는 비용의 20%를 자기부담금으로 부담합니다.<br/>
            &nbsp;&nbsp;&nbsp;(가입자부담금=보험금+(총발생비용-보험금)의 20%)</h4>
-            <h4 class="mt5">• 서비스 가입금액은 해외여행중 중대사고 구조송환비용 가입담보금액을 보험하여 최대 2억원입니다.<br/>
+            <h4 class="mt5">• 서비스 가입금액은 해외여행중 중대사고 구조송환비용 가입 담보금액을 보험하여 최대 2억원입니다.<br/>
            &nbsp;&nbsp;&nbsp;※ 자세한 내용은 서비스 약관을 확인해주세요</h4>
       
       </div>`);
@@ -1319,9 +1322,9 @@ require_once '../_nice/checkplus_main.php';
     // 이벤트 객체를 new로 생성하여 호출한 경우 target 객체가 null 이기때문에 지정 함
     const element = event?.currentTarget ?? document.querySelector('input[type=checkbox][id^=service-0]');
   
-    if (element.checked && (element.id === 'service-02' || element.id === 'service-03')) {
+  /*  if (element.checked && (element.id === 'service-02' || element.id === 'service-03')) {
       document.getElementById('service-01').checked = true;
-    }else if(element.checked && element.id === 'service-01'){
+    }else if(element.checked && element.id === 'service-01'){ 
       document.getElementById('service-02').checked = true;
       document.getElementById('service-03') ? (document.getElementById('service-03').checked = true) : '';
     }
@@ -1333,6 +1336,13 @@ require_once '../_nice/checkplus_main.php';
     }else if(!element.checked && element.id !== 'service-01'){
       document.getElementById('service-01').checked = false;
 
+    }*/
+
+    if (element.checked && (element.id === 'service-02' || element.id === 'service-03')) {
+      document.getElementById('service-01').checked = true;
+    } else if (!element.checked && element.id === 'service-01') {
+      document.getElementById('service-02').checked = false;
+      document.getElementById('service-03') ? (document.getElementById('service-03').checked = false) : '';
     }
 
     checkOptionCheckbox();

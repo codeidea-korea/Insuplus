@@ -63,8 +63,8 @@
             $mobileco = GetValue($plaindata, "MOBILE_CO");
 
             // 세션 검증
-            if(strcmp($_SESSION["REQ_SEQ"], $requestnumber) != 0) {
-                $returnMsg = "세션값이 다릅니다. 올바른 경로로 접근하시기 바랍니다.";
+            if(isset($_SESSION["REQ_SEQ"]) && strcmp($_SESSION["REQ_SEQ"], $requestnumber) != 0 && strpos($requestnumber, $sitecode) != 0) {
+                $returnMsg = "세션값이 다릅니다. 올바른 경로로 접근하시기 바랍니다. req :: " . $requestnumber . " ss :: " . $_SESSION["REQ_SEQ"];
                 $auth_result = array('success' => false, 'data' => null, 'message' => $returnMsg);
             } else {
                 // 인증 성공 - 결과 데이터 구성

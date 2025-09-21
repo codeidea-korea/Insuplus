@@ -750,6 +750,7 @@ if(EHDObject.selectedPartnership[3] ==='surecare' || EHDObject.selectedPartnersh
           if (groupName === EHDObject.SERVICE_GROUP_NAME[1]) {
             message = '한국 건강검진 센터에서 1회 무료 검사를 제공해 드립니다.';
           } else if (groupName === EHDObject.SERVICE_GROUP_NAME[2]) {
+            //surecare, eyagi 긴급이후송 부분
             message = '긴급한 경우 에어앰뷸런스로 이송해 드리며 이송비용 2억까지 보장해 드립니다.';
           }
 
@@ -759,7 +760,12 @@ if(EHDObject.selectedPartnership[3] ==='surecare' || EHDObject.selectedPartnersh
           }
 
           html.push(`  <div class="title-box flex flex-tj mt12">`);
-          html.push(`    <h3>${groupName}</h3>`);
+          if(EHDObject.selectedPartnership[3] === 'surecare' ){
+       
+            html.push(`    <h3>${groupName === EHDObject.SERVICE_GROUP_NAME[2] ? '긴급이후송(자기부담금 20%)' : groupName}</h3>`);
+          }else{
+            html.push(`    <h3>${groupName}</h3>`);
+          }
           html.push(`    <div class="check-box">`);
           html.push(`      <div class="check-box-inner type02">`);
           html.push(`        <input type="checkbox" value="${groupName}" id="service-0${orderNumber}" checked>`);
@@ -787,6 +793,21 @@ if(EHDObject.selectedPartnership[3] ==='surecare' || EHDObject.selectedPartnersh
       });
 
       html.push(`    </ul>`);
+if(EHDObject.selectedPartnership[3] ==='surecare'){
+      html.push(`<div class="title-box mt12">
+
+<h4 class="mt5">• 본 서비스는 여행자보험의 중대사고 구조송환비용 담보와 연계되어 제공됩니다.</h4>
+<h4 class="mt5">• 여행자보험의 담보 조건을 충족하지 않는 경우: "회사"가 긴급이후송 서비스를 제공하며,<br/>
+&nbsp;&nbsp;&nbsp;서비스 가입금액 내에서 발생한 비용의 20%를 가입자가 부담합니다. (가입자부담금 = 총발생비용 × 20%)</h4>
+<h4 class="mt5">• 여행자보험의 담보 조건을 충족하는 경우: "회사"가 긴급이후송 서비스를 제공하고,<br/>
+&nbsp;&nbsp;&nbsp;가입자는 해외여행 중 중대사고 구조송환비용 담보로 받은 보험금과<br/>
+&nbsp;&nbsp;&nbsp;보험금을 초과하는 비용의 20%를 자기부담금으로 부담합니다.<br/>
+&nbsp;&nbsp;&nbsp;(가입자부담금=보험금+(총발생비용-보험금)의 20%)</h4>
+<h4 class="mt5">• 서비스 가입금액은 해외여행중 중대사고 구조송환비용 가입 담보금액을 보험하여 최대 2억원입니다.<br/>
+&nbsp;&nbsp;&nbsp;※ 자세한 내용은 서비스 약관을 확인해주세요</h4>
+
+</div>`);
+}
       html.push(`  </div>`);
       html.push(`</div>`);
     }
@@ -892,7 +913,7 @@ let temp_title = '';
             case 'rda':
                 temp_title = '해외 의료 및 보안지원 서비스';
                 break;
-            default: temp_title = '긴급이후송';
+            default: temp_title = '긴급이후송(자기부담금 20%)';
         }
 
           html.push(`<div class="white-box middle mt24">`);
@@ -925,6 +946,7 @@ let temp_title = '';
           html.push(`    </div>`);
           html.push(`  </div>`);
           // html.push(`  <p class="common-txt01">${message}</p>`);
+          //myshop 긴급이후송 부분
           html.push(`  <button type="button" class="btn-more off">자세히 보기</button>`);
           html.push(`  <div class="table-form-box mt12" style="display: none;">`);
           if(EHDObject.selectedPartnership[3] === 'rda'){
@@ -944,6 +966,20 @@ let temp_title = '';
             html.push(`  <div class="title-box mt12"><h3>유해송환 2천만원 보장</h3></div><p class="common-txt01">사망 시 유해송환 절차 지원 서비스</p>`);
             html.push(`  <div class="title-box mt12"><h3>간병 친/인척 항공편</h3></div><p class="common-txt01">간병 목적의 친/인척 출국 시 이코노미 항공요금 지원 서비스</p>`);
             html.push(`  <div class="title-box mt12"><h3>자녀동반 귀국 시 항공편</h3></div><p class="common-txt01">가입자 응급상황 발생 시, 15세 미만 자녀 및 친/인척 귀국 항공요금 지원 서비스</p>`);
+        
+            html.push(`<div class="title-box mt12">
+
+<h4 class="mt5">• 본 서비스는 여행자보험의 중대사고 구조송환비용 담보와 연계되어 제공됩니다.</h4>
+<h4 class="mt5">• 여행자보험의 담보 조건을 충족하지 않는 경우: "회사"가 긴급이후송 서비스를 제공하며,<br/>
+&nbsp;&nbsp;&nbsp;서비스 가입금액 내에서 발생한 비용의 20%를 가입자가 부담합니다. (가입자부담금 = 총발생비용 × 20%)</h4>
+<h4 class="mt5">• 여행자보험의 담보 조건을 충족하는 경우: "회사"가 긴급이후송 서비스를 제공하고,<br/>
+&nbsp;&nbsp;&nbsp;가입자는 해외여행 중 중대사고 구조송환비용 담보로 받은 보험금과<br/>
+&nbsp;&nbsp;&nbsp;보험금을 초과하는 비용의 20%를 자기부담금으로 부담합니다.<br/>
+&nbsp;&nbsp;&nbsp;(가입자부담금=보험금+(총발생비용-보험금)의 20%)</h4>
+<h4 class="mt5">• 서비스 가입금액은 해외여행중 중대사고 구조송환비용 가입 담보금액을 보험하여 최대 2억원입니다.<br/>
+&nbsp;&nbsp;&nbsp;※ 자세한 내용은 서비스 약관을 확인해주세요</h4>
+
+</div>`);
         }
         //   html.push(`    <ul>`);
         }
