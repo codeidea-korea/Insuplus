@@ -34,9 +34,14 @@ if(isset($_GET['download']) && $_GET['download'] == 'true') {
             $where = " AND A.writedate >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR) ";
             $title = "최근 1년 주문 내역";
             break;
+        case 'all':
+            $where = " ";
+            $title = "전체 주문 내역";
+            break;
         default:
             $where = " AND A.writedate >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH) ";
             $title = "최근 1개월 주문 내역";
+
     }
 
     // 필드 정의 - 원본 코드의 필드 유지
@@ -235,6 +240,7 @@ if(isset($_GET['download']) && $_GET['download'] == 'true') {
                 <option value="3months">최근 3개월</option> 
                 <option value="6months">최근6개월</option>
                 <option value="1year">1년</option>
+                <option value="all">전체</option>
             </select>
             
             <button id="downloadBtn">csv 다운로드</button>

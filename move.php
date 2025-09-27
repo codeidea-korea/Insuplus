@@ -23,6 +23,9 @@ if(!empty($moveEvent)) {
     case "eyagi":
         header( "Location: /html/insurance/partner_step01.php?alliance_code=T2d6WjE2OG94QnhUQXRkYnRRRlpuUT09" );
         break;
+    case "lttravel":
+        header( "Location: /html/insurance/partner_step01.php?alliance_code=MmdLSFc3U0Q5WGtLUWpnTzAwQURmUT09" );
+        break;
     default:
     header( "Location: /html/main/" );
       break;
