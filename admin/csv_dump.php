@@ -12,7 +12,7 @@ ini_set('memory_limit', '512M');
 if(isset($_GET['download']) && $_GET['download'] == 'true') {
     $period = isset($_GET['period']) ? $_GET['period'] : null;
     $s_date = isset($_GET['s_date']) ? $_GET['s_date'] : null;
-
+    $e_date = isset($_GET['e_date']) ? $_GET['e_date'] : null;
     if($period){
    
         // 기간에 따른 WHERE 조건 설정
@@ -56,6 +56,12 @@ if(isset($_GET['download']) && $_GET['download'] == 'true') {
         $where .= " AND A.s_date >= '$s_date' ";
         $title .= " $s_date 이후 가입자 내역";
         $orderby = " A.s_date ASC ";
+    }
+
+    if($e_date){
+        $where .= " AND A.e_date >= '$e_date' ";
+        $title .= " 종료일 $e_date 이후 가입자 내역";
+        $orderby = " A.e_date ASC ";
     }
 
     // 필드 정의 - 원본 코드의 필드 유지
@@ -267,6 +273,14 @@ if(isset($_GET['download']) && $_GET['download'] == 'true') {
 
             <button id="downloadBtn2">csv 다운로드</button>
         </div>
+
+        <br/>
+        <div class="form-container">
+            <label for="e_date">종료일 기간 선택</label> 
+          <input type="date" id="e_date" name="e_date"> 이후
+
+            <button id="downloadBtn3">csv 다운로드</button>
+        </div>
         
         <script>
         $(document).ready(function() {
@@ -278,6 +292,10 @@ if(isset($_GET['download']) && $_GET['download'] == 'true') {
             $('#downloadBtn2').click(function() {
                 var s_date = $('#s_date').val();
                 window.location.href = 'csv_dump.php?download=true&s_date=' + s_date;
+            });
+            $('#downloadBtn3').click(function() {
+                var e_date = $('#e_date').val();
+                window.location.href = 'csv_dump.php?download=true&e_date=' + e_date;
             });
         });
         </script>
