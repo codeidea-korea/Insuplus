@@ -1,6 +1,6 @@
 <?php
-include_once $_SERVER["DOCUMENT_ROOT"] . "/_config/lib.php";
-admin_chk($auth_admin, $url_admin_login_out); // 관리자 체크
+include_once $_SERVER['DOCUMENT_ROOT'] . '/_config/lib.php';
+admin_chk($auth_admin, $url_admin_login_out);  // 관리자 체크
 
 // 스크립트 실행 시간 제한 제거 (무제한으로 설정)
 set_time_limit(0);
@@ -9,136 +9,136 @@ set_time_limit(0);
 ini_set('memory_limit', '512M');
 
 // 다운로드 요청이 있는 경우에만 CSV 생성 및 다운로드 처리
-if(isset($_GET['download']) && $_GET['download'] == 'true') {
+if (isset($_GET['download']) && $_GET['download'] == 'true') {
     $period = isset($_GET['period']) ? $_GET['period'] : null;
     $s_date = isset($_GET['s_date']) ? $_GET['s_date'] : null;
     $e_date = isset($_GET['e_date']) ? $_GET['e_date'] : null;
-    if($period){
-   
+    $complete_chk = isset($_GET['complete_chk']) ? $_GET['complete_chk'] : null;
+    if ($period) {
         // 기간에 따른 WHERE 조건 설정
-        switch($period) {
-            
+        switch ($period) {
             case '1week':
-                $where = " AND A.writedate >= DATE_SUB(CURDATE(), INTERVAL 1 WEEK) ";
-                $title = "최근 1주일 주문 내역";
+                $where = ' AND A.writedate >= DATE_SUB(CURDATE(), INTERVAL 1 WEEK) ';
+                $title = '최근 1주일 주문 내역';
                 break;
             case '1month':
-                $where = " AND A.writedate >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH) ";
-                $title = "최근 1개월 주문 내역";
+                $where = ' AND A.writedate >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH) ';
+                $title = '최근 1개월 주문 내역';
                 break;
             case '3months':
-                $where = " AND A.writedate >= DATE_SUB(CURDATE(), INTERVAL 3 MONTH) ";
-                $title = "최근 3개월 주문 내역";
+                $where = ' AND A.writedate >= DATE_SUB(CURDATE(), INTERVAL 3 MONTH) ';
+                $title = '최근 3개월 주문 내역';
                 break;
             case '6months':
-                $where = " AND A.writedate >= DATE_SUB(CURDATE(), INTERVAL 6 MONTH) ";
-                $title = "최근 6개월 주문 내역";
+                $where = ' AND A.writedate >= DATE_SUB(CURDATE(), INTERVAL 6 MONTH) ';
+                $title = '최근 6개월 주문 내역';
                 break;
             case '1year':
-                $where = " AND A.writedate >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR) ";
-                $title = "최근 1년 주문 내역";
+                $where = ' AND A.writedate >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR) ';
+                $title = '최근 1년 주문 내역';
                 break;
             case 'all':
-                $where = " ";
-                $title = "전체 주문 내역";
+                $where = ' ';
+                $title = '전체 주문 내역';
                 break;
             default:
-                $where = " AND A.writedate >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH) ";
-                $title = "최근 1개월 주문 내역";
-
+                $where = ' AND A.writedate >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH) ';
+                $title = '최근 1개월 주문 내역';
         }
 
-        $orderby = " A.writedate DESC ";
-
+        $orderby = ' A.writedate DESC ';
     }
 
-    if($s_date){
+    if ($s_date) {
         $where .= " AND A.s_date >= '$s_date' ";
         $title .= " $s_date 이후 가입자 내역";
-        $orderby = " A.s_date ASC ";
+        $orderby = ' A.s_date ASC ';
     }
 
-    if($e_date){
+    if ($e_date) {
         $where .= " AND A.e_date >= '$e_date' ";
         $title .= " 종료일 $e_date 이후 가입자 내역";
-        $orderby = " A.e_date ASC ";
+        $orderby = ' A.e_date ASC ';
     }
-
+    if ($complete_chk) {
+        $where .= " AND B.join_status = 'Y' ";
+    }
+    // die($where);
     // 필드 정의 - 원본 코드의 필드 유지
-    $field = "B.seq as join_seq, A.*, B.*, C.partnership_name as partnership_name, D.guarantee1_ins_seq ";
-    $table = " tbl_order_list A inner join tbl_order_list_join B on A.orderno=B.orderno left join tbl_board_partner C ON A.join_ch = C.seq left join tbl_board_plan D on A.plan_cd = D.seq ";
-   
-   
+    $field = 'B.seq as join_seq, A.*, B.*, C.partnership_name as partnership_name, D.guarantee1_ins_seq ';
+    $table = ' tbl_order_list A inner join tbl_order_list_join B on A.orderno=B.orderno left join tbl_board_partner C ON A.join_ch = C.seq left join tbl_board_plan D on A.plan_cd = D.seq ';
+
     // 파일명 설정
     $filename = $title . '_' . date('Ymd') . '.csv';
-    
+
     // 파일 다운로드 헤더 설정
     header('Content-Type: text/csv; charset=utf-8');
     header('Content-Disposition: attachment; filename="' . $filename . '"');
     header('Pragma: no-cache');
     header('Cache-Control: no-store, no-cache, must-revalidate');
-    
+
     // 출력 버퍼 끄기
-    if (ob_get_level()) ob_end_clean();
-    
+    if (ob_get_level())
+        ob_end_clean();
+
     // 출력 버퍼링 끄기
     ob_implicit_flush(true);
-    
+
     // PHP 출력 스트림 생성
     $output = fopen('php://output', 'w');
-    
+
     // UTF-8 BOM 추가 (Excel에서 한글을 제대로 읽기 위함)
-    fprintf($output, chr(0xEF).chr(0xBB).chr(0xBF));
-    
+    fprintf($output, chr(0xEF) . chr(0xBB) . chr(0xBF));
+
     // 파일 제목 첫 줄
     // fputcsv($output, [$title]);
-    
-    // 열 헤더 작성 
+
+    // 열 헤더 작성
     // $headers = [
     //     'ENC',
-    //     '상품명', '보험사', '플랜명', '게시일', '종료일', '보험기간', 
+    //     '상품명', '보험사', '플랜명', '게시일', '종료일', '보험기간',
     //     '이름', '연락처', '가입채널', '가입상태', '상품가', '가입일'
     // ];
     $headers = [
-        'ENC', '이름','주민번호', '연락처','여행국가','이메일', '가입채널', '가입상태', '상품가', '가입일', '상품명', '보험사', '플랜명', '게시일', '종료일', '보험기간' 
+        'ENC', '이름', '주민번호', '연락처', '여행국가', '이메일', '가입채널', '가입상태', '상품가', '가입일', '상품명', '보험사', '플랜명', '게시일', '종료일', '보험기간'
     ];
 
     // 'ENC, 이름, 주민등록번호, 연락처, 여행국가, 이메일, 가입채널, 가입상태, 상품가, 가입일, 상품명, 보험사, 플랜명, 게시일, 종료일, 보험기간' 순서로 출력
-   
+
     fputcsv($output, $headers);
-    
+
     // 청크 처리 설정
-    $chunk_size = 1000; // 한 번에 가져올 레코드 수
-    $processed = 0;     // 처리된 레코드 수
-    
+    $chunk_size = 1000;  // 한 번에 가져올 레코드 수
+    $processed = 0;  // 처리된 레코드 수
+
     // 전체 데이터를 처리할 때까지 반복
     while (true) {
         // LIMIT 절 설정
         $limit = " LIMIT $processed, $chunk_size ";
-        
+
         // 현재 청크의 데이터 가져오기
         $query = "SELECT $field FROM $table WHERE 1=1 $where ORDER BY $orderby $limit";
-      
+
         $result = $dbcon->query($query);
-        
+
         // 가져온 레코드가 없으면 종료
         if (!$result || $dbcon->num_rows($result) == 0) {
             break;
         }
-        
+
         // 현재 청크의 레코드 수
         $fetched_rows = 0;
-        
+
         // 데이터 행 작성
         while ($data = $dbcon->fetch_array($result)) {
             try {
                 $fetched_rows++;
-                
+
                 // 데이터가 배열인지 확인
                 if (!is_array($data)) {
                     continue;
                 }
-                
+
                 // 각 필드의 존재 여부를 확인하고 안전하게 접근
                 $seq = isset($data['join_seq']) ? $data['join_seq'] : '';
                 $pr_name = isset($data['pr_name']) ? $data['pr_name'] : '';
@@ -157,58 +157,54 @@ if(isset($_GET['download']) && $_GET['download'] == 'true') {
                 $join_service = isset($data['join_service']) ? $data['join_service'] : 0;
                 $regdate = isset($data['regdate']) ? $data['regdate'] : '';
 
-                //이메일 여행국가 주민번호 추가
+                // 이메일 여행국가 주민번호 추가
                 $email1 = isset($data['o_email1']) ? $data['o_email1'] : '';
                 $email2 = isset($data['o_email2']) ? $data['o_email2'] : '';
                 $join_nation_name = isset($data['join_nation_name']) ? $data['join_nation_name'] : '';
-                $isdn1 = isset($data['o_isdn1']) ? $data['o_isdn1'] : '';               
+                $isdn1 = isset($data['o_isdn1']) ? $data['o_isdn1'] : '';
                 $isdn2 = isset($data['o_isdn2']) ? $data['o_isdn2'] : '';
-                
+
                 // 보험기간 형식 조합
                 $insurance_period = '';
                 if (!empty($ins_period) && !empty($chk_p) && isset($arr_chk_p_gubun[$chk_p])) {
                     $insurance_period = $ins_period . ' ' . $arr_chk_p_gubun[$chk_p];
                 }
-                
+
                 // 사입상태 조회
                 $join_status_text = '';
                 if (!empty($join_status) && isset($arr_join_step[$join_status])) {
                     $join_status_text = $arr_join_step[$join_status];
                 }
-                
+
                 // 보험사 정보 조회
                 $insurance_company = '';
                 if (!empty($ins_seq) && function_exists('print_ins')) {
                     $insurance_company = print_ins($ins_seq);
                 }
-                
+
                 // 데이터 행 생성
                 $row = [
                     function_exists('all_seed_enc') ? urlencode(all_seed_enc($seq)) : $seq,
-                    function_exists('all_seed_dec') ? all_seed_dec($o_name) : $o_name, // 이름
-                    function_exists('all_seed_dec') ? all_seed_dec($isdn1) . '-' . all_seed_dec($isdn2) :'',//주민번호
-                    function_exists('all_seed_dec') ? all_seed_dec($o_phone) : $o_phone,//연락처
-                    $join_nation_name,//여행국가
-                    function_exists('all_seed_dec') ? all_seed_dec($email1) . '@' . all_seed_dec($email2) : '',//이메일
-                    $partnership_name,//가입채널
-                    $join_status_text,//가입상태
-                    number_format($join_amount + $join_service),//상품가
-                    substr($regdate, 0, 10),//가입얼
-                    $pr_name, //상품명
-                    $insurance_company, //보험사
-                    $plan_name,//플랜명
-                    $s_date,//게시일
-                    $e_date,//종료일
-                    $insurance_period,//보험기간
-                  
-           
-                
-                                  
+                    function_exists('all_seed_dec') ? all_seed_dec($o_name) : $o_name,  // 이름
+                    function_exists('all_seed_dec') ? all_seed_dec($isdn1) . '-' . all_seed_dec($isdn2) : '',  // 주민번호
+                    function_exists('all_seed_dec') ? all_seed_dec($o_phone) : $o_phone,  // 연락처
+                    $join_nation_name,  // 여행국가
+                    function_exists('all_seed_dec') ? all_seed_dec($email1) . '@' . all_seed_dec($email2) : '',  // 이메일
+                    $partnership_name,  // 가입채널
+                    $join_status_text,  // 가입상태
+                    number_format($join_amount + $join_service),  // 상품가
+                    substr($regdate, 0, 10),  // 가입얼
+                    $pr_name,  // 상품명
+                    $insurance_company,  // 보험사
+                    $plan_name,  // 플랜명
+                    $s_date,  // 게시일
+                    $e_date,  // 종료일
+                    $insurance_period,  // 보험기간
                 ];
-                
+
                 // CSV 행 작성
                 fputcsv($output, $row);
-                
+
                 // 메모리 정리
                 unset($row);
             } catch (Exception $e) {
@@ -216,28 +212,28 @@ if(isset($_GET['download']) && $_GET['download'] == 'true') {
                 continue;
             }
         }
-        
+
         // 처리된 레코드 수 업데이트
         $processed += $fetched_rows;
-        
+
         // 메모리 정리 - 직접 free_result 호출 대신 변수 해제
         // dbcon::free_result()가 없으므로 해당 라인 제거
         unset($result);
-        
+
         // 출력 버퍼 강제 플러시
         flush();
-        
+
         // 가져온 레코드가 청크 크기보다 작으면 모든 데이터 처리 완료
         if ($fetched_rows < $chunk_size) {
             break;
         }
-        
+
         // 가비지 컬렉션 강제 실행(선택적)
         if (function_exists('gc_collect_cycles')) {
             gc_collect_cycles();
         }
     }
-    
+
     // 파일 닫기
     fclose($output);
     exit;
@@ -281,21 +277,38 @@ if(isset($_GET['download']) && $_GET['download'] == 'true') {
 
             <button id="downloadBtn3">csv 다운로드</button>
         </div>
+
+        <div>
+
+        <input type="checkbox" id="complete_chk" name="complete_chk">가입 완료상태만 
+        </div>
         
         <script>
         $(document).ready(function() {
+            let addQueryString = ``;
+      
             // 다운로드 버튼 클릭 이벤트
             $('#downloadBtn').click(function() {
+                if($('#complete_chk').is(':checked')){
+                    addQueryString += '&complete_chk=true';
+                }
                 var selectedPeriod = $('#period').val();
-                window.location.href = 'csv_dump.php?download=true&period=' + selectedPeriod;
+                window.location.href = 'csv_dump.php?download=true&period=' + selectedPeriod + addQueryString;
             });
             $('#downloadBtn2').click(function() {
+                if($('#complete_chk').is(':checked')){
+                    addQueryString += '&complete_chk=true';
+                }
                 var s_date = $('#s_date').val();
-                window.location.href = 'csv_dump.php?download=true&s_date=' + s_date;
+                window.location.href = 'csv_dump.php?download=true&s_date=' + s_date + addQueryString;
             });
             $('#downloadBtn3').click(function() {
+
+                if($('#complete_chk').is(':checked')){
+                    addQueryString += '&complete_chk=true';
+                }
                 var e_date = $('#e_date').val();
-                window.location.href = 'csv_dump.php?download=true&e_date=' + e_date;
+                window.location.href = 'csv_dump.php?download=true&e_date=' + e_date + addQueryString;
             });
         });
         </script>
