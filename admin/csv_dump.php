@@ -10,45 +10,59 @@ ini_set('memory_limit', '512M');
 
 // 다운로드 요청이 있는 경우에만 CSV 생성 및 다운로드 처리
 if(isset($_GET['download']) && $_GET['download'] == 'true') {
-    $period = isset($_GET['period']) ? $_GET['period'] : '1month';
-    
-    // 기간에 따른 WHERE 조건 설정
-    switch($period) {
-        case '1week':
-            $where = " AND A.writedate >= DATE_SUB(CURDATE(), INTERVAL 1 WEEK) ";
-            $title = "최근 1주일 주문 내역";
-            break;
-        case '1month':
-            $where = " AND A.writedate >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH) ";
-            $title = "최근 1개월 주문 내역";
-            break;
-        case '3months':
-            $where = " AND A.writedate >= DATE_SUB(CURDATE(), INTERVAL 3 MONTH) ";
-            $title = "최근 3개월 주문 내역";
-            break;
-        case '6months':
-            $where = " AND A.writedate >= DATE_SUB(CURDATE(), INTERVAL 6 MONTH) ";
-            $title = "최근 6개월 주문 내역";
-            break;
-        case '1year':
-            $where = " AND A.writedate >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR) ";
-            $title = "최근 1년 주문 내역";
-            break;
-        case 'all':
-            $where = " ";
-            $title = "전체 주문 내역";
-            break;
-        default:
-            $where = " AND A.writedate >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH) ";
-            $title = "최근 1개월 주문 내역";
+    $period = isset($_GET['period']) ? $_GET['period'] : null;
+    $s_date = isset($_GET['s_date']) ? $_GET['s_date'] : null;
 
+    if($period){
+   
+        // 기간에 따른 WHERE 조건 설정
+        switch($period) {
+            
+            case '1week':
+                $where = " AND A.writedate >= DATE_SUB(CURDATE(), INTERVAL 1 WEEK) ";
+                $title = "최근 1주일 주문 내역";
+                break;
+            case '1month':
+                $where = " AND A.writedate >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH) ";
+                $title = "최근 1개월 주문 내역";
+                break;
+            case '3months':
+                $where = " AND A.writedate >= DATE_SUB(CURDATE(), INTERVAL 3 MONTH) ";
+                $title = "최근 3개월 주문 내역";
+                break;
+            case '6months':
+                $where = " AND A.writedate >= DATE_SUB(CURDATE(), INTERVAL 6 MONTH) ";
+                $title = "최근 6개월 주문 내역";
+                break;
+            case '1year':
+                $where = " AND A.writedate >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR) ";
+                $title = "최근 1년 주문 내역";
+                break;
+            case 'all':
+                $where = " ";
+                $title = "전체 주문 내역";
+                break;
+            default:
+                $where = " AND A.writedate >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH) ";
+                $title = "최근 1개월 주문 내역";
+
+        }
+
+        $orderby = " A.writedate DESC ";
+
+    }
+
+    if($s_date){
+        $where .= " AND A.s_date >= '$s_date' ";
+        $title .= " $s_date 이후 가입자 내역";
+        $orderby = " A.s_date ASC ";
     }
 
     // 필드 정의 - 원본 코드의 필드 유지
     $field = "B.seq as join_seq, A.*, B.*, C.partnership_name as partnership_name, D.guarantee1_ins_seq ";
     $table = " tbl_order_list A inner join tbl_order_list_join B on A.orderno=B.orderno left join tbl_board_partner C ON A.join_ch = C.seq left join tbl_board_plan D on A.plan_cd = D.seq ";
-    $orderby = " A.writedate DESC ";
-    
+   
+   
     // 파일명 설정
     $filename = $title . '_' . date('Ymd') . '.csv';
     
@@ -235,15 +249,23 @@ if(isset($_GET['download']) && $_GET['download'] == 'true') {
         <div class="form-container">
             <label for="period">기간 선택:</label> 
             <select id="period" name="period">
-                <option value="1week">최근 1주일</option>
-                <option value="1month">최근 1개월</option>
-                <option value="3months">최근 3개월</option> 
-                <option value="6months">최근6개월</option>
-                <option value="1year">1년</option>
-                <option value="all">전체</option>
+                <option value="">선택</option>
+                <option value="1week">최근 작성일 1주일</option>
+                <option value="1month">최근 작성일 1개월</option>
+                <option value="3months">최근 작성일 3개월</option> 
+                <option value="6months">최근 작성일 6개월</option>
+                <option value="1year">최근 작성일 1년</option>
+                <option value="all">전체 작성일</option>
             </select>
-            
+
             <button id="downloadBtn">csv 다운로드</button>
+        </div>
+        <br/>
+        <div class="form-container">
+            <label for="s_date">게시일 기간 선택</label> 
+          <input type="date" id="s_date" name="s_date"> 이후
+
+            <button id="downloadBtn2">csv 다운로드</button>
         </div>
         
         <script>
@@ -252,6 +274,10 @@ if(isset($_GET['download']) && $_GET['download'] == 'true') {
             $('#downloadBtn').click(function() {
                 var selectedPeriod = $('#period').val();
                 window.location.href = 'csv_dump.php?download=true&period=' + selectedPeriod;
+            });
+            $('#downloadBtn2').click(function() {
+                var s_date = $('#s_date').val();
+                window.location.href = 'csv_dump.php?download=true&s_date=' + s_date;
             });
         });
         </script>
