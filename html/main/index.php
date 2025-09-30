@@ -175,8 +175,12 @@ $_SESSION["orderno"] = "";
 				<ul class="img-flex-box">
 					<li class="img-flex-item">
 						<img src="../images/img_main_02_03.png" alt="">
-						<h4>원격진료</h4>
-						<p>휴대폰으로 간편하게<br>원격진료를 제공해 드립니다<small>*미국병원 온라인 처방전 발행</small></p>
+
+                           <!-- 20250930 워딩변경 -->
+						<!-- <h4>원격진료</h4> -->
+						<!-- <p>휴대폰으로 간편하게<br>원격진료를 제공해 드립니다<small>*미국병원 온라인 처방전 발행</small></p> -->
+                         <h4>원격상담</h4>
+						<p>휴대폰으로 간편하게<br>원격상담을 제공해 드립니다</p>
 					</li>
 					<li class="img-flex-item">
 						<img src="../images/img_main_02_04.png" alt="">
@@ -192,7 +196,9 @@ $_SESSION["orderno"] = "";
 
 				<div class="middle-title-box">
 					<h3>&middot; 의료진 소개 &middot;</h3>
-					<p>가정의학과, 응급의학과, 내과, 소아과, 피부과 등 전문의가<br><strong class="ft-red">원격진료, 전문의 상담, 응급 의료 상담</strong>을 제공해 드립니다</p>
+                    <!-- 20250930 워딩변경 -->
+					<!-- <p>가정의학과, 응급의학과, 내과, 소아과, 피부과 등 전문의가<br><strong class="ft-red">원격진료, 전문의 상담, 응급 의료 상담</strong>을 제공해 드립니다</p> -->
+                    <p>가정의학과, 응급의학과, 내과, 소아과, 피부과 등 전문의가<br><strong class="ft-red"> 전문의 상담, 응급 의료 상담</strong>을 제공해 드립니다</p>
 				</div>				
 				<img src="../images/img_randing_02.png?v=1" class="is-pc" alt="최재형-응급의학과, 이현지-가정의학과, 오혜미-가정의학과, 김혜란-응급의학과, 김우성-응급의학과, 유대한-응급의학과, 24시간 간호사팀">
 				<img src="../images/img_randing_02_mob.png?v=1" class="is-m" alt="최재형-응급의학과, 이현지-가정의학과, 오혜미-가정의학과, 김혜란-응급의학과, 김우성-응급의학과, 유대한-응급의학과, 24시간 간호사팀">

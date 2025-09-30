@@ -12,7 +12,10 @@
 							<li class="sec01-item">
 								<p class="sec01-list-txt">
 									일반적인 의료비 보장 외에 <strong class="ft-red">병원예약,</strong><br>
-									<strong class="ft-red">병원비 대신 지불, 의료통역, 원격진료, 긴급의료이송</strong> 등의<br>
+                                    <!-- 20250930 워딩변경 -->
+									<!-- <strong class="ft-red">병원비 대신 지불, 의료통역, 원격진료, 긴급의료이송</strong>  -->
+									<strong class="ft-red">병원비 대신 지불, 의료통역, 긴급의료이송</strong> 
+                                    등의<br>
 									해외 의료지원 서비스를 지원해 드립니다
 								</p>
 								<img src="../images/si_sec01_01.png" alt="" class="sec01-list-img">
@@ -50,7 +53,9 @@
 									<h5 class="mini-title">병원비 대신<br>지불</h5>
 								</div>
 								<div class="sec02-03">
-									<h5 class="mini-title">원격진료</h5>
+                                    <!-- 20250930 워딩변경 -->
+									<!-- <h5 class="mini-title">원격진료</h5> -->
+									<h5 class="mini-title">원격상담</h5>
 								</div>
 								<div class="sec02-04">
 									<h5 class="mini-title">의료통역</h5>
@@ -117,7 +122,9 @@
 									<span class="num">3</span>
 								</div>
 								<p class="text">
-									현지병원예약, 원격진료, 의료상담 등<br><strong class="ft-red">증상에 맞는 해외의료지원서비스</strong>를<br>제공해드립니다
+									<!-- 20250930 워딩변경 -->
+									<!-- 현지병원예약, 원격진료, 의료상담 등<br><strong class="ft-red">증상에 맞는 해외의료지원서비스</strong>를<br>제공해드립니다 -->
+									현지병원예약, 의료상담 등<br><strong class="ft-red">증상에 맞는 해외의료지원서비스</strong>를<br>제공해드립니다
 								</p>
 							</li>
 						</ul>
@@ -139,7 +146,9 @@
 								<p class="text">
 									전문 상담 간호사가 24시간 항시 대기하여 여행 중 의료 상담이 필요할 때,<br>
 									언제 어디서든 카카오채널 및 전화로 의료 서비스 정보 및 조언을 받을 수 있습니다.<br>
-									한국인 의사와 원격진료, 전문의 상담, 응급 의료 상담을 제공해 드립니다.
+									<!-- 20250930 워딩변경 -->
+									<!-- 한국인 의사와 원격진료, 전문의 상담, 응급 의료 상담을 제공해 드립니다. -->
+                                    한국인 의사와 원격상담, 전문의 상담, 응급 의료 상담을 제공해 드립니다.
 								</p>
 							</li>
 							<li class="acco-item">
@@ -157,13 +166,22 @@
 									해외병원비 대신 지불은 보험이 포함된 상품 가입시 서비스 받으실 수 있습니다.
 								</p>
 							</li>
-							<li class="acco-item">
+                            <!-- 20250930 워딩변경 -->
+							<!-- <li class="acco-item">
 								<h6 class="title">원격화상진료</h6>
 								<p class="text">
 									휴대폰으로 간편하게 원격진료를 제공해 드립니다. 미국의 경우, 미국병원 처방전을 발행 받을 수 있습니다.<br>
 									원격화상진료는 보험이 포함된 상품 가입시 서비스 받으실 수 있습니다.
 								</p>
+							</li> -->
+                            <li class="acco-item">
+								<h6 class="title">원격상담</h6>
+								<p class="text">
+									휴대폰으로 간편하게 한국인 의사 원격상담을 제공해드립니다.<br>
+                                    24시간 알람센터로 연락주시면 한국인 의사를 연결해드립니다.
+								</p>
 							</li>
+
 							<li class="acco-item">
 								<h6 class="title">여행 출국 전 정보</h6>
 								<p class="text">
