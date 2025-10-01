@@ -1,5 +1,4 @@
 <?php
-
 include '../_include/_header_new.html';
 include '../_include/_top.html';
 include_once $_SERVER["DOCUMENT_ROOT"] . "/_config/Func.main.php";
@@ -13,57 +12,8 @@ $today = date("Y-m-d");
 $_SESSION["orderno"] = "";
 
 ?>
-<link href="../_css/main.css?v=230601" rel="stylesheet" type="text/css">
-<section class="no-bg" style="padding-top:1px;">
-<div class="fullwidthbanner">
-	<div class="tp-banner owl-carousel owl-theme">
-		<!-- SLIDE -->
-		<? 
-		foreach ($rs_banner as $row) {
-			$arr_img_info = setFileName($row["imgfile"])[0];
-		?>
-        <div class='item' style='background-image:url(/_data/board/main_banner/<?= $arr_img_info[1]; ?>);'>
-             <img src="/_data/board/main_banner/<?= $arr_img_info[1]; ?>">
-        </div>
-        
-		<? } ?>
-
-        
-			<!-- <div class='item' style='background-image:url(/_data/board/main_banner/<?= $arr_img_info[1]; ?>);'>
-                 <img src="/_data/board/main_banner/<?= $arr_img_info[1]; ?>">
-			</div> -->
-            
-			<!-- <div class='item' style='background-image:url(/_data/board/main_banner/20250619_main_banner_2.png);'>
-            <img src="/_data/board/main_banner/20250619_main_banner_2.png">
-			</div>
-            
-			<div class='item' style='background-image:url(/_data/board/main_banner/20250619_main_banner_3.png);'>
-            <img src="/_data/board/main_banner/20250619_main_banner_3.png">
-			</div> -->
-
-        
-		<!-- SLIDE --> 
-	</div>
-	<div class="tp-banner-mobile owl-carousel owl-theme" >
-		<!-- SLIDE -->
-		<?
-		foreach ($rs_banner as $row) {
-			$arr_m_img_info = setFileName($row["imgfile2"])[0];
-		?>
-
-			<div class='item' style='background-image:url(/_data/board/main_banner/<?= $arr_m_img_info[1]; ?>);'>
-				<? if ($row["pc_url"]) { ?>
-					<a href="<?= $row["pc_url"] ?>"><img src="/_data/board/main_banner/<?= $arr_m_img_info[1]; ?>"></a>
-				<? } else { ?>
-					<img src="/_data/board/main_banner/<?= $arr_m_img_info[1]; ?>">
-				<? } ?>
-			</div>
-		<? } ?>
-		<!-- SLIDE --> 
-		</ul>
-	</div>
-</div>
-<!-- <div class="main-box-01">
+<section class="no-bg">
+			<div class="main-box-01">
 				<div class="container">
 					<h2>해외여행자보험에<br>안심플러스</h2>
 					<p class="is-pc">여행의 처음부터 끝까지<br><strong class="ft-yellow2">인슈플러스</strong>가 24시간 동행합니다</p>
@@ -71,13 +21,13 @@ $_SESSION["orderno"] = "";
 					<div class="is-pc">
 						<ul class="btn-list-wrap">
 							<li>
+								<a href="https://pf.kakao.com/_JClxfT/chat" target="_blank" class="kakao">카카오 문의하기</a> <!--20231013 링크 새창 적용-->
 							</li>
 							<li><a href="/html/insurance/renewal_step00.php<?=isset($alliance_code) ? "?alliance_code=".$alliance_code : ""?>" class="price">간편 가격 조회하기</a></li>
 						</ul>
 					</div>
 				</div>
-			</div> -->
-			
+			</div>
 			<div class="tab-fixed-box">
 				<div class="tab-box-inner">
 					 <div class="tab-head">
@@ -175,12 +125,11 @@ $_SESSION["orderno"] = "";
 				<ul class="img-flex-box">
 					<li class="img-flex-item">
 						<img src="../images/img_main_02_03.png" alt="">
-
-                           <!-- 20250930 워딩변경 -->
-						<!-- <h4>원격진료</h4> -->
-						<!-- <p>휴대폰으로 간편하게<br>원격진료를 제공해 드립니다<small>*미국병원 온라인 처방전 발행</small></p> -->
-                         <h4>원격상담</h4>
-						<p>휴대폰으로 간편하게<br>원격상담을 제공해 드립니다</p>
+                        <!-- 20250930 워딩변경 -->
+                        <!-- <h4>원격진료</h4> -->
+                        <!-- <p>휴대폰으로 간편하게<br>원격진료를 제공해 드립니다<small>*미국병원 온라인 처방전 발행</small></p> -->
+                        <h4>원격상담</h4>
+                        <p>휴대폰으로 간편하게<br>원격상담을 제공해 드립니다</p>
 					</li>
 					<li class="img-flex-item">
 						<img src="../images/img_main_02_04.png" alt="">
@@ -195,11 +144,10 @@ $_SESSION["orderno"] = "";
 				</ul>
 
 				<div class="middle-title-box">
-					<h3>&middot; 의료진 소개 &middot;</h3>
-                    <!-- 20250930 워딩변경 -->
-					<!-- <p>가정의학과, 응급의학과, 내과, 소아과, 피부과 등 전문의가<br><strong class="ft-red">원격진료, 전문의 상담, 응급 의료 상담</strong>을 제공해 드립니다</p> -->
+					       <!-- 20250930 워딩변경 -->
+                    <!-- <p>가정의학과, 응급의학과, 내과, 소아과, 피부과 등 전문의가<br><strong class="ft-red">원격진료, 전문의 상담, 응급 의료 상담</strong>을 제공해 드립니다</p> -->
                     <p>가정의학과, 응급의학과, 내과, 소아과, 피부과 등 전문의가<br><strong class="ft-red"> 전문의 상담, 응급 의료 상담</strong>을 제공해 드립니다</p>
-				</div>				
+                </div>   			
 				<img src="../images/img_randing_02.png?v=1" class="is-pc" alt="최재형-응급의학과, 이현지-가정의학과, 오혜미-가정의학과, 김혜란-응급의학과, 김우성-응급의학과, 유대한-응급의학과, 24시간 간호사팀">
 				<img src="../images/img_randing_02_mob.png?v=1" class="is-m" alt="최재형-응급의학과, 이현지-가정의학과, 오혜미-가정의학과, 김혜란-응급의학과, 김우성-응급의학과, 유대한-응급의학과, 24시간 간호사팀">
 			</div>
@@ -362,19 +310,19 @@ $_SESSION["orderno"] = "";
 			$( document ).ready(function() { //임시팝업
 				// 현재 날짜를 가져옵니다.
 				let currentDate = new Date("<?= $currentDate; ?>");
-				let open_flag = 'N'; // 팝업을 띄울지 여부를 설정합니다. (Y: 띄우기, N: 띄우지 않기) 
+				let open_flag = 'N'; // 팝업을 띄울지 여부를 설정합니다. (Y: 띄우기, N: 띄우지 않기)
 
 				// 특정 기간을 설정합니다. (예: 2024년 6월 20일 ~ 2024년 6월 30일)
-				let startDate = new Date('2025-03-28 00:00');  
-				let endDate = new Date('2025-04-01 23:59'); 
-                //
+				let startDate = new Date('2024-12-26 12:00');
+				let endDate = new Date('2024-12-26 19:00');
+
 				// 조건에 따라 팝업을 띄웁니다.
-				if (currentDate >= startDate  && currentDate <= endDate) {
-					// popupOpen('special'); 
-					popupOpen('noti-20250328');
+				if (currentDate >= startDate && currentDate <= endDate) {
+					// popupOpen('special');
+					popupOpen('noti');
 				} else {
-					// popupOpen('mainPopup'); 
-				} 
+					// popupOpen('mainPopup');
+				}
 				
 			});
 
@@ -500,42 +448,9 @@ $_SESSION["orderno"] = "";
                 </script>
             </div>
         </div>
-    </div> 
-
-    		<!-- main 팝업 처리 시작 20250328 추가 -->
-    <div class="popup-box">
-        <div class="box" data-name="noti-20250328" style="max-width: 600px">
-            <div class="popup-head">
-                <h3>서비스 제공사 변경 안내</h3>
-                <a href="javascript:;" class="close" onclick="popupClose();">닫기</a>
-            </div>
-            <div class="popup-body">
-                <div class="popup-body-text" style="display: flex; align-items: center; justify-content: center;">
-                    <a href="/html/customer/notice_list.php?mode=view&seq=101">
-                        <img src="./noti-20250328_insu.png?v=1224" style="width: 100%;"/>
-                    </a>
-                </div>
-                <div class="popup-body-button">
-                </div>
-								<div style="text-align: right;">
-									<a href="javascript:;" onclick="setCookieNoti('noti-20250328', 'Y', 1);"> 오늘 그만보기</a>
-								</div>
-                <script>
-										function setCookieNoti(name, value, expiredays) {
-											var todayDate = new Date();
-											todayDate.setDate(todayDate.getDate() + expiredays);
-											document.cookie = name + "=" + escape(value) + "; path=/; expires=" + todayDate.toGMTString() + ";"
-											popupClose();
-										}
-                </script>
-            </div>
-        </div>
     </div>
     <!-- main 팝업 처리 종료 -->
 <?php
 include '../_include/_tail.html';
 include '../_include/_footer.html';
-
 ?> 
-<script src="../_js/jquery.marquee.js?" type="text/javascript"></script>
-<script src="../_js/custom_main.js?ver=230530" type="text/javascript"></script>

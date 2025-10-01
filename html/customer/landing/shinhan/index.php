@@ -124,8 +124,11 @@ function get_url( $url ) {
 					</li>
 					<li class="scrollMotion">
 						<div class="text">
-							<div class="title">원격진료</div>
-							<div class="sub">휴대폰으로 간편하게 원격진료를 제공해드려요<br>*미국 병원은 온라인 처방전 발행</div>
+                            <!-- 20250930 워딩변경 -->
+							<!-- <div class="title">원격진료</div>
+							<div class="sub">휴대폰으로 간편하게 원격진료를 제공해드려요<br>*미국 병원은 온라인 처방전 발행</div> -->
+                            <div class="title">원격상담</div>
+							<div class="sub">휴대폰으로 간편하게<br>원격상담을 제공해 드립니다</div>
 						</div>
 						<img src="./img/sec02_icon05.svg">
 					</li>
@@ -202,7 +205,9 @@ function get_url( $url ) {
 				<div class="txtCon tcenter">
 					<div class="t1 scrollMotion">+ 인슈플러스 의료진</div>
 					<div class="t2 scrollMotion">의료진 소개</div>
-					<div class="t3 scrollMotion">12개 과목 한국인 전문의가 원격진료, 전문의 상담, 응급 의료 상담 제공</div>
+                    <!-- 20250930 워딩변경 -->
+					<!-- <div class="t3 scrollMotion">12개 과목 한국인 전문의가 원격진료, 전문의 상담, 응급 의료 상담 제공</div> -->
+                    <div class="t3 scrollMotion">12개 과목 한국인 전문의가 전문의 상담, 응급 의료 상담 제공</div>
 				</div>
 				<div class="flex flex-column gap40 lg:mt100 pc-only">
 					<div class="flex lg:flex-center lg:flex-middle gap40">
@@ -335,7 +340,9 @@ function get_url( $url ) {
 								<td>
 									전문 상담 간호사가 24시간 항시 대기하여 여행 중 의료 상담이 필요할 때,<br>
 									언제 어디서든 카카오채널 및 전화로 의료 서비스 정보 및 조언을 받을 수 있습니다.<br>
-									한국인 의사와 원격진료, 전문의 상담, 응급 의료 상담을 제공해 드립니다.
+                                    <!-- 20250930 워딩변경 -->
+									<!-- 한국인 의사와 원격진료, 전문의 상담, 응급 의료 상담을 제공해 드립니다. -->
+                                    한국인 의사와 원격상담, 전문의 상담, 응급 의료 상담을 제공해 드립니다.
 								</td>
 							</tr>
 							<tr>
@@ -354,10 +361,16 @@ function get_url( $url ) {
 								</td>
 							</tr>
 							<tr>
-								<th>원격화상진료</th>
+                                <!-- 20250930 워딩변경 -->
+								<!-- <th>원격화상진료</th>
 								<td>
 									휴대폰으로 간편하게 원격진료를 제공해 드립니다. 미국의 경우, 미국병원 처방전을 발행 받을 수 있습니다.<br>
 									원격화상진료는 보험이 포함된 상품 가입시 서비스 받으실 수 있습니다.
+								</td> -->
+                                <th>원격상담</th>
+								<td>
+									휴대폰으로 간편하게 한국인 의사 원격상담을 제공해드립니다.<br>
+                                    24시간 알람센터로 연락주시면 한국인 의사를 연결해드립니다.
 								</td>
 							</tr>
 							<tr>
