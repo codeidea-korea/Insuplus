@@ -717,6 +717,8 @@ require_once '../_nice/checkplus_main.php';
         html.push(`  <div class="table-form-box">`);
         html.push(`    <ul>`);
       }
+    //   20251014 가족 보이스피싱 항목 제거
+      if( !(EHDObject.depth2?.code == 'C202'  && item.service_name === '가족 보이스피싱 피해 지원')) {
       html.push(`        <li>`);
       html.push(`          <div class="table-head w300">`);
       html.push(`            <strong>${item.service_name}</strong>`);
@@ -729,6 +731,7 @@ require_once '../_nice/checkplus_main.php';
       }
       html.push(`          </div>`);
       html.push(`        </li>`);
+    }
     });
 
     html.push(`    </ul>`);

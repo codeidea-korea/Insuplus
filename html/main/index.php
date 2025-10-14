@@ -144,6 +144,7 @@ $_SESSION["orderno"] = "";
 				</ul>
 
 				<div class="middle-title-box">
+                    <h3>&middot; 의료진 소개 &middot;</h3>
 					       <!-- 20250930 워딩변경 -->
                     <!-- <p>가정의학과, 응급의학과, 내과, 소아과, 피부과 등 전문의가<br><strong class="ft-red">원격진료, 전문의 상담, 응급 의료 상담</strong>을 제공해 드립니다</p> -->
                     <p>가정의학과, 응급의학과, 내과, 소아과, 피부과 등 전문의가<br><strong class="ft-red"> 전문의 상담, 응급 의료 상담</strong>을 제공해 드립니다</p>

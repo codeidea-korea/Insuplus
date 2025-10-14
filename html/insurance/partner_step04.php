@@ -317,6 +317,12 @@ $detect = new Mobile_Detect;
         $("#coupon_title").css('display','block');
         $("#multi-row-1").hide();
         $("#multi-row-2").show();
+    }else if(EHDObject.selectedPartnership[3] ==='lttravel'){
+        $("#coupon_ui").css('display','block');
+        $("#coupon_ui p").html('*할인 쿠폰은 1인 월 1회에 한하여 사용 가능합니다.');
+        $("#coupon_title").css('display','block');
+        $("#multi-row-1").hide();
+        $("#multi-row-2").show();
     }else if(EHDObject.selectedPartnership[3] ==='eyagi'){
         $("#coupon_ui").css('display','block');
         $("#coupon_ui p").html('*할인 쿠폰은 1인 월 1회에 한하여 사용 가능합니다.');

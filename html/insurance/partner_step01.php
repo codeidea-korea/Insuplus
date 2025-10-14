@@ -1269,13 +1269,19 @@ let temp_title = '';
         generateServiceList
       );
 
-   
       // 플랜정보 중 보장내역1, 보장내역2가 있는 플랜으로 보장내역 가져와 출력
       plan = EHDObject.plans.find(
         (item) => item.ext1 === 'Y' && item.ext2 === 'Y' && item.plan_cd === EHDObject.plan_cd
       );
 
       plan = plan || EHDObject.plans.find((item) => item.ext1 === 'Y' && item.plan_cd === EHDObject.plan_cd);
+
+
+    //   console.log("api : ", EHDObject.GET_GUARANTEE);
+    //   console.log("plan : ", plan);
+    //   console.log("plan_seq : ", plan?.plan_seq);
+    //   console.log("pr_cd : ", plan?.pr_cd);
+      
       EHDObject.getPlanInfo({ api: EHDObject.GET_GUARANTEE, pr_cd: plan?.pr_cd, plan_seq: plan?.plan_seq }, () => {
         // 보장내역정보를 가져온 후 수행되어야 할 로직이기 때문에 콜백에 구현
         // 보장내역1 의 첫번째, 두번째 항목을 select-box 로 만들기 위한 로직
@@ -1294,6 +1300,7 @@ let temp_title = '';
             return false;
           }
         });
+
         console.log("anotherPlan",anotherPlan);
         // group by plan_cd 에서 plan_seq 만 취합 구분자 "|" 로 연결
         const planSeqs = anotherPlan?.reduce((prev, curr) => `${prev}|${curr.plan_seq}`, '');
@@ -1872,6 +1879,13 @@ let temp_title = '';
       EHDObject.depth0 = { code: ps.partnership_category_code, name: ps.partnership_name };
       EHDObject.save();
       EHDObject.getCategories(EHDObject.depth0.code, addEventOnDepth1);
+
+
+        //20251014 lttravel 제휴사 경우 동반인 선택 폼 숨기기
+        if(EHDObject.selectedPartnership[3] === 'lttravel') {
+         $('#companions').closest('.form-box').hide();
+        }
+      
     } else {
       EHDObject.checkPartnership(() => {
         const param = location.search.match(/alliance_code=[^&]*/);
