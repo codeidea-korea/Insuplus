@@ -86,8 +86,9 @@ include '../_include/_top.html';
                         name="A-cellphone"
                         id="A-cellphone"
                         placeholder="'-'없이 숫자만 입력해주세요."
-                        maxlength="50"
+                        maxlength="11"
                         required
+                        onkeyup="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11);"
                       />
                     </div>
                   </div>
@@ -544,6 +545,24 @@ include '../_include/_top.html';
           element.focus();
 
           return false;
+        }
+
+        
+        if(document.getElementById('A-cellphone').value.length != 11) {
+          alert('휴대폰 번호 11자리를 입력해 주세요.');
+          document.getElementById('A-cellphone').focus();
+          return false;
+        }
+
+        
+
+        let cellPhone = document.getElementById('A-cellphone').value;
+        let cellPhoneFiltered = cellPhone.replace(/[^0-9]/g, '');
+
+        if (cellPhone !== cellPhoneFiltered) {
+            alert('휴대폰 번호는 숫자만 입력 가능합니다.');
+            document.getElementById('A-cellphone').focus();
+            return false;
         }
 
          //20250722 추가

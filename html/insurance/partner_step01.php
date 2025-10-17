@@ -870,7 +870,8 @@ if(EHDObject.selectedPartnership[3] ==='surecare'){
         html.push(`  <div class="title-box mt12"><h3>24시간 의료 서비스</h3></div><p class="common-txt01">여행 중 24시간 의료 상담 서비스 제공(원격진료, 전문의상담, 응급의료 상담 등)</p>`);
         html.push(`  <div class="title-box mt12"><h3>현지 병원예약</h3></div><p class="common-txt01">여행 중 현지 병원 방문 필요 시 증상에 맞는 제휴병원 추천 및 예약 서비스 제공</p>`);
         html.push(`  <div class="title-box mt12"><h3>해외병원비 대신지불 (지불보증)</h3></div><p class="common-txt01">가입한 보험 한도 내에서 발생한 병원비를 대신 지불해주는 서비스</p>`);
-        html.push(`  <div class="title-box mt12"><h3>원격화상진료</h3></div><p class="common-txt01">휴대폰을 통해 간편하게 원격진료 서비스 제공</p>`);
+        // html.push(`  <div class="title-box mt12"><h3>원격화상진료</h3></div><p class="common-txt01">휴대폰을 통해 간편하게 원격진료 서비스 제공</p>`);
+        html.push(`  <div class="title-box mt12"><h3>원격화상상담</h3></div><p class="common-txt01">휴대폰을 통해 간편하게 원격상담 서비스 제공</p>`);
         html.push(`  <div class="title-box mt12"><h3>여행 출국 전 정보</h3></div><p class="common-txt01">출국 전 여행지 정보 제공(기후, 환율, 교통 및 숙박 등)</p>`);
         html.push(`  <div class="title-box mt12"><h3>수화물 분실 및 여권분실 시 지원</h3></div><p class="common-txt01">여행지에서 여권 및 수화물 분실 시 도움받을 수 있는 절차 안내 서비스</p>`);
         html.push(`  <div class="title-box mt12"><h3>긴급 통역 지원</h3></div><p class="common-txt01">병원 방문 시 의료통역 서비스 제공</p>`);
@@ -1884,6 +1885,12 @@ let temp_title = '';
         //20251014 lttravel 제휴사 경우 동반인 선택 폼 숨기기
         if(EHDObject.selectedPartnership[3] === 'lttravel') {
          $('#companions').closest('.form-box').hide();
+
+         $('#ageBox').remove();
+         $('#priceBtn').show();
+        //  $('#ageBox .form-title').find('strong').html('가입자 연령 확인<br/>(가입자가 만 14세 미만인 경우 법정 대리인 동의 필수)')
+        //  $('#ageBox #agecheck').find('option[value="1"]').text('만 14세 이상');
+        //  $('#ageBox #agecheck').find('option[value="2"]').text('만 14세 미만');
         }
       
     } else {
