@@ -42,7 +42,9 @@
     
     $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https" : "http";
     $domain   = $_SERVER['HTTP_HOST'];
-    $url      = $protocol . "://" . $domain;
+    // $port     = $_SERVER['SERVER_PORT'] ? ":" . $_SERVER['SERVER_PORT'] : "";
+    $url      = $protocol . "://" . $domain ;//. $port;
+
 
     // CheckPlus(본인인증) 처리 후, 결과 데이타를 리턴 받기위해 다음예제와 같이 http부터 입력합니다.
     // 리턴url은 인증 전 인증페이지를 호출하기 전 url과 동일해야 합니다. ex) 인증 전 url : http://www.~ 리턴 url : http://www.~

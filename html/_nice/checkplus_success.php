@@ -191,86 +191,92 @@
 <html>
 <head>
     <title>NICE평가정보 - CheckPlus 본인인증 완료</title>
-    <script language='javascript'>
-    // 부모 창에 결과 전달 후 팝업 닫기
-    function sendResultAndClose() {
-        var result;
-        
-        try {
-            <?php 
-            // JSON 생성 시 안전하게 처리
-            $json_result = json_encode($auth_result, JSON_UNESCAPED_UNICODE | JSON_HEX_QUOT | JSON_HEX_APOS);
-            if ($json_result === false) {
-                // JSON 인코딩 실패 시 기본 오류 객체
-                echo 'result = {"success": false, "data": null, "message": "JSON 인코딩 오류"};';
-            } else {
-                echo 'result = ' . $json_result . ';';
-            }
-            ?>
-        } catch(e) {
-            console.log('JSON 파싱 오류:', e);
-            result = {"success": false, "data": null, "message": "데이터 처리 오류"};
-        }
-        
-        // console.log('인증 결과:', result);
-        
-        try {
-            // 부모 창의 함수 호출
-            if(window.opener && window.opener.receiveAuthResult) {
-                window.opener.receiveAuthResult(result);
-            } else {
-                console.log('부모 창의 receiveAuthResult 함수를 찾을 수 없습니다.');
-            }
-        } catch(e) {
-            console.log('부모 창 통신 오류:', e);
-        }
-        
-        // 팝업 창 닫기
-        setTimeout(function() {
-            window.close();
-        }, 1000);
-    }
-    
-    // 페이지 로드 시 자동 실행
-    window.onload = function() {
-        sendResultAndClose();
-    };
-    </script>
+
 </head>
 <body>
-    <center>
-        <p><p><p><p>
-        <?php if(isset($auth_result['success']) && $auth_result['success']) { ?>
-            본인인증이 완료되었습니다.<br>
-            잠시 후 창이 닫힙니다...
-        <?php } else { ?>
+<center>
+    <?php if(isset($auth_result['success']) && $auth_result['success']) { ?>
+        <div id="msg-box">
+        본인인증이 완료되었습니다.<br>
+        <span id="closeMsg">잠시 후 창이 닫힙니다...</span>
+        </div>
+    <?php } else { ?>
+        <div id="msg-box">
             인증 처리 중 오류가 발생했습니다.<br>
             <?php if(isset($auth_result['message'])) { ?>
                 오류: <?= htmlspecialchars($auth_result['message']) ?><br>
             <?php } ?>
             잠시 후 창이 닫힙니다...
-        <?php } ?>
-        
-        <!-- 디버그 정보 (개발 시에만 사용) -->
-        <div style="margin-top: 20px; font-size: 12px; color: #666; text-align: left; max-width: 800px;">
-            <!-- <strong>디버그 정보:</strong><br> -->
-            <?php 
-            // echo "plaindata: " . (isset($plaindata) ? htmlspecialchars($plaindata) : 'undefined') . "<br><br>";
-            // echo "returnMsg: " . (isset($returnMsg) ? htmlspecialchars($returnMsg) : 'undefined') . "<br><br>";
-            // echo "auth_result 배열:<br>";
-            // echo "<pre>" . print_r($auth_result, true) . "</pre>";
-            // echo "JSON last error: " . json_last_error_msg() . "<br>";
-            
-            // // 각 데이터 필드 개별 체크
-            // if(isset($auth_result['data']) && is_array($auth_result['data'])) {
-            //     echo "<br>개별 필드 체크:<br>";
-            //     foreach($auth_result['data'] as $key => $value) {
-            //         $individual_json = json_encode($value);
-            //         echo $key . ": " . ($individual_json !== false ? "OK" : "FAIL - " . json_last_error_msg()) . " - " . htmlspecialchars($value) . "<br>";
-            //     }
-            // }
-            ?>
         </div>
-    </center>
+    <?php } ?>
+    <button id="manualCloseBtn" style="display:none; margin-top:15px; padding:8px 20px; border:none; border-radius:6px; background:#2B7FFF; color:#fff; font-size:14px; cursor:pointer;">
+        창 닫기
+    </button>
+</center>
+<script language='javascript'>
+    // 부모 창에 결과 전달 후 팝업 닫기
+    function sendResultAndClose(isIOS) {
+    var result;
+
+    // PHP에서 넘어온 인증 결과를 JS 객체로 변환
+    try {
+        <?php 
+        $json_result = json_encode($auth_result, JSON_UNESCAPED_UNICODE | JSON_HEX_QUOT | JSON_HEX_APOS);
+        if ($json_result === false) {
+            echo 'result = {"success": false, "data": null, "message": "JSON 인코딩 오류"};';
+        } else {
+            echo 'result = ' . $json_result . ';';
+        }
+        ?>
+    } catch (e) {
+        console.log('JSON 파싱 오류:', e);
+        result = { success: false, data: null, message: '데이터 처리 오류' };
+    }
+
+    // 부모 창으로 결과 전달 (postMessage)
+    try {
+        if (window.opener) {
+            window.opener.postMessage(
+                { type: 'niceAuthResult', payload: result },
+                '*'   // 가능하면 실제 부모 도메인으로 교체
+            );
+        } else {
+            console.log('opener 없음(아이폰/인앱일 수 있음).');
+        }
+    } catch (e) {
+        console.log('부모 창 통신 오류:', e);
+    }
+
+    // iOS면 닫지 말고 안내 표시만
+    if (isIOS) {
+        var msgEl = document.getElementById('closeMsg');
+        var btnEl = document.getElementById('manualCloseBtn');
+        if (msgEl) {
+            msgEl.innerText = 'iPhone에서는 창이 자동으로 닫히지 않습니다. 아래 버튼으로 닫아주세요.';
+        }
+        if (btnEl) {
+            btnEl.style.display = 'inline-block';
+            btnEl.addEventListener('click', function () {
+                window.close();
+            });
+        }
+    } else {
+        // iOS가 아니면 예전처럼 자동 닫기
+        setTimeout(function () {
+            window.close(); 
+        }, 1000);
+    }
+}
+
+window.onload = function () {
+    // iOS 감지
+    var ua = navigator.userAgent.toLowerCase();
+    var isIOS =   /iPhone|iPad|iPod/i.test(ua) ||
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+    sendResultAndClose(isIOS);
+};
+
+</script>
 </body>
 </html>

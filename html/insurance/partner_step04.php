@@ -367,10 +367,10 @@ $detect = new Mobile_Detect;
     formData.append('select_add_people', EHDObject.companions.length); // 동반인명수
     formData.append('recommend_cd', EHDObject.customer.recommendCode ? EHDObject.customer.recommendCode : 0); //추천인 코드
     formData.append('cp_cd', EHDObject.customer.couponCode ? EHDObject.customer.couponCode : 0); //쿠폰 코드
-    formData.append('is_abroad_resident', EHDObject.customer.is_abroad_resident); // 해외거주 여부
+    formData.append('is_abroad_resident', EHDObject.customer.is_abroad_resident); // 해외거주 여부 
     formData.append('join_ch', EHDObject.selectedPartnership ? EHDObject.selectedPartnership.partnership_seq : null); // 제휴사 코드
 
-    if(EHDObject.selectedPartnership[3] ==='surecare' || EHDObject.selectedPartnership[3] ==='eyagi'){
+    if(EHDObject.selectedPartnership[3] ==='surecare' || EHDObject.selectedPartnership[3] ==='eyagi' || EHDObject.selectedPartnership[3] ==='lttravel'){
         formData.append('depth0', EHDObject.depth0 ? EHDObject.depth0.code : ''); // 카테고리 코드
         formData.append('depth1', EHDObject.depth1 ? EHDObject.depth1.code : ''); // 카테고리 코드
         formData.append('depth2', EHDObject.depth2 ? EHDObject.depth2.code : ''); // 카테고리 코드

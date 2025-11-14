@@ -331,6 +331,17 @@ require_once '../_nice/checkplus_main.php';
     }
   }
 
+  window.addEventListener('message', function (event) {
+    // 안전하게 하려면 origin 체크
+    // if (event.origin !== 'https://m.insuplus.co.kr') return;
+
+    if (!event.data) return;
+    if (event.data.type === 'niceAuthResult') {
+        // 기존에 있던 함수 재사용
+        receiveAuthResult(event.data.payload);
+    }
+});
+
     function receiveAuthResult(result) {
         // 여기서 인증 결과를 처리합니다
         // console.log('인증 결과:', result);
