@@ -314,7 +314,7 @@ require_once '../_nice/checkplus_main.php';
 		<input type="hidden" name="m" value="checkplusService">				<!-- 필수 데이타로, 누락하시면 안됩니다. -->
 		<input type="hidden" name="EncodeData" value="<?= $enc_data ?>">		<!-- 위에서 업체정보를 암호화 한 데이타입니다. -->
 	    
-	
+	    <input type="hidden" name="recvMethodType" value="get">
 	</form>
 </section>
 
