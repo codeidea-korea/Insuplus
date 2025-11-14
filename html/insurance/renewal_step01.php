@@ -325,14 +325,14 @@ require_once '../_nice/checkplus_main.php';
   //   let search = window.location.search;
   //   if(search == "?test"){
   //     $('#priceBtn').css('display','none')
-  //     $('#ageBox').css('display','block')
+  //     $('#ageBox').css('display','qblock')
   //     $('#ageBox2').css('display','none')
   //   }
   // }
   // testCheck()
 
   let mobileno = '';
-
+  let nicePopup = null;
   const ageCheck = (item)=>{
     let value = $(item).val()
 
@@ -349,13 +349,23 @@ require_once '../_nice/checkplus_main.php';
   }
 
   window.addEventListener('message', function (event) {
-    // 안전하게 하려면 origin 체크
-    // if (event.origin !== 'https://m.insuplus.co.kr') return;
-
-    if (!event.data) return;
+    console.log('message 받음:', event.data);
+    console.log('origin:', event.origin);
+    
+    if (!event.data) {
+        console.log('data 없음');
+        return;
+    }
+    
     if (event.data.type === 'niceAuthResult') {
-        // 기존에 있던 함수 재사용
+        console.log('niceAuthResult 타입 확인');
         receiveAuthResult(event.data.payload);
+        
+        // 부모가 팝업 닫기
+        if (nicePopup && !nicePopup.closed) {
+            console.log('부모가 팝업 닫기');
+            nicePopup.close();
+        }
     }
 });
 
@@ -381,18 +391,28 @@ require_once '../_nice/checkplus_main.php';
 
 
   $("#global-agree").on("click", function(){
-    fnPopup();
-  
-    window.name ="Parent_window";
-	
-	 
-    function fnPopup(){
-        window.open('', 'popupChk', 'width=500, height=550, top=100, left=100, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=yes, location=no, scrollbar=no');
-        document.form_chk.action = "https://nice.checkplus.co.kr/CheckPlusSafeModel/checkplus.cb";
-        document.form_chk.target = "popupChk";
-        document.form_chk.submit();
-    }
+    window.name = "Parent_window";
     
+    const left = (screen.width - 500) / 2;
+    const top = (screen.height - 550) / 2;
+    
+    nicePopup = window.open(
+        '', 
+        'popupChk', 
+        `width=500, height=550, left=${left}, top=${top}, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=yes, location=no, scrollbar=no`
+    );
+    
+    document.form_chk.action = "https://nice.checkplus.co.kr/CheckPlusSafeModel/checkplus.cb";
+    document.form_chk.target = "popupChk";
+    document.form_chk.submit();
+    
+    // ⭐ 추가 안전장치: 주기적으로 팝업 체크
+    const checkPopup = setInterval(function() {
+        if (nicePopup && nicePopup.closed) {
+            clearInterval(checkPopup);
+            console.log('팝업이 닫혔습니다');
+        }
+    }, 500);
   
   })
   
