@@ -310,6 +310,8 @@ require_once '../_nice/checkplus_main.php';
      <form name="form_chk" method="post" style="display: none;">
 		<input type="hidden" name="m" value="checkplusService">				<!-- 필수 데이타로, 누락하시면 안됩니다. -->
 		<input type="hidden" name="EncodeData" value="<?= $enc_data ?>">		<!-- 위에서 업체정보를 암호화 한 데이타입니다. -->
+
+        <input type="hidden" name="recvMethodType" value="get">
 	</form>
 </section>
 
@@ -331,50 +333,84 @@ require_once '../_nice/checkplus_main.php';
     }
   }
 
-  window.addEventListener('message', function (event) {
-    // 안전하게 하려면 origin 체크
-    // if (event.origin !== 'https://m.insuplus.co.kr') return;
+  window.addEventListener('message', function(event) {
+        console.log('message 이벤트 수신:', event);
+        console.log('origin:', event.origin);
+        console.log('data:', event.data);
 
-    if (!event.data) return;
-    if (event.data.type === 'niceAuthResult') {
-        // 기존에 있던 함수 재사용
-        receiveAuthResult(event.data.payload);
-    }
-});
+        // Origin 검증 (보안상 중요)
+        if (event.origin !== 'https://nice.checkplus.co.kr' &&
+            event.origin !== window.location.origin) {
+            console.log('신뢰할 수 없는 origin:', event.origin);
+            return;
+        }
+
+        if (!event.data) {
+            console.log('data 없음');
+            return;
+        }
+
+        if (event.data.type === 'niceAuthResult') {
+            console.log('niceAuthResult 받음:', event.data.payload);
+            receiveAuthResult(event.data.payload);
+
+            // 팝업 닫기 시도
+            if (nicePopup && !nicePopup.closed) {
+                console.log('팝업 닫기 시도');
+                try {
+                    nicePopup.close();
+                } catch (e) {
+                    console.log('팝업 닫기 실패:', e);
+                }
+            }
+        }
+    });
+
 
     function receiveAuthResult(result) {
-        // 여기서 인증 결과를 처리합니다
-        // console.log('인증 결과:', result);
-        if(result.success) {
-            // 성공 처리
+        console.log('인증 결과 처리:', result);
+ 
+        if (result.success) {
             alert('인증이 완료되었습니다.');
-            $('#priceBtn').css('display','flex');
-            $('#global-agree').css('display','none');
-            $("#agecheck").attr('disabled',true);
-            
-        mobileno = result.data.mobileno;
-       
+            $('#priceBtn').css('display', 'flex');
+            $('#global-agree').css('display', 'none');
+            $("#agecheck").attr('disabled', true);
+            mobileno = result.data.mobileno;
         } else {
-            // 실패 처리
             alert('인증에 실패했습니다: ' + result.message);
         }
     }
 
-      $("#global-agree").on("click", function(){
-    fnPopup();
-  
-    window.name ="Parent_window";
-	
-	 
-    function fnPopup(){
-        window.open('', 'popupChk', 'width=500, height=550, top=100, left=100, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=yes, location=no, scrollbar=no');
+    $("#global-agree").on("click", function() {
+        window.name = "Parent_window";
+
+        const left = (screen.width - 500) / 2;
+        const top = (screen.height - 550) / 2;
+
+        nicePopup = window.open(
+            '',
+            'popupChk',
+            `width=500, height=550, left=${left}, top=${top}, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=yes, location=no, scrollbar=no`
+        );
+
+        if (!nicePopup) {
+            alert('팝업이 차단되었습니다. 팝업 차단을 해제해주세요.');
+            return;
+        }
+
         document.form_chk.action = "https://nice.checkplus.co.kr/CheckPlusSafeModel/checkplus.cb";
         document.form_chk.target = "popupChk";
         document.form_chk.submit();
-    }
-    
-  
-  })
+
+        // 팝업 모니터링
+        const checkPopup = setInterval(function() {
+            if (nicePopup && nicePopup.closed) {
+                clearInterval(checkPopup);
+                console.log('팝업이 사용자에 의해 닫혔습니다');
+            }
+        }, 500);
+    });
+
   
 
 
