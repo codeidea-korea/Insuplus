@@ -201,9 +201,9 @@ function GetValue($str, $name)
 <body>
     <center>
         <?php if (isset($auth_result['success']) && $auth_result['success']) { ?>
-            <div id="msg-box" style="font-size: 24px;">
+            <div id="msg-box" style="font-size: 30px;">
                 본인인증이 완료되었습니다.<br>
-                <span id="closeMsg" style="font-size: 18px;"q>이전 화면으로 돌아가 주세요.</span>
+                <span id="closeMsg" style="font-size: 24px;">이전 화면으로 돌아가 주세요.</span>
             </div>
         <?php } else { ?>
             <div id="msg-box">
@@ -214,12 +214,12 @@ function GetValue($str, $name)
                 <span id="closeMsg">잠시 후 창이 닫힙니다...</span>
             </div>
         <?php } ?>
-   
+
     </center>
 
-   
+
     <script>
-        (function() {
+        window.addEventListener('load', function() {
             var result;
             try {
                 <?php
@@ -244,19 +244,22 @@ function GetValue($str, $name)
             const port = window.location.port;
             const domain = window.location.protocol + '//' + window.location.hostname + (port ? ':' + port : '');
 
-            
+
+
 
             function sendMessage() {
-                
+                if (isIOS) {
+                    alert('인증이 완료되었습니다. \n 이전 화면으로 돌아가 주세요.');
+                }
                 if (window.opener && !window.opener.closed) {
                     try {
                         console.log('postMessage 전송 시도');
                         window.opener.postMessage({
                             type: 'niceAuthResult',
                             payload: result
-                        // }, 'http://ec2-13-125-114-114.ap-northeast-2.compute.amazonaws.com:8081');
+                            // }, 'http://ec2-13-125-114-114.ap-northeast-2.compute.amazonaws.com:8081');
                         }, domain);
-                        
+
                         console.log('postMessage 전송 완료');
                     } catch (e) {
                         console.error('postMessage 오류:', e);
@@ -269,20 +272,20 @@ function GetValue($str, $name)
             // iOS와 Android 모두 동일한 처리
             setTimeout(function() {
                 sendMessage();
-                
-                // iOS에서도 window.close() 시도
+
                 setTimeout(function() {
                     try {
                         window.close();
-                    } catch(e) {
+                    } catch (e) {
                         console.log('window.close 실패 (예상된 동작)');
                         if (isIOS) {
                             msgEl.textContent = '브라우저 뒤로가기 버튼을 눌러주세요.';
                         }
                     }
-                }, 5000);
+                }, 5000); // iOS에서도 window.close() 시도
+
             }, 1000);
-        })();
+        });
     </script>
 </body>
 

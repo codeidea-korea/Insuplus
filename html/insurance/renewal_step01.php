@@ -395,7 +395,7 @@ require_once '../_nice/checkplus_main.php';
         console.log('인증 결과 처리:', result);
 
         if (result.success) {
-            alert('인증이 완료되었습니다.');
+            alert('인증이 완료되었습니다.'); 
             $('#priceBtn').css('display', 'flex');
             $('#global-agree').css('display', 'none');
             $("#agecheck").attr('disabled', true);
