@@ -318,20 +318,143 @@ require_once '../_nice/checkplus_main.php';
 </section>
 
 <script src="./js/swiper.js?a=1"></script>
+<script src="./js/_nice-restore.js"></script>
+</script>
 <script>
-    // 20250807 추가
-    // const testCheck = ()=>{
-    //   let search = window.location.search;
-    //   if(search == "?test"){
-    //     $('#priceBtn').css('display','none')
-    //     $('#ageBox').css('display','qblock')
-    //     $('#ageBox2').css('display','none')
-    //   }
-    // }
-    // testCheck()
-
     let mobileno = '';
-    let nicePopup = null;
+    let niceFormBackup = null;
+    window.addEventListener('DOMContentLoaded', function() {
+        // URL 파라미터 체크
+        const urlParams = new URLSearchParams(window.location.search);
+        const encData = urlParams.get('EncodeData');
+
+        if (encData) {
+            // NICE 인증에서 돌아온 경우
+            handleNiceReturn(encData);
+        } else {
+            // 일반 접속
+            setTimeout(() => {
+                restoreFormData();
+
+                // 인증 완료 상태 확인 및 UI 적용
+                const isNiceAuthCompleted = sessionStorage.getItem('nice_auth_completed') === 'true';
+                if (isNiceAuthCompleted) {
+                    const authData = JSON.parse(sessionStorage.getItem('nice_auth_data') || '{}');
+                    mobileno = authData.mobileno || '';
+
+                    // UI 재적용
+                    // setTimeout(() => {
+                    //     applyNiceAuthUI();
+                    // }, 500);
+                }
+            }, 300);
+        }
+    });
+    
+    $("#global-agree").on("click", function() {
+        // 확인 메시지
+        if (!confirm('본인인증을 진행하시겠습니까?\n인증 후 이 페이지로 돌아옵니다.')) {
+            return false;
+        }
+
+        // 인증 완료 상태 초기화 (새로 인증하는 경우)
+        sessionStorage.removeItem('nice_auth_completed');
+        sessionStorage.removeItem('nice_auth_data');
+
+        // 현재 폼 데이터 백업
+        backupFormData();
+
+        // NICE 인증 페이지로 리다이렉트
+        document.form_chk.action = "https://nice.checkplus.co.kr/CheckPlusSafeModel/checkplus.cb";
+        document.form_chk.target = "_self";
+        document.form_chk.submit();
+    });
+
+
+
+    function applyNiceAuthUI() {
+        console.log('=== NICE 인증 UI 적용 ===');
+
+        // 가격조회 버튼 표시
+        const priceBtn = document.getElementById('priceBtn');
+        if (priceBtn) {
+            priceBtn.style.display = 'flex';
+            console.log('✅ 가격조회 버튼 표시');
+        }
+
+        // 법정대리인 동의 버튼 숨김
+        const globalAgreeBtn = document.getElementById('global-agree');
+        if (globalAgreeBtn) {
+            globalAgreeBtn.style.display = 'none';
+            console.log('✅ 법정대리인 동의 버튼 숨김');
+        }
+
+        // 연령확인 비활성화
+        const ageCheckSelect = document.getElementById('agecheck');
+        if (ageCheckSelect) {
+            ageCheckSelect.disabled = true;
+            console.log('✅ 연령확인 셀렉트 비활성화');
+        }
+    }
+
+    function handleNiceReturn(encData) {
+        fetch('/html/_nice/checkplus_process.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'EncodeData=' + encodeURIComponent(encData)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('서버 응답 오류: ' + response.status);
+                }
+                return response.json();
+            })
+            .then(result => {
+                if (result.success) {
+                    // 인증 성공
+                    alert('본인인증이 완료되었습니다.');
+
+                    // 휴대폰 번호 저장
+                    mobileno = result.data.mobileno;
+
+                    // ========== 인증 완료 상태 저장 ==========
+                    sessionStorage.setItem('nice_auth_completed', 'true');
+                    sessionStorage.setItem('nice_auth_data', JSON.stringify(result.data));
+
+                    // UI 업데이트
+                    applyNiceAuthUI();
+
+                    // URL 파라미터 제거
+                    const cleanUrl = window.location.pathname + window.location.hash;
+                    history.replaceState({}, document.title, cleanUrl);
+
+                    // 폼 데이터 복원 (약간의 지연 후)
+                    setTimeout(() => {
+                        restoreFormData();
+
+                        // 복원 완료 후 인증 UI 재적용
+                        setTimeout(() => {
+                            applyNiceAuthUI();
+                        }, 500);
+                    }, 300);
+
+                } else {
+                    // 인증 실패
+                    alert('본인인증에 실패했습니다.\n' + result.message);
+                    console.error('NICE Auth Error:', result);
+                    location.href = '/html/insurance/renewal_step01.php';
+                }
+            })
+            .catch(error => {
+                alert('본인인증 처리 중 오류가 발생했습니다.\n잠시 후 다시 시도해주세요.');
+                console.error('NICE Auth Error:', error);
+            });
+    }
+
+
+
     const ageCheck = (item) => {
         let value = $(item).val()
 
@@ -357,85 +480,85 @@ require_once '../_nice/checkplus_main.php';
     //             }
     //         });
 
-    window.addEventListener('message', function(event) {
-        console.log('message 이벤트 수신:', event);
-        console.log('origin:', event.origin);
-        console.log('data:', event.data);
+    // window.addEventListener('message', function(event) {
+    //     console.log('message 이벤트 수신:', event);
+    //     console.log('origin:', event.origin);
+    //     console.log('data:', event.data);
 
-        // Origin 검증 (보안상 중요)
-        if (event.origin !== 'https://nice.checkplus.co.kr' &&
-            event.origin !== window.location.origin) {
-            console.log('신뢰할 수 없는 origin:', event.origin);
-            return;
-        }
+    //     // Origin 검증 (보안상 중요)
+    //     if (event.origin !== 'https://nice.checkplus.co.kr' &&
+    //         event.origin !== window.location.origin) {
+    //         console.log('신뢰할 수 없는 origin:', event.origin);
+    //         return;
+    //     }
 
-        if (!event.data) {
-            console.log('data 없음');
-            return;
-        }
+    //     if (!event.data) {
+    //         console.log('data 없음');
+    //         return;
+    //     }
 
-        if (event.data.type === 'niceAuthResult') {
-            console.log('niceAuthResult 받음:', event.data.payload);
-            receiveAuthResult(event.data.payload);
+    //     if (event.data.type === 'niceAuthResult') {
+    //         console.log('niceAuthResult 받음:', event.data.payload);
+    //         receiveAuthResult(event.data.payload);
 
-            // 팝업 닫기 시도
-            if (nicePopup && !nicePopup.closed) {
-                console.log('팝업 닫기 시도');
-                try {
-                    nicePopup.close();
-                } catch (e) {
-                    console.log('팝업 닫기 실패:', e);
-                }
-            }
-        }
-    });
+    //         // 팝업 닫기 시도
+    //         if (nicePopup && !nicePopup.closed) {
+    //             console.log('팝업 닫기 시도');
+    //             try {
+    //                 nicePopup.close();
+    //             } catch (e) {
+    //                 console.log('팝업 닫기 실패:', e);
+    //             }
+    //         }
+    //     }
+    // });
 
-    // 인증 결과를 받는 함수
-    function receiveAuthResult(result) {
-        console.log('인증 결과 처리:', result);
+    // // 인증 결과를 받는 함수
+    // function receiveAuthResult(result) {
+    //     console.log('인증 결과 처리:', result);
 
-        if (result.success) {
-            alert('인증이 완료되었습니다.'); 
-            $('#priceBtn').css('display', 'flex');
-            $('#global-agree').css('display', 'none');
-            $("#agecheck").attr('disabled', true);
-            mobileno = result.data.mobileno;
-        } else {
-            alert('인증에 실패했습니다: ' + result.message);
-        }
-    }
+    //     if (result.success) {
+    //         alert('인증이 완료되었습니다.');
+    //         $('#priceBtn').css('display', 'flex');
+    //         $('#global-agree').css('display', 'none');
+    //         $("#agecheck").attr('disabled', true);
+    //         mobileno = result.data.mobileno;
+    //     } else {
+    //         alert('인증에 실패했습니다: ' + result.message);
+    //     }
+    // }
 
 
 
-    $("#global-agree").on("click", function() {
-        window.name = "Parent_window";
+    // $("#global-agree").on("click", function() {
+    //     window.name = "Parent_window";
 
-        const left = (screen.width - 500) / 2;
-        const top = (screen.height - 550) / 2;
+    //     const left = (screen.width - 500) / 2;
+    //     const top = (screen.height - 550) / 2;
 
-        nicePopup = window.open(
-            '',
-            'popupChk',
-            `width=500, height=550, left=${left}, top=${top}, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=yes, location=no, scrollbar=no`
-        );
+    //     nicePopup = window.open(
+    //         '',
+    //         'popupChk',
+    //         `width=500, height=550, left=${left}, top=${top}, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=yes, location=no, scrollbar=no`
+    //     );
 
-        if (!nicePopup) {
-            alert('팝업이 차단되었습니다. 팝업 차단을 해제해주세요.');
-            return;
-        }
+    //     if (!nicePopup) {
+    //         alert('팝업이 차단되었습니다. 팝업 차단을 해제해주세요.');
+    //         return;
+    //     }
 
-        document.form_chk.action = "https://nice.checkplus.co.kr/CheckPlusSafeModel/checkplus.cb";
-        document.form_chk.target = "popupChk";
-        document.form_chk.submit();
+    //     document.form_chk.action = "https://nice.checkplus.co.kr/CheckPlusSafeModel/checkplus.cb";
+    //     document.form_chk.target = "popupChk";
+    //     document.form_chk.submit();
 
-        // 팝업 모니터링
-        const checkPopup = setInterval(function() {
-            if (nicePopup && nicePopup.closed) {
-                clearInterval(checkPopup);
-                console.log('팝업이 사용자에 의해 닫혔습니다');
-            }
-        }, 500);
-    });
+    //     // 팝업 모니터링
+    //     const checkPopup = setInterval(function() {
+    //         if (nicePopup && nicePopup.closed) {
+    //             clearInterval(checkPopup);
+    //             console.log('팝업이 사용자에 의해 닫혔습니다');
+    //         }
+    //     }, 500);
+    // });
 
 
 
