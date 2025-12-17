@@ -78,6 +78,15 @@ function get_url( $url ) {
 	position: relative;
     left: -10px;
 }
+
+@media screen and (max-width: 780px) {
+	#sec01 .txtCon .t2 {
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+	}
+
+}
 </style>
 </head>
 <body>
