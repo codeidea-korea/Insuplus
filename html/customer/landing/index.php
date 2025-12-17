@@ -36,49 +36,7 @@ function get_url( $url ) {
 <script src="./js/scrollIt/scrollIt.min.js"></script>
 
 <script type="text/javascript" src="<?=get_url('./js/myScript.js')?>"></script>
-<!-- 20251217 추가 -->
-<style>
-.main_top_btn01{
-	width: 288px;
-	height: 72px;
-}
 
-.main_top_btn02 {
-
-	width: 288px;
-	height: 51px;
-	display: flex;
-	justify-content: center;
-	border:1px solid #FFDD00;
-	background-color:#FFDD001A;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background: rgba(255, 221, 0, 0.1);
-	border: 1px solid #FFDD00;
-	backdrop-filter: blur(4px);
-	-webkit-backdrop-filter: blur(4px);
-	border-radius: 8px;
-	font-size: 20px;
-	color:#FFFFFF;
-	line-height: 100%;
-	gap:20px;
-	letter-spacing: -0.03em;
-}
-
-.main_top_btn02::before{
-  content: "";
-  width: 30px;
-  height: 31px;
-
-  background: url("./img/main_top_btn02-icon.svg") no-repeat center / contain;
-}
-
-#sec01 .txtCon .t2 img{
-	position: relative;
-    left: -10px;
-}
-</style>
 </head>
 <body>
 
@@ -97,22 +55,22 @@ function get_url( $url ) {
 	</div>
 </header>
 
-<div id="wrapper"> 
+<div id="wrapper">
 	
 	<section id="main_top">
 		<div class="sectionContainer">
 			<img src="./img/main_top_img01.png" class="scrollMotion">
-			<img src="./img/main_top_img02.png" class="scrollMotion"> 
-			<div class="flex-column gap25 scrollMotion pc-only"> 
-				<a href="/html/insurance/renewal_step00.php?alliance_code=bGJQbXlvUFBhVUltMmVYVVlRb0JoUT09&utm_source=shinhan&utm_medium=landing" target="_blank" alt="간편 가격조회 하기"><img src="./img/main_top_btn01.png" class="main_top_btn01"></a>
-				<a href="https://pf.kakao.com/_JClxfT/chat" target="_blank" alt="카카오톡 문의하기" class="main_top_btn02"><span>카카오톡 문의하기</span></a>
+			<img src="./img/main_top_img02.png" class="scrollMotion">
+			<div class="flex-middle gap25 scrollMotion pc-only">
+				<a href="https://pf.kakao.com/_JClxfT/chat" target="_blank" alt="카카오톡 문의하기"><img src="./img/main_top_btn01.png"></a>
+				<a href="/html/insurance/renewal_step00.php?alliance_code=bGJQbXlvUFBhVUltMmVYVVlRb0JoUT09&utm_source=shinhan&utm_medium=landing" target="_blank" alt="간편 가격조회 하기"><img src="./img/main_top_btn02.png"></a>
 			</div>
 		</div>
-	</section>  
+	</section>
 
 	<div id="main">
-		 
-		<div id="_quick_pannel" class="pc-only"> 
+		
+		<div id="_quick_pannel" class="pc-only">
 			<div id="_quick">
 				<a href="https://pf.kakao.com/_JClxfT/chat" target="_blank" alt="카카오톡 문의하기"><img src="./img/quick01.png" class="scrollMotion right"></a>
 				<a href="/html/insurance/renewal_step00.php?alliance_code=bGJQbXlvUFBhVUltMmVYVVlRb0JoUT09&utm_source=shinhan&utm_medium=landing" target="_blank" alt="간편 가격조회 하기"><img src="./img/quick02.png" class="scrollMotion right"></a>
@@ -123,12 +81,9 @@ function get_url( $url ) {
 		<section id="sec01" class="bg01" data-scroll-index="1">
 			<div class="sectionContainer">
 				<div class="txtCon">
-					<div class="t1 scrollMotion">+ 누구나 받을 수 없는 전용 혜택</div>
-					<div class="t2 scrollMotion flex"> 
-						<img src="./img/sec01_txt_img01.png" >
-						<img src="./img/sec01_txt_img02.png" >
-					</div>
-					<div class="t3 scrollMotion">24시간 해외의료 · 여행지원 <span class="fw700 color-blue">서비스 할인</span> 받아가세요!</div>
+					<div class="t1 scrollMotion">+ 신한카드 혜택</div>
+					<div class="t2 scrollMotion">신한카드 고객이라면<br>언제든 할인 제공</div>
+					<div class="t3 scrollMotion">결제 전, 할인 추천코드에 <span class="fw700 color-blue">'신한카드'</span> 꼭! 기억하세요</div>
 				</div>
 				<div class="imgCon">
 					<img src="./img/sec01_img01.png" class="scrollMotion right">
