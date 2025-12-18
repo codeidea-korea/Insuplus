@@ -38,6 +38,14 @@ function get_url( $url ) {
 <script type="text/javascript" src="<?=get_url('./js/myScript.js')?>"></script>
 <!-- 20251217 추가 -->
 <style>
+
+section#main_top::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    pointer-events: none;
+}
 .main_top_btn01{
 	width: 288px;
 	height: 72px;
@@ -86,6 +94,9 @@ function get_url( $url ) {
 		gap: 16px;
 	}
 
+	#sec01 .txtCon .t2 img{
+    left: 0px;
+}
 }
 </style>
 </head>
