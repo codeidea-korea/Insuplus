@@ -12,8 +12,10 @@ try {
     $mail->Host = 'smtp.naver.com'; // 네이버 SMTP 서버
     $mail->SMTPAuth = true;
     $mail->Mailer = 'smtp';
-    $mail->Username = 'flyingdoctors'; // 네이버 이메일 계정
-    $mail->Password = 'newbiz2021!'; // 네이버 이메일 비밀번호
+    // $mail->Username = 'flyingdoctors'; // 네이버 이메일 계정
+    // $mail->Password = 'newbiz2021!'; // 네이버 이메일 비밀번호
+    $mail->Username = 'bizinsightmaster'; // 네이버 이메일 계정
+    $mail->Password = 'RSDUTNPTKRV1'; // 네이버 이메일 비밀번호
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
     $mail->Port = 465;
     $mail->SMTPOptions = array(
@@ -25,7 +27,8 @@ try {
     );
 
     // 발신자 정보
-    $mail->setFrom('flyingdoctors@naver.com', '인슈플러스');
+    // $mail->setFrom('flyingdoctors@naver.com', '인슈플러스');
+    $mail->setFrom('bizinsightmaster@naver.com', '인슈플러스');
     $mail->addAddress($emailAddr, ''); // 수신자
 
     // 이메일 내용

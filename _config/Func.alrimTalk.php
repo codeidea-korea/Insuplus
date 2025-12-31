@@ -45,6 +45,31 @@ function kakaoJoin($param, $mobile)
 //감사 인슈플러스 보험 알림톡
 function kakaoInsuplusJoin($param, $mobile) {
 
+	$templet_code = "004";
+
+	$message = $param["name"]." 고객님 인슈플러스를 가입해 주셔서 감사합니다. 가입하신 상품 안내 드립니다.
+
+■ 가입자명 : ".$param["name"]."
+■ 상품명 : ".$param["pr_name"]."
+■ 가입 기간 : ".$param["period"]."
+■ 결제 금액 : ".number_format($param["t_amount"])."원
+
+병원예약, 의료상담, 보험청구, 긴급이후송 등 모든 서비스는 24시간 알람센터 카카오톡 채널 또는 전화로 요청하실 수 있습니다.
+고객님의 행복한 여행을 위해 인슈플러스가 항상 함께하겠습니다.
+
+☎ 24시간 알람센터
+02-360-2545
+
+■ 카카오톡 채널 추가하시면 친구 전용 할인혜택을 받으실 수 있습니다.
+
+※ 가입증명서(국문, 영문) 다운로드 및 취소는 증명서발급 페이지를 클릭해 주세요. 취소는 출국 전일까지 가능합니다.";
+
+	kakaoSend($message, $templet_code, $mobile);
+
+}
+/*
+function kakaoInsuplusJoin($param, $mobile) {
+
 	$templet_code = "005";
 
 	$message = $param["name"]." 고객님 인슈플러스를 가입해 주셔서 감사합니다. 가입하신 상품 안내 드립니다.
@@ -76,6 +101,8 @@ function kakaoInsuplusJoin($param, $mobile) {
 	kakaoSend($message, $templet_code, $mobile);
 
 }
+    */
+ 
  
 
 //감사 알림톡 
