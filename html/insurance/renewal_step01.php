@@ -1777,12 +1777,16 @@ require_once '../_nice/checkplus_main.php';
                 break;
             }
         }
-
-        arrivalElement.value = '';
+// 20260102 수정
+        // arrivalElement.value = '';
         if (EHDObject.isLongterm() === 1) {
             arrivalElement.max = EHDObject.getFormatedDate(new Date(dDate.getTime() + oneYear));
+            // console.log("arrivalElement.max ::", arrivalElement.max);
+            // console.log("arrivalElement.value ::", arrivalElement.value);
+            // console.log("selectedRadioButton ::", selectedRadioButton);
+            // console.log("EHDObject.depth0.code ::", EHDObject.depth0.code);
             if (!arrivalElement.value) {
-                if (selectedRadioButton || EHDObject.depth0.code === 'E002') {
+                if (selectedRadioButton || EHDObject.depth0.code === 'E002' ) {
                     let dataName = '';
                     if (EHDObject.depth0.code === 'E002') {
                         dataName = '장기체류';
@@ -1882,15 +1886,29 @@ require_once '../_nice/checkplus_main.php';
             limitDate = EHDObject.getFormatedDate(nDate);
             document.querySelectorAll('input[type=date]:not([name$=birth])').forEach((el) => {
                 el.min = limitDate;
+                // if (!el.value && el.id === 'A-departure') {
+                    
+                // if (!el.value && el.id === 'A-departure') {
                 if (el.id === 'A-departure') {
+                    
                     const depth3Name = EHDObject.depth3 ? EHDObject.depth3.name : '';
+                
                     if (depth3Name && depth3Name === '해외거주') {
                         const tDate = new Date(cDate.getTime() + (oneDay * 3));
                         el.min = EHDObject.getFormatedDate(tDate);
-                        el.value = EHDObject.getFormatedDate(tDate);
+                        
+// 20260102 수정
+                        if(!el.value) {
+                            el.value = EHDObject.getFormatedDate(tDate);
+                        }
                     } else {
-                        el.value = EHDObject.getFormatedDate(nDate);
+                        
+// 20260102 수정
+                        if(!el.value) {
+                            el.value = EHDObject.getFormatedDate(nDate);
+                        }
                     }
+                    // console.log("el.value ::", el.value);
                     // el.value = EHDObject.getFormatedDate(nDate);
                     el.dispatchEvent(new Event('change'));
                 }
