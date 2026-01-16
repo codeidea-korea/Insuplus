@@ -2261,3 +2261,13 @@ input[type=date].form-control{padding-right:38px;}
     align-items: center;
     border-bottom: 1px solid #d6d6d6;
 }
+
+/* 20260116보상서비스 버튼추가 */
+.insusite_btn {position:absolute; right:10px; top:15px; display:flex; align-items:center; justify-content:center; gap:10px; border:1px solid #bbb; padding:10px 20px; border-radius:4px; }
+.insusite_btn:hover {background-color:#f9f9f9; }
+.insusite_btn img {width:40px; }
+.insusite_btn span {line-height:1.3; }
+
+@media all and (max-width:767px){
+  .insusite_btn {position:relative; right:0; top:0; margin:10px; }
+}

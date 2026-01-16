@@ -30,8 +30,9 @@
 					</div>
 					<div class="col-md-10 col-sm-9">
 						<div class="sub-content cs-wrap">
-							<h3 class="text-black font-bold m-b-1"><img src="../images/ic-small-logo.svg" align="absmiddle" alt="" class="" />&nbsp;인슈플러스 가입자</h3>
-							<h5 class="text-black reponsive">24시간 알람센터 전화, 카카오톡, 이메일로 문의하세요.<br>보상신청을 대행해 드립니다.</h5>
+							<!-- <h3 class="text-black font-bold m-b-1"><img src="../images/ic-small-logo.svg" align="absmiddle" alt="" class="" />&nbsp;인슈플러스 가입자</h3> -->
+							<h5 class="text-black reponsive">24시간 알람센터(전화, 카카오톡)로 문의하세요.<br/>청구방법을 안내해 드립니다.</h5>
+							<a href="https://flyingdoctors.biz/claim_direct" target="_blank" class="insusite_btn"><img src="../images/icon_insu_symbol.png" alt=""><span>인슈플러스<br/>청구사이트</span></a>
 							<div class="row btn-icon-group btn-group-csenter">
 								<!-- 20231013 전화번호 연결 시작 -->
 								<!-- 20231013 전화배너영역 선택시 is-pc에서는 24시간 알람센터 이동되고 is-m에서는 디바이스 전화걸기화면으로 이동-->
@@ -86,7 +87,7 @@
 							<h5 class="text-black m-t-3 m-b-05"><span class="point">1. 병원비 대신 지불(지불대행) 신청</span></h5>
 							<ul class="list-instyled icons m-b-05">
 								<li class="line-height-2"><i class="ti ti-minus"></i>병원 예약 및 지불보증을 요청합니다.</li>
-								<li class="line-height-2"><i class="ti ti-minus"></i>알람센터를 통해 병원 예약 및 지불보증 확인 후 의료정보공개 동의서를 제출합니다. </li>
+								<li class="line-height-2"><i class="ti ti-minus"></i>예약된 병원에서 진료를 본 후, 보내드리는 청구사이트에서 서류를 작성합니다.</li>
 								<li class="line-height-2"><i class="ti ti-minus"></i>인슈플러스가 고객님의 병원비를 보험사에 청구합니다.</li>
 							</ul>
 							<div class="row clearfix">
@@ -98,19 +99,43 @@
 									</div>
 								</div>
 							</div>
-							<h5 class="text-black m-t-3 m-b-05"><span class="point">2. 병원비 지불 후 상품가격 청구 신청</span></h5>
+							<h5 class="text-black m-t-3 m-b-05"><span class="point">2. 병원 예약 서비스 후 청구 신청</span></h5>
 							<ul class="list-instyled icons">
 								<li class="line-height-2"><i class="ti ti-minus"></i>병원 예약을 요청합니다.</li>
-								<li class="line-height-2"><i class="ti ti-minus"></i>예약된 병원에서 진료를 받습니다.</li>
-								<li class="line-height-2"><i class="ti ti-minus"></i>보험금 청구서, 메디컬 리포트, 병원비 영수증을 알람센터로 보냅니다.</li>
-								<li class="line-height-2"><i class="ti ti-minus"></i>보험금 청구신청서 받기</li>
+								<li class="line-height-2"><i class="ti ti-minus"></i>예약된 병원에서 진료를 본 후, 메디컬 리포트, 병원비 영수증을 준비합니다.</li>
+							</ul>
+							<div class="row clearfix p-t-05" style="padding-left:18px;">
+								<div class="col-md-12 col-sm-12">
+									<div class="row">
+										<div class="col-md-12 col-sm-12 col-xs-12">샘플 보기</div>
+									</div>
+									<div class="row">
+										<div class="col-md-3 col-sm-4 col-xs-6 m-t-1">
+											<a class="btn btn-default btn-block" data-toggle="pop-modal" data-size="sm" data-href="pop_midical_report.php" data-title="메디컬 리포트 샘플" target="modal_iframe">메디컬 리포트 샘플</a>
+										</div>
+										<div class="col-md-3 col-sm-4 col-xs-6 m-t-1">
+											<a class="btn btn-default btn-block" data-toggle="pop-modal" data-size="sm" data-href="pop_invoice.php" data-title="병원비 영수증 샘플" target="modal_iframe">병원비 영수증 샘플</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<ul class="list-instyled icons">
+								<li class="line-height-2"><i class="ti ti-minus"></i>안내 받은 청구사이트에서 서류를 작성합니다.</li>
+							</ul>
+							<h5 class="text-black m-t-3 m-b-05"><span class="point">3. 병원 방문 후 청구 신청</span></h5>
+							<ul class="list-instyled icons">
+								<li class="line-height-2"><i class="ti ti-minus"></i>고객님께서 직접 병원 방문을 하신 경우, <br/>진료 후 메디컬 리포트, 병원비 영수증을 준비합니다.</li>
+								<li class="line-height-2"><i class="ti ti-minus"></i>청구서류에 대해 궁금하신 경우 24시간 알람센터로 청구방법을 문의해 주세요.</li>
 							</ul>
 							<div class="row clearfix">
 								<div class="col-md-12 col-sm-12">
 									<div class="row">
 										<div class="col-md-3 col-sm-4 col-xs-6 m-t-1">
-											<a href="./sample/현대해상_청구서,동의서.pdf" target="_blank" class="btn btn-default btn-block">보험금 청구신청서(현대)</a>
+											<a href="./sample/신한_청구서,동의서.pdf" target="_blank" class="btn btn-default btn-block">보험금 청구신청서(신한)</a>
 										</div>
+										<!-- <div class="col-md-3 col-sm-4 col-xs-6 m-t-1">
+											<a href="./sample/현대해상_청구서,동의서.pdf" target="_blank" class="btn btn-default btn-block">보험금 청구신청서(현대)</a>
+										</div> -->
 										<div class="col-md-3 col-sm-4 col-xs-6 m-t-1">
 											<a href="./sample/한화_청구서,동의서.pdf" target="_blank" class="btn btn-default btn-block">보험금 청구신청서(한화)</a>
 										</div>
@@ -120,7 +145,7 @@
 									</div>
 								</div>
 							</div>
-							<ul class="list-instyled icons">
+							<!-- <ul class="list-instyled icons">
 								<li class="line-height-2"><i class="ti ti-minus"></i>샘플 보기</li>
 							</ul>
 							<div class="row clearfix">
@@ -134,7 +159,7 @@
 										</div>
 									</div>
 								</div>
-							</div>
+							</div> -->
 							<!--
 							<hr class="m-t-4">
 							<h3 class="text-black font-bold m-t-2 m-b-1"><img src="../images/ic-small-logo.svg" align="absmiddle" alt="" class="">&nbsp;일반상품 가입자</h3>
