@@ -28,7 +28,7 @@
 							include "../_include/_service_left.html";
 						?>
 					</div>
-					<div class="col-md-10 col-sm-9">
+					<div class="col-md-10 col-sm-9 p-b-5">
 						<div class="sub-content cs-wrap">
 							<!-- <h3 class="text-black font-bold m-b-1"><img src="../images/ic-small-logo.svg" align="absmiddle" alt="" class="" />&nbsp;인슈플러스 가입자</h3> -->
 							<h5 class="text-black reponsive">24시간 알람센터(전화, 카카오톡)로 문의하세요.<br/>청구방법을 안내해 드립니다.</h5>
