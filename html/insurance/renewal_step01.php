@@ -1785,26 +1785,26 @@ require_once '../_nice/checkplus_main.php';
 		// 	20260102 수정
         // arrivalElement.value = '';
         if (EHDObject.isLongterm() === 1) {
-            //arrivalElement.max = EHDObject.getFormatedDate(new Date(dDate.getTime() + oneYear));
+            arrivalElement.max = EHDObject.getFormatedDate(new Date(dDate.getTime() + oneYear));
             //20260202 수정
             // 귀국일 max는 "항상 오늘 기준 + 1년"
-		    const today = new Date();
-			today.setHours(0,0,0,0);
+// 		    const today = new Date();
+// 			today.setHours(0,0,0,0);
 			
-			// ✅ 1년 뒤 "같은 월/일"
-			const maxDateObj = new Date(today);
-			maxDateObj.setFullYear(today.getFullYear() + 1);
+// 			// ✅ 1년 뒤 "같은 월/일"
+// 			const maxDateObj = new Date(today);
+// 			maxDateObj.setFullYear(today.getFullYear() + 1);
 			
-			arrivalElement.max = EHDObject.getFormatedDate(maxDateObj);
+// 			arrivalElement.max = EHDObject.getFormatedDate(maxDateObj);
 		
-		    // 이미 값이 있는데 max를 넘어가면 max로 끌어내림
-		    if (arrivalElement.value) {
-		        const curArrival = new Date(arrivalElement.value);
-		        curArrival.setHours(0,0,0,0);
-		        if (curArrival > maxDateObj) {
-		            arrivalElement.value = maxDateStr;
-		        }
-		    }
+// 		    // 이미 값이 있는데 max를 넘어가면 max로 끌어내림
+// 		    if (arrivalElement.value) {
+// 		        const curArrival = new Date(arrivalElement.value);
+// 		        curArrival.setHours(0,0,0,0);
+// 		        if (curArrival > maxDateObj) {
+// 		            arrivalElement.value = maxDateStr;
+// 		        }
+// 		    }
             
             // console.log("arrivalElement.max ::", arrivalElement.max);
             // console.log("arrivalElement.value ::", arrivalElement.value);
