@@ -1450,7 +1450,7 @@ require_once '../_nice/checkplus_main.php';
             document.getElementById('A-arrival-time').value = '23';
 
             if (depth3Name && depth3Name === '해외거주') {
-                nDate = new Date(cDate.getTime() + 3);
+            	nDate = new Date(cDate.getTime() + (oneDay * 3));
             }
         }
 
@@ -1568,6 +1568,11 @@ require_once '../_nice/checkplus_main.php';
             EHDObject.getCategories(EHDObject[targetName].code, displayProductFactory('depth3', '#whichStayIn'));
         }
         setDateLimitOnInput();
+
+        if (targetName === 'depth3') {
+            const depEl = document.getElementById('A-departure');
+            if (depEl) depEl.dispatchEvent(new Event('change'));
+        }
     }
 
     /////////////////////////////////////////////////////////////////////////
@@ -1777,14 +1782,35 @@ require_once '../_nice/checkplus_main.php';
                 break;
             }
         }
-// 20260102 수정
+		// 	20260102 수정
         // arrivalElement.value = '';
         if (EHDObject.isLongterm() === 1) {
-            arrivalElement.max = EHDObject.getFormatedDate(new Date(dDate.getTime() + oneYear));
+            //arrivalElement.max = EHDObject.getFormatedDate(new Date(dDate.getTime() + oneYear));
+            //20260202 수정
+            // 귀국일 max는 "항상 오늘 기준 + 1년"
+		    const today = new Date();
+			today.setHours(0,0,0,0);
+			
+			// ✅ 1년 뒤 "같은 월/일"
+			const maxDateObj = new Date(today);
+			maxDateObj.setFullYear(today.getFullYear() + 1);
+			
+			arrivalElement.max = EHDObject.getFormatedDate(maxDateObj);
+		
+		    // 이미 값이 있는데 max를 넘어가면 max로 끌어내림
+		    if (arrivalElement.value) {
+		        const curArrival = new Date(arrivalElement.value);
+		        curArrival.setHours(0,0,0,0);
+		        if (curArrival > maxDateObj) {
+		            arrivalElement.value = maxDateStr;
+		        }
+		    }
+            
             // console.log("arrivalElement.max ::", arrivalElement.max);
             // console.log("arrivalElement.value ::", arrivalElement.value);
             // console.log("selectedRadioButton ::", selectedRadioButton);
             // console.log("EHDObject.depth0.code ::", EHDObject.depth0.code);
+            
             if (!arrivalElement.value) {
                 if (selectedRadioButton || EHDObject.depth0.code === 'E002' ) {
                     let dataName = '';
@@ -1889,30 +1915,58 @@ require_once '../_nice/checkplus_main.php';
                 // if (!el.value && el.id === 'A-departure') {
                     
                 // if (!el.value && el.id === 'A-departure') {
-                if (el.id === 'A-departure') {
+//                 if (el.id === 'A-departure') {
                     
-                    const depth3Name = EHDObject.depth3 ? EHDObject.depth3.name : '';
+//                     const depth3Name = EHDObject.depth3 ? EHDObject.depth3.name : '';
                 
-                    if (depth3Name && depth3Name === '해외거주') {
-                        const tDate = new Date(cDate.getTime() + (oneDay * 3));
-                        el.min = EHDObject.getFormatedDate(tDate);
+//                     if (depth3Name && depth3Name === '해외거주') {
+//                         const tDate = new Date(cDate.getTime() + (oneDay * 3));
+//                         el.min = EHDObject.getFormatedDate(tDate);
                         
-// 20260102 수정
-                        if(!el.value) {
-                            el.value = EHDObject.getFormatedDate(tDate);
-                        }
-                    } else {
+// // 20260102 수정
+//                         if(!el.value) {
+//                             el.value = EHDObject.getFormatedDate(tDate);
+//                         }
+//                     } else {
                         
-// 20260102 수정
-                        if(!el.value) {
-                            el.value = EHDObject.getFormatedDate(nDate);
-                        }
-                    }
-                    // console.log("el.value ::", el.value);
-                    // el.value = EHDObject.getFormatedDate(nDate);
-                    el.dispatchEvent(new Event('change'));
-                }
-
+// // 20260102 수정
+//                         if(!el.value) {
+//                             el.value = EHDObject.getFormatedDate(nDate);
+//                         }
+//                     }
+//                     // console.log("el.value ::", el.value);
+//                     // el.value = EHDObject.getFormatedDate(nDate);
+//                     el.dispatchEvent(new Event('change'));
+//                 }
+				if (el.id === 'A-departure') {
+				    const depth3Name = EHDObject.depth3 ? EHDObject.depth3.name : '';
+				
+				    // 기본 min: 내일(장기)
+				    let minDateObj = new Date(cDate.getTime() + oneDay);
+				
+				    // ✅ 해외거주면 min: 3일 후
+				    if (depth3Name === '해외거주') {
+				        minDateObj = new Date(cDate.getTime() + (oneDay * 3));
+				    }
+				
+				    const minDateStr = EHDObject.getFormatedDate(minDateObj);
+				    el.min = minDateStr;
+				
+				    // ✅ 핵심: 값이 이미 있어도, min보다 과거면 min으로 끌어올림
+				    if (el.value) {
+				        const currentValObj = new Date(el.value);
+				        // 날짜만 비교하고 싶으면 time 제거된 문자열 비교도 가능하지만, 여기선 Date로 충분
+				        if (currentValObj < minDateObj) {
+				            el.value = minDateStr;
+				        }
+				    } else {
+				        // 값이 없으면 그냥 min으로 세팅
+				        el.value = minDateStr;
+				    }
+				
+				    // 출국일 바뀌었으니 기존 로직 그대로 실행
+				    el.dispatchEvent(new Event('change'));
+				}
 
             });
 
