@@ -1390,108 +1390,246 @@ require_once '../_nice/checkplus_main.php';
     }
 
     // 가격조회 전 check validation
+//     function checkValidation() {
+//         const customer = {};
+//         const companions = [];
+//         const pattern = /^(\d{4})(\d{2})(\d{2})$/;
+//         const bCount = Number(document.querySelector('#B-count').value || 0);
+//         const bBirths = document.getElementsByName('B-birth');
+//         const requiredElements = document.querySelectorAll('input[required]');
+//         const unCheckedElements = document.querySelectorAll('input[required][type=radio]');
+
+//         function formatDate(inputDate) {
+//             return inputDate.replace(pattern, '$1-$2-$3');
+//         }
+
+//         let emptyElement = Array.from(requiredElements).find((el) => {
+//             if (!el.value) {
+//                 return true;
+//             }
+//             if (el.name.includes('birth') && !pattern.test(el.value)) {
+//                 return true;
+//             }
+//         });
+//         emptyElement ||= Array.from(unCheckedElements).find(
+//             (el) => !Array.from(document.getElementsByName(el.name)).find((ell) => ell.checked)
+//         );
+
+//         if (emptyElement) {
+//             if (emptyElement.name.includes('birth')) {
+//                 alert('생년월일을 확인해주세요.');
+
+//             } else {
+//                 alert(emptyElement.getAttribute('placeholder') || '');
+//             }
+//             emptyElement.focus();
+//             return false;
+//         }
+
+//         customer.birth = formatDate(document.getElementById('A-birth').value);
+//         customer.age = EHDObject.getAge(customer.birth);
+//         customer.gender = Array.from(document.getElementsByName(`A-gender`)).find((el) => el.checked)?.value;
+//         customer.departureDate = document.getElementById('A-departure').value;
+//         customer.departureTime = document.getElementById('A-departure-time').value;
+//         customer.arrivalDate = document.getElementById('A-arrival').value;
+//         customer.arrivalTime = document.getElementById('A-arrival-time').value;
+
+//         const depth3Name = EHDObject.depth3 ? EHDObject.depth3.name : '';
+//         const cDate = new Date();
+//         const dDate = new Date(customer.departureDate);
+//         const oneDay = 24 * 60 * 60 * 1000;
+//         let nDate = new Date(cDate.getTime());
+
+//         const day = Math.ceil(
+//             (new Date(customer.arrivalDate).getTime() - new Date(customer.departureDate).getTime()) / 1000 / 60 / 60 / 24
+//         );
+//         if (day >= 90) {
+//             customer.departureTime = '00';
+//             customer.arrivalTime = '23';
+//             document.getElementById('A-departure-time').value = '00';
+//             document.getElementById('A-arrival-time').value = '23';
+
+//             if (depth3Name && depth3Name === '해외거주') {
+//             	nDate = new Date(cDate.getTime() + (oneDay * 3));
+//             }
+//         }
+
+//         const departureDate = new Date(`${customer.departureDate} ${customer.departureTime}:00:00`);
+//         const arrivalDate = new Date(`${customer.arrivalDate} ${customer.arrivalTime}:00:00`);
+//         const dayPeriod = Math.ceil(
+//             (Number(arrivalDate.getTime()) - Number(departureDate.getTime())) / 1000 / 60 / 60 / 24
+//         );
+//         const monthPeriod =
+//             (arrivalDate.getFullYear() - departureDate.getFullYear()) * 12 +
+//             (arrivalDate.getMonth() - departureDate.getMonth()) +
+//             (arrivalDate.getDate() - departureDate.getDate() >= 0 ? 1 : 0);
+
+//         customer.dayPeriod = dayPeriod;
+//         customer.monthPeriod = monthPeriod;
+
+//         // nDate.setHours(0, 0, 0, 0);
+//         // dDate.setHours(0, 0, 0, 0);
+
+//         if (departureDate < nDate) {
+//             alert('출국일을 확인해주세요.');
+//             document.getElementById('A-departure').focus();
+//             return false;
+//         }
+
+//         for (let i = 0; i < bCount; i++) {
+//             const person = {};
+//             person.birth = formatDate(bBirths[i].value);
+//             person.age = EHDObject.getAge(person.birth);
+//             person.gender = Array.from(document.getElementsByName(`B-gender-${i}`)).find((el) => el.checked)?.value;
+//             person.dayPeriod = dayPeriod;
+//             person.monthPeriod = monthPeriod;
+//             companions.push(person);
+//         }
+
+//         EHDObject.customer = customer;
+//         EHDObject.companions = companions;
+//         EHDObject.save();
+
+//         return true;
+//     }
+    
     function checkValidation() {
-        const customer = {};
-        const companions = [];
-        const pattern = /^(\d{4})(\d{2})(\d{2})$/;
-        const bCount = Number(document.querySelector('#B-count').value || 0);
-        const bBirths = document.getElementsByName('B-birth');
-        const requiredElements = document.querySelectorAll('input[required]');
-        const unCheckedElements = document.querySelectorAll('input[required][type=radio]');
-
-        function formatDate(inputDate) {
-            return inputDate.replace(pattern, '$1-$2-$3');
-        }
-
-        let emptyElement = Array.from(requiredElements).find((el) => {
-            if (!el.value) {
-                return true;
-            }
-            if (el.name.includes('birth') && !pattern.test(el.value)) {
-                return true;
-            }
-        });
-        emptyElement ||= Array.from(unCheckedElements).find(
-            (el) => !Array.from(document.getElementsByName(el.name)).find((ell) => ell.checked)
-        );
-
-        if (emptyElement) {
-            if (emptyElement.name.includes('birth')) {
-                alert('생년월일을 확인해주세요.');
-
-            } else {
-                alert(emptyElement.getAttribute('placeholder') || '');
-            }
-            emptyElement.focus();
-            return false;
-        }
-
-        customer.birth = formatDate(document.getElementById('A-birth').value);
-        customer.age = EHDObject.getAge(customer.birth);
-        customer.gender = Array.from(document.getElementsByName(`A-gender`)).find((el) => el.checked)?.value;
-        customer.departureDate = document.getElementById('A-departure').value;
-        customer.departureTime = document.getElementById('A-departure-time').value;
-        customer.arrivalDate = document.getElementById('A-arrival').value;
-        customer.arrivalTime = document.getElementById('A-arrival-time').value;
-
-        const depth3Name = EHDObject.depth3 ? EHDObject.depth3.name : '';
-        const cDate = new Date();
-        const dDate = new Date(customer.departureDate);
-        const oneDay = 24 * 60 * 60 * 1000;
-        let nDate = new Date(cDate.getTime());
-
-        const day = Math.ceil(
-            (new Date(customer.arrivalDate).getTime() - new Date(customer.departureDate).getTime()) / 1000 / 60 / 60 / 24
-        );
-        if (day >= 90) {
-            customer.departureTime = '00';
-            customer.arrivalTime = '23';
-            document.getElementById('A-departure-time').value = '00';
-            document.getElementById('A-arrival-time').value = '23';
-
-            if (depth3Name && depth3Name === '해외거주') {
-            	nDate = new Date(cDate.getTime() + (oneDay * 3));
-            }
-        }
-
-        const departureDate = new Date(`${customer.departureDate} ${customer.departureTime}:00:00`);
-        const arrivalDate = new Date(`${customer.arrivalDate} ${customer.arrivalTime}:00:00`);
-        const dayPeriod = Math.ceil(
-            (Number(arrivalDate.getTime()) - Number(departureDate.getTime())) / 1000 / 60 / 60 / 24
-        );
-        const monthPeriod =
-            (arrivalDate.getFullYear() - departureDate.getFullYear()) * 12 +
-            (arrivalDate.getMonth() - departureDate.getMonth()) +
-            (arrivalDate.getDate() - departureDate.getDate() >= 0 ? 1 : 0);
-
-        customer.dayPeriod = dayPeriod;
-        customer.monthPeriod = monthPeriod;
-
-        // nDate.setHours(0, 0, 0, 0);
-        // dDate.setHours(0, 0, 0, 0);
-
-        if (departureDate < nDate) {
-            alert('출국일을 확인해주세요.');
-            document.getElementById('A-departure').focus();
-            return false;
-        }
-
-        for (let i = 0; i < bCount; i++) {
-            const person = {};
-            person.birth = formatDate(bBirths[i].value);
-            person.age = EHDObject.getAge(person.birth);
-            person.gender = Array.from(document.getElementsByName(`B-gender-${i}`)).find((el) => el.checked)?.value;
-            person.dayPeriod = dayPeriod;
-            person.monthPeriod = monthPeriod;
-            companions.push(person);
-        }
-
-        EHDObject.customer = customer;
-        EHDObject.companions = companions;
-        EHDObject.save();
-
-        return true;
-    }
+	    const customer = {};
+	    const companions = [];
+	    const pattern = /^(\d{4})(\d{2})(\d{2})$/;
+	
+	    const bCount = Number(document.querySelector('#B-count').value || 0);
+	    const bBirths = document.getElementsByName('B-birth');
+	
+	    const requiredElements = document.querySelectorAll('input[required]');
+	    const unCheckedElements = document.querySelectorAll('input[required][type=radio]');
+	
+	    function formatDate(inputDate) {
+	        return inputDate.replace(pattern, '$1-$2-$3');
+	    }
+	
+	    // 1) 필수값 검증
+	    let emptyElement = Array.from(requiredElements).find((el) => {
+	        if (!el.value) return true;
+	        if (el.name.includes('birth') && !pattern.test(el.value)) return true;
+	    });
+	
+	    emptyElement ||= Array.from(unCheckedElements).find(
+	        (el) => !Array.from(document.getElementsByName(el.name)).find((ell) => ell.checked)
+	    );
+	
+	    if (emptyElement) {
+	        if (emptyElement.name.includes('birth')) {
+	            alert('생년월일을 확인해주세요.');
+	        } else {
+	            alert(emptyElement.getAttribute('placeholder') || '');
+	        }
+	        emptyElement.focus();
+	        return false;
+	    }
+	
+	    // 2) 입력값 customer 세팅
+	    customer.birth = formatDate(document.getElementById('A-birth').value);
+	    customer.age = EHDObject.getAge(customer.birth);
+	    customer.gender = Array.from(document.getElementsByName(`A-gender`)).find((el) => el.checked)?.value;
+	
+	    customer.departureDate = document.getElementById('A-departure').value;
+	    customer.departureTime = document.getElementById('A-departure-time').value;
+	
+	    customer.arrivalDate = document.getElementById('A-arrival').value;
+	    customer.arrivalTime = document.getElementById('A-arrival-time').value;
+	
+	    const depth3Name = EHDObject.depth3 ? EHDObject.depth3.name : '';
+	    const cDate = new Date();
+	
+	    // 3) 날짜/기간 계산
+	    const isLongterm = (EHDObject.isLongterm() === 1);
+	
+	    // 날짜만으로 day 계산
+	    const day = Math.ceil(
+	        (new Date(customer.arrivalDate).getTime() - new Date(customer.departureDate).getTime()) / 1000 / 60 / 60 / 24
+	    );
+	
+	    // 90일 이상이면 시간 강제
+	    if (day >= 90) {
+	        customer.departureTime = '00';
+	        customer.arrivalTime = '23';
+	        document.getElementById('A-departure-time').value = '00';
+	        document.getElementById('A-arrival-time').value = '23';
+	    }
+	
+	    // time 포함 Date 객체
+	    const departureDate = new Date(`${customer.departureDate} ${customer.departureTime}:00:00`);
+	    const arrivalDate = new Date(`${customer.arrivalDate} ${customer.arrivalTime}:00:00`);
+	
+	    const dayPeriod = Math.ceil(
+	        (arrivalDate.getTime() - departureDate.getTime()) / 1000 / 60 / 60 / 24
+	    );
+	
+	    // ✅ monthPeriod 복구 (기존 공식 그대로)
+	    const monthPeriod =
+	        (arrivalDate.getFullYear() - departureDate.getFullYear()) * 12 +
+	        (arrivalDate.getMonth() - departureDate.getMonth()) +
+	        (arrivalDate.getDate() - departureDate.getDate() >= 0 ? 1 : 0);
+	
+	    customer.dayPeriod = dayPeriod;
+	    customer.monthPeriod = monthPeriod;
+	
+	    // 4) 출국일 검증
+	    let minDepart;
+	
+	    if (isLongterm) {
+	        // 장기: "날짜" 기준 (오늘 시각 제거)
+	        minDepart = new Date();
+	        minDepart.setHours(0, 0, 0, 0);
+	        minDepart.setDate(minDepart.getDate() + 1); // 기본: 내일부터 가능
+	
+	        // 90일 이상 + 해외거주면 3일 후부터 가능
+	        // (내일(+1) +2 => 총 +3일)
+	        if (dayPeriod >= 90 && depth3Name === '해외거주') {
+	            minDepart.setDate(minDepart.getDate() + 2);
+	        }
+	
+	        const depOnly = new Date(customer.departureDate);
+	        depOnly.setHours(0, 0, 0, 0);
+	
+	        if (depOnly < minDepart) {
+	            alert('출국일을 확인해주세요.');
+	            document.getElementById('A-departure').focus();
+	            return false;
+	        }
+	    } else {
+	        // 단기: 지금 + 1시간 이후부터 가능 (시간까지 비교)
+	        minDepart = new Date(cDate.getTime() + (60 * 60 * 1000));
+	
+	        if (departureDate < minDepart) {
+	            alert('출국일을 확인해주세요.');
+	            document.getElementById('A-departure').focus();
+	            return false;
+	        }
+	    }
+	
+	    // 5) 동반자 세팅
+	    for (let i = 0; i < bCount; i++) {
+	        const person = {};
+	        person.birth = formatDate(bBirths[i].value);
+	        person.age = EHDObject.getAge(person.birth);
+	        person.gender = Array.from(document.getElementsByName(`B-gender-${i}`))
+	            .find((el) => el.checked)?.value;
+	
+	        person.dayPeriod = dayPeriod;
+	        person.monthPeriod = monthPeriod;
+	
+	        companions.push(person);
+	    }
+	
+	    // 6) 저장
+	    EHDObject.customer = customer;
+	    EHDObject.companions = companions;
+	    EHDObject.save();
+	
+	    return true;
+	}
 
     // 동반자 입력양식 생성
     function generateCompanionForms(num) {
