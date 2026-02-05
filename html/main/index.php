@@ -117,9 +117,9 @@ $_SESSION["orderno"] = "";
 				</ul>
 
 				<div class="middle-title-box">
-					<h3>&middot; 한국인 의사 원격진료 &middot;</h3>
-					<p class="is-pc">전세계 어디서든 한국인 의사의 케어서비스를 받으세요<br><strong class="ft-red">원격진료, 12개과목 전화예약 상담, 24시간 응급 상담 서비스</strong>를 제공해 드립니다</p>
-					<p class="is-m">전세계 어디서든 한국인 의사의 케어서비스를 받으세요<br><strong class="ft-red">원격진료, 12개과목 전화예약 상담,<br>24시간 응급 상담 서비스</strong>를 제공해 드립니다</p>
+					<h3>&middot; 한국인 의사 원격상담 &middot;</h3>
+					<p class="is-pc">전세계 어디서든 한국인 의사의 케어서비스를 받으세요<br><strong class="ft-red">원격상담, 12개과목 전화예약 상담, 24시간 응급 상담 서비스</strong>를 제공해 드립니다</p>
+					<p class="is-m">전세계 어디서든 한국인 의사의 케어서비스를 받으세요<br><strong class="ft-red">원격상담, 12개과목 전화예약 상담,<br>24시간 응급 상담 서비스</strong>를 제공해 드립니다</p>
 				</div>
 
 				<ul class="img-flex-box">

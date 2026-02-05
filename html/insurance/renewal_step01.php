@@ -1599,8 +1599,10 @@ require_once '../_nice/checkplus_main.php';
 	            return false;
 	        }
 	    } else {
-	        // 단기: 지금 + 1시간 이후부터 가능 (시간까지 비교)
-	        minDepart = new Date(cDate.getTime() + (60 * 60 * 1000));
+	    	// 단기: 다음 시간 "정시" 이후부터 가능
+	    	minDepart = new Date(cDate);
+	    	minDepart.setMinutes(0, 0, 0);              // 현재 시각 → 정시로 내림
+	    	minDepart.setHours(minDepart.getHours() + 1); // 다음 시간 정시
 	
 	        if (departureDate < minDepart) {
 	            alert('출국일을 확인해주세요.');
