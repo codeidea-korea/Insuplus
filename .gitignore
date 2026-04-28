@@ -67,3 +67,11 @@ _util/PHPExcel-1.8/Documentation/assets/ClassDiagrams/obj/Debug/ClassDiagrams.cs
 vendor/
 *data*bak/
 _data.tar.gz
+
+/_config/config.php
+/_config/Func.product.php
+/_config/lib.php
+.project
+codex.json
+crypto_keys.txt
+

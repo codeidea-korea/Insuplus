@@ -60,8 +60,10 @@ if (isset($HTTP_POST_VARS) && !isset($_POST)) {
 // php.ini 의 magic_quotes_gpc 값이 FALSE 인 경우 addslashes() 적용
 // SQL Injection 등으로 부터 보호
 //
-if( !get_magic_quotes_gpc() )
-{
+// if( !get_magic_quotes_gpc() )
+// {
+$mq = false;
+if($mq){
 	if( is_array($_GET) )
 	{
 		while( list($k, $v) = each($_GET) )
@@ -150,7 +152,10 @@ for ($i=0; $i<$ext_cnt; $i++) {
 //ini_set("session.use_trans_sid", 0);    // PHPSESSID를 자동으로 넘기지 않음
 ini_set("url_rewriter.tags",""); // 링크에 PHPSESSID가 따라다니는것을 무력화함 (해뜰녘님께서 알려주셨습니다.)
 
-session_save_path("{$g4['path']}/data/session");
+//session_save_path("{$g4['path']}/data/session");
+if (session_status() === PHP_SESSION_NONE) {
+	session_save_path("{$g4['path']}/data/session");
+}
 
 if (isset($SESSION_CACHE_LIMITER))
     @session_cache_limiter($SESSION_CACHE_LIMITER);

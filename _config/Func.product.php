@@ -251,11 +251,50 @@
 
   // 2023-06-20 Kyle
   // Returns product category info.
+//   function getProductCatetories($options = null){
+//     $dbcon = $GLOBALS["dbcon"];
+
+//     $sql = "
+//       select 
+//         category_code
+//         , category_name
+//         , use_yn
+//         , parent_code
+//         , region
+//         , depth
+//       from tbl_board_category
+//     ";
+//     $where = " where use_yn = 'Y' ";
+//     $order = " order by region, depth ";
+
+//     if (isset($options) && is_array($options)){
+//       if(isset($options['region'])) {
+//         $where .= " and region = ".$options['region']." ";
+//       }
+//       if(isset($options['parent_code'])) {
+//         $where .= " and parent_code = '".$options['parent_code']."' ";
+//       }
+//       if(isset($options['depth'])) {
+//         $where .= " and depth = ".$options['depth']." ";
+//       }
+//     }
+
+//     $sql = $sql.$where.$order;
+//     $rs = $dbcon -> query($sql);
+
+//     while ($row = $dbcon -> fetch_array($rs)){
+//       $rows[count($rows)] = $row;
+//     }
+
+//     return $rows;
+//   }
+
   function getProductCatetories($options = null){
     $dbcon = $GLOBALS["dbcon"];
-
+    $rows = array();
+  
     $sql = "
-      select 
+      select
         category_code
         , category_name
         , use_yn
@@ -266,7 +305,7 @@
     ";
     $where = " where use_yn = 'Y' ";
     $order = " order by region, depth ";
-
+  
     if (isset($options) && is_array($options)){
       if(isset($options['region'])) {
         $where .= " and region = ".$options['region']." ";
@@ -278,14 +317,14 @@
         $where .= " and depth = ".$options['depth']." ";
       }
     }
-
+  
     $sql = $sql.$where.$order;
     $rs = $dbcon -> query($sql);
-
+  
     while ($row = $dbcon -> fetch_array($rs)){
       $rows[count($rows)] = $row;
     }
-
+  
     return $rows;
   }
 
