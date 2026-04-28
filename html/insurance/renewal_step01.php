@@ -610,7 +610,15 @@ require_once '../_nice/checkplus_main.php';
             let content;
             let selectedPlanCd = dataList.find((item) => item.plan_cd === EHDObject.plan_cd);
 
-            if (!selectedPlanCd) selectedPlanCd = dataList[dataList.length - 1];
+            //if (!selectedPlanCd) selectedPlanCd = dataList[dataList.length - 1];
+
+            if (!selectedPlanCd) {
+                if (EHDObject.isLongterm() === 1) {
+                    selectedPlanCd = dataList[dataList.length - 1];
+                } else {
+                    selectedPlanCd = dataList.find((item) => String(item.plan_cd) === '3') || dataList[0];
+                }
+            }
 
             EHDObject.planName = dataList;
             EHDObject.pr_cd = selectedPlanCd.pr_cd;
@@ -1076,7 +1084,8 @@ require_once '../_nice/checkplus_main.php';
                 buff.push(`            <strong>${item.service_name}</strong>`);
                 buff.push(`          </div>`);
                 buff.push(`          <div class="table-body flex-tr" style="justify-content: center;">`);
-                if (k_idx === 0 && idx === 0) {
+
+                /*if (k_idx === 0 && idx === 0) {
                     // 보장내역 중 첫번째 보장내역을 select-box 로 변환하기위한 로직
                     // 변환은 보장내역1 만 적용 한다
                     //   console.log(EHDObject.anotherGuarantees);
@@ -1093,7 +1102,48 @@ require_once '../_nice/checkplus_main.php';
                     anotherGuarantees.forEach((g) => buff.push(`<option value="${g.plan_cd}">${g.g_amount}</option>`));
                     buff.push(`            </select>`);
                     buff.push(`            </div>`);
-                } else {
+                }*/
+
+
+
+
+                if (k_idx === 0 && idx === 0) {
+                    // 보장내역 중 첫번째 보장내역을 select-box 로 변환하기위한 로직
+                    // 변환은 보장내역1 만 적용 한다
+                    //   console.log(EHDObject.anotherGuarantees);
+                    const anotherGuarantees = [];
+                    EHDObject.anotherGuarantees.forEach((a) => {
+                        const el = a.find((b, i) => i === idx && b.service_name === item.service_name);
+                        if (el) anotherGuarantees.push(el);
+                    });
+
+                    if (EHDObject.isLongterm() === 1) {
+                        buff.push(`            <div class="select-box flex-1">`);
+                        buff.push(`            <div class="select-box-inner" style="background-color: #DC3347;">`);
+                        buff.push(`            <select class="tc" style="background-color: #DC3347 !important;color: #FFF !important; background: url(../images/icon_select_white.png) no-repeat calc(100% - 14px) center / 14px 8px;">`);
+                        buff.push(`              <option value="${item.plan_cd}" selected>${item.g_amount}</option>`);
+                        anotherGuarantees.forEach((g) => buff.push(`<option value="${g.plan_cd}">${g.g_amount}</option>`));
+                        buff.push(`            </select>`);
+                        buff.push(`            </div>`);
+                        
+                    } else {
+                        const allOptions = [item, ...anotherGuarantees];
+                        const sortOrder = ['3', '1', '2', '4', '5'];
+                        allOptions.sort((a, b) => {
+                            return sortOrder.indexOf(String(a.plan_cd)) - sortOrder.indexOf(String(b.plan_cd));
+                        });
+
+                        buff.push(`            <div class="select-box flex-1">`);
+                        buff.push(`            <div class="select-box-inner" style="background-color: #DC3347;">`);
+                        buff.push(`            <select class="tc" style="background-color: #DC3347 !important;color: #FFF !important; background: url(../images/icon_select_white.png) no-repeat calc(100% - 14px) center / 14px 8px;">`);
+                        allOptions.forEach((g) => {
+                            const isSelected = (g.plan_cd === item.plan_cd) ? "selected" : "";
+                            buff.push(`              <option value="${g.plan_cd}" ${isSelected}>${g.g_amount}</option>`);
+                        });
+                        buff.push(`            </select>`);
+                        buff.push(`            </div>`);
+                    }
+                }  else {
                     if (item.chk_service === 'Y') {
                         buff.push(`            <b class="point">${item.g_amount}</b>`);
                     } else {
