@@ -613,10 +613,25 @@ require_once '../_nice/checkplus_main.php';
             //if (!selectedPlanCd) selectedPlanCd = dataList[dataList.length - 1];
 
             if (!selectedPlanCd) {
-                if (EHDObject.isLongterm() === 1) {
-                    selectedPlanCd = dataList[dataList.length - 1];
-                } else {
+                    const now = new Date();
+
+                    const formatter = new Intl.DateTimeFormat('ko-KR', {
+                        timeZone: 'Asia/Seoul',
+                        year: 'numeric',
+                        month: 'numeric',
+                        day: 'numeric'
+                    });
+
+                    const parts = formatter.formatToParts(now);
+                    const dateDetails = {};
+                    parts.forEach(({ type, value }) => {
+                    dateDetails[type] = value;
+                    });
+
+                if (EHDObject.isLongterm() === 0 && Number(dateDetails.month) === 5) {
                     selectedPlanCd = dataList.find((item) => String(item.plan_cd) === '3') || dataList[0];
+                } else {
+                    selectedPlanCd = dataList.find((item) => String(item.plan_cd) === '5') || dataList[dataList.length - 1];
                 }
             }
 
@@ -1117,7 +1132,7 @@ require_once '../_nice/checkplus_main.php';
                         if (el) anotherGuarantees.push(el);
                     });
 
-                    if (EHDObject.isLongterm() === 1) {
+                    /*if (EHDObject.isLongterm() === 1) {
                         buff.push(`            <div class="select-box flex-1">`);
                         buff.push(`            <div class="select-box-inner" style="background-color: #DC3347;">`);
                         buff.push(`            <select class="tc" style="background-color: #DC3347 !important;color: #FFF !important; background: url(../images/icon_select_white.png) no-repeat calc(100% - 14px) center / 14px 8px;">`);
@@ -1142,7 +1157,49 @@ require_once '../_nice/checkplus_main.php';
                         });
                         buff.push(`            </select>`);
                         buff.push(`            </div>`);
+                    }*/      
+                    const now = new Date();
+
+                    const formatter = new Intl.DateTimeFormat('ko-KR', {
+                        timeZone: 'Asia/Seoul',
+                        year: 'numeric',
+                        month: 'numeric',
+                        day: 'numeric'
+                    });
+
+                    const parts = formatter.formatToParts(now);
+                    const dateDetails = {};
+                    parts.forEach(({ type, value }) => {
+                    dateDetails[type] = value;
+                    });
+
+                    if (EHDObject.isLongterm() === 0 && Number(dateDetails.month) === 5) {
+                        const allOptions = [item, ...anotherGuarantees];
+                        const sortOrder = ['3', '1', '2', '4', '5'];
+                        allOptions.sort((a, b) => {
+                            return sortOrder.indexOf(String(a.plan_cd)) - sortOrder.indexOf(String(b.plan_cd));
+                        });
+
+                        buff.push(`            <div class="select-box flex-1">`);
+                        buff.push(`            <div class="select-box-inner" style="background-color: #DC3347;">`);
+                        buff.push(`            <select class="tc" style="background-color: #DC3347 !important;color: #FFF !important; background: url(../images/icon_select_white.png) no-repeat calc(100% - 14px) center / 14px 8px;">`);
+                        allOptions.forEach((g) => {
+                            const isSelected = (g.plan_cd === item.plan_cd) ? "selected" : "";
+                            buff.push(`              <option value="${g.plan_cd}" ${isSelected}>${g.g_amount}</option>`);
+                        });
+                        buff.push(`            </select>`);
+                        buff.push(`            </div>`);
+                    } else {
+                        buff.push(`            <div class="select-box flex-1">`);
+                        buff.push(`            <div class="select-box-inner" style="background-color: #DC3347;">`);
+                        buff.push(`            <select class="tc" style="background-color: #DC3347 !important;color: #FFF !important; background: url(../images/icon_select_white.png) no-repeat calc(100% - 14px) center / 14px 8px;">`);
+                        buff.push(`              <option value="${item.plan_cd}" selected>${item.g_amount}</option>`);
+                        anotherGuarantees.forEach((g) => buff.push(`<option value="${g.plan_cd}">${g.g_amount}</option>`));
+                        buff.push(`            </select>`);
+                        buff.push(`            </div>`);
                     }
+
+
                 }  else {
                     if (item.chk_service === 'Y') {
                         buff.push(`            <b class="point">${item.g_amount}</b>`);
