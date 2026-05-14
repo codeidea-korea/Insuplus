@@ -909,7 +909,7 @@ require_once '../_nice/checkplus_main.php';
                     html.push(`      <div class="check-box-inner type01">`);
                 }
                 html.push(
-                    `        <input type="checkbox" value="${item.service_group_name}" id="service-0${orderNumber}" checked />`
+                    `        <input type="checkbox" value="${item.service_group_name}" id="service-0${orderNumber}" />`
                 );
 
                 //20250827 주석
@@ -982,7 +982,7 @@ require_once '../_nice/checkplus_main.php';
                     html.push(`    <h3>${groupName === EHDObject.SERVICE_GROUP_NAME[2] ? '긴급이후송(자기부담금 20%)' : groupName}</h3>`);
                     html.push(`    <div class="check-box">`);
                     html.push(`      <div class="check-box-inner type02">`);
-                    html.push(`        <input type="checkbox" value="${groupName}" id="service-0${orderNumber}" checked>`);
+                    html.push(`        <input type="checkbox" value="${groupName}" id="service-0${orderNumber}">`);
                     //20250827 주석 
                     html.push(`        <label for="service-0${orderNumber++}">추가</label>`);
                     html.push(`      </div>`);
