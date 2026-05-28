@@ -628,7 +628,7 @@ require_once '../_nice/checkplus_main.php';
                     dateDetails[type] = value;
                     });
 
-                if (EHDObject.isLongterm() === 0 && (currentMonth === 5 || currentMonth === 6)) {
+                if (EHDObject.isLongterm() === 0 && (Number(dateDetails.month) === 5 || Number(dateDetails.month) === 6)) {
                     selectedPlanCd = dataList.find((item) => String(item.plan_cd) === '3') || dataList[0];
                 } else {
                     selectedPlanCd = dataList.find((item) => String(item.plan_cd) === '5') || dataList[dataList.length - 1];
@@ -1179,7 +1179,9 @@ require_once '../_nice/checkplus_main.php';
                     dateDetails[type] = value;
                     });
 
-                    if (EHDObject.isLongterm() === 0 && (currentMonth === 5 || currentMonth === 6)) {
+               
+
+                    if (EHDObject.isLongterm() === 0 && (Number(dateDetails.month) === 5 || Number(dateDetails.month) === 6)) {
                         const allOptions = [item, ...anotherGuarantees];
                         const sortOrder = ['3', '1', '2', '4', '5'];
                         allOptions.sort((a, b) => {
