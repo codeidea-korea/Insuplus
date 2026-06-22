@@ -12,6 +12,97 @@ $today = date("Y-m-d");
 $_SESSION["orderno"] = "";
 
 ?>
+<script>
+window.addEventListener('load', function () {
+
+    // 24시간 숨김 체크
+    const hideUntil = localStorage.getItem('popup_hide_until');
+
+    if (hideUntil && new Date().getTime() < Number(hideUntil)) {
+        return;
+    }
+
+    const popup = document.createElement('div');
+
+    popup.innerHTML = `
+        <div id="popupOverlay" style="
+            position:fixed;
+            top:0;
+            left:0;
+            width:100%;
+            height:100%;
+            background:rgba(0,0,0,.6);
+            z-index:99999;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+        ">
+            <div style="
+                background:#fff;
+                border-radius:10px;
+                overflow:hidden;
+                max-width:90%;
+                box-shadow:0 5px 20px rgba(0,0,0,.3);
+            ">
+                <img
+                    src="/html/images/phishing.png"
+                    alt="공지"
+                    style="
+                        display:block;
+                        max-width:100%;
+                        height:auto;
+                    "
+                >
+
+                <div style="
+                    display:flex;
+                    
+                ">
+                    <button id="btnHide24" style="
+                        flex:1;
+                        height:50px;
+                        border:none;
+                        background:#f5f5f5;
+                        cursor:pointer;
+                        font-size:14px;
+                    ">
+                        24시간 보지 않기
+                    </button>
+
+                    <button id="btnConfirm" style="
+                        flex:1;
+                        height:50px;
+                        border:none;
+                        border-left:1px solid #ddd;
+                        background:#2c3e50;
+                        color:#fff;
+                        cursor:pointer;
+                        font-size:14px;
+                    ">
+                        확인
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(popup);
+
+    document.getElementById('btnConfirm').addEventListener('click', function () {
+        document.getElementById('popupOverlay').remove();
+    });
+
+    document.getElementById('btnHide24').addEventListener('click', function () {
+        const tomorrow = new Date().getTime() + (24 * 60 * 60 * 1000);
+
+        localStorage.setItem('popup_hide_until', tomorrow);
+
+        document.getElementById('popupOverlay').remove();
+    });
+
+});
+</script>
+
 <section class="no-bg">
 			<div class="main-box-01">
 				<div class="container">
