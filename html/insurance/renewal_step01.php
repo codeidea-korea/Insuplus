@@ -237,7 +237,7 @@ require_once '../_nice/checkplus_main.php';
                 <div class="form-box">
                     <div class="form-content">
                         <div class="button-box">
-                            <button type="button" class="btn btn-active calculate" id="priceBtn" style="display: none;">가격 조회</button>
+                            <button type="button" class="btn btn-active calculate" id="priceBtn" style="display: flex;">가격 조회</button>
                         </div>
                     </div>
                 </div>
@@ -458,14 +458,13 @@ require_once '../_nice/checkplus_main.php';
     const ageCheck = (item) => {
         let value = $(item).val()
 
-        if (value == "1") {
-            $('#priceBtn').css('display', 'flex');
-            $('#global-agree').css('display', 'none');
-        } else {
-            $('#priceBtn').css('display', 'none');
+        $('#priceBtn').css('display', 'flex');
+
+        if (value == "2") {
             $('#global-agree').css('display', 'flex');
             $("#option-list").css('display', 'none');
-
+        } else {
+            $('#global-agree').css('display', 'none');
         }
 
     }
@@ -1924,6 +1923,14 @@ require_once '../_nice/checkplus_main.php';
 
     // 가격조회 버튼 클릭 이벤트 핸들러
     function onClickEventListenerForCalculateButton(event) {
+        if ($("#agecheck").val() == "0") {
+            alert("'가입자 및 동반자 연령 확인' 을 선택해주세요.");
+            return false;
+        }
+        if ($("#agecheck").val() == "2" && mobileno == "") {
+            alert("법정대리인 동의를 먼저 진행해주세요.");
+            return false;
+        }
 
         // 20250722 추가
         // const over14Element = document.querySelector('#A-over14');
