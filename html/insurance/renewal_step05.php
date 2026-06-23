@@ -623,6 +623,18 @@ if ($row_r["o_name_en"] && $row_r["chk_eng_passport"] == "Y") $o_name_en = all_s
 			$(t).val($(t).val().replace(/[0-9]|[^\!-z\s]/g, ""));
 		}
 	</script>
+	<!-- ADN3.0 Tracker[전환] start -->
+	<script type="text/javascript">
+	window.addEventListener('load', function() {
+	  fnc_adn3_health_ok_check(function(){
+	    var across_adn3_order_contain = new fn_across_adn3_contain();
+	    var across_adn3_order_param = [];
+	    across_adn3_order_param = {"ut":"Purchase","ui":"110250", "uo":"<?= $_SESSION["orderno"]; ?>", "up":"<?= $row_r["t_amount"]; ?>"};
+	    across_adn3_order_contain.init(across_adn3_order_param);
+	  });
+	});
+	</script>
+	<!-- ADN3.0 Tracker[전환] end -->
 	<?php
 	include '../_include/_tail.html';
 	include '../_include/_footer.html';
