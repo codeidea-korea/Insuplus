@@ -2020,6 +2020,10 @@ require_once '../_nice/checkplus_main.php';
 
         __.save();
 
+        if (typeof fn_across_adn3_btn_ok === 'function') {
+            fn_across_adn3_btn_ok("110250", "types1");
+        }
+
         // console.log(__);
         location.href = nextPage;
     }
