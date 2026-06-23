@@ -25,5 +25,17 @@
 </table>
 <!--L_FOOTER]]]-->
     <div>
+<!-- ADN3.0 Tracker[방문자] start -->
+<script type="text/javascript">
+window.addEventListener('load', function() {
+  fnc_adn3_health_ok_check(function(){
+    var across_adn3_contain = new fn_across_adn3_contain();
+    var across_adn3_param = [];
+    across_adn3_param = {"ut":"Home","ui":"110250"};
+    across_adn3_contain.init(across_adn3_param);
+  });
+});
+</script>
+<!-- ADN3.0 Tracker[방문자] end -->
 </body>
 </html>
