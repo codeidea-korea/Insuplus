@@ -244,6 +244,9 @@ if ($row_r["o_name_en"] && $row_r["chk_eng_passport"] == "Y") $o_name_en = all_s
 	</script>
 	<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=274213513004643&ev=PageView&noscript=1" /></noscript>
 	<!-- End Facebook Pixel Code -->
+	<!-- ADN3.0 Tracker[공통] start -->
+	<script src="//fin.rainbownine.net/js/across_adn_3.0.1.js" type="text/javascript"></script>
+	<!-- ADN3.0 Tracker[공통] end -->
 </head>
 
 <body class='<?php if (strpos($_SERVER['PHP_SELF'], "/main/index")) {
