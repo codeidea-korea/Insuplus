@@ -1873,7 +1873,7 @@ require_once '../_nice/checkplus_main.php';
             const totalBox = document.querySelectorAll('.total-box');
             if (window.scrollY > fcHeight) {
                 totalBox.forEach((el, idx) => {
-                    el.zIndex = 9999;
+                    el.style.zIndex = '9999';
                     el.style.width = '93%';
                     el.style.maxWidth = '672px';
                     el.style.position = 'fixed';
