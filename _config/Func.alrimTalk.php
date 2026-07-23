@@ -335,7 +335,7 @@ function kakaoSend($message, $templet_code, $mobile) {
 				, KKO_BTN_NAME, KKO_BTN_URL, KKO_BTN_LINK1, KKO_BTN_LINK2, KKO_BTN_LINK3
 				, KKO_BTN_LINK4, KKO_BTN_LINK5
 			) VALUES (
-				1910034757,
+				2600113933,
 				'".$message."',
 				'INSUPLUS',
 				'".$lms_message."',
