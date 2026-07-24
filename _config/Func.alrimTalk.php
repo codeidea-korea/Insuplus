@@ -327,7 +327,7 @@ function kakaoSend($message, $templet_code, $mobile) {
 		$message = "";
 	}
 	//1910034757
-	//2600113933
+	//2600113969
 	$sql = " INSERT INTO TSMS_AGENT_MESSAGE (
 				SERVICE_SEQNO, SEND_MESSAGE, SUBJECT, BACKUP_MESSAGE, BACKUP_PROCESS_CODE
 				, MESSAGE_TYPE, CONTENTS_TYPE, RECEIVE_MOBILE_NO, CALLBACK_NO, JOB_TYPE
@@ -335,7 +335,7 @@ function kakaoSend($message, $templet_code, $mobile) {
 				, KKO_BTN_NAME, KKO_BTN_URL, KKO_BTN_LINK1, KKO_BTN_LINK2, KKO_BTN_LINK3
 				, KKO_BTN_LINK4, KKO_BTN_LINK5
 			) VALUES (
-				2600113933,
+				2600113969,
 				'".$message."',
 				'INSUPLUS',
 				'".$lms_message."',
