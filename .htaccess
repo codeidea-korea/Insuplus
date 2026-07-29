@@ -1,0 +1,23 @@
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# Keep standard verification endpoints available if they are added later.
+RewriteRule "^\.well-known(/|$)" - [L]
+
+# Block hidden files and directories such as .git, .env, and .vscode.
+RewriteRule "(^|/)\." - [F,L]
+
+# Block project metadata and local-only files from direct web access.
+RewriteRule "^(composer\.(json|lock)|README\.md|Dockerfile(_bak)?|docker-compose\.yml(_bak)?|update_log\.txt|codex\.(json|log)|crypto_keys\.txt|info\.php)$" - [F,L,NC]
+
+# Block internal source, dependency, log, data, and payment key directories.
+RewriteRule "^(_config|log|_data|_data_bak|vendor|_util/inilite/key|_util/inilite/key_20250325|html/insurance/key)(/|$)" - [F,L,NC]
+
+# Block common backup, dump, log, and key material extensions.
+RewriteRule "\.(bak|sql|log|ini|pem|key|enc|phar|sh|ps1|cmd|bat)$" - [F,L,NC]
+
+# Block ad-hoc diagnostic PHP files wherever they appear.
+RewriteRule "(^|/)(phpinfo|test)\.php$" - [F,L,NC]
+</IfModule>
